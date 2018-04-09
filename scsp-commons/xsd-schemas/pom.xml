@@ -20,7 +20,7 @@
 </licenses>
 
     
-<name>SCSP XSD Schemas</name>
+<name>SCSP Commons XSD Schemas</name>
 <description>Esquemas XSD</description>
 <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

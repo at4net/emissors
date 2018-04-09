@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>es.caib.scsp</groupId>
-    <artifactId>scsp-commons</artifactId>
+    <artifactId>scsp-pinbal</artifactId>
     <version>1.0.0
     </version>
     <packaging>pom</packaging>
@@ -14,8 +14,8 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
-    <name>SCSP Commons</name>
-    <description>Implementació de SCSP comú</description>
+    <name>SCSP pinbal</name>
+    <description>Implementació de SCSP Pinbal</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.txt.template.file>./scripts/templates/versio.txt.template</version.txt.template.file>
@@ -25,8 +25,7 @@
     </properties>
     <modules>
         <module>scripts</module>
-        <module>utils</module>
-        <module>xsd-schemas</module>
+        <module>pinbal-ws-client</module>
     </modules>
     <dependencies>
         <dependency>
