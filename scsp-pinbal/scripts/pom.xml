@@ -5,11 +5,11 @@
         <groupId>es.caib.scsp</groupId>
         <artifactId>scsp-pinbal</artifactId>
         <version>1.0.0
-</version>
+        </version>
     </parent>
     <artifactId>scsp-pinbal-scripts</artifactId>
     <version>1.0.0
-</version>
+    </version>
     <packaging>pom</packaging>
 
     <licenses>
@@ -20,6 +20,6 @@
         </license>
     </licenses>
 
-	  <name>SCSP Pinbal Scripts</name>
+    <name>SCSP PINBAL Scripts</name>
 
 </project>

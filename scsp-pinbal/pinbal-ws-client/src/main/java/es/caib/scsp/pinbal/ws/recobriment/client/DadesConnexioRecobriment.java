@@ -16,7 +16,7 @@ public class DadesConnexioRecobriment extends DadesConnexioSOAP  {
     
     public static final String _SERVICE_NAME = "RecobrimentService";
     
-    private static final String _SERVICE_CONTEXT = "/ws/Recobriment";
+    private static final String _SERVICE_CONTEXT = "/ws/recobriment";
 
     private static final String _WSDL_ENDING = "?wsdl";
 

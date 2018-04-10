@@ -14,7 +14,7 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
-    <name>SCSP pinbal</name>
+    <name>SCSP PINBAL</name>
     <description>Implementació de SCSP Pinbal</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -1,7 +1,12 @@
 package es.caib.scsp.pinbal.ws.recobriment.client;
 
+import es.caib.pinbal.ws.recobriment.Atributos;
+import es.caib.pinbal.ws.recobriment.Estado;
+import es.caib.pinbal.ws.recobriment.Peticion;
 import es.caib.pinbal.ws.recobriment.Recobriment;
 import es.caib.pinbal.ws.recobriment.RecobrimentService;
+import es.caib.pinbal.ws.recobriment.Respuesta;
+import es.caib.pinbal.ws.recobriment.Solicitudes;
 import es.caib.scsp.utils.ws.connexio.DadesConnexioSOAP;
 import java.lang.reflect.Field;
 import java.net.Authenticator;
@@ -13,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -76,6 +82,7 @@ public class RecobrimentClient {
         final DadesConnexioSOAP dadesConnexio = new DadesConnexioRecobriment(propertyBase);
 
         try {
+            LOG.info(dadesConnexio.getWsdlLocation());
             wsdlURL = new URL(dadesConnexio.getWsdlLocation());
         } catch (MalformedURLException ex) {
             Logger.getLogger(RecobrimentClient.class.getName()).log(Level.SEVERE, null, ex);
@@ -114,12 +121,31 @@ public class RecobrimentClient {
         // port.consultaFormulariTasca(_CODAPP, _CODAPP)
     }
 
-   
+    
+    public void peticionSincrona(){
+        
+        Recobriment port = getServicePort();
+    
+        Respuesta response = null;
+        Peticion pet = null;
+        
+        response = peticionSincrona(port, pet);
+        
+        return;
+    
+    }
+  
+    private static Respuesta peticionSincrona(Recobriment port, Peticion pet){
+        Respuesta _peticionSincrona__return = port.peticionSincrona(pet);
+        return _peticionSincrona__return;        
+    }
 
    
     public static void main(String args[]) throws Exception {
 
         String app = "es.caib.scsp.";
+        
+        LOG.info("Valor app: " + app);
 
         //String str = JAXBToStringBuilder.valueOf(app, JAXBToStringStyle.DEFAULT_STYLE);
 
@@ -127,15 +153,12 @@ public class RecobrimentClient {
 
         System.setProperty(app + dadesConnexio.getCodClient() + ".username", "");
         System.setProperty(app + dadesConnexio.getCodClient() + ".password", "");
-        System.setProperty(app + dadesConnexio.getCodClient() + ".baseURL", "http://pinbal.fundaciobit.org/pinbal/ws/recobriment?wsdl");
+        System.setProperty(app + dadesConnexio.getCodClient() + ".baseURL", "http://pinbal.fundaciobit.org/pinbal");
 
-       
         RecobrimentClient client = RecobrimentClient.getClient();
 
-        Recobriment port = client.getServicePort();
+        client.peticionSincrona();
 
-        
-        
         
 
       
