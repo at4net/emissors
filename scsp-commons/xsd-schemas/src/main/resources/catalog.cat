@@ -1,0 +1,6 @@
+REWRITE_SYSTEM "http://intermediacion.redsara.es/scsp/esquemas/datosespecificos"
+    "maven:es.caib.pinbal:pinbal-scsp:jar::1.4!/schemas/Q2827003ATGSS001v3/datos-especificos.xsd"
+REWRITE_SYSTEM "http://intermediacion.redsara.es/scsp/esquemas/V3/peticion"
+    "maven:es.caib.pinbal:pinbal-scsp:jar::1.4!/schemas/Q2827003ATGSS001v3/peticion.xsd"
+
+

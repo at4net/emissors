@@ -11,20 +11,20 @@
     <packaging>jar</packaging>
 
      
-<licenses>
-    <license>
-        <name>Apache License, Version 2.0</name>
-        <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-        <distribution>repo</distribution>
-    </license>
-</licenses>
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
     
-<name>SCSP Commons XSD Schemas</name>
-<description>Esquemas XSD</description>
-<properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-</properties>
+    <name>SCSP Commons XSD Schemas</name>
+    <description>Esquemas XSD</description>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
     <build>
         
         <plugins>
@@ -44,80 +44,35 @@
                 <artifactId>maven-jaxb2-plugin</artifactId>
                 <version>0.13.3</version>
                 <executions>
-                    
-                              <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemas>
-                                <schema>
-                                    <!-- Specifies a schema from the Maven artifact. -->
-                                    <dependencyResource>
-                                        <groupId>es.caib.pinbal</groupId>
-                                        <artifactId>pinbal-scsp</artifactId>
-                                        <!--  Version of the artifact. May be omitted.
-                                        The plugin will then try to find the version using
-                                        the dependencyManagement and dependencies of the project. -->
-                                        <version>1.4</version>
-                                        <!-- Path of the resource within the artifact. -->
-                                        <resource>schemas/Q2827003ATGSS001v3/datos-especificos.xsd</resource>  
-                                    </dependencyResource>
-                                </schema>
-                            </schemas>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-carga.episode-2</episodeFile>
-                            <!--
-                            <catalog>src/main/resources/jaxb/catalog.xml</catalog>
-                            <catalogResolver>org.jvnet.jaxb2.maven2.resolver.tools.ClasspathCatalogResolver</catalogResolver>
-                            -->
-                            <generatePackage>es.caib.scsp.pinbal.schemas.Q2827003ATGSS001v3_</generatePackage>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc/1</generateDirectory>
-                        </configuration>
-                        <id>Q2827003ATGSS001v3-datos-especificos</id>
-                    </execution>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
                     <execution>
                         <goals>
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <schemas>
-                                <schema>
-                                    <!-- Specifies a schema from the Maven artifact. -->
-                                    <dependencyResource>
-                                        <groupId>es.caib.pinbal</groupId>
-                                        <artifactId>pinbal-scsp</artifactId>
-                                        <!--  Version of the artifact. May be omitted.
-                                        The plugin will then try to find the version using
-                                        the dependencyManagement and dependencies of the project. -->
-                                        <version>1.4</version>
-                                        <!-- Path of the resource within the artifact. -->
-                                        <resource>schemas/Q2827003ATGSS001v3/peticion.xsd</resource>  
-                                    </dependencyResource>
-                                </schema>
-                            </schemas>
+                             <schemaIncludes>
+                                <include>schemas/Q2827003ATGSS001v3/*.xsd</include>
+                            </schemaIncludes>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-carga.episode</episodeFile>
+                            
                             <!--
-                            <catalog>src/main/resources/jaxb/catalog.xml</catalog>
+                            <catalog>src/main/resources/jaxb/catalog.cat</catalog>
                             <catalogResolver>org.jvnet.jaxb2.maven2.resolver.tools.ClasspathCatalogResolver</catalogResolver>
                             -->
-                            <generatePackage>es.caib.scsp.pinbal.schemas.Q2827003ATGSS001v3</generatePackage>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc</generateDirectory>
+                            <!--generatePackage>es.caib.scsp.pinbal.schemas.Q2827003ATGSS001v3</generatePackage-->
+                    
                         </configuration>
-                        <id>Q2827003ATGSS001v3-peticion</id>
+                        <id>schemas</id>
                     </execution>
                 </executions>
                 <configuration>
-                    <forceRegenerate>false</forceRegenerate>
+                    <!--
+                    <catalog>src/main/resources/catalog.xml</catalog>
+                    <catalogResolver>org.jvnet.jaxb2.maven2.resolver.tools.ClasspathCatalogResolver</catalogResolver>
+                    <extension>true</extension>
+                    -->
+                   <forceRegenerate>false</forceRegenerate>
                     <strict>false</strict>
+                    <generateDirectory>${project.build.directory}/generated-sources/xjc</generateDirectory>
                     <verbose>true</verbose>
                 </configuration>
             </plugin>
