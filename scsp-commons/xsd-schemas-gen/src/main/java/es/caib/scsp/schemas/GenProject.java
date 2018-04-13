@@ -16,20 +16,52 @@
 package es.caib.scsp.schemas;
 
 //import es.caib.pinbal.scsp.XmlHelper;
+import es.caib.pinbal.scsp.XmlHelper;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import java.security.CodeSource;
 import java.util.Enumeration;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
+import org.apache.commons.io.IOUtils;
+
 //import org.apache.commons.io.IOUtils;
 
 /**
  *
  * @author gdeignacio
  */
-public class BindingHelper {
+public class GenProject {
     
      public static void main(String args[]) throws Exception {
+         
+         
+         CodeSource src = XmlHelper.class.getProtectionDomain().getCodeSource();
+
+         System.out.println(src);
+         
+         if (src == null) {
+             return;
+         }
+
+         URL jar = src.getLocation();
+         ZipInputStream zip = new ZipInputStream(jar.openStream());
+         while (true) {
+             ZipEntry e = zip.getNextEntry();
+             if (e == null) {
+                 break;
+             }
+             if (e.isDirectory()) continue;
+             String name = e.getName();
+             if (name.startsWith("schemas/")) {
+                 System.out.println(name);
+             }
+         }
+        
+        
+         
      /*
          Enumeration<URL> enume = XmlHelper.class.getClassLoader().
                 
@@ -38,16 +70,16 @@ public class BindingHelper {
          }
        */
      
-         /*
+         
          InputStream is = XmlHelper.class.getClassLoader().getResourceAsStream("schemas/AEAT102v2/peticion.xsd");
 
          ByteArrayOutputStream baos = new ByteArrayOutputStream();
          IOUtils.copy(is, baos);
          is.close();
          baos.close();
-         */
          
-          System.out.println("Binding helper");
+         
+          //System.out.println(baos.toString());
      
      }
 }
