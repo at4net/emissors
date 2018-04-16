@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package es.caib.scsp.schemas;
+package es.caib.scsp.genschemas.managers;
 
 import javax.xml.bind.JAXBException;
 import org.apache.maven.pom._4_0.Model;

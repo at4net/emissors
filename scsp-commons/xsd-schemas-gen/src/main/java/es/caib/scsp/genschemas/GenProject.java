@@ -13,16 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package es.caib.scsp.schemas;
+package es.caib.scsp.genschemas;
 
 //import es.caib.pinbal.scsp.XmlHelper;
 import es.caib.pinbal.scsp.XmlHelper;
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.security.CodeSource;
 import java.util.Enumeration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import org.apache.commons.io.IOUtils;
@@ -35,9 +40,45 @@ import org.apache.commons.io.IOUtils;
  */
 public class GenProject {
     
-     public static void main(String args[]) throws Exception {
+    protected static final Logger LOG = Logger.getLogger(GenProject.class.getName());
+    
+    private static final GenProject gen = new GenProject();
+    
+    private GenProject(){
+        super();
+    }
+ 
+    public static GenProject getGen(){
+        return gen;
+    }
+    
+    public void projectGeneration(String path){
+   
+       LOG.info("Generando proyecto en : " + path);
+       
+        
+    }
+    
+    
+    public void generate(){
+
+        //CodeSource src = this.getClass().getProtectionDomain().getCodeSource();
+        LOG.info("Directorio actual: " + System.getProperty("user.dir"));
+        projectGeneration(System.getProperty("user.dir"));
+        
+     
+
+    }
+    
+    
+    public static void main(String args[]) throws Exception {
          
-         
+        GenProject gen = GenProject.getGen();
+        
+        gen.generate();
+        
+        
+        
          CodeSource src = XmlHelper.class.getProtectionDomain().getCodeSource();
 
          System.out.println(src);
@@ -56,7 +97,7 @@ public class GenProject {
              if (e.isDirectory()) continue;
              String name = e.getName();
              if (name.startsWith("schemas/")) {
-                 System.out.println(name);
+                 //System.out.println(name);
              }
          }
         
