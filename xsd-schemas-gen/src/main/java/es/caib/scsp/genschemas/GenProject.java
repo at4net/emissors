@@ -56,6 +56,8 @@ public class GenProject {
    
        LOG.info("Generando proyecto en : " + path);
        
+       
+       
         
     }
     
