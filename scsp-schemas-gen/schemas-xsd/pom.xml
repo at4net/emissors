@@ -6,7 +6,7 @@
         <artifactId>scsp-schemas-gen</artifactId>
         <version>1.0.0</version>
     </parent>
-    <artifactId>scsp-schemas-xsd</artifactId>
+    <artifactId>scsp-schemas-gen-xsd</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
@@ -25,7 +25,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <build>
-         <finalName>scsp-gen-schemas-xsd</finalName>
+         <finalName>scsp-schemas-gen-xsd</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

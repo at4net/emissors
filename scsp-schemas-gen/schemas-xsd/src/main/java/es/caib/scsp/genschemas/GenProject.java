@@ -16,21 +16,33 @@
 package es.caib.scsp.genschemas;
 
 //import es.caib.pinbal.scsp.XmlHelper;
+import com.sun.java.xml.ns.jaxb.Bindings;
 import es.caib.pinbal.scsp.XmlHelper;
+import es.caib.scsp.genschemas.managers.BindingsXmlManager;
+import es.caib.scsp.genschemas.managers.ModelXmlManager;
+import es.caib.scsp.utils.util.DataHandlers;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.CodeSource;
 import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+import javax.activation.DataHandler;
+import javax.xml.bind.JAXBException;
 import org.apache.commons.io.IOUtils;
+import org.apache.maven.pom._4_0.Model;
 
 //import org.apache.commons.io.IOUtils;
 
@@ -44,6 +56,10 @@ public class GenProject {
     
     private static final GenProject gen = new GenProject();
     
+    private static final String PROJECT_FOLDER_NAME = "scsp-schemas-xsd";
+    private static final String ARTIFACT_NAME = "scsp-schemas-xsd";
+    
+    
     private GenProject(){
         super();
     }
@@ -52,14 +68,81 @@ public class GenProject {
         return gen;
     }
     
-    public void projectGeneration(String path){
-   
-       LOG.info("Generando proyecto en : " + path);
-       
-       
-       
+    public void projectGeneration(String path) {
+
+        LOG.info("Generando proyecto en : " + path);
+
+        path = (path == null) ? System.getProperty("user.home") : path;
+        Path p = FileSystems.getDefault().getPath(path).getRoot();
+
+        //new File(System.getProperty("user.dir") + "/../depurueba").mkdirs();
+        LOG.info(
+                "Padre: " + p.toString()
+        );
+    }
+
+    
+    
+    private void setPomXmlDescriptor(File f, Model model) throws JAXBException, FileNotFoundException, IOException {
+
+        ModelXmlManager manager = new ModelXmlManager();
+
+        DataHandler dh = manager.generateXml(model);
+
+        FileOutputStream fos = new FileOutputStream(f);
+
+        byte[] b = DataHandlers.dataHandlerToByteArray(dh);
+
+        fos.write(b);
+
+        fos.close();
+    }
+
+    
+    private void setBindingsXmlDescriptor(File f, Bindings bindings) throws JAXBException, FileNotFoundException, IOException{
+        
+        BindingsXmlManager manager = new BindingsXmlManager();
+        
+        DataHandler dh = manager.generateXml(bindings);
+        
+        FileOutputStream fos = new FileOutputStream(f);
+        
+        byte[] b = DataHandlers.dataHandlerToByteArray(dh);
+        
+        fos.write(b);
+    
+        fos.close();
+    }
+    
+    private Model getModel(){
+    
+        Model model = new Model();
+        
+        
+        
+        
+        
+        return model;
         
     }
+    
+    private Bindings getBindings(){
+        
+        Bindings bindings = new Bindings();
+        
+        
+        
+        
+        return bindings;
+    }
+    
+    
+    
+    private void mvnProjectSetup(Path path){
+        //setPomXmlDescriptor();
+        //srcSetup(path);
+    }
+    
     
     
     public void generate(){
@@ -125,4 +208,6 @@ public class GenProject {
           //System.out.println(baos.toString());
      
      }
+
+   
 }
