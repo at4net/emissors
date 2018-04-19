@@ -63,7 +63,7 @@
 
         <dependency>
             <groupId>es.caib.scsp</groupId>
-            <artifactId>scsp-schemas-xsd</artifactId>
+            <artifactId>scsp-schemas-gen-xsd</artifactId>
             <version>1.0.0</version>
         </dependency>
 

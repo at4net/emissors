@@ -13,10 +13,10 @@ import es.caib.scsp.utils.xml.XmlManager;
  *
  * @author gdeignacio
  */
-public class ModelXmlManager extends XmlManager<Model> {
+public class ProjectXmlManager extends XmlManager<Project> {
 
-    public ModelXmlManager() throws JAXBException {
-        super(Model.class);
+    public ProjectXmlManager() throws JAXBException {
+        super(Project.class);
     }
     
 }

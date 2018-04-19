@@ -19,7 +19,8 @@ package es.caib.scsp.genschemas;
 import com.sun.java.xml.ns.jaxb.Bindings;
 import es.caib.pinbal.scsp.XmlHelper;
 import es.caib.scsp.genschemas.managers.BindingsXmlManager;
-import es.caib.scsp.genschemas.managers.ModelXmlManager;
+import es.caib.scsp.genschemas.managers.Project;
+import es.caib.scsp.genschemas.managers.ProjectXmlManager;
 import es.caib.scsp.utils.util.DataHandlers;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -30,6 +31,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -43,6 +45,11 @@ import javax.activation.DataHandler;
 import javax.xml.bind.JAXBException;
 import org.apache.commons.io.IOUtils;
 import org.apache.maven.pom._4_0.Model;
+
+import javax.mail.util.ByteArrayDataSource;
+
+
+
 
 //import org.apache.commons.io.IOUtils;
 
@@ -68,28 +75,24 @@ public class GenProject {
         return gen;
     }
     
-    public void projectGeneration(String path) {
-
-        LOG.info("Generando proyecto en : " + path);
-
-        path = (path == null) ? System.getProperty("user.home") : path;
-        Path p = FileSystems.getDefault().getPath(path).getRoot();
-
-        //new File(System.getProperty("user.dir") + "/../depurueba").mkdirs();
-        LOG.info(
-                "Padre: " + p.toString()
-        );
-    }
-
     
     
-    private void setPomXmlDescriptor(File f, Model model) throws JAXBException, FileNotFoundException, IOException {
+    
+    private void setPomXmlDescriptor(File f, Project project) throws JAXBException, FileNotFoundException, IOException {
 
-        ModelXmlManager manager = new ModelXmlManager();
+        f.mkdirs();
+        
+        File pomxml = new File(f, "pom.xml");
+        
+        pomxml.createNewFile();
+        
+        LOG.log(Level.INFO, "Creando pom: {0}", pomxml.getAbsolutePath());
+        
+        ProjectXmlManager manager = new ProjectXmlManager();
+        
+        DataHandler dh = manager.generateXml(project);
 
-        DataHandler dh = manager.generateXml(model);
-
-        FileOutputStream fos = new FileOutputStream(f);
+        FileOutputStream fos = new FileOutputStream(pomxml);
 
         byte[] b = DataHandlers.dataHandlerToByteArray(dh);
 
@@ -101,11 +104,17 @@ public class GenProject {
     
     private void setBindingsXmlDescriptor(File f, Bindings bindings) throws JAXBException, FileNotFoundException, IOException{
         
+        f.mkdirs();
+        
+        File bindingsxml = new File(f, "bindings.xml");
+        
+        bindingsxml.createNewFile();
+        
         BindingsXmlManager manager = new BindingsXmlManager();
         
         DataHandler dh = manager.generateXml(bindings);
         
-        FileOutputStream fos = new FileOutputStream(f);
+        FileOutputStream fos = new FileOutputStream(bindingsxml);
         
         byte[] b = DataHandlers.dataHandlerToByteArray(dh);
         
@@ -114,15 +123,17 @@ public class GenProject {
         fos.close();
     }
     
-    private Model getModel(){
+    private Project getProject(){
     
-        Model model = new Model();
+        Project project = new Project();
         
         
         
+        project.setModelVersion("4.0.0");
         
         
-        return model;
+        
+        return project;
         
     }
     
@@ -137,21 +148,46 @@ public class GenProject {
     }
     
     
-    
-    private void mvnProjectSetup(Path path){
-        //setPomXmlDescriptor();
-        //srcSetup(path);
-    }
-    
-    
-    
-    public void generate(){
+    private void projectGeneration(Path path) throws JAXBException, IOException {
 
-        //CodeSource src = this.getClass().getProtectionDomain().getCodeSource();
-        LOG.info("Directorio actual: " + System.getProperty("user.dir"));
-        projectGeneration(System.getProperty("user.dir"));
+        LOG.log(Level.INFO,"Generando proyecto " + PROJECT_FOLDER_NAME + " en : {0}", path);
         
-     
+        File folder = new File(path.toFile(),PROJECT_FOLDER_NAME);
+        
+        File srcTestJava = new File(folder, "src/test/java");
+        File srcMainJava = new File(folder, "src/main/java");
+        File srcMainResources = new File(folder, "src/main/resources");
+        
+        srcMainJava.mkdirs();
+        srcMainResources.mkdirs();
+        srcTestJava.mkdirs();
+        
+        Project project = getProject();
+        
+        setPomXmlDescriptor(new File(path.toFile(),PROJECT_FOLDER_NAME), project);
+        
+        
+        
+        
+        
+        
+    }
+
+    public void generate() throws JAXBException, IOException{
+
+        LOG.log(Level.INFO, "Directorio ejecucion: {0}", System.getProperty("user.dir"));
+        
+        String strPath = System.getProperty("user.dir");
+        
+        Path path = FileSystems.getDefault().getPath(strPath);
+        
+        if (path == null) return;
+        if (path.getParent() == null) return;
+        
+        path = path.getParent();
+        path = (path!=path.getRoot())?path.getParent():path.getRoot();
+        
+        projectGeneration(path);
 
     }
     
