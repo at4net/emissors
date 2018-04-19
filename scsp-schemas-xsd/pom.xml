@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <project xmlns:ns2="http://maven.apache.org/POM/4.0.0">
     <ns2:modelVersion>4.0.0</ns2:modelVersion>
+    <ns2:groupId>es.caib.scsp</ns2:groupId>
+    <ns2:artifactId>scsp-schemas-xsd</ns2:artifactId>
+    <ns2:version>1.0.0</ns2:version>
+    <ns2:packaging>jar</ns2:packaging>
 </project>

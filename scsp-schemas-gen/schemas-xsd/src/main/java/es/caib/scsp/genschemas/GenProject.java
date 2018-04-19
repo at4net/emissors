@@ -47,6 +47,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.maven.pom._4_0.Model;
 
 import javax.mail.util.ByteArrayDataSource;
+import org.apache.maven.pom._4_0.Parent;
 
 
 
@@ -127,9 +128,12 @@ public class GenProject {
     
         Project project = new Project();
         
-        
-        
         project.setModelVersion("4.0.0");
+        
+        project.setGroupId("es.caib.scsp");
+        project.setArtifactId(ARTIFACT_NAME);
+        project.setVersion("1.0.0");
+        project.setPackaging("jar");
         
         
         
@@ -165,11 +169,6 @@ public class GenProject {
         Project project = getProject();
         
         setPomXmlDescriptor(new File(path.toFile(),PROJECT_FOLDER_NAME), project);
-        
-        
-        
-        
-        
         
     }
 
