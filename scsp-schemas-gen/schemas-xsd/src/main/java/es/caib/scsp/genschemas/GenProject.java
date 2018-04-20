@@ -19,8 +19,10 @@ package es.caib.scsp.genschemas;
 import com.sun.java.xml.ns.jaxb.Bindings;
 import es.caib.pinbal.scsp.XmlHelper;
 import es.caib.scsp.genschemas.managers.BindingsXmlManager;
-import es.caib.scsp.genschemas.managers.Project;
+import es.caib.scsp.pom._4_0.Project;
 import es.caib.scsp.genschemas.managers.ProjectXmlManager;
+import es.caib.scsp.pom._4_0.ProjectUtils;
+import es.caib.scsp.utils.io.InputStreamDataSource;
 import es.caib.scsp.utils.util.DataHandlers;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -28,15 +30,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.CodeSource;
-import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
@@ -44,10 +41,6 @@ import java.util.zip.ZipInputStream;
 import javax.activation.DataHandler;
 import javax.xml.bind.JAXBException;
 import org.apache.commons.io.IOUtils;
-import org.apache.maven.pom._4_0.Model;
-
-import javax.mail.util.ByteArrayDataSource;
-import org.apache.maven.pom._4_0.Parent;
 
 
 
@@ -75,8 +68,6 @@ public class GenProject {
     public static GenProject getGen(){
         return gen;
     }
-    
-    
     
     
     private void setPomXmlDescriptor(File f, Project project) throws JAXBException, FileNotFoundException, IOException {
@@ -124,32 +115,9 @@ public class GenProject {
         fos.close();
     }
     
-    private Project getProject(){
     
-        Project project = new Project();
-        
-        project.setModelVersion("4.0.0");
-        
-        project.setGroupId("es.caib.scsp");
-        project.setArtifactId(ARTIFACT_NAME);
-        project.setVersion("1.0.0");
-        project.setPackaging("jar");
-        
-        
-        
-        return project;
-        
-    }
     
-    private Bindings getBindings(){
-        
-        Bindings bindings = new Bindings();
-        
-        
-        
-        
-        return bindings;
-    }
+
     
     
     private void projectGeneration(Path path) throws JAXBException, IOException {
@@ -166,8 +134,14 @@ public class GenProject {
         srcMainResources.mkdirs();
         srcTestJava.mkdirs();
         
-        Project project = getProject();
+        //InputStream pomInputStream = getClass().getClassLoader().getResourceAsStream("jaxb/templates/pom.xml");
+        //DataHandler pomDataHandler = new DataHandler(new InputStreamDataSource(pomInputStream));
         
+        //ProjectXmlManager manager = new ProjectXmlManager();
+        
+        //Project project = manager.generateItem(pomInputStream);
+        
+        Project project = ProjectUtils.getProject();
         setPomXmlDescriptor(new File(path.toFile(),PROJECT_FOLDER_NAME), project);
         
     }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package es.caib.scsp.genschemas.managers;
+package es.caib.scsp.pom._4_0;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.maven.pom._4_0.Model;

@@ -5,6 +5,7 @@
  */
 package es.caib.scsp.genschemas.managers;
 
+import es.caib.scsp.pom._4_0.Project;
 import javax.xml.bind.JAXBException;
 import org.apache.maven.pom._4_0.Model;
 import es.caib.scsp.utils.xml.XmlManager;

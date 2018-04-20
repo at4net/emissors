@@ -23,6 +23,7 @@ import java.util.List;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
@@ -70,8 +71,8 @@ public abstract class XmlManager<T> {
 
     private T unmarshal(InputStream is) throws JAXBException {
 
-        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-        return (T) jaxbUnmarshaller.unmarshal(new StreamSource(is), clazz);
+       Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+       return jaxbUnmarshaller.unmarshal(new StreamSource(is), clazz).getValue();
 
     }
 
@@ -105,6 +106,11 @@ public abstract class XmlManager<T> {
     public T generateItem(DataHandler document) throws JAXBException, IOException {
         return unmarshal(document.getInputStream());
     }
+    
+    public T generateItem(InputStream is) throws JAXBException, IOException {
+        return unmarshal(is);
+    }
+    
 
     public byte[] generateXmlByteArray(T item) throws JAXBException {
 
