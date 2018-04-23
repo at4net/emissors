@@ -34,6 +34,8 @@ import java.net.URL;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.security.CodeSource;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
@@ -115,36 +117,100 @@ public class GenProject {
         fos.close();
     }
     
+    /*
+        private void setMessageXmlDescriptor(File f, String fileName) throws JAXBException, FileNotFoundException, IOException{
+        
+        f.mkdirs();
+        
+        File bindingsxml = new File(f, "bindings.xml");
+        
+        bindingsxml.createNewFile();
+        
+        BindingsXmlManager manager = new BindingsXmlManager();
+        
+        DataHandler dh = manager.generateXml(bindings);
+        
+        FileOutputStream fos = new FileOutputStream(bindingsxml);
+        
+        byte[] b = DataHandlers.dataHandlerToByteArray(dh);
+        
+        fos.write(b);
     
-    
+        fos.close();
+    }
+    */
 
     
     
     private void projectGeneration(Path path) throws JAXBException, IOException {
 
-        LOG.log(Level.INFO,"Generando proyecto " + PROJECT_FOLDER_NAME + " en : {0}", path);
-        
-        File folder = new File(path.toFile(),PROJECT_FOLDER_NAME);
-        
+        LOG.log(Level.INFO, "Generando proyecto " + PROJECT_FOLDER_NAME + " en : {0}", path);
+
+        File folder = new File(path.toFile(), PROJECT_FOLDER_NAME);
+
         File srcTestJava = new File(folder, "src/test/java");
         File srcMainJava = new File(folder, "src/main/java");
         File srcMainResources = new File(folder, "src/main/resources");
-        
+        File srcMainResourcesJaxb = new File(folder, "src/main/resources/jaxb");
+        File srcMainResourcesJaxbSchemas = new File(folder, "src/main/resources/jaxb/schemas");
+        File srcMainResourcesJaxbBindings = new File(folder, "src/main/resources/jaxb/bindings");
+
         srcMainJava.mkdirs();
         srcMainResources.mkdirs();
         srcTestJava.mkdirs();
+
+        srcMainResourcesJaxbSchemas.mkdirs();
+        srcMainResourcesJaxbBindings.mkdirs();
+
+        CodeSource src = XmlHelper.class.getProtectionDomain().getCodeSource();
+
+        if (src == null) {
+            return;
+        }
+
+        URL jar = src.getLocation();
+        ZipInputStream zip = new ZipInputStream(jar.openStream());
+        while (true) {
+            
+            ZipEntry e = zip.getNextEntry();
+            if (e == null) {
+                break;
+            }
+            String name = e.getName();
+            
+            Map<String, String> executionMap = new HashMap<String,String>();
+            
+            if (name.startsWith("schemas/")) {
+                
+                File schema = new File(srcMainResourcesJaxb, name);
+                if (e.isDirectory()) {
+                    schema.mkdirs();
+                    executionMap.put(schema.getName(), "src/main/resources/jaxb/schemas" + schema.getName());  
+                    continue;
+                }
+
+                schema.createNewFile();
+                FileOutputStream fos = new FileOutputStream(schema);
+                InputStream is = XmlHelper.class.getClassLoader().getResourceAsStream(name);
+                IOUtils.copy(is, fos);
+                is.close();
+                fos.close();
+
+            }
+
+        }
+
         
-        //InputStream pomInputStream = getClass().getClassLoader().getResourceAsStream("jaxb/templates/pom.xml");
-        //DataHandler pomDataHandler = new DataHandler(new InputStreamDataSource(pomInputStream));
         
-        //ProjectXmlManager manager = new ProjectXmlManager();
-        
-        //Project project = manager.generateItem(pomInputStream);
+        zip.close();
         
         Project project = ProjectUtils.getProject();
-        setPomXmlDescriptor(new File(path.toFile(),PROJECT_FOLDER_NAME), project);
+        setPomXmlDescriptor(new File(path.toFile(), PROJECT_FOLDER_NAME), project);
+
         
     }
+    
+    
 
     public void generate() throws JAXBException, IOException{
 

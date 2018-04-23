@@ -15,9 +15,13 @@
  */
 package es.caib.scsp.pom._4_0;
 
+import es.caib.pinbal.scsp.XmlHelper;
 import es.caib.scsp.genschemas.managers.ProjectXmlManager;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
+import java.security.CodeSource;
+import java.util.zip.ZipInputStream;
 import javax.xml.bind.JAXBException;
 import org.apache.maven.pom._4_0.License;
 import org.apache.maven.pom._4_0.Model.Licenses;
@@ -32,6 +36,7 @@ public class ProjectUtils {
     
     
     
+    
     public static Project getProject() throws JAXBException, IOException{
         
         Project project = new Project();
@@ -40,8 +45,22 @@ public class ProjectUtils {
         
         project = manager.generateItem(pomInputStream);
         
+        CodeSource src = XmlHelper.class.getProtectionDomain().getCodeSource();
+
+        if (src == null) {
+            return project;
+        }
+        
+        URL jar = src.getLocation();
+        ZipInputStream zip = new ZipInputStream(jar.openStream());
+        
+        
+        
+        
         for (Plugin plugin:project.getBuild().getPlugins().getPlugin()){
             if ("maven-jaxb2-plugin".equals(plugin.getArtifactId())){
+                
+                
                 
                // todo
                 
