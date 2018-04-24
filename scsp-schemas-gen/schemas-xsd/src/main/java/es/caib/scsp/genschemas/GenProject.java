@@ -22,7 +22,6 @@ import es.caib.scsp.genschemas.managers.BindingsXmlManager;
 import es.caib.scsp.pom._4_0.Project;
 import es.caib.scsp.genschemas.managers.ProjectXmlManager;
 import es.caib.scsp.pom._4_0.ProjectUtils;
-import es.caib.scsp.utils.io.InputStreamDataSource;
 import es.caib.scsp.utils.util.DataHandlers;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -117,6 +116,7 @@ public class GenProject {
         fos.close();
     }
     
+    
     /*
         private void setMessageXmlDescriptor(File f, String fileName) throws JAXBException, FileNotFoundException, IOException{
         
@@ -168,6 +168,8 @@ public class GenProject {
             return;
         }
 
+        Map<String, String> executionMap = new HashMap<String,String>();
+        
         URL jar = src.getLocation();
         ZipInputStream zip = new ZipInputStream(jar.openStream());
         while (true) {
@@ -178,14 +180,14 @@ public class GenProject {
             }
             String name = e.getName();
             
-            Map<String, String> executionMap = new HashMap<String,String>();
+            
             
             if (name.startsWith("schemas/")) {
                 
                 File schema = new File(srcMainResourcesJaxb, name);
                 if (e.isDirectory()) {
                     schema.mkdirs();
-                    executionMap.put(schema.getName(), "src/main/resources/jaxb/schemas" + schema.getName());  
+                    executionMap.put(schema.getName(), "src/main/resources/jaxb/schemas/" + schema.getName());  
                     continue;
                 }
 
@@ -197,17 +199,21 @@ public class GenProject {
                 fos.close();
 
             }
+            
+            
 
         }
 
-        
+        //for (String key:executionMap.keySet()){
+        //        System.out.println("Clave: " + key + " " + executionMap.get(key).toString());
+        //    }
         
         zip.close();
-        
-        Project project = ProjectUtils.getProject();
+
+        Project project = ProjectUtils.getProject(executionMap);
         setPomXmlDescriptor(new File(path.toFile(), PROJECT_FOLDER_NAME), project);
 
-        
+
     }
     
     

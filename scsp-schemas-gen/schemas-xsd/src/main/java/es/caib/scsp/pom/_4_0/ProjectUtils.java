@@ -15,17 +15,22 @@
  */
 package es.caib.scsp.pom._4_0;
 
-import es.caib.pinbal.scsp.XmlHelper;
 import es.caib.scsp.genschemas.managers.ProjectXmlManager;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
-import java.security.CodeSource;
-import java.util.zip.ZipInputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
-import org.apache.maven.pom._4_0.License;
-import org.apache.maven.pom._4_0.Model.Licenses;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import org.apache.maven.pom._4_0.Plugin;
+import org.apache.maven.pom._4_0.PluginExecution;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  *
@@ -35,9 +40,7 @@ public class ProjectUtils {
     
     
     
-    
-    
-    public static Project getProject() throws JAXBException, IOException{
+     public static Project getProject() throws JAXBException, IOException{
         
         Project project = new Project();
         InputStream pomInputStream = project.getClass().getClassLoader().getResourceAsStream("jaxb/templates/pom.xml");
@@ -45,54 +48,67 @@ public class ProjectUtils {
         
         project = manager.generateItem(pomInputStream);
         
-        CodeSource src = XmlHelper.class.getProtectionDomain().getCodeSource();
-
-        if (src == null) {
-            return project;
-        }
-        
-        URL jar = src.getLocation();
-        ZipInputStream zip = new ZipInputStream(jar.openStream());
-        
-        
-        
-        
-        for (Plugin plugin:project.getBuild().getPlugins().getPlugin()){
-            if ("maven-jaxb2-plugin".equals(plugin.getArtifactId())){
-                
-                
-                
-               // todo
-                
-                
-            }
-        }
-        
-        
-        /*
-                    <execution>
-                        <id>Q2827003ATGSS001v3</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources/schemas/Q2827003ATGSS001v3</schemaDirectory>
-                            <schemaIncludes>
-                                <include>*.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc-Q2827003ATGSS001v3</generateDirectory>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-carga.episode</episodeFile>
-                        </configuration>
-                    </execution>
-        */
-        
-      
         return project;
         
-    
-    
+     }
+     
+     
+     
+     
+    public static Project getProject(Map<String, String> executionMap) throws JAXBException, IOException {
+
+        Project project = getProject();
+
+        for (Plugin plugin : project.getBuild().getPlugins().getPlugin()) {
+            if ("maven-jaxb2-plugin".equals(plugin.getArtifactId())) {
+                for (String key : executionMap.keySet()) {
+                    PluginExecution execution = new PluginExecution();
+                    execution.setId(key);
+                    execution.setPhase("generate-sources");
+                    //List<String> goals = new ArrayList<String>();
+                    PluginExecution.Goals goals = new PluginExecution.Goals();
+                    execution.setGoals(goals);
+
+                    execution.getGoals().getGoal().add("generate");
+                    PluginExecution.Configuration configuration = new PluginExecution.Configuration();
+
+                    
+                    
+                    try {
+                        Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+                        Element schemaDirectory = doc.createElementNS("http://maven.apache.org/POM/4.0.0","schemaDirectory");
+
+                        schemaDirectory.appendChild(doc.createTextNode((String) executionMap.get(key)));
+                        configuration.getAny().add(schemaDirectory);
+                        Element schemaIncludes = doc.createElementNS("http://maven.apache.org/POM/4.0.0","schemaIncludes");
+                        Element include = doc.createElementNS("http://maven.apache.org/POM/4.0.0","include");
+                        include.appendChild(doc.createTextNode("*.xsd"));
+                        schemaIncludes.appendChild(include);
+                        configuration.getAny().add(schemaIncludes);
+                        Element generateDirectory = doc.createElementNS("http://maven.apache.org/POM/4.0.0","generateDirectory");
+                        String directory = "${project.build.directory}/generated-sources/xjc-" + key;
+                        generateDirectory.appendChild(doc.createTextNode(directory));
+                        configuration.getAny().add(generateDirectory);
+                        Element episodeFile = doc.createElementNS("http://maven.apache.org/POM/4.0.0","episodeFile");
+                        String file = "${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-" + key + ".episode";
+                        episodeFile.appendChild(doc.createTextNode(file));
+                        configuration.getAny().add(episodeFile);
+
+                    } catch (ParserConfigurationException ex) {
+                        Logger.getLogger(ProjectUtils.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    execution.setConfiguration(configuration);
+
+                    plugin.getExecutions().getExecution().add(execution);
+                }
+
+            }
+        }
+
+        return project;
+
     }
-    
-    
+
+
 }
