@@ -55,13 +55,15 @@ public class ProjectUtils {
      
      
      
-    public static Project getProject(Map<String, String> executionMap) throws JAXBException, IOException {
+    public static Project getProject(Map<String, String> executionMap, Map<String, String> bindingMap) throws JAXBException, IOException {
 
         Project project = getProject();
 
         for (Plugin plugin : project.getBuild().getPlugins().getPlugin()) {
             if ("maven-jaxb2-plugin".equals(plugin.getArtifactId())) {
+                
                 for (String key : executionMap.keySet()) {
+                    
                     PluginExecution execution = new PluginExecution();
                     execution.setId(key);
                     execution.setPhase("generate-sources");
@@ -75,24 +77,38 @@ public class ProjectUtils {
                     
                     
                     try {
+                        
+                        String namespace = "http://maven.apache.org/POM/4.0.0";
+                        
                         Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-                        Element schemaDirectory = doc.createElementNS("http://maven.apache.org/POM/4.0.0","schemaDirectory");
-
+                        Element schemaDirectory = doc.createElementNS(namespace,"schemaDirectory");
                         schemaDirectory.appendChild(doc.createTextNode((String) executionMap.get(key)));
                         configuration.getAny().add(schemaDirectory);
-                        Element schemaIncludes = doc.createElementNS("http://maven.apache.org/POM/4.0.0","schemaIncludes");
-                        Element include = doc.createElementNS("http://maven.apache.org/POM/4.0.0","include");
+                        Element schemaIncludes = doc.createElementNS(namespace,"schemaIncludes");
+                        Element include = doc.createElementNS(namespace,"include");
                         include.appendChild(doc.createTextNode("*.xsd"));
                         schemaIncludes.appendChild(include);
                         configuration.getAny().add(schemaIncludes);
-                        Element generateDirectory = doc.createElementNS("http://maven.apache.org/POM/4.0.0","generateDirectory");
+                        Element generateDirectory = doc.createElementNS(namespace,"generateDirectory");
                         String directory = "${project.build.directory}/generated-sources/xjc-" + key;
                         generateDirectory.appendChild(doc.createTextNode(directory));
                         configuration.getAny().add(generateDirectory);
-                        Element episodeFile = doc.createElementNS("http://maven.apache.org/POM/4.0.0","episodeFile");
+                        Element episodeFile = doc.createElementNS(namespace,"episodeFile");
                         String file = "${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-" + key + ".episode";
                         episodeFile.appendChild(doc.createTextNode(file));
                         configuration.getAny().add(episodeFile);
+                        
+                        Element bindingDirectory = doc.createElementNS(namespace,"bindingDirectory");
+                        bindingDirectory.appendChild(doc.createTextNode((String) bindingMap.get(key)));
+                        configuration.getAny().add(bindingDirectory);
+                        Element bindingIncludes = doc.createElementNS(namespace,"bindingIncludes");
+                        Element bindingInclude = doc.createElementNS(namespace,"include");
+                        bindingInclude.appendChild(doc.createTextNode("*.xjb"));
+                        bindingIncludes.appendChild(bindingInclude);
+                        configuration.getAny().add(bindingIncludes);
+                        
+                        
+                        
 
                     } catch (ParserConfigurationException ex) {
                         Logger.getLogger(ProjectUtils.class.getName()).log(Level.SEVERE, null, ex);

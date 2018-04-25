@@ -116,32 +116,6 @@ public class GenProject {
         fos.close();
     }
     
-    
-    /*
-        private void setMessageXmlDescriptor(File f, String fileName) throws JAXBException, FileNotFoundException, IOException{
-        
-        f.mkdirs();
-        
-        File bindingsxml = new File(f, "bindings.xml");
-        
-        bindingsxml.createNewFile();
-        
-        BindingsXmlManager manager = new BindingsXmlManager();
-        
-        DataHandler dh = manager.generateXml(bindings);
-        
-        FileOutputStream fos = new FileOutputStream(bindingsxml);
-        
-        byte[] b = DataHandlers.dataHandlerToByteArray(dh);
-        
-        fos.write(b);
-    
-        fos.close();
-    }
-    */
-
-    
-    
     private void projectGeneration(Path path) throws JAXBException, IOException {
 
         LOG.log(Level.INFO, "Generando proyecto " + PROJECT_FOLDER_NAME + " en : {0}", path);
@@ -169,8 +143,10 @@ public class GenProject {
         }
 
         Map<String, String> executionMap = new HashMap<String,String>();
+        Map<String, String> bindingMap = new HashMap<String,String>();
         
         URL jar = src.getLocation();
+        
         ZipInputStream zip = new ZipInputStream(jar.openStream());
         while (true) {
             
@@ -180,17 +156,20 @@ public class GenProject {
             }
             String name = e.getName();
             
-            
-            
             if (name.startsWith("schemas/")) {
-                
                 File schema = new File(srcMainResourcesJaxb, name);
+                File bind = new File(srcMainResourcesJaxb, "bindings/" + schema.getName());
+                
                 if (e.isDirectory()) {
                     schema.mkdirs();
+                    bind.mkdirs();
+                    //System.out.println(schema.getName());
                     executionMap.put(schema.getName(), "src/main/resources/jaxb/schemas/" + schema.getName());  
+                    bindingMap.put(schema.getName(), "src/main/resources/jaxb/bindings/" + schema.getName());  
                     continue;
                 }
 
+                //System.out.println(schema.getCanonicalPath());
                 schema.createNewFile();
                 FileOutputStream fos = new FileOutputStream(schema);
                 InputStream is = XmlHelper.class.getClassLoader().getResourceAsStream(name);
@@ -199,21 +178,15 @@ public class GenProject {
                 fos.close();
 
             }
-            
-            
-
+           
         }
-
-        //for (String key:executionMap.keySet()){
-        //        System.out.println("Clave: " + key + " " + executionMap.get(key).toString());
-        //    }
-        
+   
         zip.close();
-
-        Project project = ProjectUtils.getProject(executionMap);
+  
+        Project project = ProjectUtils.getProject(executionMap, bindingMap);
         setPomXmlDescriptor(new File(path.toFile(), PROJECT_FOLDER_NAME), project);
-
-
+        
+        
     }
     
     
@@ -238,57 +211,43 @@ public class GenProject {
     
     
     public static void main(String args[]) throws Exception {
-         
+
         GenProject gen = GenProject.getGen();
-        
+
         gen.generate();
-        
-        
-        
-         CodeSource src = XmlHelper.class.getProtectionDomain().getCodeSource();
 
-         System.out.println(src);
-         
-         if (src == null) {
-             return;
-         }
+        CodeSource src = XmlHelper.class.getProtectionDomain().getCodeSource();
 
-         URL jar = src.getLocation();
-         ZipInputStream zip = new ZipInputStream(jar.openStream());
-         while (true) {
-             ZipEntry e = zip.getNextEntry();
-             if (e == null) {
-                 break;
-             }
-             if (e.isDirectory()) continue;
-             String name = e.getName();
-             if (name.startsWith("schemas/")) {
-                 //System.out.println(name);
-             }
-         }
         
-        
-         
-     /*
-         Enumeration<URL> enume = XmlHelper.class.getClassLoader().
-                
-         while (enume.hasMoreElements()){
-             System.out.println(enume.nextElement());
-         }
-       */
+        if (src == null) {
+            return;
+        }
+
+        URL jar = src.getLocation();
+        ZipInputStream zip = new ZipInputStream(jar.openStream());
+        while (true) {
+            ZipEntry e = zip.getNextEntry();
+            if (e == null) {
+                break;
+            }
+            if (e.isDirectory()) {
+                continue;
+            }
+            String name = e.getName();
+            if (name.startsWith("schemas/")) {
+                //System.out.println(name);
+            }
+        }
+
      
-         
-         InputStream is = XmlHelper.class.getClassLoader().getResourceAsStream("schemas/AEAT102v2/peticion.xsd");
+        InputStream is = XmlHelper.class.getClassLoader().getResourceAsStream("schemas/AEAT102v2/peticion.xsd");
 
-         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-         IOUtils.copy(is, baos);
-         is.close();
-         baos.close();
-         
-         
-          //System.out.println(baos.toString());
-     
-     }
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        IOUtils.copy(is, baos);
+        is.close();
+        baos.close();
+
+    }
 
    
 }
