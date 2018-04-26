@@ -16,13 +16,14 @@
 package es.caib.scsp.genschemas;
 
 //import es.caib.pinbal.scsp.XmlHelper;
-import com.sun.java.xml.ns.jaxb.Bindings;
 import es.caib.pinbal.scsp.XmlHelper;
-import es.caib.scsp.genschemas.managers.BindingsXmlManager;
+import es.caib.scsp.genschemas.managers.XjbBindingsXmlManager;
 import es.caib.scsp.pom._4_0.Project;
 import es.caib.scsp.genschemas.managers.ProjectXmlManager;
 import es.caib.scsp.pom._4_0.ProjectUtils;
 import es.caib.scsp.utils.util.DataHandlers;
+import es.caib.scsp.xml.ns.jaxb.XjbBindings;
+import es.caib.scsp.xml.ns.jaxb.XjbBindingsUtils;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -95,17 +96,17 @@ public class GenProject {
     }
 
     
-    private void setBindingsXmlDescriptor(File f, Bindings bindings) throws JAXBException, FileNotFoundException, IOException{
+    private void setXjbBindingsXmlDescriptor(File f, XjbBindings xjbBindings) throws JAXBException, FileNotFoundException, IOException{
         
         f.mkdirs();
         
-        File bindingsxml = new File(f, "bindings.xml");
+        File bindingsxml = new File(f, "bindings.xjb");
         
         bindingsxml.createNewFile();
         
-        BindingsXmlManager manager = new BindingsXmlManager();
+        XjbBindingsXmlManager manager = new XjbBindingsXmlManager();
         
-        DataHandler dh = manager.generateXml(bindings);
+        DataHandler dh = manager.generateXml(xjbBindings);
         
         FileOutputStream fos = new FileOutputStream(bindingsxml);
         
@@ -144,6 +145,8 @@ public class GenProject {
 
         Map<String, String> executionMap = new HashMap<String,String>();
         Map<String, String> bindingMap = new HashMap<String,String>();
+        Map<String, String> folderMap = new HashMap<String,String>();
+        
         
         URL jar = src.getLocation();
         
@@ -155,6 +158,8 @@ public class GenProject {
                 break;
             }
             String name = e.getName();
+            
+            
             
             if (name.startsWith("schemas/")) {
                 File schema = new File(srcMainResourcesJaxb, name);
@@ -176,12 +181,21 @@ public class GenProject {
                 IOUtils.copy(is, fos);
                 is.close();
                 fos.close();
+                
+                
 
             }
            
         }
    
         zip.close();
+        
+        for (String key:bindingMap.keySet()){
+            XjbBindings xjbBindings = XjbBindingsUtils.getXjbBindings(key, (String)executionMap.get(key));
+            File bindingsFolder = new File(srcMainResourcesJaxbBindings, key);
+            setXjbBindingsXmlDescriptor(bindingsFolder, xjbBindings);
+        }
+        
   
         Project project = ProjectUtils.getProject(executionMap, bindingMap);
         setPomXmlDescriptor(new File(path.toFile(), PROJECT_FOLDER_NAME), project);

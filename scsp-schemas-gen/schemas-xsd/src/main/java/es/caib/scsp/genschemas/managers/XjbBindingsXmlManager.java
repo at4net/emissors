@@ -5,18 +5,18 @@
  */
 package es.caib.scsp.genschemas.managers;
 
-import com.sun.java.xml.ns.jaxb.Bindings;
 import javax.xml.bind.JAXBException;
 import es.caib.scsp.utils.xml.XmlManager;
+import es.caib.scsp.xml.ns.jaxb.XjbBindings;
 
 /**
  *
  * @author gdeignacio
  */
-public class BindingsXmlManager extends XmlManager<Bindings> {
+public class XjbBindingsXmlManager extends XmlManager<XjbBindings> {
 
-    public BindingsXmlManager() throws JAXBException {
-        super(Bindings.class);
+    public XjbBindingsXmlManager() throws JAXBException {
+        super(XjbBindings.class);
     }
     
 }

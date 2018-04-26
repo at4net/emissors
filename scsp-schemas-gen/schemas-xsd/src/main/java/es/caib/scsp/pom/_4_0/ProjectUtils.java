@@ -18,8 +18,6 @@ package es.caib.scsp.pom._4_0;
 import es.caib.scsp.genschemas.managers.ProjectXmlManager;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,7 +26,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.apache.maven.pom._4_0.Plugin;
 import org.apache.maven.pom._4_0.PluginExecution;
-import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -43,7 +40,7 @@ public class ProjectUtils {
      public static Project getProject() throws JAXBException, IOException{
         
         Project project = new Project();
-        InputStream pomInputStream = project.getClass().getClassLoader().getResourceAsStream("jaxb/templates/pom.xml");
+        InputStream pomInputStream = project.getClass().getClassLoader().getResourceAsStream("jaxb/templates/pom.xml.template");
         ProjectXmlManager manager = new ProjectXmlManager();
         
         project = manager.generateItem(pomInputStream);
@@ -125,6 +122,8 @@ public class ProjectUtils {
         return project;
 
     }
+
+    
 
 
 }
