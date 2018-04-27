@@ -1,2 +1,59 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<jaxb:bindings xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.1"/>
+<jaxb:bindings xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.1">
+    <jaxb:bindings schemaLocation="../../schemas/SVDSCCMWS01v3/confirmacion-peticion.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="es.caib.scsp.esquemas.SVDSCCMWS01v3.confirmacionpeticion"/>
+        </jaxb:schemaBindings>
+        <jaxb:bindings node="*[@name='ConfirmacionPeticion']">
+            <jaxb:class name="ConfirmacionPeticion"/>
+        </jaxb:bindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../schemas/SVDSCCMWS01v3/ConsultaMatrimonio.wsdl">
+        <jaxb:schemaBindings>
+            <jaxb:package name="es.caib.scsp.esquemas.SVDSCCMWS01v3.consultamatrimonio"/>
+        </jaxb:schemaBindings>
+        <jaxb:bindings node="*[@name='Consultamatrimonio']">
+            <jaxb:class name="Consultamatrimonio"/>
+        </jaxb:bindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../schemas/SVDSCCMWS01v3/ConsultaMatrimonioAsincrona.wsdl">
+        <jaxb:schemaBindings>
+            <jaxb:package name="es.caib.scsp.esquemas.SVDSCCMWS01v3.consultamatrimonioasincrona"/>
+        </jaxb:schemaBindings>
+        <jaxb:bindings node="*[@name='Consultamatrimonioasincrona']">
+            <jaxb:class name="Consultamatrimonioasincrona"/>
+        </jaxb:bindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../schemas/SVDSCCMWS01v3/datos-especificos.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="es.caib.scsp.esquemas.SVDSCCMWS01v3.datosespecificos"/>
+        </jaxb:schemaBindings>
+        <jaxb:bindings node="*[@name='DatosEspecificos']">
+            <jaxb:class name="DatosEspecificos"/>
+        </jaxb:bindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../schemas/SVDSCCMWS01v3/peticion.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="es.caib.scsp.esquemas.SVDSCCMWS01v3.peticion"/>
+        </jaxb:schemaBindings>
+        <jaxb:bindings node="*[@name='Peticion']">
+            <jaxb:class name="Peticion"/>
+        </jaxb:bindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../schemas/SVDSCCMWS01v3/respuesta.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="es.caib.scsp.esquemas.SVDSCCMWS01v3.respuesta"/>
+        </jaxb:schemaBindings>
+        <jaxb:bindings node="*[@name='Respuesta']">
+            <jaxb:class name="Respuesta"/>
+        </jaxb:bindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../schemas/SVDSCCMWS01v3/solicitud-respuesta.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="es.caib.scsp.esquemas.SVDSCCMWS01v3.solicitudrespuesta"/>
+        </jaxb:schemaBindings>
+        <jaxb:bindings node="*[@name='SolicitudRespuesta']">
+            <jaxb:class name="SolicitudRespuesta"/>
+        </jaxb:bindings>
+    </jaxb:bindings>
+</jaxb:bindings>

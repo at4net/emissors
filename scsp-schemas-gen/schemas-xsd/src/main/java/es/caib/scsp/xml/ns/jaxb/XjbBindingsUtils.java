@@ -15,10 +15,13 @@
  */
 package es.caib.scsp.xml.ns.jaxb;
 
-import com.sun.java.xml.ns.jaxb.Bindings;
+import com.google.common.base.CaseFormat;
+import com.sun.java.xml.ns.jaxb.PackageType;
+import com.sun.java.xml.ns.jaxb.SchemaBindings;
 import es.caib.scsp.genschemas.managers.XjbBindingsXmlManager;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import javax.xml.bind.JAXBException;
 
 /**
@@ -26,33 +29,60 @@ import javax.xml.bind.JAXBException;
  * @author gdeignacio
  */
 public class XjbBindingsUtils {
-    
-    
+
     public static XjbBindings getXjbBindings() throws JAXBException, IOException {
 
         XjbBindings xjbBindings = new XjbBindings();
         InputStream bindingsInputStream = xjbBindings.getClass().getClassLoader().getResourceAsStream("jaxb/templates/bindings.xjb.template");
         XjbBindingsXmlManager manager = new XjbBindingsXmlManager();
- 
+
         xjbBindings = manager.generateItem(bindingsInputStream);
 
         return xjbBindings;
 
     }
-    
-    
-    public static XjbBindings getXjbBindings(String key, String folder) throws JAXBException, IOException {
-      
+
+    public static XjbBindings getXjbBindings(String key, List<String> xsds) throws JAXBException, IOException {
+
         XjbBindings xjbBindings = getXjbBindings();
-        
-        
-        
-        
-        
-        System.out.println("Binding: " + key + " " + folder);
-        
+
+        System.out.println("key " + key + ": " + xsds);
+        for (String xsd : xsds) {
+
+            XjbBindings xsdBindings = new XjbBindings();
+
+            xsdBindings.setSchemaLocation("../../schemas/" + key + "/" + xsd);
+
+            SchemaBindings schemaBindings = new SchemaBindings();
+            PackageType packageType = new PackageType();
+            String packageName = "es.caib.scsp.esquemas." + key + "." 
+                    + CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.split("\\.")[0]).toLowerCase();
+            packageType.getName().add(packageName);
+            schemaBindings.setPackage(packageType);
+            xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(schemaBindings);
+
+            
+            
+            XjbBindings nodeBindings = new XjbBindings();
+            String clazzName = CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.split("\\.")[0]);
+            nodeBindings.setNode("*[@name='" + clazzName + "']");
+
+            com.sun.java.xml.ns.jaxb.Class clazz = new com.sun.java.xml.ns.jaxb.Class();
+
+            clazz.getName().add(clazzName);
+
+            nodeBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(clazz);
+            xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(nodeBindings);
+            
+            
+            
+            xjbBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(xsdBindings);
+
+            //System.out.println("Recurso en   jaxb/schemas/" + key + "/" + xsd);
+        }
+
         return xjbBindings;
-      
+
     }
 
 /*

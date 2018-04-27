@@ -1,2 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<jaxb:bindings xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.1"/>
+<jaxb:bindings xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.1">
+    <jaxb:bindings schemaLocation="../../schemas/SCPWIJ1Rv2/peticion.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="es.caib.scsp.esquemas.SCPWIJ1Rv2.peticion"/>
+        </jaxb:schemaBindings>
+        <jaxb:bindings node="*[@name='Peticion']">
+            <jaxb:class name="Peticion"/>
+        </jaxb:bindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../schemas/SCPWIJ1Rv2/respuesta.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="es.caib.scsp.esquemas.SCPWIJ1Rv2.respuesta"/>
+        </jaxb:schemaBindings>
+        <jaxb:bindings node="*[@name='Respuesta']">
+            <jaxb:class name="Respuesta"/>
+        </jaxb:bindings>
+    </jaxb:bindings>
+</jaxb:bindings>

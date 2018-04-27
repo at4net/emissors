@@ -34,7 +34,9 @@ import java.net.URL;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.security.CodeSource;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -145,7 +147,7 @@ public class GenProject {
 
         Map<String, String> executionMap = new HashMap<String,String>();
         Map<String, String> bindingMap = new HashMap<String,String>();
-        Map<String, String> folderMap = new HashMap<String,String>();
+        HashMap<String, List<String>> xsdMap = new HashMap<String,List<String>>();
         
         
         URL jar = src.getLocation();
@@ -159,30 +161,39 @@ public class GenProject {
             }
             String name = e.getName();
             
-            
-            
             if (name.startsWith("schemas/")) {
                 File schema = new File(srcMainResourcesJaxb, name);
                 File bind = new File(srcMainResourcesJaxb, "bindings/" + schema.getName());
                 
                 if (e.isDirectory()) {
+                    
+                    if ("schemas/".equals(name)) {
+                        
+                        //System.out.println("Directorio schemas encontrado");
+                        
+                        continue;
+                    }
+                    
+                    
                     schema.mkdirs();
                     bind.mkdirs();
-                    //System.out.println(schema.getName());
+                    
                     executionMap.put(schema.getName(), "src/main/resources/jaxb/schemas/" + schema.getName());  
-                    bindingMap.put(schema.getName(), "src/main/resources/jaxb/bindings/" + schema.getName());  
+                    bindingMap.put(schema.getName(), "src/main/resources/jaxb/bindings/" + schema.getName());
+                    
                     continue;
                 }
 
-                //System.out.println(schema.getCanonicalPath());
+                List<String> xsds= (xsdMap.get(schema.getParentFile().getName())!=null)?xsdMap.get(schema.getParentFile().getName()):new ArrayList<String>();
+                xsds.add(schema.getName());
+                xsdMap.put(schema.getParentFile().getName(), xsds);
+                
                 schema.createNewFile();
                 FileOutputStream fos = new FileOutputStream(schema);
                 InputStream is = XmlHelper.class.getClassLoader().getResourceAsStream(name);
                 IOUtils.copy(is, fos);
                 is.close();
                 fos.close();
-                
-                
 
             }
            
@@ -191,7 +202,7 @@ public class GenProject {
         zip.close();
         
         for (String key:bindingMap.keySet()){
-            XjbBindings xjbBindings = XjbBindingsUtils.getXjbBindings(key, (String)executionMap.get(key));
+            XjbBindings xjbBindings = XjbBindingsUtils.getXjbBindings(key, (List<String>)xsdMap.get(key));
             File bindingsFolder = new File(srcMainResourcesJaxbBindings, key);
             setXjbBindingsXmlDescriptor(bindingsFolder, xjbBindings);
         }

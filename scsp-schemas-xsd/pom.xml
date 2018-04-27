@@ -1773,25 +1773,6 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>schemas</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources/jaxb/schemas/schemas</schemaDirectory>
-                            <schemaIncludes>
-<include>*.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc-schemas</generateDirectory>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-schemas.episode</episodeFile>
-                            <bindingDirectory>src/main/resources/jaxb/bindings/schemas</bindingDirectory>
-                            <bindingIncludes>
-<include>*.xjb</include>
-                            </bindingIncludes>
-                        </configuration>
-                    </execution>
-                    <execution>
                         <id>SVDSCCMWS01v3</id>
                         <phase>generate-sources</phase>
                         <goals>
