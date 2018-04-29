@@ -44,25 +44,6 @@
                 <version>0.13.3</version>
                 <executions>
                     <execution>
-                        <id>AEAT103Iv3</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources/jaxb/schemas/AEAT103Iv3</schemaDirectory>
-                            <schemaIncludes>
-<include>*.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc-AEAT103Iv3</generateDirectory>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEAT103Iv3.episode</episodeFile>
-                            <bindingDirectory>src/main/resources/jaxb/bindings/AEAT103Iv3</bindingDirectory>
-                            <bindingIncludes>
-<include>*.xjb</include>
-                            </bindingIncludes>
-                        </configuration>
-                    </execution>
-                    <execution>
                         <id>SVDSEPEDEMFECHAWS01v3</id>
                         <phase>generate-sources</phase>
                         <goals>
@@ -76,6 +57,25 @@
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDSEPEDEMFECHAWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDSEPEDEMFECHAWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDSEPEDEMFECHAWS01v3</bindingDirectory>
+                            <bindingIncludes>
+<include>*.xjb</include>
+                            </bindingIncludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>AEAT103Iv3</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources/jaxb/schemas/AEAT103Iv3</schemaDirectory>
+                            <schemaIncludes>
+<include>*.xsd</include>
+                            </schemaIncludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc-AEAT103Iv3</generateDirectory>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEAT103Iv3.episode</episodeFile>
+                            <bindingDirectory>src/main/resources/jaxb/bindings/AEAT103Iv3</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -196,25 +196,6 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>SVDNOTSUBWS01v3</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDNOTSUBWS01v3</schemaDirectory>
-                            <schemaIncludes>
-<include>*.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDNOTSUBWS01v3</generateDirectory>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDNOTSUBWS01v3.episode</episodeFile>
-                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDNOTSUBWS01v3</bindingDirectory>
-                            <bindingIncludes>
-<include>*.xjb</include>
-                            </bindingIncludes>
-                        </configuration>
-                    </execution>
-                    <execution>
                         <id>VDRSFWS02v2</id>
                         <phase>generate-sources</phase>
                         <goals>
@@ -228,6 +209,25 @@
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-VDRSFWS02v2</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-VDRSFWS02v2.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/VDRSFWS02v2</bindingDirectory>
+                            <bindingIncludes>
+<include>*.xjb</include>
+                            </bindingIncludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>SVDNOTSUBWS01v3</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDNOTSUBWS01v3</schemaDirectory>
+                            <schemaIncludes>
+<include>*.xsd</include>
+                            </schemaIncludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDNOTSUBWS01v3</generateDirectory>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDNOTSUBWS01v3.episode</episodeFile>
+                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDNOTSUBWS01v3</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -481,25 +481,6 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>AEAT102v3</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources/jaxb/schemas/AEAT102v3</schemaDirectory>
-                            <schemaIncludes>
-<include>*.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc-AEAT102v3</generateDirectory>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEAT102v3.episode</episodeFile>
-                            <bindingDirectory>src/main/resources/jaxb/bindings/AEAT102v3</bindingDirectory>
-                            <bindingIncludes>
-<include>*.xjb</include>
-                            </bindingIncludes>
-                        </configuration>
-                    </execution>
-                    <execution>
                         <id>SVDCCSVWS01v3</id>
                         <phase>generate-sources</phase>
                         <goals>
@@ -513,6 +494,25 @@
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDCCSVWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDCCSVWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDCCSVWS01v3</bindingDirectory>
+                            <bindingIncludes>
+<include>*.xjb</include>
+                            </bindingIncludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>AEAT102v3</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources/jaxb/schemas/AEAT102v3</schemaDirectory>
+                            <schemaIncludes>
+<include>*.xsd</include>
+                            </schemaIncludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc-AEAT102v3</generateDirectory>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEAT102v3.episode</episodeFile>
+                            <bindingDirectory>src/main/resources/jaxb/bindings/AEAT102v3</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -538,25 +538,6 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>ECOT104Iv3</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources/jaxb/schemas/ECOT104Iv3</schemaDirectory>
-                            <schemaIncludes>
-<include>*.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc-ECOT104Iv3</generateDirectory>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-ECOT104Iv3.episode</episodeFile>
-                            <bindingDirectory>src/main/resources/jaxb/bindings/ECOT104Iv3</bindingDirectory>
-                            <bindingIncludes>
-<include>*.xjb</include>
-                            </bindingIncludes>
-                        </configuration>
-                    </execution>
-                    <execution>
                         <id>SVDREXTFECHAWS01v3</id>
                         <phase>generate-sources</phase>
                         <goals>
@@ -570,6 +551,25 @@
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDREXTFECHAWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDREXTFECHAWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDREXTFECHAWS01v3</bindingDirectory>
+                            <bindingIncludes>
+<include>*.xjb</include>
+                            </bindingIncludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>ECOT104Iv3</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources/jaxb/schemas/ECOT104Iv3</schemaDirectory>
+                            <schemaIncludes>
+<include>*.xsd</include>
+                            </schemaIncludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc-ECOT104Iv3</generateDirectory>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-ECOT104Iv3.episode</episodeFile>
+                            <bindingDirectory>src/main/resources/jaxb/bindings/ECOT104Iv3</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -747,25 +747,6 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>AEAT101Iv2</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources/jaxb/schemas/AEAT101Iv2</schemaDirectory>
-                            <schemaIncludes>
-<include>*.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc-AEAT101Iv2</generateDirectory>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEAT101Iv2.episode</episodeFile>
-                            <bindingDirectory>src/main/resources/jaxb/bindings/AEAT101Iv2</bindingDirectory>
-                            <bindingIncludes>
-<include>*.xjb</include>
-                            </bindingIncludes>
-                        </configuration>
-                    </execution>
-                    <execution>
                         <id>S2800665HFTF0002v3</id>
                         <phase>generate-sources</phase>
                         <goals>
@@ -785,19 +766,19 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>AEAT101Iv3</id>
+                        <id>AEAT101Iv2</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <schemaDirectory>src/main/resources/jaxb/schemas/AEAT101Iv3</schemaDirectory>
+                            <schemaDirectory>src/main/resources/jaxb/schemas/AEAT101Iv2</schemaDirectory>
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc-AEAT101Iv3</generateDirectory>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEAT101Iv3.episode</episodeFile>
-                            <bindingDirectory>src/main/resources/jaxb/bindings/AEAT101Iv3</bindingDirectory>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc-AEAT101Iv2</generateDirectory>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEAT101Iv2.episode</episodeFile>
+                            <bindingDirectory>src/main/resources/jaxb/bindings/AEAT101Iv2</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -817,6 +798,25 @@
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDCDEPENWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDCDEPENWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDCDEPENWS01v3</bindingDirectory>
+                            <bindingIncludes>
+<include>*.xjb</include>
+                            </bindingIncludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>AEAT101Iv3</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources/jaxb/schemas/AEAT101Iv3</schemaDirectory>
+                            <schemaIncludes>
+<include>*.xsd</include>
+                            </schemaIncludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc-AEAT101Iv3</generateDirectory>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEAT101Iv3.episode</episodeFile>
+                            <bindingDirectory>src/main/resources/jaxb/bindings/AEAT101Iv3</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -937,25 +937,6 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>DGSFP0003v3</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources/jaxb/schemas/DGSFP0003v3</schemaDirectory>
-                            <schemaIncludes>
-<include>*.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc-DGSFP0003v3</generateDirectory>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-DGSFP0003v3.episode</episodeFile>
-                            <bindingDirectory>src/main/resources/jaxb/bindings/DGSFP0003v3</bindingDirectory>
-                            <bindingIncludes>
-<include>*.xjb</include>
-                            </bindingIncludes>
-                        </configuration>
-                    </execution>
-                    <execution>
                         <id>SVDCTITWS02v3</id>
                         <phase>generate-sources</phase>
                         <goals>
@@ -969,6 +950,25 @@
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDCTITWS02v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDCTITWS02v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDCTITWS02v3</bindingDirectory>
+                            <bindingIncludes>
+<include>*.xjb</include>
+                            </bindingIncludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>DGSFP0003v3</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources/jaxb/schemas/DGSFP0003v3</schemaDirectory>
+                            <schemaIncludes>
+<include>*.xsd</include>
+                            </schemaIncludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc-DGSFP0003v3</generateDirectory>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-DGSFP0003v3.episode</episodeFile>
+                            <bindingDirectory>src/main/resources/jaxb/bindings/DGSFP0003v3</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -1108,25 +1108,6 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>AEATIAEAv3</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources/jaxb/schemas/AEATIAEAv3</schemaDirectory>
-                            <schemaIncludes>
-<include>*.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc-AEATIAEAv3</generateDirectory>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEATIAEAv3.episode</episodeFile>
-                            <bindingDirectory>src/main/resources/jaxb/bindings/AEATIAEAv3</bindingDirectory>
-                            <bindingIncludes>
-<include>*.xjb</include>
-                            </bindingIncludes>
-                        </configuration>
-                    </execution>
-                    <execution>
                         <id>SVDDGPCIWS02v3</id>
                         <phase>generate-sources</phase>
                         <goals>
@@ -1140,25 +1121,6 @@
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDDGPCIWS02v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDDGPCIWS02v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDDGPCIWS02v3</bindingDirectory>
-                            <bindingIncludes>
-<include>*.xjb</include>
-                            </bindingIncludes>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>SVDDGTSALDOPUNTOSWS01v3</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDDGTSALDOPUNTOSWS01v3</schemaDirectory>
-                            <schemaIncludes>
-<include>*.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDDGTSALDOPUNTOSWS01v3</generateDirectory>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDDGTSALDOPUNTOSWS01v3.episode</episodeFile>
-                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDDGTSALDOPUNTOSWS01v3</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -1184,6 +1146,25 @@
                         </configuration>
                     </execution>
                     <execution>
+                        <id>SVDDGTSALDOPUNTOSWS01v3</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDDGTSALDOPUNTOSWS01v3</schemaDirectory>
+                            <schemaIncludes>
+<include>*.xsd</include>
+                            </schemaIncludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDDGTSALDOPUNTOSWS01v3</generateDirectory>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDDGTSALDOPUNTOSWS01v3.episode</episodeFile>
+                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDDGTSALDOPUNTOSWS01v3</bindingDirectory>
+                            <bindingIncludes>
+<include>*.xjb</include>
+                            </bindingIncludes>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>SVDTNUWS01v2</id>
                         <phase>generate-sources</phase>
                         <goals>
@@ -1197,6 +1178,25 @@
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDTNUWS01v2</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDTNUWS01v2.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDTNUWS01v2</bindingDirectory>
+                            <bindingIncludes>
+<include>*.xjb</include>
+                            </bindingIncludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>AEATIAEAv3</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources/jaxb/schemas/AEATIAEAv3</schemaDirectory>
+                            <schemaIncludes>
+<include>*.xsd</include>
+                            </schemaIncludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc-AEATIAEAv3</generateDirectory>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEATIAEAv3.episode</episodeFile>
+                            <bindingDirectory>src/main/resources/jaxb/bindings/AEATIAEAv3</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -1545,25 +1545,6 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>AEAT104v2</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources/jaxb/schemas/AEAT104v2</schemaDirectory>
-                            <schemaIncludes>
-<include>*.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc-AEAT104v2</generateDirectory>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEAT104v2.episode</episodeFile>
-                            <bindingDirectory>src/main/resources/jaxb/bindings/AEAT104v2</bindingDirectory>
-                            <bindingIncludes>
-<include>*.xjb</include>
-                            </bindingIncludes>
-                        </configuration>
-                    </execution>
-                    <execution>
                         <id>SVDDGPVIWS02v3</id>
                         <phase>generate-sources</phase>
                         <goals>
@@ -1577,6 +1558,25 @@
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDDGPVIWS02v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDDGPVIWS02v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDDGPVIWS02v3</bindingDirectory>
+                            <bindingIncludes>
+<include>*.xjb</include>
+                            </bindingIncludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>AEAT104v2</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources/jaxb/schemas/AEAT104v2</schemaDirectory>
+                            <schemaIncludes>
+<include>*.xsd</include>
+                            </schemaIncludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc-AEAT104v2</generateDirectory>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEAT104v2.episode</episodeFile>
+                            <bindingDirectory>src/main/resources/jaxb/bindings/AEAT104v2</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -1773,25 +1773,6 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>SVDSCCMWS01v3</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDSCCMWS01v3</schemaDirectory>
-                            <schemaIncludes>
-<include>*.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDSCCMWS01v3</generateDirectory>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDSCCMWS01v3.episode</episodeFile>
-                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDSCCMWS01v3</bindingDirectory>
-                            <bindingIncludes>
-<include>*.xjb</include>
-                            </bindingIncludes>
-                        </configuration>
-                    </execution>
-                    <execution>
                         <id>SVDSEPEDEMWS01v3</id>
                         <phase>generate-sources</phase>
                         <goals>
@@ -1805,6 +1786,25 @@
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDSEPEDEMWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDSEPEDEMWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDSEPEDEMWS01v3</bindingDirectory>
+                            <bindingIncludes>
+<include>*.xjb</include>
+                            </bindingIncludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>SVDSCCMWS01v3</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDSCCMWS01v3</schemaDirectory>
+                            <schemaIncludes>
+<include>*.xsd</include>
+                            </schemaIncludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDSCCMWS01v3</generateDirectory>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDSCCMWS01v3.episode</episodeFile>
+                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDSCCMWS01v3</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -1906,25 +1906,6 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>ECOT103Iv3</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources/jaxb/schemas/ECOT103Iv3</schemaDirectory>
-                            <schemaIncludes>
-<include>*.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc-ECOT103Iv3</generateDirectory>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-ECOT103Iv3.episode</episodeFile>
-                            <bindingDirectory>src/main/resources/jaxb/bindings/ECOT103Iv3</bindingDirectory>
-                            <bindingIncludes>
-<include>*.xjb</include>
-                            </bindingIncludes>
-                        </configuration>
-                    </execution>
-                    <execution>
                         <id>SVDIGAEINHABILITACIONWS01v3</id>
                         <phase>generate-sources</phase>
                         <goals>
@@ -1938,6 +1919,25 @@
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDIGAEINHABILITACIONWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDIGAEINHABILITACIONWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDIGAEINHABILITACIONWS01v3</bindingDirectory>
+                            <bindingIncludes>
+<include>*.xjb</include>
+                            </bindingIncludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>ECOT103Iv3</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources/jaxb/schemas/ECOT103Iv3</schemaDirectory>
+                            <schemaIncludes>
+<include>*.xsd</include>
+                            </schemaIncludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc-ECOT103Iv3</generateDirectory>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-ECOT103Iv3.episode</episodeFile>
+                            <bindingDirectory>src/main/resources/jaxb/bindings/ECOT103Iv3</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -2039,25 +2039,6 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>DGSFP0001v3</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources/jaxb/schemas/DGSFP0001v3</schemaDirectory>
-                            <schemaIncludes>
-<include>*.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc-DGSFP0001v3</generateDirectory>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-DGSFP0001v3.episode</episodeFile>
-                            <bindingDirectory>src/main/resources/jaxb/bindings/DGSFP0001v3</bindingDirectory>
-                            <bindingIncludes>
-<include>*.xjb</include>
-                            </bindingIncludes>
-                        </configuration>
-                    </execution>
-                    <execution>
                         <id>SCDHPAJUv3</id>
                         <phase>generate-sources</phase>
                         <goals>
@@ -2071,6 +2052,25 @@
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SCDHPAJUv3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SCDHPAJUv3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SCDHPAJUv3</bindingDirectory>
+                            <bindingIncludes>
+<include>*.xjb</include>
+                            </bindingIncludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>DGSFP0001v3</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources/jaxb/schemas/DGSFP0001v3</schemaDirectory>
+                            <schemaIncludes>
+<include>*.xsd</include>
+                            </schemaIncludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc-DGSFP0001v3</generateDirectory>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-DGSFP0001v3.episode</episodeFile>
+                            <bindingDirectory>src/main/resources/jaxb/bindings/DGSFP0001v3</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -2134,25 +2134,6 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>SVDMUFABSWS01v3</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDMUFABSWS01v3</schemaDirectory>
-                            <schemaIncludes>
-<include>*.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDMUFABSWS01v3</generateDirectory>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDMUFABSWS01v3.episode</episodeFile>
-                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDMUFABSWS01v3</bindingDirectory>
-                            <bindingIncludes>
-<include>*.xjb</include>
-                            </bindingIncludes>
-                        </configuration>
-                    </execution>
-                    <execution>
                         <id>SVDSCCDWS01v3</id>
                         <phase>generate-sources</phase>
                         <goals>
@@ -2166,6 +2147,25 @@
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDSCCDWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDSCCDWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDSCCDWS01v3</bindingDirectory>
+                            <bindingIncludes>
+<include>*.xjb</include>
+                            </bindingIncludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>SVDMUFABSWS01v3</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDMUFABSWS01v3</schemaDirectory>
+                            <schemaIncludes>
+<include>*.xsd</include>
+                            </schemaIncludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDMUFABSWS01v3</generateDirectory>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDMUFABSWS01v3.episode</episodeFile>
+                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDMUFABSWS01v3</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>

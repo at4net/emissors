@@ -56,16 +56,16 @@ public class XjbBindingsUtils {
             SchemaBindings schemaBindings = new SchemaBindings();
             PackageType packageType = new PackageType();
             String packageName = "es.caib.scsp.esquemas." + key + "." 
-                    + CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.split("\\.")[0]).toLowerCase();
+                    + CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.replace(".", "_")).toLowerCase();
             packageType.getName().add(packageName);
             schemaBindings.setPackage(packageType);
             xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(schemaBindings);
 
             
-            
+            /*
             XjbBindings nodeBindings = new XjbBindings();
             String clazzName = CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.split("\\.")[0]);
-            nodeBindings.setNode("*[@name='" + clazzName + "']");
+            nodeBindings.setNode("//xs:complexType[@name='" + clazzName + "'] | //xs:element[@name='" + clazzName + "']");
 
             com.sun.java.xml.ns.jaxb.Class clazz = new com.sun.java.xml.ns.jaxb.Class();
 
@@ -73,7 +73,7 @@ public class XjbBindingsUtils {
 
             nodeBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(clazz);
             xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(nodeBindings);
-            
+            */
             
             
             xjbBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(xsdBindings);
