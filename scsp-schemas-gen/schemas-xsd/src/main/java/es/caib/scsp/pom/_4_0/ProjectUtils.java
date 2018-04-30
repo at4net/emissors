@@ -86,6 +86,13 @@ public class ProjectUtils {
                         include.appendChild(doc.createTextNode("*.xsd"));
                         schemaIncludes.appendChild(include);
                         configuration.getAny().add(schemaIncludes);
+                        
+                        Element schemaExcludes = doc.createElementNS(namespace,"schemaExcludes");
+                        Element exclude = doc.createElementNS(namespace,"exclude");
+                        exclude.appendChild(doc.createTextNode("soap*.xsd"));
+                        schemaExcludes.appendChild(exclude);
+                        configuration.getAny().add(schemaExcludes);
+                        
                         Element generateDirectory = doc.createElementNS(namespace,"generateDirectory");
                         String directory = "${project.build.directory}/generated-sources/xjc-" + key;
                         generateDirectory.appendChild(doc.createTextNode(directory));

@@ -44,25 +44,6 @@
                 <version>0.13.3</version>
                 <executions>
                     <execution>
-                        <id>SVDSEPEDEMFECHAWS01v3</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDSEPEDEMFECHAWS01v3</schemaDirectory>
-                            <schemaIncludes>
-<include>*.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDSEPEDEMFECHAWS01v3</generateDirectory>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDSEPEDEMFECHAWS01v3.episode</episodeFile>
-                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDSEPEDEMFECHAWS01v3</bindingDirectory>
-                            <bindingIncludes>
-<include>*.xjb</include>
-                            </bindingIncludes>
-                        </configuration>
-                    </execution>
-                    <execution>
                         <id>AEAT103Iv3</id>
                         <phase>generate-sources</phase>
                         <goals>
@@ -73,9 +54,34 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-AEAT103Iv3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEAT103Iv3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/AEAT103Iv3</bindingDirectory>
+                            <bindingIncludes>
+<include>*.xjb</include>
+                            </bindingIncludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>SVDSEPEDEMFECHAWS01v3</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDSEPEDEMFECHAWS01v3</schemaDirectory>
+                            <schemaIncludes>
+<include>*.xsd</include>
+                            </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDSEPEDEMFECHAWS01v3</generateDirectory>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDSEPEDEMFECHAWS01v3.episode</episodeFile>
+                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDSEPEDEMFECHAWS01v3</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -92,6 +98,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-AEAT103Iv2</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEAT103Iv2.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/AEAT103Iv2</bindingDirectory>
@@ -111,6 +120,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-ECOT101Iv3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-ECOT101Iv3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/ECOT101Iv3</bindingDirectory>
@@ -130,6 +142,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDCAPCDIWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDCAPCDIWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDCAPCDIWS01v3</bindingDirectory>
@@ -149,6 +164,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDCTITWS01v2</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDCTITWS01v2.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDCTITWS01v2</bindingDirectory>
@@ -168,6 +186,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDDGOJMODIFWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDDGOJMODIFWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDDGOJMODIFWS01v3</bindingDirectory>
@@ -187,28 +208,12 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-S2800665HFTF0001v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-S2800665HFTF0001v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/S2800665HFTF0001v3</bindingDirectory>
-                            <bindingIncludes>
-<include>*.xjb</include>
-                            </bindingIncludes>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>VDRSFWS02v2</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources/jaxb/schemas/VDRSFWS02v2</schemaDirectory>
-                            <schemaIncludes>
-<include>*.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc-VDRSFWS02v2</generateDirectory>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-VDRSFWS02v2.episode</episodeFile>
-                            <bindingDirectory>src/main/resources/jaxb/bindings/VDRSFWS02v2</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -225,9 +230,34 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDNOTSUBWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDNOTSUBWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDNOTSUBWS01v3</bindingDirectory>
+                            <bindingIncludes>
+<include>*.xjb</include>
+                            </bindingIncludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>VDRSFWS02v2</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources/jaxb/schemas/VDRSFWS02v2</schemaDirectory>
+                            <schemaIncludes>
+<include>*.xsd</include>
+                            </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc-VDRSFWS02v2</generateDirectory>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-VDRSFWS02v2.episode</episodeFile>
+                            <bindingDirectory>src/main/resources/jaxb/bindings/VDRSFWS02v2</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -244,6 +274,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-AEATIR01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEATIR01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/AEATIR01v3</bindingDirectory>
@@ -263,6 +296,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDDGOJDESCCOMPLWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDDGOJDESCCOMPLWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDDGOJDESCCOMPLWS01v3</bindingDirectory>
@@ -282,6 +318,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDSEPESITWS02v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDSEPESITWS02v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDSEPESITWS02v3</bindingDirectory>
@@ -301,6 +340,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SCDCPAJUv3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SCDCPAJUv3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SCDCPAJUv3</bindingDirectory>
@@ -320,6 +362,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDRCPINSCRITOWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDRCPINSCRITOWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDRCPINSCRITOWS01v3</bindingDirectory>
@@ -339,6 +384,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-DGSFP0002v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-DGSFP0002v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/DGSFP0002v3</bindingDirectory>
@@ -358,6 +406,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDLSTTUWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDLSTTUWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDLSTTUWS01v3</bindingDirectory>
@@ -377,6 +428,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDSRSPSBACTUALWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDSRSPSBACTUALWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDSRSPSBACTUALWS01v3</bindingDirectory>
@@ -396,6 +450,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDCDATWS02v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDCDATWS02v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDCDATWS02v3</bindingDirectory>
@@ -415,6 +472,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDMUFAFIXMLWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDMUFAFIXMLWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDMUFAFIXMLWS01v3</bindingDirectory>
@@ -434,6 +494,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDIVTMWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDIVTMWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDIVTMWS01v3</bindingDirectory>
@@ -453,6 +516,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-Q2827002CINSS001v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-Q2827002CINSS001v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/Q2827002CINSS001v3</bindingDirectory>
@@ -472,28 +538,12 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-AEAT102v2</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEAT102v2.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/AEAT102v2</bindingDirectory>
-                            <bindingIncludes>
-<include>*.xjb</include>
-                            </bindingIncludes>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>SVDCCSVWS01v3</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDCCSVWS01v3</schemaDirectory>
-                            <schemaIncludes>
-<include>*.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDCCSVWS01v3</generateDirectory>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDCCSVWS01v3.episode</episodeFile>
-                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDCCSVWS01v3</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -510,9 +560,34 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-AEAT102v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEAT102v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/AEAT102v3</bindingDirectory>
+                            <bindingIncludes>
+<include>*.xjb</include>
+                            </bindingIncludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>SVDCCSVWS01v3</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDCCSVWS01v3</schemaDirectory>
+                            <schemaIncludes>
+<include>*.xsd</include>
+                            </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDCCSVWS01v3</generateDirectory>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDCCSVWS01v3.episode</episodeFile>
+                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDCCSVWS01v3</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -529,28 +604,12 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDDELSEXWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDDELSEXWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDDELSEXWS01v3</bindingDirectory>
-                            <bindingIncludes>
-<include>*.xjb</include>
-                            </bindingIncludes>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>SVDREXTFECHAWS01v3</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDREXTFECHAWS01v3</schemaDirectory>
-                            <schemaIncludes>
-<include>*.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDREXTFECHAWS01v3</generateDirectory>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDREXTFECHAWS01v3.episode</episodeFile>
-                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDREXTFECHAWS01v3</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -567,9 +626,34 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-ECOT104Iv3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-ECOT104Iv3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/ECOT104Iv3</bindingDirectory>
+                            <bindingIncludes>
+<include>*.xjb</include>
+                            </bindingIncludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>SVDREXTFECHAWS01v3</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDREXTFECHAWS01v3</schemaDirectory>
+                            <schemaIncludes>
+<include>*.xsd</include>
+                            </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDREXTFECHAWS01v3</generateDirectory>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDREXTFECHAWS01v3.episode</episodeFile>
+                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDREXTFECHAWS01v3</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -586,6 +670,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDNOTLISTWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDNOTLISTWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDNOTLISTWS01v3</bindingDirectory>
@@ -605,6 +692,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SCPWIJ1Rv2</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SCPWIJ1Rv2.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SCPWIJ1Rv2</bindingDirectory>
@@ -624,6 +714,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-NIVRENTIv3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-NIVRENTIv3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/NIVRENTIv3</bindingDirectory>
@@ -643,6 +736,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-AEATCCC1v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEATCCC1v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/AEATCCC1v3</bindingDirectory>
@@ -662,6 +758,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDMUFPRESTAXMLWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDMUFPRESTAXMLWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDMUFPRESTAXMLWS01v3</bindingDirectory>
@@ -681,6 +780,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-DOMFISCv3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-DOMFISCv3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/DOMFISCv3</bindingDirectory>
@@ -700,6 +802,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDCAPWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDCAPWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDCAPWS01v3</bindingDirectory>
@@ -719,6 +824,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDIVTWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDIVTWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDIVTWS01v3</bindingDirectory>
@@ -738,28 +846,12 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-AEATRDT1v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEATRDT1v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/AEATRDT1v3</bindingDirectory>
-                            <bindingIncludes>
-<include>*.xjb</include>
-                            </bindingIncludes>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>S2800665HFTF0002v3</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources/jaxb/schemas/S2800665HFTF0002v3</schemaDirectory>
-                            <schemaIncludes>
-<include>*.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc-S2800665HFTF0002v3</generateDirectory>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-S2800665HFTF0002v3.episode</episodeFile>
-                            <bindingDirectory>src/main/resources/jaxb/bindings/S2800665HFTF0002v3</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -776,6 +868,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-AEAT101Iv2</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEAT101Iv2.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/AEAT101Iv2</bindingDirectory>
@@ -785,19 +880,22 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>SVDCDEPENWS01v3</id>
+                        <id>S2800665HFTF0002v3</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDCDEPENWS01v3</schemaDirectory>
+                            <schemaDirectory>src/main/resources/jaxb/schemas/S2800665HFTF0002v3</schemaDirectory>
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDCDEPENWS01v3</generateDirectory>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDCDEPENWS01v3.episode</episodeFile>
-                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDCDEPENWS01v3</bindingDirectory>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc-S2800665HFTF0002v3</generateDirectory>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-S2800665HFTF0002v3.episode</episodeFile>
+                            <bindingDirectory>src/main/resources/jaxb/bindings/S2800665HFTF0002v3</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -814,9 +912,34 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-AEAT101Iv3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEAT101Iv3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/AEAT101Iv3</bindingDirectory>
+                            <bindingIncludes>
+<include>*.xjb</include>
+                            </bindingIncludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>SVDCDEPENWS01v3</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDCDEPENWS01v3</schemaDirectory>
+                            <schemaIncludes>
+<include>*.xsd</include>
+                            </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDCDEPENWS01v3</generateDirectory>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDCDEPENWS01v3.episode</episodeFile>
+                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDCDEPENWS01v3</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -833,6 +956,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDCDYGWS02v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDCDYGWS02v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDCDYGWS02v3</bindingDirectory>
@@ -852,6 +978,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDSCCNWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDSCCNWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDSCCNWS01v3</bindingDirectory>
@@ -871,6 +1000,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDSPEEIACTWS01v2</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDSPEEIACTWS01v2.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDSPEEIACTWS01v2</bindingDirectory>
@@ -890,6 +1022,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-Q2827003ATGSS006v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-Q2827003ATGSS006v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/Q2827003ATGSS006v3</bindingDirectory>
@@ -909,6 +1044,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDIGAECONCESIONWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDIGAECONCESIONWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDIGAECONCESIONWS01v3</bindingDirectory>
@@ -928,28 +1066,12 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDSRSPSBANUALWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDSRSPSBANUALWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDSRSPSBANUALWS01v3</bindingDirectory>
-                            <bindingIncludes>
-<include>*.xjb</include>
-                            </bindingIncludes>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>SVDCTITWS02v3</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDCTITWS02v3</schemaDirectory>
-                            <schemaIncludes>
-<include>*.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDCTITWS02v3</generateDirectory>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDCTITWS02v3.episode</episodeFile>
-                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDCTITWS02v3</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -966,9 +1088,34 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-DGSFP0003v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-DGSFP0003v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/DGSFP0003v3</bindingDirectory>
+                            <bindingIncludes>
+<include>*.xjb</include>
+                            </bindingIncludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>SVDCTITWS02v3</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDCTITWS02v3</schemaDirectory>
+                            <schemaIncludes>
+<include>*.xsd</include>
+                            </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDCTITWS02v3</generateDirectory>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDCTITWS02v3.episode</episodeFile>
+                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDCTITWS02v3</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -985,6 +1132,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDCDATWS01v2</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDCDATWS01v2.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDCDATWS01v2</bindingDirectory>
@@ -1004,6 +1154,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDVTUWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDVTUWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDVTUWS01v3</bindingDirectory>
@@ -1023,6 +1176,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-AEAT101v2</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEAT101v2.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/AEAT101v2</bindingDirectory>
@@ -1042,6 +1198,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDNOTCOPSIMWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDNOTCOPSIMWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDNOTCOPSIMWS01v3</bindingDirectory>
@@ -1061,6 +1220,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDCCAACPASWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDCCAACPASWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDCCAACPASWS01v3</bindingDirectory>
@@ -1080,6 +1242,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDVTNUWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDVTNUWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDVTNUWS01v3</bindingDirectory>
@@ -1099,85 +1264,12 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDMUFAFIWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDMUFAFIWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDMUFAFIWS01v3</bindingDirectory>
-                            <bindingIncludes>
-<include>*.xjb</include>
-                            </bindingIncludes>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>SVDDGPCIWS02v3</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDDGPCIWS02v3</schemaDirectory>
-                            <schemaIncludes>
-<include>*.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDDGPCIWS02v3</generateDirectory>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDDGPCIWS02v3.episode</episodeFile>
-                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDDGPCIWS02v3</bindingDirectory>
-                            <bindingIncludes>
-<include>*.xjb</include>
-                            </bindingIncludes>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>SVDSCDDWS01v3</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDSCDDWS01v3</schemaDirectory>
-                            <schemaIncludes>
-<include>*.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDSCDDWS01v3</generateDirectory>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDSCDDWS01v3.episode</episodeFile>
-                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDSCDDWS01v3</bindingDirectory>
-                            <bindingIncludes>
-<include>*.xjb</include>
-                            </bindingIncludes>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>SVDDGTSALDOPUNTOSWS01v3</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDDGTSALDOPUNTOSWS01v3</schemaDirectory>
-                            <schemaIncludes>
-<include>*.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDDGTSALDOPUNTOSWS01v3</generateDirectory>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDDGTSALDOPUNTOSWS01v3.episode</episodeFile>
-                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDDGTSALDOPUNTOSWS01v3</bindingDirectory>
-                            <bindingIncludes>
-<include>*.xjb</include>
-                            </bindingIncludes>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>SVDTNUWS01v2</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDTNUWS01v2</schemaDirectory>
-                            <schemaIncludes>
-<include>*.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDTNUWS01v2</generateDirectory>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDTNUWS01v2.episode</episodeFile>
-                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDTNUWS01v2</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -1194,9 +1286,100 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-AEATIAEAv3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEATIAEAv3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/AEATIAEAv3</bindingDirectory>
+                            <bindingIncludes>
+<include>*.xjb</include>
+                            </bindingIncludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>SVDDGPCIWS02v3</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDDGPCIWS02v3</schemaDirectory>
+                            <schemaIncludes>
+<include>*.xsd</include>
+                            </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDDGPCIWS02v3</generateDirectory>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDDGPCIWS02v3.episode</episodeFile>
+                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDDGPCIWS02v3</bindingDirectory>
+                            <bindingIncludes>
+<include>*.xjb</include>
+                            </bindingIncludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>SVDDGTSALDOPUNTOSWS01v3</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDDGTSALDOPUNTOSWS01v3</schemaDirectory>
+                            <schemaIncludes>
+<include>*.xsd</include>
+                            </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDDGTSALDOPUNTOSWS01v3</generateDirectory>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDDGTSALDOPUNTOSWS01v3.episode</episodeFile>
+                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDDGTSALDOPUNTOSWS01v3</bindingDirectory>
+                            <bindingIncludes>
+<include>*.xjb</include>
+                            </bindingIncludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>SVDSCDDWS01v3</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDSCDDWS01v3</schemaDirectory>
+                            <schemaIncludes>
+<include>*.xsd</include>
+                            </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDSCDDWS01v3</generateDirectory>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDSCDDWS01v3.episode</episodeFile>
+                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDSCDDWS01v3</bindingDirectory>
+                            <bindingIncludes>
+<include>*.xjb</include>
+                            </bindingIncludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>SVDTNUWS01v2</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDTNUWS01v2</schemaDirectory>
+                            <schemaIncludes>
+<include>*.xsd</include>
+                            </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDTNUWS01v2</generateDirectory>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDTNUWS01v2.episode</episodeFile>
+                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDTNUWS01v2</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -1213,6 +1396,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-AEAT101v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEAT101v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/AEAT101v3</bindingDirectory>
@@ -1232,6 +1418,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-ECOT102Iv3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-ECOT102Iv3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/ECOT102Iv3</bindingDirectory>
@@ -1251,6 +1440,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDDGOJALTAWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDDGOJALTAWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDDGOJALTAWS01v3</bindingDirectory>
@@ -1270,6 +1462,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDTUWS01v2</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDTUWS01v2.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDTUWS01v2</bindingDirectory>
@@ -1289,6 +1484,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-VDISFWS01v2</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-VDISFWS01v2.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/VDISFWS01v2</bindingDirectory>
@@ -1308,6 +1506,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDDGOJBAJAWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDDGOJBAJAWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDDGOJBAJAWS01v3</bindingDirectory>
@@ -1327,6 +1528,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-VALNIFv3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-VALNIFv3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/VALNIFv3</bindingDirectory>
@@ -1346,6 +1550,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDDGTCONDUCTORWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDDGTCONDUCTORWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDDGTCONDUCTORWS01v3</bindingDirectory>
@@ -1365,6 +1572,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-AEATIAEv3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEATIAEv3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/AEATIAEv3</bindingDirectory>
@@ -1384,6 +1594,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDDGOJDESCPARCIALWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDDGOJDESCPARCIALWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDDGOJDESCPARCIALWS01v3</bindingDirectory>
@@ -1403,6 +1616,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDPVIAEWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDPVIAEWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDPVIAEWS01v3</bindingDirectory>
@@ -1422,6 +1638,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-S2800665HFTF0003v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-S2800665HFTF0003v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/S2800665HFTF0003v3</bindingDirectory>
@@ -1441,6 +1660,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDCDYGWS01v2</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDCDYGWS01v2.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDCDYGWS01v2</bindingDirectory>
@@ -1460,6 +1682,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDDGOJDESCULTIMAWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDDGOJDESCULTIMAWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDDGOJDESCULTIMAWS01v3</bindingDirectory>
@@ -1479,6 +1704,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDSEPEIACTWS02v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDSEPEIACTWS02v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDSEPEIACTWS02v3</bindingDirectory>
@@ -1498,6 +1726,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-Q2827003ATGSS001v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-Q2827003ATGSS001v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/Q2827003ATGSS001v3</bindingDirectory>
@@ -1517,6 +1748,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDRESLEGEXWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDRESLEGEXWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDRESLEGEXWS01v3</bindingDirectory>
@@ -1536,28 +1770,12 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDPERMEXWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDPERMEXWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDPERMEXWS01v3</bindingDirectory>
-                            <bindingIncludes>
-<include>*.xjb</include>
-                            </bindingIncludes>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>SVDDGPVIWS02v3</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDDGPVIWS02v3</schemaDirectory>
-                            <schemaIncludes>
-<include>*.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDDGPVIWS02v3</generateDirectory>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDDGPVIWS02v3.episode</episodeFile>
-                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDDGPVIWS02v3</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -1574,9 +1792,34 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-AEAT104v2</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEAT104v2.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/AEAT104v2</bindingDirectory>
+                            <bindingIncludes>
+<include>*.xjb</include>
+                            </bindingIncludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>SVDDGPVIWS02v3</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDDGPVIWS02v3</schemaDirectory>
+                            <schemaIncludes>
+<include>*.xsd</include>
+                            </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDDGPVIWS02v3</generateDirectory>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDDGPVIWS02v3.episode</episodeFile>
+                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDDGPVIWS02v3</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -1593,6 +1836,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-AEAT104v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEAT104v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/AEAT104v3</bindingDirectory>
@@ -1612,6 +1858,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-AEAT104Iv3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEAT104Iv3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/AEAT104Iv3</bindingDirectory>
@@ -1631,6 +1880,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SCMCUNIv3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SCMCUNIv3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SCMCUNIv3</bindingDirectory>
@@ -1650,6 +1902,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDMAECWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDMAECWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDMAECWS01v3</bindingDirectory>
@@ -1669,6 +1924,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDLSTTNUWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDLSTTNUWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDLSTTNUWS01v3</bindingDirectory>
@@ -1688,6 +1946,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDDELSEXCDIWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDDELSEXCDIWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDDELSEXCDIWS01v3</bindingDirectory>
@@ -1707,6 +1968,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-AEAT104Iv2</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEAT104Iv2.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/AEAT104Iv2</bindingDirectory>
@@ -1726,6 +1990,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDCBIWS02v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDCBIWS02v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDCBIWS02v3</bindingDirectory>
@@ -1745,6 +2012,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-MAP01WS01v2</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-MAP01WS01v2.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/MAP01WS01v2</bindingDirectory>
@@ -1764,28 +2034,12 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDSPEEIPERWS01v2</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDSPEEIPERWS01v2.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDSPEEIPERWS01v2</bindingDirectory>
-                            <bindingIncludes>
-<include>*.xjb</include>
-                            </bindingIncludes>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>SVDSEPEDEMWS01v3</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDSEPEDEMWS01v3</schemaDirectory>
-                            <schemaIncludes>
-<include>*.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDSEPEDEMWS01v3</generateDirectory>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDSEPEDEMWS01v3.episode</episodeFile>
-                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDSEPEDEMWS01v3</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -1802,9 +2056,34 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDSCCMWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDSCCMWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDSCCMWS01v3</bindingDirectory>
+                            <bindingIncludes>
+<include>*.xjb</include>
+                            </bindingIncludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>SVDSEPEDEMWS01v3</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDSEPEDEMWS01v3</schemaDirectory>
+                            <schemaIncludes>
+<include>*.xsd</include>
+                            </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDSEPEDEMWS01v3</generateDirectory>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDSEPEDEMWS01v3.episode</episodeFile>
+                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDSEPEDEMWS01v3</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -1821,6 +2100,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDNOTSUBADMWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDNOTSUBADMWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDNOTSUBADMWS01v3</bindingDirectory>
@@ -1840,6 +2122,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDSCDWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDSCDWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDSCDWS01v3</bindingDirectory>
@@ -1859,6 +2144,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-CDISFWS01v2</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-CDISFWS01v2.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/CDISFWS01v2</bindingDirectory>
@@ -1878,6 +2166,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDDGTMOVPUNTOSWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDDGTMOVPUNTOSWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDDGTMOVPUNTOSWS01v3</bindingDirectory>
@@ -1897,28 +2188,12 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDSCTFNWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDSCTFNWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDSCTFNWS01v3</bindingDirectory>
-                            <bindingIncludes>
-<include>*.xjb</include>
-                            </bindingIncludes>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>SVDIGAEINHABILITACIONWS01v3</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDIGAEINHABILITACIONWS01v3</schemaDirectory>
-                            <schemaIncludes>
-<include>*.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDIGAEINHABILITACIONWS01v3</generateDirectory>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDIGAEINHABILITACIONWS01v3.episode</episodeFile>
-                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDIGAEINHABILITACIONWS01v3</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -1935,9 +2210,34 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-ECOT103Iv3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-ECOT103Iv3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/ECOT103Iv3</bindingDirectory>
+                            <bindingIncludes>
+<include>*.xjb</include>
+                            </bindingIncludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>SVDIGAEINHABILITACIONWS01v3</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDIGAEINHABILITACIONWS01v3</schemaDirectory>
+                            <schemaIncludes>
+<include>*.xsd</include>
+                            </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDIGAEINHABILITACIONWS01v3</generateDirectory>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDIGAEINHABILITACIONWS01v3.episode</episodeFile>
+                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDIGAEINHABILITACIONWS01v3</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -1954,6 +2254,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-VDRSFWS01v2</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-VDRSFWS01v2.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/VDRSFWS01v2</bindingDirectory>
@@ -1973,6 +2276,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-196v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-196v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/196v3</bindingDirectory>
@@ -1992,6 +2298,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SCDPPEAJUv2</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SCDPPEAJUv2.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SCDPPEAJUv2</bindingDirectory>
@@ -2011,6 +2320,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-DGSFP0005v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-DGSFP0005v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/DGSFP0005v3</bindingDirectory>
@@ -2030,28 +2342,12 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-ECOTGENIv3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-ECOTGENIv3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/ECOTGENIv3</bindingDirectory>
-                            <bindingIncludes>
-<include>*.xjb</include>
-                            </bindingIncludes>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>SCDHPAJUv3</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources/jaxb/schemas/SCDHPAJUv3</schemaDirectory>
-                            <schemaIncludes>
-<include>*.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SCDHPAJUv3</generateDirectory>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SCDHPAJUv3.episode</episodeFile>
-                            <bindingDirectory>src/main/resources/jaxb/bindings/SCDHPAJUv3</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -2068,9 +2364,34 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-DGSFP0001v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-DGSFP0001v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/DGSFP0001v3</bindingDirectory>
+                            <bindingIncludes>
+<include>*.xjb</include>
+                            </bindingIncludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>SCDHPAJUv3</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources/jaxb/schemas/SCDHPAJUv3</schemaDirectory>
+                            <schemaIncludes>
+<include>*.xsd</include>
+                            </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SCDHPAJUv3</generateDirectory>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SCDHPAJUv3.episode</episodeFile>
+                            <bindingDirectory>src/main/resources/jaxb/bindings/SCDHPAJUv3</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -2087,6 +2408,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDMUFABSXMLWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDMUFABSXMLWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDMUFABSXMLWS01v3</bindingDirectory>
@@ -2106,6 +2430,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-Q2827002CINSS002v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-Q2827002CINSS002v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/Q2827002CINSS002v3</bindingDirectory>
@@ -2125,28 +2452,12 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDTNUWS03v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDTNUWS03v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDTNUWS03v3</bindingDirectory>
-                            <bindingIncludes>
-<include>*.xjb</include>
-                            </bindingIncludes>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>SVDSCCDWS01v3</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDSCCDWS01v3</schemaDirectory>
-                            <schemaIncludes>
-<include>*.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDSCCDWS01v3</generateDirectory>
-                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDSCCDWS01v3.episode</episodeFile>
-                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDSCCDWS01v3</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -2163,9 +2474,34 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDMUFABSWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDMUFABSWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDMUFABSWS01v3</bindingDirectory>
+                            <bindingIncludes>
+<include>*.xjb</include>
+                            </bindingIncludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>SVDSCCDWS01v3</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources/jaxb/schemas/SVDSCCDWS01v3</schemaDirectory>
+                            <schemaIncludes>
+<include>*.xsd</include>
+                            </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDSCCDWS01v3</generateDirectory>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDSCCDWS01v3.episode</episodeFile>
+                            <bindingDirectory>src/main/resources/jaxb/bindings/SVDSCCDWS01v3</bindingDirectory>
                             <bindingIncludes>
 <include>*.xjb</include>
                             </bindingIncludes>
@@ -2182,6 +2518,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-AEAT103v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEAT103v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/AEAT103v3</bindingDirectory>
@@ -2201,6 +2540,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-AEATIREAv3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEATIREAv3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/AEATIREAv3</bindingDirectory>
@@ -2220,6 +2562,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-AEAT103v2</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEAT103v2.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/AEAT103v2</bindingDirectory>
@@ -2239,6 +2584,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDMATUNIVWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDMATUNIVWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDMATUNIVWS01v3</bindingDirectory>
@@ -2258,6 +2606,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-AEAT102Iv2</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEAT102Iv2.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/AEAT102Iv2</bindingDirectory>
@@ -2277,6 +2628,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-AEATPPEv3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEATPPEv3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/AEATPPEv3</bindingDirectory>
@@ -2296,6 +2650,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDIGAEMINIMISWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDIGAEMINIMISWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDIGAEMINIMISWS01v3</bindingDirectory>
@@ -2315,6 +2672,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-AEAT102Iv3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-AEAT102Iv3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/AEAT102Iv3</bindingDirectory>
@@ -2334,6 +2694,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-pruebasv3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-pruebasv3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/pruebasv3</bindingDirectory>
@@ -2353,6 +2716,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-pruebasv2</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-pruebasv2.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/pruebasv2</bindingDirectory>
@@ -2372,6 +2738,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDAPTNACIWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDAPTNACIWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDAPTNACIWS01v3</bindingDirectory>
@@ -2391,6 +2760,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDCBIWS01v2</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDCBIWS01v2.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDCBIWS01v2</bindingDirectory>
@@ -2410,6 +2782,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDSEPEIPERWS02v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDSEPEIPERWS02v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDSEPEIPERWS02v3</bindingDirectory>
@@ -2429,6 +2804,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDSECOPA01WS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDSECOPA01WS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDSECOPA01WS01v3</bindingDirectory>
@@ -2448,6 +2826,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDTUWS03v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDTUWS03v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDTUWS03v3</bindingDirectory>
@@ -2467,6 +2848,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SCMCEDUv3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SCMCEDUv3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SCMCEDUv3</bindingDirectory>
@@ -2486,6 +2870,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDRWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDRWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDRWS01v3</bindingDirectory>
@@ -2505,6 +2892,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDDGTVEHICULOWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDDGTVEHICULOWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDDGTVEHICULOWS01v3</bindingDirectory>
@@ -2524,6 +2914,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-HTNIAEv3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-HTNIAEv3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/HTNIAEv3</bindingDirectory>
@@ -2543,6 +2936,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDBECAWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDBECAWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDBECAWS01v3</bindingDirectory>
@@ -2562,6 +2958,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDRCPPUESTOWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDRCPPUESTOWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDRCPPUESTOWS01v3</bindingDirectory>
@@ -2581,6 +2980,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-IAE10v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-IAE10v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/IAE10v3</bindingDirectory>
@@ -2600,6 +3002,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDMUFPRESTAWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDMUFPRESTAWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDMUFPRESTAWS01v3</bindingDirectory>
@@ -2619,6 +3024,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDSPEESITWS01v2</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDSPEESITWS01v2.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDSPEESITWS01v2</bindingDirectory>
@@ -2638,6 +3046,9 @@
                             <schemaIncludes>
 <include>*.xsd</include>
                             </schemaIncludes>
+                            <schemaExcludes>
+<exclude>soap*.xsd</exclude>
+                            </schemaExcludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-SVDCCAACPCWS01v3</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-SVDCCAACPCWS01v3.episode</episodeFile>
                             <bindingDirectory>src/main/resources/jaxb/bindings/SVDCCAACPCWS01v3</bindingDirectory>

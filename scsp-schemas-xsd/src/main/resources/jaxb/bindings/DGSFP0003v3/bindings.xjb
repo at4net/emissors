@@ -1,23 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <jaxb:bindings xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.1">
-    <jaxb:bindings schemaLocation="../../schemas/DGSFP0003v3/ConsultaFondos.wsdl">
-        <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.DGSFP0003v3.consultafondos_wsdl"/>
-        </jaxb:schemaBindings>
-    </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../schemas/DGSFP0003v3/peticion.xsd">
-        <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.DGSFP0003v3.peticion_xsd"/>
-        </jaxb:schemaBindings>
-    </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/DGSFP0003v3/confirmacion-peticion.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.DGSFP0003v3.confirmacionpeticion_xsd"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../schemas/DGSFP0003v3/respuesta.xsd">
+    <jaxb:bindings schemaLocation="../../schemas/DGSFP0003v3/ConsultaFondos.wsdl">
         <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.DGSFP0003v3.respuesta_xsd"/>
+            <jaxb:package name="es.caib.scsp.esquemas.DGSFP0003v3.consultafondos_wsdl"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/DGSFP0003v3/ConsultaFondosAsincrona.wsdl">
@@ -28,6 +18,16 @@
     <jaxb:bindings schemaLocation="../../schemas/DGSFP0003v3/datos-especificos.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.DGSFP0003v3.datosespecificos_xsd"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../schemas/DGSFP0003v3/peticion.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="es.caib.scsp.esquemas.DGSFP0003v3.peticion_xsd"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../schemas/DGSFP0003v3/respuesta.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="es.caib.scsp.esquemas.DGSFP0003v3.respuesta_xsd"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/DGSFP0003v3/solicitud-respuesta.xsd">

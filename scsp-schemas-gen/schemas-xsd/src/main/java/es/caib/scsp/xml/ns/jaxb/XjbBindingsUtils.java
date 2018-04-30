@@ -49,6 +49,8 @@ public class XjbBindingsUtils {
         System.out.println("key " + key + ": " + xsds);
         for (String xsd : xsds) {
 
+            if (xsd.startsWith("soap")) continue;
+            
             XjbBindings xsdBindings = new XjbBindings();
 
             xsdBindings.setSchemaLocation("../../schemas/" + key + "/" + xsd);
@@ -61,19 +63,23 @@ public class XjbBindingsUtils {
             schemaBindings.setPackage(packageType);
             xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(schemaBindings);
 
+            if ("datos-especificos.xsd".equals(xsd)){
+
+                XjbBindings nodeBindings = new XjbBindings();
+                String clazzName = CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.split("\\.")[0]);
+
+                String xpath = "//xs:complexType[@name='" + clazzName + "'] | //xs:element[@name='" + clazzName + "']";
+
+                nodeBindings.setNode(xpath);
+
+                com.sun.java.xml.ns.jaxb.Class clazz = new com.sun.java.xml.ns.jaxb.Class();
+
+                clazz.getName().add(clazzName);
+
+                nodeBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(clazz);
+                xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(nodeBindings);
             
-            /*
-            XjbBindings nodeBindings = new XjbBindings();
-            String clazzName = CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.split("\\.")[0]);
-            nodeBindings.setNode("//xs:complexType[@name='" + clazzName + "'] | //xs:element[@name='" + clazzName + "']");
-
-            com.sun.java.xml.ns.jaxb.Class clazz = new com.sun.java.xml.ns.jaxb.Class();
-
-            clazz.getName().add(clazzName);
-
-            nodeBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(clazz);
-            xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(nodeBindings);
-            */
+            }
             
             
             xjbBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(xsdBindings);

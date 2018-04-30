@@ -1,28 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <jaxb:bindings xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.1">
-    <jaxb:bindings schemaLocation="../../schemas/SVDSCDWS01v3/soap-encoding.xsd">
+    <jaxb:bindings schemaLocation="../../schemas/SVDSCDWS01v3/ComunicacionDomicilio.wsdl">
         <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.SVDSCDWS01v3.soapencoding_xsd"/>
-        </jaxb:schemaBindings>
-    </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../schemas/SVDSCDWS01v3/soap_envelope_1.2.xsd">
-        <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.SVDSCDWS01v3.soap_envelope_1_2_xsd"/>
-        </jaxb:schemaBindings>
-    </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../schemas/SVDSCDWS01v3/peticion.xsd">
-        <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.SVDSCDWS01v3.peticion_xsd"/>
-        </jaxb:schemaBindings>
-    </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../schemas/SVDSCDWS01v3/soap_envelope_1.1__salida.xsd">
-        <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.SVDSCDWS01v3.soap_envelope_1_1__salida_xsd"/>
-        </jaxb:schemaBindings>
-    </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../schemas/SVDSCDWS01v3/VolanteEmpadronamiento.xsd">
-        <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.SVDSCDWS01v3.volanteempadronamiento_xsd"/>
+            <jaxb:package name="es.caib.scsp.esquemas.SVDSCDWS01v3.comunicaciondomicilio_wsdl"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/SVDSCDWS01v3/confirmacion-peticion.xsd">
@@ -30,9 +10,14 @@
             <jaxb:package name="es.caib.scsp.esquemas.SVDSCDWS01v3.confirmacionpeticion_xsd"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../schemas/SVDSCDWS01v3/VolanteEmpadronamientoTipos.xsd">
+    <jaxb:bindings schemaLocation="../../schemas/SVDSCDWS01v3/datos-especificos.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.SVDSCDWS01v3.volanteempadronamientotipos_xsd"/>
+            <jaxb:package name="es.caib.scsp.esquemas.SVDSCDWS01v3.datosespecificos_xsd"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../schemas/SVDSCDWS01v3/peticion.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="es.caib.scsp.esquemas.SVDSCDWS01v3.peticion_xsd"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/SVDSCDWS01v3/respuesta.xsd">
@@ -40,19 +25,19 @@
             <jaxb:package name="es.caib.scsp.esquemas.SVDSCDWS01v3.respuesta_xsd"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../schemas/SVDSCDWS01v3/xmldsig.xsd">
+    <jaxb:bindings schemaLocation="../../schemas/SVDSCDWS01v3/solicitud-respuesta.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.SVDSCDWS01v3.xmldsig_xsd"/>
+            <jaxb:package name="es.caib.scsp.esquemas.SVDSCDWS01v3.solicitudrespuesta_xsd"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../schemas/SVDSCDWS01v3/soapfaultatributos.xsd">
+    <jaxb:bindings schemaLocation="../../schemas/SVDSCDWS01v3/VolanteEmpadronamiento.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.SVDSCDWS01v3.soapfaultatributos_xsd"/>
+            <jaxb:package name="es.caib.scsp.esquemas.SVDSCDWS01v3.volanteempadronamiento_xsd"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../schemas/SVDSCDWS01v3/ComunicacionDomicilio.wsdl">
+    <jaxb:bindings schemaLocation="../../schemas/SVDSCDWS01v3/VolanteEmpadronamientoTipos.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.SVDSCDWS01v3.comunicaciondomicilio_wsdl"/>
+            <jaxb:package name="es.caib.scsp.esquemas.SVDSCDWS01v3.volanteempadronamientotipos_xsd"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/SVDSCDWS01v3/xmldsig-core-schema.xsd">
@@ -60,24 +45,9 @@
             <jaxb:package name="es.caib.scsp.esquemas.SVDSCDWS01v3.xmldsigcoreschema_xsd"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../schemas/SVDSCDWS01v3/datos-especificos.xsd">
+    <jaxb:bindings schemaLocation="../../schemas/SVDSCDWS01v3/xmldsig.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.SVDSCDWS01v3.datosespecificos_xsd"/>
-        </jaxb:schemaBindings>
-    </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../schemas/SVDSCDWS01v3/soap_envelope_1.1.xsd">
-        <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.SVDSCDWS01v3.soap_envelope_1_1_xsd"/>
-        </jaxb:schemaBindings>
-    </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../schemas/SVDSCDWS01v3/soap_envelope_1.1__entrada.xsd">
-        <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.SVDSCDWS01v3.soap_envelope_1_1__entrada_xsd"/>
-        </jaxb:schemaBindings>
-    </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../schemas/SVDSCDWS01v3/solicitud-respuesta.xsd">
-        <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.SVDSCDWS01v3.solicitudrespuesta_xsd"/>
+            <jaxb:package name="es.caib.scsp.esquemas.SVDSCDWS01v3.xmldsig_xsd"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
 </jaxb:bindings>
