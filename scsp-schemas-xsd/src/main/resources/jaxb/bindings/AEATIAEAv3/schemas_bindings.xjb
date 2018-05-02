@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jaxb:bindings xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.1">
+    <jaxb:bindings schemaLocation="../../schemas/AEATIAEAv3/datos-especificos.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="es.caib.scsp.esquemas.AEATIAEAv3.datosespecificos_xsd"/>
+        </jaxb:schemaBindings>
+        <jaxb:bindings node="//xs:element[@name='DatosEspecificos']">
+            <jaxb:class name="DatosEspecificosElement"/>
+        </jaxb:bindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../schemas/AEATIAEAv3/peticion.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="es.caib.scsp.esquemas.AEATIAEAv3.peticion_xsd"/>
+        </jaxb:schemaBindings>
+        <jaxb:bindings node="//xs:element[@name='Peticion']">
+            <jaxb:class name="PeticionElement"/>
+        </jaxb:bindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../schemas/AEATIAEAv3/respuesta.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="es.caib.scsp.esquemas.AEATIAEAv3.respuesta_xsd"/>
+        </jaxb:schemaBindings>
+        <jaxb:bindings node="//xs:element[@name='Respuesta']">
+            <jaxb:class name="RespuestaElement"/>
+        </jaxb:bindings>
+    </jaxb:bindings>
+</jaxb:bindings>

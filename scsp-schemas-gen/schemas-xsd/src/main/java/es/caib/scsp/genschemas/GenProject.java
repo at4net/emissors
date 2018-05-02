@@ -98,11 +98,11 @@ public class GenProject {
     }
 
     
-    private void setXjbBindingsXmlDescriptor(File f, XjbBindings xjbBindings) throws JAXBException, FileNotFoundException, IOException{
+    private void setXjbBindingsXmlDescriptor(File f, XjbBindings xjbBindings, String scope) throws JAXBException, FileNotFoundException, IOException{
         
         f.mkdirs();
         
-        File bindingsxml = new File(f, "bindings.xjb");
+        File bindingsxml = new File(f, scope + "_bindings.xjb");
         
         bindingsxml.createNewFile();
         
@@ -201,10 +201,11 @@ public class GenProject {
    
         zip.close();
         
+        
         for (String key:bindingMap.keySet()){
-            XjbBindings xjbBindings = XjbBindingsUtils.getXjbBindings(key, (List<String>)xsdMap.get(key));
+            XjbBindings xjbBindings = XjbBindingsUtils.getXjbBindings(key, (List<String>)xsdMap.get(key), SCHEMA_SCOPE);
             File bindingsFolder = new File(srcMainResourcesJaxbBindings, key);
-            setXjbBindingsXmlDescriptor(bindingsFolder, xjbBindings);
+            setXjbBindingsXmlDescriptor(bindingsFolder, xjbBindings, SCHEMA_SCOPE);
         }
         
   
@@ -214,7 +215,9 @@ public class GenProject {
         
     }
     
-    
+    private static final String SCHEMA_SCOPE = "schemas";
+    private static final String SOAP_SCOPE = "soap";
+    private static final String WSDL_SCOPE = "wsdl";
 
     public void generate() throws JAXBException, IOException{
 

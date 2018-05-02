@@ -41,15 +41,20 @@ public class XjbBindingsUtils {
         return xjbBindings;
 
     }
+    
+    private static final String SCHEMA_SCOPE = "schemas";
+    private static final String SOAP_SCOPE = "soap";
+    private static final String WSDL_SCOPE = "wsdl";
+    
 
-    public static XjbBindings getXjbBindings(String key, List<String> xsds) throws JAXBException, IOException {
+    public static XjbBindings getXjbBindings(String key, List<String> xsds, String scope) throws JAXBException, IOException {
 
         XjbBindings xjbBindings = getXjbBindings();
 
         System.out.println("key " + key + ": " + xsds);
         for (String xsd : xsds) {
 
-            if (xsd.startsWith("soap")) continue;
+            if ((xsd.startsWith("soap")) || (xsd.endsWith("wsdl"))) continue;
             
             XjbBindings xsdBindings = new XjbBindings();
 
@@ -63,18 +68,35 @@ public class XjbBindingsUtils {
             schemaBindings.setPackage(packageType);
             xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(schemaBindings);
 
+            
+            if (WSDL_SCOPE.equals(scope)){
+                //include.appendChild(doc.createTextNode("*.wsdl"));
+            }
+            else if (SOAP_SCOPE.equals(scope)){
+                //include.appendChild(doc.createTextNode("soap*.xsd"));
+            }
+            else if (SCHEMA_SCOPE.equals(scope)){
+                //include.appendChild(doc.createTextNode("*.xsd"));
+            }
+            else {
+                //include.appendChild(doc.createTextNode("*.xsd"));
+            }
+            
+            
+            
+            
             if ("datos-especificos.xsd".equals(xsd)){
 
                 XjbBindings nodeBindings = new XjbBindings();
                 String clazzName = CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.split("\\.")[0]);
 
-                String xpath = "//xs:complexType[@name='" + clazzName + "'] | //xs:element[@name='" + clazzName + "']";
+                String xpath = "//xs:element[@name='" + clazzName + "']";
 
                 nodeBindings.setNode(xpath);
 
                 com.sun.java.xml.ns.jaxb.Class clazz = new com.sun.java.xml.ns.jaxb.Class();
 
-                clazz.getName().add(clazzName);
+                clazz.getName().add(clazzName + "Element");
 
                 nodeBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(clazz);
                 xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(nodeBindings);
