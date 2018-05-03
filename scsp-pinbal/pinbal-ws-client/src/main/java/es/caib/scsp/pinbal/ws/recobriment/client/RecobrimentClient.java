@@ -150,15 +150,15 @@ public class RecobrimentClient {
     }
     
     
-    public Respuesta getRespuesta(String id){
+    public Respuesta getRespuesta(String idPeticion){
         Recobriment port = getServicePort();
         Respuesta response;
-        response = getRespuesta(port, id);
+        response = getRespuesta(port, idPeticion);
         return response;
     }
   
-    private static Respuesta getRespuesta(Recobriment port, String id){
-        Respuesta _getRespuesta__return = port.getRespuesta(id);
+    private static Respuesta getRespuesta(Recobriment port, String idPeticion){
+        Respuesta _getRespuesta__return = port.getRespuesta(idPeticion);
         return _getRespuesta__return;        
     }
     
