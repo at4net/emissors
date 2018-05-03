@@ -16,6 +16,8 @@
 package es.caib.scsp.xml.ns.jaxb;
 
 import com.google.common.base.CaseFormat;
+import com.sun.java.xml.ns.jaxb.NameXmlTransformRule;
+import com.sun.java.xml.ns.jaxb.NameXmlTransformType;
 import com.sun.java.xml.ns.jaxb.PackageType;
 import com.sun.java.xml.ns.jaxb.SchemaBindings;
 import es.caib.scsp.genschemas.managers.XjbBindingsXmlManager;
@@ -50,6 +52,8 @@ public class XjbBindingsUtils {
     public static XjbBindings getXjbBindings(String key, List<String> xsds, String scope) throws JAXBException, IOException {
 
         XjbBindings xjbBindings = getXjbBindings();
+        
+       
 
         System.out.println("key " + key + ": " + xsds);
         for (String xsd : xsds) {
@@ -59,15 +63,37 @@ public class XjbBindingsUtils {
             XjbBindings xsdBindings = new XjbBindings();
 
             xsdBindings.setSchemaLocation("../../schemas/" + key + "/" + xsd);
+            xsdBindings.setNode("//xs:schema");
 
+            
             SchemaBindings schemaBindings = new SchemaBindings();
-            PackageType packageType = new PackageType();
-            String packageName = "es.caib.scsp.esquemas." + key + "." 
-                    + CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.replace(".", "_")).toLowerCase();
-            packageType.getName().add(packageName);
-            schemaBindings.setPackage(packageType);
+            
+            //PackageType packageType = new PackageType();
+            //String packageName = "es.caib.scsp.esquemas." + key + "." 
+            //        + CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.replace(".", "_")).toLowerCase();
+            //packageType.getName().add(packageName);
+            //schemaBindings.setPackage(packageType);
+            
+            NameXmlTransformType nameXmlTransform = new NameXmlTransformType();
+          
+            NameXmlTransformRule typeNameXmlTransformRule = new NameXmlTransformRule();
+            typeNameXmlTransformRule.setPrefix("Type_" + key + 
+                    CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.replace(".", "_")).toLowerCase());
+            
+            nameXmlTransform.setTypeName(typeNameXmlTransformRule);
+            
+            NameXmlTransformRule elementNameXmlTransformRule = new NameXmlTransformRule();
+            elementNameXmlTransformRule.setPrefix("Element_" + key + 
+                    CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.replace(".", "_")).toLowerCase());
+            
+            nameXmlTransform.setElementName(elementNameXmlTransformRule);
+            
+            
+            
+            schemaBindings.setNameXmlTransform(nameXmlTransform);
+            
             xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(schemaBindings);
-
+            
             
             if (WSDL_SCOPE.equals(scope)){
                 //include.appendChild(doc.createTextNode("*.wsdl"));
@@ -76,7 +102,61 @@ public class XjbBindingsUtils {
                 //include.appendChild(doc.createTextNode("soap*.xsd"));
             }
             else if (SCHEMA_SCOPE.equals(scope)){
-                //include.appendChild(doc.createTextNode("*.xsd"));
+                
+                //if ("datos-especificos.xsd".equals(xsd)) {
+                
+                
+                if (xsd.startsWith("datos-especificos")) {
+
+                    XjbBindings nodeBindings = new XjbBindings();
+                    String clazzName = CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.split("\\.")[0]);
+
+                    //String xpath = "//xs:element[@name='" + clazzName + "']";
+
+                    String xpath = "//xs:element[@name='DatosEspecificos']";
+                    
+                    //String xpath = "//xs:schema";
+                    
+                    nodeBindings.setNode(xpath);
+
+                    com.sun.java.xml.ns.jaxb.Class clazz = new com.sun.java.xml.ns.jaxb.Class();
+
+                    clazz.getName().add(clazzName + key);
+
+                    nodeBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(clazz);
+                    xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(nodeBindings);
+                
+
+                }
+                
+                
+                if (xsd.startsWith("comun")) {
+
+                    XjbBindings nodeBindings = new XjbBindings();
+                    String clazzName = CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.split("\\.")[0]);
+
+                    //String xpath = "//xs:element[@name='" + clazzName + "']";
+
+                    String xpath = "//xs:schema";
+                    
+                    nodeBindings.setNode(xpath);
+
+                    com.sun.java.xml.ns.jaxb.Class clazz = new com.sun.java.xml.ns.jaxb.Class();
+
+                    clazz.getName().add(clazzName);
+
+                    nodeBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(clazz);
+                    xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(nodeBindings);
+                
+
+                }
+                
+                
+                
+                
+                
+                 
+             
             }
             else {
                 //include.appendChild(doc.createTextNode("*.xsd"));
@@ -85,30 +165,15 @@ public class XjbBindingsUtils {
             
             
             
-            if ("datos-especificos.xsd".equals(xsd)){
-
-                XjbBindings nodeBindings = new XjbBindings();
-                String clazzName = CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.split("\\.")[0]);
-
-                String xpath = "//xs:element[@name='" + clazzName + "']";
-
-                nodeBindings.setNode(xpath);
-
-                com.sun.java.xml.ns.jaxb.Class clazz = new com.sun.java.xml.ns.jaxb.Class();
-
-                clazz.getName().add(clazzName + "Element");
-
-                nodeBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(clazz);
-                xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(nodeBindings);
-            
-            }
-            
             
             xjbBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(xsdBindings);
 
             //System.out.println("Recurso en   jaxb/schemas/" + key + "/" + xsd);
         }
 
+        
+        //xjbBindings = getXjbBindings();
+        
         return xjbBindings;
 
     }

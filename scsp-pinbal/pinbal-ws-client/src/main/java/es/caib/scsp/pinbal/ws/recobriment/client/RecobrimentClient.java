@@ -1,6 +1,7 @@
 package es.caib.scsp.pinbal.ws.recobriment.client;
 
 import es.caib.pinbal.ws.recobriment.Atributos;
+import es.caib.pinbal.ws.recobriment.ConfirmacionPeticion;
 import es.caib.pinbal.ws.recobriment.Estado;
 import es.caib.pinbal.ws.recobriment.Peticion;
 import es.caib.pinbal.ws.recobriment.Recobriment;
@@ -122,23 +123,45 @@ public class RecobrimentClient {
     }
 
     
-    public void peticionSincrona(){
-        
+    public Respuesta peticionSincrona(Peticion pet){
         Recobriment port = getServicePort();
-    
-        Respuesta response = null;
-        Peticion pet = null;
-        
+        Respuesta response;
         response = peticionSincrona(port, pet);
-        
-        return;
-    
+        return response;
     }
   
     private static Respuesta peticionSincrona(Recobriment port, Peticion pet){
         Respuesta _peticionSincrona__return = port.peticionSincrona(pet);
         return _peticionSincrona__return;        
     }
+    
+    
+    public ConfirmacionPeticion peticionAsincrona(Peticion pet) {
+        Recobriment port = getServicePort();
+        ConfirmacionPeticion response;
+        response = peticionAsincrona(port, pet);
+        return response;
+    }
+
+    
+    private static ConfirmacionPeticion peticionAsincrona(Recobriment port, Peticion pet){
+        ConfirmacionPeticion _peticionAsincrona__return = port.peticionAsincrona(pet);
+        return _peticionAsincrona__return;        
+    }
+    
+    
+    public Respuesta getRespuesta(String id){
+        Recobriment port = getServicePort();
+        Respuesta response;
+        response = getRespuesta(port, id);
+        return response;
+    }
+  
+    private static Respuesta getRespuesta(Recobriment port, String id){
+        Respuesta _getRespuesta__return = port.getRespuesta(id);
+        return _getRespuesta__return;        
+    }
+    
 
    
     public static void main(String args[]) throws Exception {
@@ -156,11 +179,12 @@ public class RecobrimentClient {
         System.setProperty(app + dadesConnexio.getCodClient() + ".baseURL", "http://pinbal.fundaciobit.org/pinbal");
 
         RecobrimentClient client = RecobrimentClient.getClient();
-
-        client.peticionSincrona();
-
         
+        Peticion pet = null;
 
+        client.peticionSincrona(pet);
+        
+        
       
 
     }
