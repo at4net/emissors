@@ -1,2 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<jaxb:bindings xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.1"/>
+<jaxb:bindings xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.1">
+    <jaxb:bindings schemaLocation="../../schemas/AEAT101Iv3/datos-especificos.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="es.caib.scsp.esquemas.AEAT101Iv3.datosspecificos"/>
+            <jaxb:nameXmlTransform>
+                <jaxb:typeName prefix="Type_AEAT101Iv3datosespecificos_xsd"/>
+                <jaxb:elementName prefix="Element_AEAT101Iv3datosespecificos_xsd"/>
+            </jaxb:nameXmlTransform>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../schemas/AEAT101Iv3/peticion.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="es.caib.scsp.esquemas.AEAT101Iv3.datosspecificos"/>
+            <jaxb:nameXmlTransform>
+                <jaxb:typeName prefix="Type_AEAT101Iv3peticion_xsd"/>
+                <jaxb:elementName prefix="Element_AEAT101Iv3peticion_xsd"/>
+            </jaxb:nameXmlTransform>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../schemas/AEAT101Iv3/respuesta.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="es.caib.scsp.esquemas.AEAT101Iv3.datosspecificos"/>
+            <jaxb:nameXmlTransform>
+                <jaxb:typeName prefix="Type_AEAT101Iv3respuesta_xsd"/>
+                <jaxb:elementName prefix="Element_AEAT101Iv3respuesta_xsd"/>
+            </jaxb:nameXmlTransform>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+</jaxb:bindings>

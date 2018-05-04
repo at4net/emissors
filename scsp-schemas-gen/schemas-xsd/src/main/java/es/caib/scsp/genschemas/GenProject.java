@@ -36,8 +36,10 @@ import java.nio.file.Path;
 import java.security.CodeSource;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
@@ -207,6 +209,19 @@ public class GenProject {
             File bindingsFolder = new File(srcMainResourcesJaxbBindings, key);
             setXjbBindingsXmlDescriptor(bindingsFolder, xjbBindings, SCHEMA_SCOPE);
         }
+        
+        Set set = new HashSet();
+        for (String key: xsdMap.keySet()){
+            set.addAll(xsdMap.get(key));
+        }
+        
+        
+        System.out.println("Nombres de fichero");
+        List<String> ficheros = new ArrayList(set);
+        for (String fichero: ficheros){
+            System.out.println(fichero);
+        }
+        
         
   
         Project project = ProjectUtils.getProject(executionMap, bindingMap);

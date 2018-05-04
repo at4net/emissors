@@ -1,2 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<jaxb:bindings xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.1"/>
+<jaxb:bindings xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.1">
+    <jaxb:bindings schemaLocation="../../schemas/Q2827003ATGSS006v3/datos-especificos.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="es.caib.scsp.esquemas.Q2827003ATGSS006v3.datosspecificos"/>
+            <jaxb:nameXmlTransform>
+                <jaxb:typeName prefix="Type_Q2827003ATGSS006v3datosespecificos_xsd"/>
+                <jaxb:elementName prefix="Element_Q2827003ATGSS006v3datosespecificos_xsd"/>
+            </jaxb:nameXmlTransform>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../schemas/Q2827003ATGSS006v3/peticion.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="es.caib.scsp.esquemas.Q2827003ATGSS006v3.datosspecificos"/>
+            <jaxb:nameXmlTransform>
+                <jaxb:typeName prefix="Type_Q2827003ATGSS006v3peticion_xsd"/>
+                <jaxb:elementName prefix="Element_Q2827003ATGSS006v3peticion_xsd"/>
+            </jaxb:nameXmlTransform>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../schemas/Q2827003ATGSS006v3/respuesta.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="es.caib.scsp.esquemas.Q2827003ATGSS006v3.datosspecificos"/>
+            <jaxb:nameXmlTransform>
+                <jaxb:typeName prefix="Type_Q2827003ATGSS006v3respuesta_xsd"/>
+                <jaxb:elementName prefix="Element_Q2827003ATGSS006v3respuesta_xsd"/>
+            </jaxb:nameXmlTransform>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+</jaxb:bindings>
