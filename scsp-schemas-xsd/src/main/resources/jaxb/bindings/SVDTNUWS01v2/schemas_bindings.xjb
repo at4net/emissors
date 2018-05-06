@@ -1,47 +1,50 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <jaxb:bindings xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.1">
-    <jaxb:bindings schemaLocation="../../schemas/SVDTNUWS01v2/confirmacion-peticion.xsd">
-        <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.SVDTNUWS01v2.datosspecificos"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="Type_SVDTNUWS01v2confirmacionpeticion_xsd"/>
-                <jaxb:elementName prefix="Element_SVDTNUWS01v2confirmacionpeticion_xsd"/>
-            </jaxb:nameXmlTransform>
-        </jaxb:schemaBindings>
-    </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../schemas/SVDTNUWS01v2/datos-especificos.xsd">
-        <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.SVDTNUWS01v2.datosspecificos"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="Type_SVDTNUWS01v2datosespecificos_xsd"/>
-                <jaxb:elementName prefix="Element_SVDTNUWS01v2datosespecificos_xsd"/>
-            </jaxb:nameXmlTransform>
-        </jaxb:schemaBindings>
-    </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/SVDTNUWS01v2/peticion.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.SVDTNUWS01v2.datosspecificos"/>
+            <jaxb:package name="es.caib.scsp.esquemas.SVDTNUWS01v2.peticion_xsd"/>
             <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="Type_SVDTNUWS01v2peticion_xsd"/>
-                <jaxb:elementName prefix="Element_SVDTNUWS01v2peticion_xsd"/>
+                <jaxb:typeName prefix="SVDTNUWS01v2_peticion_xsd_Type_"/>
+                <jaxb:elementName prefix="SVDTNUWS01v2_peticion_xsd_Element_"/>
+            </jaxb:nameXmlTransform>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../schemas/SVDTNUWS01v2/confirmacion-peticion.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="es.caib.scsp.esquemas.SVDTNUWS01v2.confirmacionpeticion_xsd"/>
+            <jaxb:nameXmlTransform>
+                <jaxb:typeName prefix="SVDTNUWS01v2_confirmacionpeticion_xsd_Type_"/>
+                <jaxb:elementName prefix="SVDTNUWS01v2_confirmacionpeticion_xsd_Element_"/>
             </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/SVDTNUWS01v2/respuesta.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.SVDTNUWS01v2.datosspecificos"/>
+            <jaxb:package name="es.caib.scsp.esquemas.SVDTNUWS01v2.respuesta_xsd"/>
             <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="Type_SVDTNUWS01v2respuesta_xsd"/>
-                <jaxb:elementName prefix="Element_SVDTNUWS01v2respuesta_xsd"/>
+                <jaxb:typeName prefix="SVDTNUWS01v2_respuesta_xsd_Type_"/>
+                <jaxb:elementName prefix="SVDTNUWS01v2_respuesta_xsd_Element_"/>
             </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
     </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../schemas/SVDTNUWS01v2/datos-especificos.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="es.caib.scsp.esquemas.SVDTNUWS01v2.datosespecificos_xsd"/>
+            <jaxb:nameXmlTransform>
+                <jaxb:typeName prefix="SVDTNUWS01v2_datosespecificos_xsd_Type_"/>
+                <jaxb:elementName prefix="SVDTNUWS01v2_datosespecificos_xsd_Element_"/>
+            </jaxb:nameXmlTransform>
+        </jaxb:schemaBindings>
+        <jaxb:bindings node="//xs:element[@name='DatosEspecificos']">
+            <jaxb:class name="DatosEspecificosElement"/>
+        </jaxb:bindings>
+    </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/SVDTNUWS01v2/solicitud-respuesta.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.SVDTNUWS01v2.datosspecificos"/>
+            <jaxb:package name="es.caib.scsp.esquemas.SVDTNUWS01v2.solicitudrespuesta_xsd"/>
             <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="Type_SVDTNUWS01v2solicitudrespuesta_xsd"/>
-                <jaxb:elementName prefix="Element_SVDTNUWS01v2solicitudrespuesta_xsd"/>
+                <jaxb:typeName prefix="SVDTNUWS01v2_solicitudrespuesta_xsd_Type_"/>
+                <jaxb:elementName prefix="SVDTNUWS01v2_solicitudrespuesta_xsd_Element_"/>
             </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
     </jaxb:bindings>

@@ -45,6 +45,7 @@ public class XjbBindingsUtils {
     }
     
     private static final String SCHEMA_SCOPE = "schemas";
+    private static final String SPECIFIC_SCOPE = "specific";
     private static final String SOAP_SCOPE = "soap";
     private static final String WSDL_SCOPE = "wsdl";
     
@@ -74,42 +75,42 @@ public class XjbBindingsUtils {
                 if (xsd.startsWith("soap")) continue;
                 if (xsd.contains("comun")) continue;
                 
-                if (xsd.contains("datos-especificos")) {
+                        
+                SchemaBindings schemaBindings = new SchemaBindings();
 
-                    
-                    SchemaBindings schemaBindings = new SchemaBindings();
-                    
-                    PackageType packageType = new PackageType();
-                    String packageName = "es.caib.scsp.esquemas." + key + ".datosspecificos";
-    
-                    packageType.getName().add(packageName);
-                    schemaBindings.setPackage(packageType);   
-                    
-                    
-                    
-                    NameXmlTransformType nameXmlTransform = new NameXmlTransformType();
+                PackageType packageType = new PackageType();
+                String packageName = "es.caib.scsp.esquemas." + key + "." //datosespecificos"
+                        + CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.replace(".", "_")).toLowerCase();
 
-                    
-                    NameXmlTransformRule typeNameXmlTransformRule = new NameXmlTransformRule();
-                    typeNameXmlTransformRule.setPrefix("Type_" + key
-                            + CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.replace(".", "_")).toLowerCase());
+                packageType.getName().add(packageName);
+                schemaBindings.setPackage(packageType); 
+                
+                NameXmlTransformType nameXmlTransform = new NameXmlTransformType();
 
-                    nameXmlTransform.setTypeName(typeNameXmlTransformRule);
-                    
-                    
-                    NameXmlTransformRule elementNameXmlTransformRule = new NameXmlTransformRule();
-                    elementNameXmlTransformRule.setPrefix("Element_" + key
-                            + CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.replace(".", "_")).toLowerCase());
+                NameXmlTransformRule typeNameXmlTransformRule = new NameXmlTransformRule();
+                typeNameXmlTransformRule.setPrefix(key + "_"
+                        + CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.replace(".", "_")).toLowerCase()
+                        + "_Type_");
 
-                    nameXmlTransform.setElementName(elementNameXmlTransformRule);
-                    schemaBindings.setNameXmlTransform(nameXmlTransform);
+                nameXmlTransform.setTypeName(typeNameXmlTransformRule);
+
+                
+                NameXmlTransformRule elementNameXmlTransformRule = new NameXmlTransformRule();
+                elementNameXmlTransformRule.setPrefix(key + "_"
+                        + CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.replace(".", "_")).toLowerCase()
+                        + "_Element_");
+
+                nameXmlTransform.setElementName(elementNameXmlTransformRule);
+                
+                schemaBindings.setNameXmlTransform(nameXmlTransform);
+
+                xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(schemaBindings);
+                    
+                
+                if (xsd.contains("datos-especificos")) {    
                     
                     
-                    
-                    xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(schemaBindings);
-                    
-                    
-                    /*
+
                     XjbBindings nodeBindings = new XjbBindings();
                     String clazzName = CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.split("\\.")[0]);
 
@@ -125,22 +126,15 @@ public class XjbBindingsUtils {
 
                     nodeBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(clazz);
                     xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(nodeBindings);
-                    */
-
-                }
-
-                /*
-                if (xsd.contains("comun")) {
                     
-                    SchemaBindings schemaBindings = new SchemaBindings();
-                    PackageType packageType = new PackageType();
-                    String packageName = "es.caib.scsp.esquemas." + key + ".comun";
-                    packageType.getName().add(packageName);
-                    schemaBindings.setPackage(packageType);   
-                    xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(schemaBindings);
-                
+                    
+                    
+                    
+
                 }
-                */
+                
+                
+              
 
             } else {
                 //include.appendChild(doc.createTextNode("*.xsd"));

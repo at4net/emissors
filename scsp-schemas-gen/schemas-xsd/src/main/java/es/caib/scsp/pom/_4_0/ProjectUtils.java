@@ -50,6 +50,7 @@ public class ProjectUtils {
      }
      
     private static final String SCHEMA_SCOPE = "schemas";
+    private static final String SPECIFIC_SCOPE = "specific";
     private static final String SOAP_SCOPE = "soap";
     private static final String WSDL_SCOPE = "wsdl";
      
@@ -74,6 +75,12 @@ public class ProjectUtils {
             String namespace = "http://maven.apache.org/POM/4.0.0";
 
             Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+            Element xjcArgs = doc.createElementNS(namespace, "xjcArgs");
+            Element xjcArg = doc.createElementNS(namespace, "xjcArg");
+            xjcArg.appendChild(doc.createTextNode("-XautoNameResolution"));
+            xjcArgs.appendChild(xjcArg);
+            configuration.getAny().add(xjcArgs);
+            
             Element schemaDirectory = doc.createElementNS(namespace, "schemaDirectory");
             schemaDirectory.appendChild(doc.createTextNode(executionSchemaDirectory));
             configuration.getAny().add(schemaDirectory);
@@ -90,6 +97,9 @@ public class ProjectUtils {
             else if (SCHEMA_SCOPE.equals(scope)){
                 include.appendChild(doc.createTextNode("*.xsd"));
             }
+            else if (SPECIFIC_SCOPE.equals(scope)){
+                include.appendChild(doc.createTextNode("*specifico*.xsd"));
+            }
             else {
                 include.appendChild(doc.createTextNode("*.xsd"));
             }
@@ -98,9 +108,10 @@ public class ProjectUtils {
             configuration.getAny().add(schemaIncludes);
 
             Element schemaExcludes = doc.createElementNS(namespace, "schemaExcludes");
-            Element exclude = doc.createElementNS(namespace, "exclude");
+            Element exclude;
             
             if (WSDL_SCOPE.equals(scope)) {
+                exclude = doc.createElementNS(namespace, "exclude");
                 exclude.appendChild(doc.createTextNode("*.xsd"));
                 schemaExcludes.appendChild(exclude);
                 configuration.getAny().add(schemaExcludes);
@@ -108,10 +119,20 @@ public class ProjectUtils {
 
                 //include.appendChild(doc.createTextNode("*.wsdl"));
             } else if (SCHEMA_SCOPE.equals(scope)) {
+                exclude = doc.createElementNS(namespace, "exclude");
+                exclude.appendChild(doc.createTextNode("soap*.xsd"));
+                schemaExcludes.appendChild(exclude);
+                exclude = doc.createElementNS(namespace, "exclude");
+                exclude.appendChild(doc.createTextNode("*especificos*xsd"));
+                schemaExcludes.appendChild(exclude);
+                configuration.getAny().add(schemaExcludes);
+            } else if (SPECIFIC_SCOPE.equals(scope)) {
+                exclude = doc.createElementNS(namespace, "exclude");
                 exclude.appendChild(doc.createTextNode("soap*.xsd"));
                 schemaExcludes.appendChild(exclude);
                 configuration.getAny().add(schemaExcludes);
             } else {
+                exclude = doc.createElementNS(namespace, "exclude");
                 exclude.appendChild(doc.createTextNode("*.xsd"));
                 schemaExcludes.appendChild(exclude);
                 configuration.getAny().add(schemaExcludes);
@@ -148,7 +169,11 @@ public class ProjectUtils {
                 bindingInclude.appendChild(doc.createTextNode("*" + SCHEMA_SCOPE + "*.xjb"));
                 bindingIncludes.appendChild(bindingInclude);
                 configuration.getAny().add(bindingIncludes);
-            } else {
+            } else if (SPECIFIC_SCOPE.equals(scope)) {
+                bindingInclude.appendChild(doc.createTextNode("*" + SPECIFIC_SCOPE + "*.xjb"));
+                bindingIncludes.appendChild(bindingInclude);
+                configuration.getAny().add(bindingIncludes);
+            }else {
                 bindingInclude.appendChild(doc.createTextNode("*.xjb"));
                 bindingIncludes.appendChild(bindingInclude);
                 configuration.getAny().add(bindingIncludes);

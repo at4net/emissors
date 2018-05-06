@@ -1,30 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <jaxb:bindings xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.1">
-    <jaxb:bindings schemaLocation="../../schemas/AEAT101Iv2/datos-especificos.xsd">
-        <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.AEAT101Iv2.datosspecificos"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="Type_AEAT101Iv2datosespecificos_xsd"/>
-                <jaxb:elementName prefix="Element_AEAT101Iv2datosespecificos_xsd"/>
-            </jaxb:nameXmlTransform>
-        </jaxb:schemaBindings>
-    </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/AEAT101Iv2/peticion.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.AEAT101Iv2.datosspecificos"/>
+            <jaxb:package name="es.caib.scsp.esquemas.AEAT101Iv2.peticion_xsd"/>
             <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="Type_AEAT101Iv2peticion_xsd"/>
-                <jaxb:elementName prefix="Element_AEAT101Iv2peticion_xsd"/>
+                <jaxb:typeName prefix="AEAT101Iv2_peticion_xsd_Type_"/>
+                <jaxb:elementName prefix="AEAT101Iv2_peticion_xsd_Element_"/>
             </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/AEAT101Iv2/respuesta.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.AEAT101Iv2.datosspecificos"/>
+            <jaxb:package name="es.caib.scsp.esquemas.AEAT101Iv2.respuesta_xsd"/>
             <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="Type_AEAT101Iv2respuesta_xsd"/>
-                <jaxb:elementName prefix="Element_AEAT101Iv2respuesta_xsd"/>
+                <jaxb:typeName prefix="AEAT101Iv2_respuesta_xsd_Type_"/>
+                <jaxb:elementName prefix="AEAT101Iv2_respuesta_xsd_Element_"/>
             </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../schemas/AEAT101Iv2/datos-especificos.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="es.caib.scsp.esquemas.AEAT101Iv2.datosespecificos_xsd"/>
+            <jaxb:nameXmlTransform>
+                <jaxb:typeName prefix="AEAT101Iv2_datosespecificos_xsd_Type_"/>
+                <jaxb:elementName prefix="AEAT101Iv2_datosespecificos_xsd_Element_"/>
+            </jaxb:nameXmlTransform>
+        </jaxb:schemaBindings>
+        <jaxb:bindings node="//xs:element[@name='DatosEspecificos']">
+            <jaxb:class name="DatosEspecificosElement"/>
+        </jaxb:bindings>
     </jaxb:bindings>
 </jaxb:bindings>

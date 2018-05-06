@@ -231,6 +231,7 @@ public class GenProject {
     }
     
     private static final String SCHEMA_SCOPE = "schemas";
+    private static final String SPECIFIC_SCOPE = "specific";
     private static final String SOAP_SCOPE = "soap";
     private static final String WSDL_SCOPE = "wsdl";
 

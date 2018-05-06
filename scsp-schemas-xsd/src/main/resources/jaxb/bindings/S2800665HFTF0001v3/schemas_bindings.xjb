@@ -1,47 +1,50 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <jaxb:bindings xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.1">
-    <jaxb:bindings schemaLocation="../../schemas/S2800665HFTF0001v3/confirmacion-peticion.xsd">
-        <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.S2800665HFTF0001v3.datosspecificos"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="Type_S2800665HFTF0001v3confirmacionpeticion_xsd"/>
-                <jaxb:elementName prefix="Element_S2800665HFTF0001v3confirmacionpeticion_xsd"/>
-            </jaxb:nameXmlTransform>
-        </jaxb:schemaBindings>
-    </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../schemas/S2800665HFTF0001v3/datos-especificos.xsd">
-        <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.S2800665HFTF0001v3.datosspecificos"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="Type_S2800665HFTF0001v3datosespecificos_xsd"/>
-                <jaxb:elementName prefix="Element_S2800665HFTF0001v3datosespecificos_xsd"/>
-            </jaxb:nameXmlTransform>
-        </jaxb:schemaBindings>
-    </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/S2800665HFTF0001v3/peticion.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.S2800665HFTF0001v3.datosspecificos"/>
+            <jaxb:package name="es.caib.scsp.esquemas.S2800665HFTF0001v3.peticion_xsd"/>
             <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="Type_S2800665HFTF0001v3peticion_xsd"/>
-                <jaxb:elementName prefix="Element_S2800665HFTF0001v3peticion_xsd"/>
+                <jaxb:typeName prefix="S2800665HFTF0001v3_peticion_xsd_Type_"/>
+                <jaxb:elementName prefix="S2800665HFTF0001v3_peticion_xsd_Element_"/>
+            </jaxb:nameXmlTransform>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../schemas/S2800665HFTF0001v3/confirmacion-peticion.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="es.caib.scsp.esquemas.S2800665HFTF0001v3.confirmacionpeticion_xsd"/>
+            <jaxb:nameXmlTransform>
+                <jaxb:typeName prefix="S2800665HFTF0001v3_confirmacionpeticion_xsd_Type_"/>
+                <jaxb:elementName prefix="S2800665HFTF0001v3_confirmacionpeticion_xsd_Element_"/>
             </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/S2800665HFTF0001v3/respuesta.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.S2800665HFTF0001v3.datosspecificos"/>
+            <jaxb:package name="es.caib.scsp.esquemas.S2800665HFTF0001v3.respuesta_xsd"/>
             <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="Type_S2800665HFTF0001v3respuesta_xsd"/>
-                <jaxb:elementName prefix="Element_S2800665HFTF0001v3respuesta_xsd"/>
+                <jaxb:typeName prefix="S2800665HFTF0001v3_respuesta_xsd_Type_"/>
+                <jaxb:elementName prefix="S2800665HFTF0001v3_respuesta_xsd_Element_"/>
             </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
     </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../schemas/S2800665HFTF0001v3/datos-especificos.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="es.caib.scsp.esquemas.S2800665HFTF0001v3.datosespecificos_xsd"/>
+            <jaxb:nameXmlTransform>
+                <jaxb:typeName prefix="S2800665HFTF0001v3_datosespecificos_xsd_Type_"/>
+                <jaxb:elementName prefix="S2800665HFTF0001v3_datosespecificos_xsd_Element_"/>
+            </jaxb:nameXmlTransform>
+        </jaxb:schemaBindings>
+        <jaxb:bindings node="//xs:element[@name='DatosEspecificos']">
+            <jaxb:class name="DatosEspecificosElement"/>
+        </jaxb:bindings>
+    </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/S2800665HFTF0001v3/solicitud-respuesta.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.S2800665HFTF0001v3.datosspecificos"/>
+            <jaxb:package name="es.caib.scsp.esquemas.S2800665HFTF0001v3.solicitudrespuesta_xsd"/>
             <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="Type_S2800665HFTF0001v3solicitudrespuesta_xsd"/>
-                <jaxb:elementName prefix="Element_S2800665HFTF0001v3solicitudrespuesta_xsd"/>
+                <jaxb:typeName prefix="S2800665HFTF0001v3_solicitudrespuesta_xsd_Type_"/>
+                <jaxb:elementName prefix="S2800665HFTF0001v3_solicitudrespuesta_xsd_Element_"/>
             </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
     </jaxb:bindings>

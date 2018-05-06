@@ -1,38 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <jaxb:bindings xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.1">
-    <jaxb:bindings schemaLocation="../../schemas/AEATRDT1v3/datos-especificos-entrada.xsd">
-        <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.AEATRDT1v3.datosspecificos"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="Type_AEATRDT1v3datosespecificosentrada_xsd"/>
-                <jaxb:elementName prefix="Element_AEATRDT1v3datosespecificosentrada_xsd"/>
-            </jaxb:nameXmlTransform>
-        </jaxb:schemaBindings>
-    </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/AEATRDT1v3/datos-especificos-salida.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.AEATRDT1v3.datosspecificos"/>
+            <jaxb:package name="es.caib.scsp.esquemas.AEATRDT1v3.datosespecificossalida_xsd"/>
             <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="Type_AEATRDT1v3datosespecificossalida_xsd"/>
-                <jaxb:elementName prefix="Element_AEATRDT1v3datosespecificossalida_xsd"/>
+                <jaxb:typeName prefix="AEATRDT1v3_datosespecificossalida_xsd_Type_"/>
+                <jaxb:elementName prefix="AEATRDT1v3_datosespecificossalida_xsd_Element_"/>
             </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
+        <jaxb:bindings node="//xs:element[@name='DatosEspecificos']">
+            <jaxb:class name="DatosEspecificosSalidaElement"/>
+        </jaxb:bindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/AEATRDT1v3/peticion.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.AEATRDT1v3.datosspecificos"/>
+            <jaxb:package name="es.caib.scsp.esquemas.AEATRDT1v3.peticion_xsd"/>
             <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="Type_AEATRDT1v3peticion_xsd"/>
-                <jaxb:elementName prefix="Element_AEATRDT1v3peticion_xsd"/>
+                <jaxb:typeName prefix="AEATRDT1v3_peticion_xsd_Type_"/>
+                <jaxb:elementName prefix="AEATRDT1v3_peticion_xsd_Element_"/>
             </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
     </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../schemas/AEATRDT1v3/datos-especificos-entrada.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="es.caib.scsp.esquemas.AEATRDT1v3.datosespecificosentrada_xsd"/>
+            <jaxb:nameXmlTransform>
+                <jaxb:typeName prefix="AEATRDT1v3_datosespecificosentrada_xsd_Type_"/>
+                <jaxb:elementName prefix="AEATRDT1v3_datosespecificosentrada_xsd_Element_"/>
+            </jaxb:nameXmlTransform>
+        </jaxb:schemaBindings>
+        <jaxb:bindings node="//xs:element[@name='DatosEspecificos']">
+            <jaxb:class name="DatosEspecificosEntradaElement"/>
+        </jaxb:bindings>
+    </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/AEATRDT1v3/respuesta.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.AEATRDT1v3.datosspecificos"/>
+            <jaxb:package name="es.caib.scsp.esquemas.AEATRDT1v3.respuesta_xsd"/>
             <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="Type_AEATRDT1v3respuesta_xsd"/>
-                <jaxb:elementName prefix="Element_AEATRDT1v3respuesta_xsd"/>
+                <jaxb:typeName prefix="AEATRDT1v3_respuesta_xsd_Type_"/>
+                <jaxb:elementName prefix="AEATRDT1v3_respuesta_xsd_Element_"/>
             </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
     </jaxb:bindings>
