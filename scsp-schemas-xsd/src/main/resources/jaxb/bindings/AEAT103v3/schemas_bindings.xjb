@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <jaxb:bindings xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.1">
+    <jaxb:bindings schemaLocation="../../schemas/AEAT103v3/datos-especificos.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="es.caib.scsp.esquemas.AEAT103v3.datosespecificos_xsd"/>
+            <jaxb:nameXmlTransform>
+                <jaxb:typeName prefix="AEAT103v3_datosespecificos_xsd_Type_"/>
+                <jaxb:elementName prefix="AEAT103v3_datosespecificos_xsd_Element_"/>
+            </jaxb:nameXmlTransform>
+        </jaxb:schemaBindings>
+        <jaxb:bindings node="//xs:element[@name='DatosEspecificos']">
+            <jaxb:class name="DatosEspecificosElement"/>
+        </jaxb:bindings>
+    </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/AEAT103v3/peticion.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.AEAT103v3.peticion_xsd"/>
@@ -17,17 +29,5 @@
                 <jaxb:elementName prefix="AEAT103v3_respuesta_xsd_Element_"/>
             </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
-    </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../schemas/AEAT103v3/datos-especificos.xsd">
-        <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.AEAT103v3.datosespecificos_xsd"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="AEAT103v3_datosespecificos_xsd_Type_"/>
-                <jaxb:elementName prefix="AEAT103v3_datosespecificos_xsd_Element_"/>
-            </jaxb:nameXmlTransform>
-        </jaxb:schemaBindings>
-        <jaxb:bindings node="//xs:element[@name='DatosEspecificos']">
-            <jaxb:class name="DatosEspecificosElement"/>
-        </jaxb:bindings>
     </jaxb:bindings>
 </jaxb:bindings>

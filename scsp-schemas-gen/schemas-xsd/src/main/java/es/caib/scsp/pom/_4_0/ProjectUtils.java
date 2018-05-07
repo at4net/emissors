@@ -123,7 +123,7 @@ public class ProjectUtils {
                 exclude.appendChild(doc.createTextNode("soap*.xsd"));
                 schemaExcludes.appendChild(exclude);
                 exclude = doc.createElementNS(namespace, "exclude");
-                exclude.appendChild(doc.createTextNode("*especificos*xsd"));
+                exclude.appendChild(doc.createTextNode("*specifico*.xsd"));
                 schemaExcludes.appendChild(exclude);
                 configuration.getAny().add(schemaExcludes);
             } else if (SPECIFIC_SCOPE.equals(scope)) {
