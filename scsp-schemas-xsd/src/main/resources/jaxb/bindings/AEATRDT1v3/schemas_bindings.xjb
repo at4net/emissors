@@ -15,10 +15,6 @@
     <jaxb:bindings schemaLocation="../../schemas/AEATRDT1v3/datos-especificos-salida.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.AEATRDT1v3.datosespecificossalida_xsd"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="AEATRDT1v3_datosespecificossalida_xsd_Type_"/>
-                <jaxb:elementName prefix="AEATRDT1v3_datosespecificossalida_xsd_Element_"/>
-            </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
         <jaxb:bindings node="//xs:element[@name='DatosEspecificos']">
             <jaxb:class name="DatosEspecificosSalidaElement"/>
@@ -27,19 +23,22 @@
     <jaxb:bindings schemaLocation="../../schemas/AEATRDT1v3/peticion.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.AEATRDT1v3.peticion_xsd"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="AEATRDT1v3_peticion_xsd_Type_"/>
-                <jaxb:elementName prefix="AEATRDT1v3_peticion_xsd_Element_"/>
-            </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
     </jaxb:bindings>
+<<<<<<< HEAD
+=======
+    <jaxb:bindings schemaLocation="../../schemas/AEATRDT1v3/datos-especificos-entrada.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="es.caib.scsp.esquemas.AEATRDT1v3.datosespecificosentrada_xsd"/>
+        </jaxb:schemaBindings>
+        <jaxb:bindings node="//xs:element[@name='DatosEspecificos']">
+            <jaxb:class name="DatosEspecificosEntradaElement"/>
+        </jaxb:bindings>
+    </jaxb:bindings>
+>>>>>>> 23fcc9b9bb78e5fbe133d4f6818224cdd44c6c43
     <jaxb:bindings schemaLocation="../../schemas/AEATRDT1v3/respuesta.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.AEATRDT1v3.respuesta_xsd"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="AEATRDT1v3_respuesta_xsd_Type_"/>
-                <jaxb:elementName prefix="AEATRDT1v3_respuesta_xsd_Element_"/>
-            </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
     </jaxb:bindings>
 </jaxb:bindings>

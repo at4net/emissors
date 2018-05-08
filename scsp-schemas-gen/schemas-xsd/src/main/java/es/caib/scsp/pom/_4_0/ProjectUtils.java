@@ -97,9 +97,9 @@ public class ProjectUtils {
             else if (SCHEMA_SCOPE.equals(scope)){
                 include.appendChild(doc.createTextNode("*.xsd"));
             }
-            else if (SPECIFIC_SCOPE.equals(scope)){
-                include.appendChild(doc.createTextNode("*specifico*.xsd"));
-            }
+            //else if (SPECIFIC_SCOPE.equals(scope)){
+            //    include.appendChild(doc.createTextNode("*specifico*.xsd"));
+            //}
             else {
                 include.appendChild(doc.createTextNode("*.xsd"));
             }
@@ -119,11 +119,23 @@ public class ProjectUtils {
 
                 //include.appendChild(doc.createTextNode("*.wsdl"));
             } else if (SCHEMA_SCOPE.equals(scope)) {
+                /*
                 exclude = doc.createElementNS(namespace, "exclude");
-                exclude.appendChild(doc.createTextNode("soap*.xsd"));
+                exclude.appendChild(doc.createTextNode("datos-especificos.xsd"));
                 schemaExcludes.appendChild(exclude);
                 exclude = doc.createElementNS(namespace, "exclude");
+<<<<<<< HEAD
                 exclude.appendChild(doc.createTextNode("*specifico*.xsd"));
+=======
+                exclude.appendChild(doc.createTextNode("datos-especificos-ent.xsd"));
+                schemaExcludes.appendChild(exclude);
+                exclude = doc.createElementNS(namespace, "exclude");
+                exclude.appendChild(doc.createTextNode("datos-especificos-sal.xsd"));
+                schemaExcludes.appendChild(exclude);
+                */
+                exclude = doc.createElementNS(namespace, "exclude");
+                exclude.appendChild(doc.createTextNode("*soap*"));
+>>>>>>> 23fcc9b9bb78e5fbe133d4f6818224cdd44c6c43
                 schemaExcludes.appendChild(exclude);
                 configuration.getAny().add(schemaExcludes);
             } else if (SPECIFIC_SCOPE.equals(scope)) {
@@ -169,10 +181,10 @@ public class ProjectUtils {
                 bindingInclude.appendChild(doc.createTextNode("*" + SCHEMA_SCOPE + "*.xjb"));
                 bindingIncludes.appendChild(bindingInclude);
                 configuration.getAny().add(bindingIncludes);
-            } else if (SPECIFIC_SCOPE.equals(scope)) {
-                bindingInclude.appendChild(doc.createTextNode("*" + SPECIFIC_SCOPE + "*.xjb"));
-                bindingIncludes.appendChild(bindingInclude);
-                configuration.getAny().add(bindingIncludes);
+            //} else if (SPECIFIC_SCOPE.equals(scope)) {
+            //    bindingInclude.appendChild(doc.createTextNode("*" + SPECIFIC_SCOPE + "*.xjb"));
+            //    bindingIncludes.appendChild(bindingInclude);
+            //    configuration.getAny().add(bindingIncludes);
             }else {
                 bindingInclude.appendChild(doc.createTextNode("*.xjb"));
                 bindingIncludes.appendChild(bindingInclude);

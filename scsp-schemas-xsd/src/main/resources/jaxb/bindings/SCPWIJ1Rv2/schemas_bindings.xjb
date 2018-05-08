@@ -3,19 +3,11 @@
     <jaxb:bindings schemaLocation="../../schemas/SCPWIJ1Rv2/peticion.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.SCPWIJ1Rv2.peticion_xsd"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="SCPWIJ1Rv2_peticion_xsd_Type_"/>
-                <jaxb:elementName prefix="SCPWIJ1Rv2_peticion_xsd_Element_"/>
-            </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/SCPWIJ1Rv2/respuesta.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.SCPWIJ1Rv2.respuesta_xsd"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="SCPWIJ1Rv2_respuesta_xsd_Type_"/>
-                <jaxb:elementName prefix="SCPWIJ1Rv2_respuesta_xsd_Element_"/>
-            </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
     </jaxb:bindings>
 </jaxb:bindings>
