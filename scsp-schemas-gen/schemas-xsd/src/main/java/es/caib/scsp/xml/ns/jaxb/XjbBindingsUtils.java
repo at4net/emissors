@@ -104,18 +104,9 @@ public class XjbBindingsUtils {
                 if (xsd.startsWith("soap")) continue;
                 if (xsd.contains("comun")) continue;
                 
-                
-                Document document = getDocumentFromXml("schemas/" + key + "/" + xsd);
-                
-
-                NodeList  nodes = document.getElementsByTagName("element");
-                
-                        
-                
-            
-                        
+                   
                 SchemaBindings schemaBindings = new SchemaBindings();
-
+                
                 PackageType packageType = new PackageType();
                 String packageName = "es.caib.scsp.esquemas." + key + "." //datosespecificos"
                         + CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.replace(".", "_")).toLowerCase();
@@ -146,33 +137,31 @@ public class XjbBindingsUtils {
                 */
 
                 xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(schemaBindings);
-                    
                 
-                if (xsd.contains("datos-especificos")) {    
+                if (xsd.contains("especificos")) {    
 
                     XjbBindings nodeBindings = new XjbBindings();
+                    
+                    nodeBindings.setRequired("no");
+                    nodeBindings.setMultiple("true");
+                    
                     String clazzName = CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.split("\\.")[0]);
 
                     //String xpath = "//xs:element[@name='" + clazzName + "']";
-                    String xpath = "//xs:element[@name='DatosEspecificos']";
+                    String xpath = "//xs:elementType[@name='DatosEspecificos'] | //xs:complexType[@name='DatosEspecificos']"; 
 
+                    //String xpath = "//xs:complexType[@name='DatosEspecificos']"; 
+                    
                     //String xpath = "//xs:schema";
-                    
-                    
-                    
                     
                     nodeBindings.setNode(xpath);
 
                     com.sun.java.xml.ns.jaxb.Class clazz = new com.sun.java.xml.ns.jaxb.Class();
 
-                    clazz.getName().add(clazzName + "Element");
+                    clazz.getName().add(clazzName + "DatosEspecificos");
 
                     nodeBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(clazz);
                     xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(nodeBindings);
-                    
-                    
-                    
-                    
 
                 }
                 

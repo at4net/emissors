@@ -119,23 +119,22 @@ public class ProjectUtils {
 
                 //include.appendChild(doc.createTextNode("*.wsdl"));
             } else if (SCHEMA_SCOPE.equals(scope)) {
+                
                 /*
                 exclude = doc.createElementNS(namespace, "exclude");
-                exclude.appendChild(doc.createTextNode("datos-especificos.xsd"));
+                exclude.appendChild(doc.createTextNode("*atos-especifico*.xsd"));
                 schemaExcludes.appendChild(exclude);
                 exclude = doc.createElementNS(namespace, "exclude");
-<<<<<<< HEAD
-                exclude.appendChild(doc.createTextNode("*specifico*.xsd"));
-=======
-                exclude.appendChild(doc.createTextNode("datos-especificos-ent.xsd"));
+                exclude.appendChild(doc.createTextNode("*atos-especificos-en*.xsd"));
                 schemaExcludes.appendChild(exclude);
                 exclude = doc.createElementNS(namespace, "exclude");
-                exclude.appendChild(doc.createTextNode("datos-especificos-sal.xsd"));
+                exclude.appendChild(doc.createTextNode("*atos-especificos-sa*.xsd"));
                 schemaExcludes.appendChild(exclude);
                 */
+                
                 exclude = doc.createElementNS(namespace, "exclude");
                 exclude.appendChild(doc.createTextNode("*soap*"));
->>>>>>> 23fcc9b9bb78e5fbe133d4f6818224cdd44c6c43
+        
                 schemaExcludes.appendChild(exclude);
                 configuration.getAny().add(schemaExcludes);
             } else if (SPECIFIC_SCOPE.equals(scope)) {

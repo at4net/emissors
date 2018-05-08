@@ -15,7 +15,11 @@
         @javax.xml.bind.annotation.XmlNs(prefix = "jaxb",
                    namespaceURI="http://java.sun.com/xml/ns/jaxb"),
         @javax.xml.bind.annotation.XmlNs(prefix = "jxb",
-                   namespaceURI="http://java.sun.com/xml/ns/jaxb")
+                   namespaceURI="http://java.sun.com/xml/ns/jaxb"),
+        @javax.xml.bind.annotation.XmlNs(prefix = "xjc",
+                   namespaceURI="http://java.sun.com/xml/ns/jaxb/xjc"),
+        @javax.xml.bind.annotation.XmlNs(prefix = "xsi",
+                   namespaceURI="http://www.w3.org/2001/XMLSchema-instance" ),
         }
 )
 package es.caib.scsp.xml.ns.jaxb;

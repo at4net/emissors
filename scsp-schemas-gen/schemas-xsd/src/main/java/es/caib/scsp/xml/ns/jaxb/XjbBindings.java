@@ -16,6 +16,7 @@
 package es.caib.scsp.xml.ns.jaxb;
 
 import com.sun.java.xml.ns.jaxb.Bindings;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -27,4 +28,30 @@ public class XjbBindings extends Bindings {
     public XjbBindings(){
         super();
     }
+    
+    @XmlAttribute(name = "required")
+    protected String required;
+    
+    @XmlAttribute(name = "multiple")
+    protected String multiple;
+
+    public String getRequired() {
+        return required;
+    }
+
+    public void setRequired(String required) {
+        this.required = required;
+    }
+
+    public String getMultiple() {
+        return multiple;
+    }
+
+    public void setMultiple(String multiple) {
+        this.multiple = multiple;
+    }
+
+    
+
+    
 }

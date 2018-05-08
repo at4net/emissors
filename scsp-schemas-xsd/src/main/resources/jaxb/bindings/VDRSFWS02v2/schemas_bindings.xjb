@@ -1,58 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<jaxb:bindings xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.1">
-<<<<<<< HEAD
-=======
-    <jaxb:bindings schemaLocation="../../schemas/VDRSFWS02v2/peticion.xsd">
-        <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.VDRSFWS02v2.peticion_xsd"/>
-        </jaxb:schemaBindings>
-    </jaxb:bindings>
->>>>>>> 23fcc9b9bb78e5fbe133d4f6818224cdd44c6c43
+<jaxb:bindings xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.1">
     <jaxb:bindings schemaLocation="../../schemas/VDRSFWS02v2/confirmacion-peticion.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.VDRSFWS02v2.confirmacionpeticion_xsd"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
-<<<<<<< HEAD
-=======
-    <jaxb:bindings schemaLocation="../../schemas/VDRSFWS02v2/respuesta.xsd">
-        <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.VDRSFWS02v2.respuesta_xsd"/>
-        </jaxb:schemaBindings>
-    </jaxb:bindings>
->>>>>>> 23fcc9b9bb78e5fbe133d4f6818224cdd44c6c43
     <jaxb:bindings schemaLocation="../../schemas/VDRSFWS02v2/datos-especificos-ent.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.VDRSFWS02v2.datosespecificosent_xsd"/>
         </jaxb:schemaBindings>
-        <jaxb:bindings node="//xs:element[@name='DatosEspecificos']">
-            <jaxb:class name="DatosEspecificosEntElement"/>
+        <jaxb:bindings required="no" node="//xs:import[@schemaLocation] | //xs:complexType[@name='DatosEspecificos']">
+            <jaxb:class name="DatosEspecificosEntDatosEspecificos"/>
         </jaxb:bindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/VDRSFWS02v2/datos-especificos-sal.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.VDRSFWS02v2.datosespecificossal_xsd"/>
         </jaxb:schemaBindings>
-        <jaxb:bindings node="//xs:element[@name='DatosEspecificos']">
-            <jaxb:class name="DatosEspecificosSalElement"/>
+        <jaxb:bindings required="no" node="//xs:import[@schemaLocation] | //xs:complexType[@name='DatosEspecificos']">
+            <jaxb:class name="DatosEspecificosSalDatosEspecificos"/>
         </jaxb:bindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/VDRSFWS02v2/peticion.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.VDRSFWS02v2.peticion_xsd"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="VDRSFWS02v2_peticion_xsd_Type_"/>
-                <jaxb:elementName prefix="VDRSFWS02v2_peticion_xsd_Element_"/>
-            </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/VDRSFWS02v2/respuesta.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.VDRSFWS02v2.respuesta_xsd"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="VDRSFWS02v2_respuesta_xsd_Type_"/>
-                <jaxb:elementName prefix="VDRSFWS02v2_respuesta_xsd_Element_"/>
-            </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/VDRSFWS02v2/solicitud-respuesta.xsd">

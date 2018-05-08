@@ -1,110 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<jaxb:bindings xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.1">
+<jaxb:bindings xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.1">
     <jaxb:bindings schemaLocation="../../schemas/MAP01WS01v2/confirmacion-peticion.xsd">
         <jaxb:schemaBindings>
-<<<<<<< HEAD
             <jaxb:package name="es.caib.scsp.esquemas.MAP01WS01v2.confirmacionpeticion_xsd"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="MAP01WS01v2_confirmacionpeticion_xsd_Type_"/>
-                <jaxb:elementName prefix="MAP01WS01v2_confirmacionpeticion_xsd_Element_"/>
-            </jaxb:nameXmlTransform>
-=======
-            <jaxb:package name="es.caib.scsp.esquemas.MAP01WS01v2.peticion_xsd"/>
->>>>>>> 23fcc9b9bb78e5fbe133d4f6818224cdd44c6c43
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/MAP01WS01v2/datos-especificos.xsd">
         <jaxb:schemaBindings>
-<<<<<<< HEAD
             <jaxb:package name="es.caib.scsp.esquemas.MAP01WS01v2.datosespecificos_xsd"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="MAP01WS01v2_datosespecificos_xsd_Type_"/>
-                <jaxb:elementName prefix="MAP01WS01v2_datosespecificos_xsd_Element_"/>
-            </jaxb:nameXmlTransform>
-=======
-            <jaxb:package name="es.caib.scsp.esquemas.MAP01WS01v2.volanteempadronamiento_xsd"/>
->>>>>>> 23fcc9b9bb78e5fbe133d4f6818224cdd44c6c43
         </jaxb:schemaBindings>
-        <jaxb:bindings node="//xs:element[@name='DatosEspecificos']">
-            <jaxb:class name="DatosEspecificosElement"/>
+        <jaxb:bindings required="no" node="//xs:import[@schemaLocation] | //xs:complexType[@name='DatosEspecificos']">
+            <jaxb:class name="DatosEspecificosDatosEspecificos"/>
         </jaxb:bindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/MAP01WS01v2/peticion.xsd">
         <jaxb:schemaBindings>
-<<<<<<< HEAD
             <jaxb:package name="es.caib.scsp.esquemas.MAP01WS01v2.peticion_xsd"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="MAP01WS01v2_peticion_xsd_Type_"/>
-                <jaxb:elementName prefix="MAP01WS01v2_peticion_xsd_Element_"/>
-            </jaxb:nameXmlTransform>
-=======
-            <jaxb:package name="es.caib.scsp.esquemas.MAP01WS01v2.confirmacionpeticion_xsd"/>
->>>>>>> 23fcc9b9bb78e5fbe133d4f6818224cdd44c6c43
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/MAP01WS01v2/respuesta.xsd">
         <jaxb:schemaBindings>
-<<<<<<< HEAD
             <jaxb:package name="es.caib.scsp.esquemas.MAP01WS01v2.respuesta_xsd"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="MAP01WS01v2_respuesta_xsd_Type_"/>
-                <jaxb:elementName prefix="MAP01WS01v2_respuesta_xsd_Element_"/>
-            </jaxb:nameXmlTransform>
-=======
-            <jaxb:package name="es.caib.scsp.esquemas.MAP01WS01v2.volanteempadronamientotipos_xsd"/>
->>>>>>> 23fcc9b9bb78e5fbe133d4f6818224cdd44c6c43
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/MAP01WS01v2/solicitud-respuesta.xsd">
         <jaxb:schemaBindings>
-<<<<<<< HEAD
             <jaxb:package name="es.caib.scsp.esquemas.MAP01WS01v2.solicitudrespuesta_xsd"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="MAP01WS01v2_solicitudrespuesta_xsd_Type_"/>
-                <jaxb:elementName prefix="MAP01WS01v2_solicitudrespuesta_xsd_Element_"/>
-            </jaxb:nameXmlTransform>
-=======
-            <jaxb:package name="es.caib.scsp.esquemas.MAP01WS01v2.respuesta_xsd"/>
->>>>>>> 23fcc9b9bb78e5fbe133d4f6818224cdd44c6c43
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/MAP01WS01v2/VolanteEmpadronamiento.xsd">
         <jaxb:schemaBindings>
-<<<<<<< HEAD
             <jaxb:package name="es.caib.scsp.esquemas.MAP01WS01v2.volanteempadronamiento_xsd"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="MAP01WS01v2_volanteempadronamiento_xsd_Type_"/>
-                <jaxb:elementName prefix="MAP01WS01v2_volanteempadronamiento_xsd_Element_"/>
-            </jaxb:nameXmlTransform>
-=======
-            <jaxb:package name="es.caib.scsp.esquemas.MAP01WS01v2.xmldsigcoreschema_xsd"/>
->>>>>>> 23fcc9b9bb78e5fbe133d4f6818224cdd44c6c43
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/MAP01WS01v2/VolanteEmpadronamientoTipos.xsd">
         <jaxb:schemaBindings>
-<<<<<<< HEAD
             <jaxb:package name="es.caib.scsp.esquemas.MAP01WS01v2.volanteempadronamientotipos_xsd"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="MAP01WS01v2_volanteempadronamientotipos_xsd_Type_"/>
-                <jaxb:elementName prefix="MAP01WS01v2_volanteempadronamientotipos_xsd_Element_"/>
-            </jaxb:nameXmlTransform>
-=======
-            <jaxb:package name="es.caib.scsp.esquemas.MAP01WS01v2.datosespecificos_xsd"/>
->>>>>>> 23fcc9b9bb78e5fbe133d4f6818224cdd44c6c43
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/MAP01WS01v2/xmldsig-core-schema.xsd">
         <jaxb:schemaBindings>
-<<<<<<< HEAD
             <jaxb:package name="es.caib.scsp.esquemas.MAP01WS01v2.xmldsigcoreschema_xsd"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="MAP01WS01v2_xmldsigcoreschema_xsd_Type_"/>
-                <jaxb:elementName prefix="MAP01WS01v2_xmldsigcoreschema_xsd_Element_"/>
-            </jaxb:nameXmlTransform>
-=======
-            <jaxb:package name="es.caib.scsp.esquemas.MAP01WS01v2.solicitudrespuesta_xsd"/>
->>>>>>> 23fcc9b9bb78e5fbe133d4f6818224cdd44c6c43
         </jaxb:schemaBindings>
     </jaxb:bindings>
 </jaxb:bindings>

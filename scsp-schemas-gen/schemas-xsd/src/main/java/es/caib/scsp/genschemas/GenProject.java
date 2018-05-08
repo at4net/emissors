@@ -186,6 +186,8 @@ public class GenProject {
                     continue;
                 }
 
+                
+                
                 List<String> xsds= (xsdMap.get(schema.getParentFile().getName())!=null)?xsdMap.get(schema.getParentFile().getName()):new ArrayList<String>();
                 xsds.add(schema.getName());
                 xsdMap.put(schema.getParentFile().getName(), xsds);
@@ -203,6 +205,7 @@ public class GenProject {
    
         zip.close();
         
+        System.out.println(executionMap.keySet().size() + " codigos");
         
         for (String key:bindingMap.keySet()){
             XjbBindings xjbBindings = XjbBindingsUtils.getXjbBindings(key, (List<String>)xsdMap.get(key), SCHEMA_SCOPE);
@@ -216,7 +219,7 @@ public class GenProject {
         }
         
         
-        System.out.println("Nombres de fichero");
+        System.out.println(set.size() + " nombres de fichero");
         List<String> ficheros = new ArrayList(set);
         for (String fichero: ficheros){
             System.out.println(fichero);
