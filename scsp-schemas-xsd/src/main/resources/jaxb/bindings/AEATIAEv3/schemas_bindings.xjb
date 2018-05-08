@@ -3,28 +3,16 @@
     <jaxb:bindings schemaLocation="../../schemas/AEATIAEv3/peticion.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.AEATIAEv3.peticion_xsd"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="AEATIAEv3_peticion_xsd_Type_"/>
-                <jaxb:elementName prefix="AEATIAEv3_peticion_xsd_Element_"/>
-            </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/AEATIAEv3/respuesta.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.AEATIAEv3.respuesta_xsd"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="AEATIAEv3_respuesta_xsd_Type_"/>
-                <jaxb:elementName prefix="AEATIAEv3_respuesta_xsd_Element_"/>
-            </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/AEATIAEv3/datos-especificos.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.AEATIAEv3.datosespecificos_xsd"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="AEATIAEv3_datosespecificos_xsd_Type_"/>
-                <jaxb:elementName prefix="AEATIAEv3_datosespecificos_xsd_Element_"/>
-            </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
         <jaxb:bindings node="//xs:element[@name='DatosEspecificos']">
             <jaxb:class name="DatosEspecificosElement"/>

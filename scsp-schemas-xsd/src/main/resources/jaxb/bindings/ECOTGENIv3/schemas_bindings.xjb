@@ -3,28 +3,16 @@
     <jaxb:bindings schemaLocation="../../schemas/ECOTGENIv3/peticion.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.ECOTGENIv3.peticion_xsd"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="ECOTGENIv3_peticion_xsd_Type_"/>
-                <jaxb:elementName prefix="ECOTGENIv3_peticion_xsd_Element_"/>
-            </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/ECOTGENIv3/respuesta.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.ECOTGENIv3.respuesta_xsd"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="ECOTGENIv3_respuesta_xsd_Type_"/>
-                <jaxb:elementName prefix="ECOTGENIv3_respuesta_xsd_Element_"/>
-            </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/ECOTGENIv3/datos-especificos.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.ECOTGENIv3.datosespecificos_xsd"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="ECOTGENIv3_datosespecificos_xsd_Type_"/>
-                <jaxb:elementName prefix="ECOTGENIv3_datosespecificos_xsd_Element_"/>
-            </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
         <jaxb:bindings node="//xs:element[@name='DatosEspecificos']">
             <jaxb:class name="DatosEspecificosElement"/>

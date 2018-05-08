@@ -3,28 +3,16 @@
     <jaxb:bindings schemaLocation="../../schemas/ECOT104Iv3/peticion.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.ECOT104Iv3.peticion_xsd"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="ECOT104Iv3_peticion_xsd_Type_"/>
-                <jaxb:elementName prefix="ECOT104Iv3_peticion_xsd_Element_"/>
-            </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/ECOT104Iv3/respuesta.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.ECOT104Iv3.respuesta_xsd"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="ECOT104Iv3_respuesta_xsd_Type_"/>
-                <jaxb:elementName prefix="ECOT104Iv3_respuesta_xsd_Element_"/>
-            </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/ECOT104Iv3/datos-especificos.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.ECOT104Iv3.datosespecificos_xsd"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="ECOT104Iv3_datosespecificos_xsd_Type_"/>
-                <jaxb:elementName prefix="ECOT104Iv3_datosespecificos_xsd_Element_"/>
-            </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
         <jaxb:bindings node="//xs:element[@name='DatosEspecificos']">
             <jaxb:class name="DatosEspecificosElement"/>

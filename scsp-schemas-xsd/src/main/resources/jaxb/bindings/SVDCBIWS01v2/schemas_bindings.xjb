@@ -3,37 +3,21 @@
     <jaxb:bindings schemaLocation="../../schemas/SVDCBIWS01v2/peticion.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.SVDCBIWS01v2.peticion_xsd"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="SVDCBIWS01v2_peticion_xsd_Type_"/>
-                <jaxb:elementName prefix="SVDCBIWS01v2_peticion_xsd_Element_"/>
-            </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/SVDCBIWS01v2/confirmacion-peticion.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.SVDCBIWS01v2.confirmacionpeticion_xsd"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="SVDCBIWS01v2_confirmacionpeticion_xsd_Type_"/>
-                <jaxb:elementName prefix="SVDCBIWS01v2_confirmacionpeticion_xsd_Element_"/>
-            </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/SVDCBIWS01v2/respuesta.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.SVDCBIWS01v2.respuesta_xsd"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="SVDCBIWS01v2_respuesta_xsd_Type_"/>
-                <jaxb:elementName prefix="SVDCBIWS01v2_respuesta_xsd_Element_"/>
-            </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/SVDCBIWS01v2/datos-especificos.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.SVDCBIWS01v2.datosespecificos_xsd"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="SVDCBIWS01v2_datosespecificos_xsd_Type_"/>
-                <jaxb:elementName prefix="SVDCBIWS01v2_datosespecificos_xsd_Element_"/>
-            </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
         <jaxb:bindings node="//xs:element[@name='DatosEspecificos']">
             <jaxb:class name="DatosEspecificosElement"/>
@@ -42,10 +26,6 @@
     <jaxb:bindings schemaLocation="../../schemas/SVDCBIWS01v2/solicitud-respuesta.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.SVDCBIWS01v2.solicitudrespuesta_xsd"/>
-            <jaxb:nameXmlTransform>
-                <jaxb:typeName prefix="SVDCBIWS01v2_solicitudrespuesta_xsd_Type_"/>
-                <jaxb:elementName prefix="SVDCBIWS01v2_solicitudrespuesta_xsd_Element_"/>
-            </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
     </jaxb:bindings>
 </jaxb:bindings>

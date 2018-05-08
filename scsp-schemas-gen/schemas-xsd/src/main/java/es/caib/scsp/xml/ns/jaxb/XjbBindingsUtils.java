@@ -23,8 +23,17 @@ import com.sun.java.xml.ns.jaxb.SchemaBindings;
 import es.caib.scsp.genschemas.managers.XjbBindingsXmlManager;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -49,8 +58,26 @@ public class XjbBindingsUtils {
     private static final String SOAP_SCOPE = "soap";
     private static final String WSDL_SCOPE = "wsdl";
     
+    
+    private static Document getDocumentFromXml(String xsd){
+        
+        InputStream is = XjbBindings.class.getClassLoader().getResourceAsStream(xsd);
+        Document doc = null;
+        try {
+            
+            doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(is);
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(XjbBindingsUtils.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SAXException ex) {
+            Logger.getLogger(XjbBindingsUtils.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(XjbBindingsUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return doc;
+    }
+    
 
-    public static XjbBindings getXjbBindings(String key, List<String> xsds, String scope) throws JAXBException, IOException {
+    public static XjbBindings getXjbBindings(String key, List<String> xsds, String scope) throws JAXBException, IOException{
 
         System.out.println("key " + key + ": " + xsds);
         
@@ -61,6 +88,8 @@ public class XjbBindingsUtils {
             XjbBindings xsdBindings = new XjbBindings();
 
             xsdBindings.setSchemaLocation("../../schemas/" + key + "/" + xsd);
+            
+         
             //xsdBindings.setNode("//xs:schema");
 
             if (WSDL_SCOPE.equals(scope)) {
@@ -75,6 +104,15 @@ public class XjbBindingsUtils {
                 if (xsd.startsWith("soap")) continue;
                 if (xsd.contains("comun")) continue;
                 
+                
+                Document document = getDocumentFromXml("schemas/" + key + "/" + xsd);
+                
+
+                NodeList  nodes = document.getElementsByTagName("element");
+                
+                        
+                
+            
                         
                 SchemaBindings schemaBindings = new SchemaBindings();
 
@@ -85,6 +123,8 @@ public class XjbBindingsUtils {
                 packageType.getName().add(packageName);
                 schemaBindings.setPackage(packageType); 
                 
+                
+                /*
                 NameXmlTransformType nameXmlTransform = new NameXmlTransformType();
 
                 NameXmlTransformRule typeNameXmlTransformRule = new NameXmlTransformRule();
@@ -103,13 +143,12 @@ public class XjbBindingsUtils {
                 nameXmlTransform.setElementName(elementNameXmlTransformRule);
                 
                 schemaBindings.setNameXmlTransform(nameXmlTransform);
+                */
 
                 xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(schemaBindings);
                     
                 
                 if (xsd.contains("datos-especificos")) {    
-                    
-                    
 
                     XjbBindings nodeBindings = new XjbBindings();
                     String clazzName = CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.split("\\.")[0]);
@@ -118,6 +157,10 @@ public class XjbBindingsUtils {
                     String xpath = "//xs:element[@name='DatosEspecificos']";
 
                     //String xpath = "//xs:schema";
+                    
+                    
+                    
+                    
                     nodeBindings.setNode(xpath);
 
                     com.sun.java.xml.ns.jaxb.Class clazz = new com.sun.java.xml.ns.jaxb.Class();
