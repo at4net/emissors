@@ -88,9 +88,7 @@ public class XjbBindingsUtils {
             XjbBindings xsdBindings = new XjbBindings();
 
             xsdBindings.setSchemaLocation("../../schemas/" + key + "/" + xsd);
-            
-         
-            //xsdBindings.setNode("//xs:schema");
+            xsdBindings.setNode("//xs:schema");
 
             if (WSDL_SCOPE.equals(scope)) {
                 if (xsd.endsWith("xsd")) continue;
@@ -102,7 +100,7 @@ public class XjbBindingsUtils {
                 
                 if (xsd.endsWith("wsdl")) continue;
                 if (xsd.startsWith("soap")) continue;
-                if (xsd.contains("comun")) continue;
+                //if (xsd.contains("comun")) continue;
                 //if (xsd.contains("datos-especificos-ent")) continue;
                 //if (xsd.contains("datos-especificos-sal")) continue;
                 
@@ -114,6 +112,7 @@ public class XjbBindingsUtils {
                 
                 String packageName = "es.caib.scsp.esquemas." + key + ".";
                 
+                /*
                 if ("datos-especificos.xsd".equals(xsd)){
                     packageName = packageName.concat("datosespecificos_xsd");
                 }
@@ -132,11 +131,11 @@ public class XjbBindingsUtils {
                 else {
                     packageName = packageName.concat(CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.replace(".", "_")).toLowerCase());
                 }
+                */
+                packageName = packageName.concat(CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.replace(".", "_").replace("_xsd", "")).toLowerCase());
                 
                 System.out.println(packageName);
-                //packageName = "es.caib.scsp.esquemas." + key + "." //datosespecificos"
-                //        + CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.replace(".", "_")).toLowerCase();
-
+               
                 packageType.getName().add(packageName);
                 schemaBindings.setPackage(packageType); 
                
@@ -161,11 +160,11 @@ public class XjbBindingsUtils {
                 schemaBindings.setNameXmlTransform(nameXmlTransform);
                 */
 
-                 xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(schemaBindings);
+                xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(schemaBindings);
                 
                 
                 
-                if (xsd.contains("especificos")) {
+                if (xsd.contains("especificos-")) {
                     
                     XjbBindings nodeBindings;
                     String clazzName;
@@ -177,10 +176,9 @@ public class XjbBindingsUtils {
                     nodeBindings.setMultiple("true");
                     clazzName = CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.split("\\.")[0]);
                     xpath = "//xs:element[@name='" + clazzName + "']";
-                    //String xpath = "//xs:elementType[@name='DatosEspecificos'] | //xs:complexType[@name='DatosEspecificos']"; 
-
-                    //String xpath = "//xs:complexType[@name='DatosEspecificos']"; 
                     
+                    //String xpath = "//xs:elementType[@name='DatosEspecificos'] | //xs:complexType[@name='DatosEspecificos']"; 
+                    //String xpath = "//xs:complexType[@name='DatosEspecificos']"; 
                     //String xpath = "//xs:schema";
                     
                     nodeBindings.setNode(xpath);
@@ -205,7 +203,9 @@ public class XjbBindingsUtils {
                 }
                 
                 
-                 if ("peticion.xsd".equals(xsd) || "respuesta.xsd".equals(xsd)) {
+                
+                /*
+                if ("peticion.xsd".equals(xsd) || "respuesta.xsd".equals(xsd)) {
                     
                     XjbBindings nodeBindings;
                     String clazzName;
@@ -216,15 +216,29 @@ public class XjbBindingsUtils {
                     nodeBindings.setRequired("no");
                     nodeBindings.setMultiple("true");
                     clazzName = CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.split("\\.")[0]);
-                    //xpath = "//xs:import[@namespace='http://www.map.es/scsp/esquemas/datosespecificos']";
-                    xpath = "//xs:import[@schemalocation]";
+                    xpath = "//xs:element[@name='" + clazzName + "']";
+                    
                     nodeBindings.setNode(xpath);
                     clazz = new com.sun.java.xml.ns.jaxb.Class();
-                    clazz.getName().add("DatosEspecificos" + clazzName);
+                    clazz.getName().add(clazzName + xsd + "Element");
                     nodeBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(clazz);
                     xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(nodeBindings);
                     
+                    nodeBindings = new XjbBindings();
+                    nodeBindings.setRequired("no");
+                    nodeBindings.setMultiple("true");
+                    
+                    clazzName = CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.split("\\.")[0]);
+                    xpath = "//xs:complexType[@name='" + clazzName + "']";
+                    nodeBindings.setNode(xpath);
+                    clazz = new com.sun.java.xml.ns.jaxb.Class();
+                    clazz.getName().add(clazzName + xsd + "Type");
+                    nodeBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(clazz);
+                    xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(nodeBindings);
+                
                 }
+                */
+                 
                 
               
             } else {

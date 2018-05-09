@@ -1,24 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <jaxb:bindings xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.1">
-    <jaxb:bindings schemaLocation="../../schemas/SVDMAECWS01v3/confirmacion-peticion.xsd">
+    <jaxb:bindings schemaLocation="../../schemas/SVDMAECWS01v3/datos-especificos-salida.xsd" node="//xs:schema">
         <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.SVDMAECWS01v3.confirmacionpeticion_xsd"/>
-        </jaxb:schemaBindings>
-    </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../schemas/SVDMAECWS01v3/datos-especificos-entrada.xsd">
-        <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.SVDMAECWS01v3.peticion_xsd"/>
-        </jaxb:schemaBindings>
-        <jaxb:bindings required="no" multiple="true" node="//xs:element[@name='DatosEspecificosEntrada']">
-            <jaxb:class name="DatosEspecificosEntradaElement"/>
-        </jaxb:bindings>
-        <jaxb:bindings required="no" multiple="true" node="//xs:complexType[@name='DatosEspecificosEntrada']">
-            <jaxb:class name="DatosEspecificosEntradaType"/>
-        </jaxb:bindings>
-    </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../schemas/SVDMAECWS01v3/datos-especificos-salida.xsd">
-        <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.SVDMAECWS01v3.respuesta_xsd"/>
+            <jaxb:package name="es.caib.scsp.esquemas.SVDMAECWS01v3.datosespecificossalida"/>
         </jaxb:schemaBindings>
         <jaxb:bindings required="no" multiple="true" node="//xs:element[@name='DatosEspecificosSalida']">
             <jaxb:class name="DatosEspecificosSalidaElement"/>
@@ -27,25 +11,35 @@
             <jaxb:class name="DatosEspecificosSalidaType"/>
         </jaxb:bindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../schemas/SVDMAECWS01v3/peticion.xsd">
+    <jaxb:bindings schemaLocation="../../schemas/SVDMAECWS01v3/peticion.xsd" node="//xs:schema">
         <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.SVDMAECWS01v3.peticion_xsd"/>
+            <jaxb:package name="es.caib.scsp.esquemas.SVDMAECWS01v3.peticion"/>
         </jaxb:schemaBindings>
-        <jaxb:bindings required="no" multiple="true" node="//xs:import[@schemalocation]">
-            <jaxb:class name="DatosEspecificosPeticion"/>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../schemas/SVDMAECWS01v3/datos-especificos-entrada.xsd" node="//xs:schema">
+        <jaxb:schemaBindings>
+            <jaxb:package name="es.caib.scsp.esquemas.SVDMAECWS01v3.datosespecificosentrada"/>
+        </jaxb:schemaBindings>
+        <jaxb:bindings required="no" multiple="true" node="//xs:element[@name='DatosEspecificosEntrada']">
+            <jaxb:class name="DatosEspecificosEntradaElement"/>
+        </jaxb:bindings>
+        <jaxb:bindings required="no" multiple="true" node="//xs:complexType[@name='DatosEspecificosEntrada']">
+            <jaxb:class name="DatosEspecificosEntradaType"/>
         </jaxb:bindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../schemas/SVDMAECWS01v3/respuesta.xsd">
+    <jaxb:bindings schemaLocation="../../schemas/SVDMAECWS01v3/confirmacion-peticion.xsd" node="//xs:schema">
         <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.SVDMAECWS01v3.respuesta_xsd"/>
+            <jaxb:package name="es.caib.scsp.esquemas.SVDMAECWS01v3.confirmacionpeticion"/>
         </jaxb:schemaBindings>
-        <jaxb:bindings required="no" multiple="true" node="//xs:import[@schemalocation]">
-            <jaxb:class name="DatosEspecificosRespuesta"/>
-        </jaxb:bindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../schemas/SVDMAECWS01v3/solicitud-respuesta.xsd">
+    <jaxb:bindings schemaLocation="../../schemas/SVDMAECWS01v3/respuesta.xsd" node="//xs:schema">
         <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.SVDMAECWS01v3.solicitudrespuesta_xsd"/>
+            <jaxb:package name="es.caib.scsp.esquemas.SVDMAECWS01v3.respuesta"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../schemas/SVDMAECWS01v3/solicitud-respuesta.xsd" node="//xs:schema">
+        <jaxb:schemaBindings>
+            <jaxb:package name="es.caib.scsp.esquemas.SVDMAECWS01v3.solicitudrespuesta"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
 </jaxb:bindings>

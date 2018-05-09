@@ -1,30 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <jaxb:bindings xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.1">
-    <jaxb:bindings schemaLocation="../../schemas/AEAT101v3/datos-especificos.xsd">
+    <jaxb:bindings schemaLocation="../../schemas/AEAT101v3/peticion.xsd" node="//xs:schema">
         <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.AEAT101v3.datosespecificos_xsd"/>
+            <jaxb:package name="es.caib.scsp.esquemas.AEAT101v3.peticion"/>
         </jaxb:schemaBindings>
-        <jaxb:bindings required="no" multiple="true" node="//xs:element[@name='DatosEspecificos']">
-            <jaxb:class name="DatosEspecificosElement"/>
-        </jaxb:bindings>
-        <jaxb:bindings required="no" multiple="true" node="//xs:complexType[@name='DatosEspecificos']">
-            <jaxb:class name="DatosEspecificosType"/>
-        </jaxb:bindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../schemas/AEAT101v3/peticion.xsd">
+    <jaxb:bindings schemaLocation="../../schemas/AEAT101v3/respuesta.xsd" node="//xs:schema">
         <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.AEAT101v3.peticion_xsd"/>
+            <jaxb:package name="es.caib.scsp.esquemas.AEAT101v3.respuesta"/>
         </jaxb:schemaBindings>
-        <jaxb:bindings required="no" multiple="true" node="//xs:import[@schemalocation]">
-            <jaxb:class name="DatosEspecificosPeticion"/>
-        </jaxb:bindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../schemas/AEAT101v3/respuesta.xsd">
+    <jaxb:bindings schemaLocation="../../schemas/AEAT101v3/datos-especificos.xsd" node="//xs:schema">
         <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.AEAT101v3.respuesta_xsd"/>
+            <jaxb:package name="es.caib.scsp.esquemas.AEAT101v3.datosespecificos"/>
         </jaxb:schemaBindings>
-        <jaxb:bindings required="no" multiple="true" node="//xs:import[@schemalocation]">
-            <jaxb:class name="DatosEspecificosRespuesta"/>
-        </jaxb:bindings>
     </jaxb:bindings>
 </jaxb:bindings>
