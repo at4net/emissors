@@ -66,15 +66,17 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
+                            <!--
                             <schemas>
                                 <schema>
                                     <url>http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/jaxb/bindingschema_2_0.xsd</url>
                                 </schema>
                             </schemas>
-                            <!--schemaDirectory>src/main/resources/jaxb/schemas</schemaDirectory>
+                            -->
+                            <schemaDirectory>src/main/resources/jaxb/schemas</schemaDirectory>
                             <schemaIncludes>
                                 <include>bindingschema_2_0.xsd</include>
-                            </schemaIncludes-->
+                            </schemaIncludes>
                             <generateDirectory>${project.build.directory}/generated-sources/xjc-bindingschema</generateDirectory>
                             <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-bindingschema.episode</episodeFile>
                         </configuration>

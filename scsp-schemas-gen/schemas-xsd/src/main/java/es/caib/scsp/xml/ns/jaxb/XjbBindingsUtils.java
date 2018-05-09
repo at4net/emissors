@@ -103,18 +103,43 @@ public class XjbBindingsUtils {
                 if (xsd.endsWith("wsdl")) continue;
                 if (xsd.startsWith("soap")) continue;
                 if (xsd.contains("comun")) continue;
+                //if (xsd.contains("datos-especificos-ent")) continue;
+                //if (xsd.contains("datos-especificos-sal")) continue;
                 
-                   
+                
                 SchemaBindings schemaBindings = new SchemaBindings();
-                
                 PackageType packageType = new PackageType();
-                String packageName = "es.caib.scsp.esquemas." + key + "." //datosespecificos"
-                        + CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.replace(".", "_")).toLowerCase();
+               
+                System.out.println("Binding para: " + xsd);
+                
+                String packageName = "es.caib.scsp.esquemas." + key + ".";
+                
+                if ("datos-especificos.xsd".equals(xsd)){
+                    packageName = packageName.concat("datosespecificos_xsd");
+                }
+                else if ("datos-especificos-ent.xsd".equals(xsd)){
+                    packageName = packageName.concat("peticion_xsd");
+                }
+                else if ("datos-especificos-sal.xsd".equals(xsd)){
+                    packageName = packageName.concat("respuesta_xsd");
+                }
+                else if ("datos-especificos-entrada.xsd".equals(xsd)){
+                    packageName = packageName.concat("peticion_xsd");
+                }
+                else if ("datos-especificos-salida.xsd".equals(xsd)){
+                    packageName = packageName.concat("respuesta_xsd");
+                }
+                else {
+                    packageName = packageName.concat(CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.replace(".", "_")).toLowerCase());
+                }
+                
+                System.out.println(packageName);
+                //packageName = "es.caib.scsp.esquemas." + key + "." //datosespecificos"
+                //        + CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.replace(".", "_")).toLowerCase();
 
                 packageType.getName().add(packageName);
                 schemaBindings.setPackage(packageType); 
-                
-                
+               
                 /*
                 NameXmlTransformType nameXmlTransform = new NameXmlTransformType();
 
@@ -136,38 +161,72 @@ public class XjbBindingsUtils {
                 schemaBindings.setNameXmlTransform(nameXmlTransform);
                 */
 
-                xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(schemaBindings);
+                 xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(schemaBindings);
                 
-                if (xsd.contains("especificos")) {    
-
-                    XjbBindings nodeBindings = new XjbBindings();
+                
+                
+                if (xsd.contains("especificos")) {
                     
+                    XjbBindings nodeBindings;
+                    String clazzName;
+                    String xpath;
+                    com.sun.java.xml.ns.jaxb.Class clazz;
+
+                    nodeBindings = new XjbBindings();
                     nodeBindings.setRequired("no");
                     nodeBindings.setMultiple("true");
-                    
-                    String clazzName = CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.split("\\.")[0]);
-
-                    //String xpath = "//xs:element[@name='" + clazzName + "']";
-                    String xpath = "//xs:elementType[@name='DatosEspecificos'] | //xs:complexType[@name='DatosEspecificos']"; 
+                    clazzName = CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.split("\\.")[0]);
+                    xpath = "//xs:element[@name='" + clazzName + "']";
+                    //String xpath = "//xs:elementType[@name='DatosEspecificos'] | //xs:complexType[@name='DatosEspecificos']"; 
 
                     //String xpath = "//xs:complexType[@name='DatosEspecificos']"; 
                     
                     //String xpath = "//xs:schema";
                     
                     nodeBindings.setNode(xpath);
-
-                    com.sun.java.xml.ns.jaxb.Class clazz = new com.sun.java.xml.ns.jaxb.Class();
-
-                    clazz.getName().add(clazzName + "DatosEspecificos");
-
+                    clazz = new com.sun.java.xml.ns.jaxb.Class();
+                    clazz.getName().add(clazzName + "Element");
+                    nodeBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(clazz);
+                    xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(nodeBindings);
+                    
+                    
+                    nodeBindings = new XjbBindings();
+                    nodeBindings.setRequired("no");
+                    nodeBindings.setMultiple("true");
+                    
+                    clazzName = CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.split("\\.")[0]);
+                    xpath = "//xs:complexType[@name='" + clazzName + "']";
+                    nodeBindings.setNode(xpath);
+                    clazz = new com.sun.java.xml.ns.jaxb.Class();
+                    clazz.getName().add(clazzName + "Type");
                     nodeBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(clazz);
                     xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(nodeBindings);
 
                 }
                 
                 
-              
+                 if ("peticion.xsd".equals(xsd) || "respuesta.xsd".equals(xsd)) {
+                    
+                    XjbBindings nodeBindings;
+                    String clazzName;
+                    String xpath;
+                    com.sun.java.xml.ns.jaxb.Class clazz;
 
+                    nodeBindings = new XjbBindings();
+                    nodeBindings.setRequired("no");
+                    nodeBindings.setMultiple("true");
+                    clazzName = CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.split("\\.")[0]);
+                    //xpath = "//xs:import[@namespace='http://www.map.es/scsp/esquemas/datosespecificos']";
+                    xpath = "//xs:import[@schemalocation]";
+                    nodeBindings.setNode(xpath);
+                    clazz = new com.sun.java.xml.ns.jaxb.Class();
+                    clazz.getName().add("DatosEspecificos" + clazzName);
+                    nodeBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(clazz);
+                    xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(nodeBindings);
+                    
+                }
+                
+              
             } else {
                 //include.appendChild(doc.createTextNode("*.xsd"));
             }

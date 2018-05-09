@@ -4,18 +4,27 @@
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.SCDCPAJUv3.datosespecificos_xsd"/>
         </jaxb:schemaBindings>
-        <jaxb:bindings required="no" node="//xs:import[@schemaLocation] | //xs:complexType[@name='DatosEspecificos']">
-            <jaxb:class name="DatosEspecificosDatosEspecificos"/>
+        <jaxb:bindings required="no" multiple="true" node="//xs:element[@name='DatosEspecificos']">
+            <jaxb:class name="DatosEspecificosElement"/>
+        </jaxb:bindings>
+        <jaxb:bindings required="no" multiple="true" node="//xs:complexType[@name='DatosEspecificos']">
+            <jaxb:class name="DatosEspecificosType"/>
         </jaxb:bindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/SCDCPAJUv3/peticion.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.SCDCPAJUv3.peticion_xsd"/>
         </jaxb:schemaBindings>
+        <jaxb:bindings required="no" multiple="true" node="//xs:import[@schemalocation]">
+            <jaxb:class name="DatosEspecificosPeticion"/>
+        </jaxb:bindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/SCDCPAJUv3/respuesta.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.SCDCPAJUv3.respuesta_xsd"/>
         </jaxb:schemaBindings>
+        <jaxb:bindings required="no" multiple="true" node="//xs:import[@schemalocation]">
+            <jaxb:class name="DatosEspecificosRespuesta"/>
+        </jaxb:bindings>
     </jaxb:bindings>
 </jaxb:bindings>
