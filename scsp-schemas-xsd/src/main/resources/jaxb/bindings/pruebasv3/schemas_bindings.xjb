@@ -15,7 +15,7 @@
             <jaxb:package name="es.caib.scsp.esquemas.pruebasv3.respuesta"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../schemas/pruebasv3/datos-especificos.xsd" node="//xs:schema">
+    <jaxb:bindings namespace="http://www.map.es/scsp/esquemas/datosespecificos" schemaLocation="../../schemas/pruebasv3/datos-especificos.xsd" node="//xs:schema">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.pruebasv3.datosespecificos"/>
         </jaxb:schemaBindings>

@@ -10,7 +10,7 @@
             <jaxb:package name="es.caib.scsp.esquemas.AEAT101Iv2.respuesta"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../schemas/AEAT101Iv2/datos-especificos.xsd" node="//xs:schema">
+    <jaxb:bindings namespace="http://www.map.es/scsp/esquemas/datosespecificos" schemaLocation="../../schemas/AEAT101Iv2/datos-especificos.xsd" node="//xs:schema">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.AEAT101Iv2.datosespecificos"/>
         </jaxb:schemaBindings>

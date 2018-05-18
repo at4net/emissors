@@ -15,7 +15,7 @@
             <jaxb:package name="es.caib.scsp.esquemas.VDRSFWS02v2.respuesta"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../schemas/VDRSFWS02v2/datos-especificos-ent.xsd" node="//xs:schema">
+    <jaxb:bindings namespace="http://www.map.es/scsp/esquemas/datosespecificos" schemaLocation="../../schemas/VDRSFWS02v2/datos-especificos-ent.xsd" node="//xs:schema">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.VDRSFWS02v2.datosespecificosent"/>
         </jaxb:schemaBindings>

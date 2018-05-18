@@ -64,7 +64,6 @@ public class XjbBindingsUtils {
         InputStream is = XjbBindings.class.getClassLoader().getResourceAsStream(xsd);
         Document doc = null;
         try {
-            
             doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(is);
         } catch (ParserConfigurationException ex) {
             Logger.getLogger(XjbBindingsUtils.class.getName()).log(Level.SEVERE, null, ex);
@@ -244,7 +243,6 @@ public class XjbBindingsUtils {
             } else {
                 //include.appendChild(doc.createTextNode("*.xsd"));
             }
-            
             xjbBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(xsdBindings);
 
         }
