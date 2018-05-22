@@ -149,8 +149,6 @@ public class ProjectUtils {
                 configuration.getAny().add(schemaExcludes);
             }
 
-            
-            
 
             Element generateDirectory = doc.createElementNS(namespace, "generateDirectory");
             String directory = "${project.build.directory}/generated-sources/xjc-" + id;
@@ -212,10 +210,6 @@ public class ProjectUtils {
                 configuration.getAny().add(bindingExcludes);
             }
             */
-            
-            
-            
-            
             
             
 

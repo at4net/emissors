@@ -87,7 +87,7 @@ public class XjbBindingsUtils {
             XjbBindings xsdBindings = new XjbBindings();
 
             xsdBindings.setSchemaLocation("../../schemas/" + key + "/" + xsd);
-            xsdBindings.setNode("//xs:schema");
+            //xsdBindings.setNode("//xs:schema");
 
             if (WSDL_SCOPE.equals(scope)) {
                 if (xsd.endsWith("xsd")) continue;

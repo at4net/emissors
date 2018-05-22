@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <jaxb:bindings xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.1">
-    <jaxb:bindings schemaLocation="../../schemas/AEAT102v2/peticion.xsd" node="//xs:schema">
+    <jaxb:bindings schemaLocation="../../schemas/AEAT102v2/datos-especificos.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="es.caib.scsp.esquemas.AEAT102v2.datosespecificos"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../schemas/AEAT102v2/peticion.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.AEAT102v2.peticion"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../schemas/AEAT102v2/respuesta.xsd" node="//xs:schema">
+    <jaxb:bindings schemaLocation="../../schemas/AEAT102v2/respuesta.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.AEAT102v2.respuesta"/>
-        </jaxb:schemaBindings>
-    </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../schemas/AEAT102v2/datos-especificos.xsd" node="//xs:schema">
-        <jaxb:schemaBindings>
-            <jaxb:package name="es.caib.scsp.esquemas.AEAT102v2.datosespecificos"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
 </jaxb:bindings>
