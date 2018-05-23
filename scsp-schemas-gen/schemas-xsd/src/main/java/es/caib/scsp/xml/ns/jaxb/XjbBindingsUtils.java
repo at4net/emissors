@@ -16,6 +16,7 @@
 package es.caib.scsp.xml.ns.jaxb;
 
 import com.google.common.base.CaseFormat;
+import com.sun.java.xml.ns.jaxb.GlobalBindings;
 import com.sun.java.xml.ns.jaxb.NameXmlTransformRule;
 import com.sun.java.xml.ns.jaxb.NameXmlTransformType;
 import com.sun.java.xml.ns.jaxb.PackageType;
@@ -82,6 +83,13 @@ public class XjbBindingsUtils {
         
         XjbBindings xjbBindings = getXjbBindings();
         
+        //GlobalBindings globalBindings = new GlobalBindings();
+        //globalBindings.setEnableJavaNamingConventions(Boolean.TRUE);
+        //globalBindings.setGenerateElementClass(Boolean.TRUE);
+        //globalBindings.setGenerateElementProperty(Boolean.TRUE);
+        //globalBindings.setLocalScoping("toplevel");
+        //xjbBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(globalBindings);
+        
         for (String xsd : xsds) {
             
             XjbBindings xsdBindings = new XjbBindings();
@@ -96,10 +104,10 @@ public class XjbBindingsUtils {
                 if (!xsd.startsWith("soap")) continue;
                 //include.appendChild(doc.createTextNode("soap*.xsd"));
             } else if (SCHEMA_SCOPE.equals(scope)) {
-                
+                if (xsd.endsWith("xml")) continue;
                 if (xsd.endsWith("wsdl")) continue;
                 if (xsd.startsWith("soap")) continue;
-                //if (xsd.contains("comun")) continue;
+                if (xsd.contains("comun")) continue;
                 //if (xsd.contains("datos-especificos-ent")) continue;
                 //if (xsd.contains("datos-especificos-sal")) continue;
                 
@@ -162,7 +170,7 @@ public class XjbBindingsUtils {
                 xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(schemaBindings);
                 
                 
-                
+                /*
                 if (xsd.contains("especificos-")) {
                     
                     XjbBindings nodeBindings;
@@ -200,7 +208,7 @@ public class XjbBindingsUtils {
                     xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(nodeBindings);
 
                 }
-                
+                */
                 
                 
                 /*

@@ -4,23 +4,11 @@
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.AEATRDT1v3.datosespecificosentrada"/>
         </jaxb:schemaBindings>
-        <jaxb:bindings required="no" multiple="true" node="//xs:element[@name='DatosEspecificosEntrada']">
-            <jaxb:class name="DatosEspecificosEntradaElement"/>
-        </jaxb:bindings>
-        <jaxb:bindings required="no" multiple="true" node="//xs:complexType[@name='DatosEspecificosEntrada']">
-            <jaxb:class name="DatosEspecificosEntradaType"/>
-        </jaxb:bindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/AEATRDT1v3/datos-especificos-salida.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="es.caib.scsp.esquemas.AEATRDT1v3.datosespecificossalida"/>
         </jaxb:schemaBindings>
-        <jaxb:bindings required="no" multiple="true" node="//xs:element[@name='DatosEspecificosSalida']">
-            <jaxb:class name="DatosEspecificosSalidaElement"/>
-        </jaxb:bindings>
-        <jaxb:bindings required="no" multiple="true" node="//xs:complexType[@name='DatosEspecificosSalida']">
-            <jaxb:class name="DatosEspecificosSalidaType"/>
-        </jaxb:bindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../schemas/AEATRDT1v3/peticion.xsd">
         <jaxb:schemaBindings>
