@@ -60,12 +60,7 @@ import org.apache.commons.io.IOUtils;
 public class GenProject {
     
     protected static final Logger LOG = Logger.getLogger(GenProject.class.getName());
-    
     private static final GenProject gen = new GenProject();
-    
-    private static final String PROJECT_FOLDER_NAME = "scsp-schemas-xsd";
-    private static final String ARTIFACT_NAME = "scsp-schemas-xsd";
-    
     
     private GenProject(){
         super();
@@ -74,6 +69,11 @@ public class GenProject {
     public static GenProject getGen(){
         return gen;
     }
+    
+    private static final String PROJECT_FOLDER_NAME = "scsp-schemas-xsd";
+    private static final String ARTIFACT_NAME = "scsp-schemas-xsd";
+    
+    
     
     
     private void setPomXmlDescriptor(File f, Project project) throws JAXBException, FileNotFoundException, IOException {
@@ -121,12 +121,111 @@ public class GenProject {
         fos.close();
     }
     
-    private void projectGeneration(Path path) throws JAXBException, IOException {
+    private static final String MAIN_JAVA = "src/main/java";
+    private static final String TEST_JAVA = "src/test/java";
+    private static final String MAIN_RESOURCES = "src/main/resources";
+    private static final String JAXB_RESOURCES = "jaxb";
+    private static final String JAXB_SCHEMAS = "schemas";
+    private static final String JAXB_BINDINGS = "bindings";
+    
+    private void projectGeneration(Path projectFolderPath) throws JAXBException, IOException {
 
-        LOG.log(Level.INFO, "Generando proyecto " + PROJECT_FOLDER_NAME + " en : {0}", path);
+        LOG.log(Level.INFO, "Generando proyecto " + PROJECT_FOLDER_NAME + " en : {0}", projectFolderPath);
 
-        File folder = new File(path.toFile(), PROJECT_FOLDER_NAME);
+        File projectFolderFile = new File(projectFolderPath.toFile(), PROJECT_FOLDER_NAME);
 
+        LOG.log(Level.INFO, "Generando proyecto " + PROJECT_FOLDER_NAME + " con carpeta : {0}", projectFolderFile);
+        
+        for (String fld: new String[]{MAIN_JAVA, TEST_JAVA, MAIN_RESOURCES}){
+            LOG.log(Level.INFO, "Creando carpeta : {0}", fld);
+            File subFolder = new File(projectFolderFile, fld);
+            if (subFolder.mkdirs()){
+                LOG.log(Level.INFO, "Carpeta {0} creada ", subFolder.getCanonicalPath());
+            }
+        }
+        
+        LOG.log(Level.INFO, "Recuperando fuentes de esquemas");
+        CodeSource src = XmlHelper.class.getProtectionDomain().getCodeSource();
+            
+        if (src == null) {
+            LOG.log(Level.INFO, "No encontrado. Saliendo");
+            return;
+        }
+        
+        LOG.log(Level.INFO, "Fuentes en src : {0}", src);
+        URL jar = src.getLocation();
+        LOG.log(Level.INFO, "Fuentes en jar : {0}", jar);
+        ZipInputStream zip = new ZipInputStream(jar.openStream());
+        
+        
+        ZipEntry e;
+        while ((e=zip.getNextEntry())!=null) {
+            
+            String name = e.getName();
+            if (!name.startsWith("schemas") || "schemas/".equals(name)) continue;
+            
+            LOG.log(Level.INFO, "Procesando recurso : {0}", name);
+            
+            
+            
+            
+            
+            /*
+            if (name.startsWith("schemas/")) {
+                File schema = new File(srcMainResourcesJaxb, name);
+                File bind = new File(srcMainResourcesJaxb, "bindings/" + schema.getName());
+                
+                if (e.isDirectory()) {
+                    
+                    if ("schemas/".equals(name)) {
+                        
+                        //System.out.println("Directorio schemas encontrado");
+                        
+                        continue;
+                    }
+                    
+                    
+                    schema.mkdirs();
+                    bind.mkdirs();
+                    
+                    executionMap.put(schema.getName(), "src/main/resources/jaxb/schemas/" + schema.getName());  
+                    bindingMap.put(schema.getName(), "src/main/resources/jaxb/bindings/" + schema.getName());
+                    
+                    continue;
+                }
+
+                
+                
+                List<String> xsds= (xsdMap.get(schema.getParentFile().getName())!=null)?xsdMap.get(schema.getParentFile().getName()):new ArrayList<String>();
+                xsds.add(schema.getName());
+                xsdMap.put(schema.getParentFile().getName(), xsds);
+                
+                schema.createNewFile();
+                FileOutputStream fos = new FileOutputStream(schema);
+                InputStream is = XmlHelper.class.getClassLoader().getResourceAsStream(name);
+                IOUtils.copy(is, fos);
+                is.close();
+                fos.close();
+
+            }
+            */
+            
+            
+            
+           
+        }
+   
+        zip.close();
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        /*
         File srcTestJava = new File(folder, "src/test/java");
         File srcMainJava = new File(folder, "src/main/java");
         File srcMainResources = new File(folder, "src/main/resources");
@@ -141,20 +240,16 @@ public class GenProject {
         srcMainResourcesJaxbSchemas.mkdirs();
         srcMainResourcesJaxbBindings.mkdirs();
 
-        CodeSource src = XmlHelper.class.getProtectionDomain().getCodeSource();
-
-        if (src == null) {
-            return;
-        }
+        
 
         Map<String, String> executionMap = new HashMap<String,String>();
         Map<String, String> bindingMap = new HashMap<String,String>();
         HashMap<String, List<String>> xsdMap = new HashMap<String,List<String>>();
         
         
-        URL jar = src.getLocation();
         
-        ZipInputStream zip = new ZipInputStream(jar.openStream());
+        
+       
         while (true) {
             
             ZipEntry e = zip.getNextEntry();
@@ -230,6 +325,7 @@ public class GenProject {
         Project project = ProjectUtils.getProject(executionMap, bindingMap);
         setPomXmlDescriptor(new File(path.toFile(), PROJECT_FOLDER_NAME), project);
         
+        */
         
     }
     
@@ -238,34 +334,40 @@ public class GenProject {
     private static final String SOAP_SCOPE = "soap";
     private static final String WSDL_SCOPE = "wsdl";
 
+    
+    
     public void generate() throws JAXBException, IOException{
 
-        LOG.log(Level.INFO, "Directorio ejecucion: {0}", System.getProperty("user.dir"));
+        String execStrPath = System.getProperty("user.dir");
         
-        String strPath = System.getProperty("user.dir");
+        LOG.log(Level.INFO, "Directorio ejecucion: {0}", execStrPath);
         
-        Path path = FileSystems.getDefault().getPath(strPath);
+        Path projectFolderPath = FileSystems.getDefault().getPath(execStrPath);
         
-        if (path == null) return;
-        if (path.getParent() == null) return;
+        if (projectFolderPath == null) return;
+        if (projectFolderPath.getParent() == null) return;
         
-        path = path.getParent();
-        path = (path!=path.getRoot())?path.getParent():path.getRoot();
+        projectFolderPath = projectFolderPath.getParent();
+        projectFolderPath = (projectFolderPath!=projectFolderPath.getRoot())?projectFolderPath.getParent():projectFolderPath.getRoot();
         
-        projectGeneration(path);
+        LOG.log(Level.INFO, "Directorio generación {0}", projectFolderPath);
+        
+        projectGeneration(projectFolderPath);
 
     }
     
     
     public static void main(String args[]) throws Exception {
 
+        // Obtenim instància
         GenProject gen = GenProject.getGen();
-
+        LOG.log(Level.INFO, "Inicio generación : {0}", ARTIFACT_NAME);
+        // Generam el projecte
         gen.generate();
-
-        CodeSource src = XmlHelper.class.getProtectionDomain().getCodeSource();
-
+        LOG.log(Level.INFO, "Fin generación : {0}", ARTIFACT_NAME);
         
+        /*
+        CodeSource src = XmlHelper.class.getProtectionDomain().getCodeSource();
         if (src == null) {
             return;
         }
@@ -293,6 +395,7 @@ public class GenProject {
         IOUtils.copy(is, baos);
         is.close();
         baos.close();
+        */
 
     }
 
