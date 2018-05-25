@@ -155,21 +155,58 @@ public class GenProject {
         LOG.log(Level.INFO, "Fuentes en src : {0}", src);
         URL jar = src.getLocation();
         LOG.log(Level.INFO, "Fuentes en jar : {0}", jar);
+        
         ZipInputStream zip = new ZipInputStream(jar.openStream());
-        
-        
+        Map<String,List<String>> resourcesMap = new HashMap<String,List<String>>();
         ZipEntry e;
         while ((e=zip.getNextEntry())!=null) {
-            
             String name = e.getName();
             if (!name.startsWith("schemas") || "schemas/".equals(name)) continue;
-            
             LOG.log(Level.INFO, "Procesando recurso : {0}", name);
-            
-            
-            
-            
-            
+            String[] arrayName = name.split("/");
+            if (arrayName.length==1){
+                LOG.log(Level.INFO, "{0} es un directorio vacio. No hacemos nada.", name);
+                continue;
+            }
+            String key = arrayName[1];
+            LOG.log(Level.INFO, "Procesando clave : {0}", key);
+            if (e.isDirectory()){
+                LOG.log(Level.INFO, "{0} es un directorio. No hacemos nada.", name);
+                continue;
+            }
+            String schema = arrayName[arrayName.length-1];
+            LOG.log(Level.INFO, "Procesando archivo : {0}", schema);
+            List<String> schemas = (resourcesMap.containsKey(key))?resourcesMap.get(key):new ArrayList<String>();
+            schemas.add(schema);
+            resourcesMap.put(key, schemas);
+            }
+        zip.close();
+        
+        LOG.log(Level.INFO, "Listando esquemas");
+        for (String key:resourcesMap.keySet()){
+            LOG.log(Level.INFO, "Esquemas para : {0}", key);
+            List<String> schemas = resourcesMap.get(key);
+            LOG.log(Level.INFO, "{0}", schemas.toString());
+        }
+        
+        
+        LOG.log(Level.INFO, "Distribuyendo esquemas");
+        for (String key:resourcesMap.keySet()){
+            LOG.log(Level.INFO, "Esquemas para : {0}", key);
+            String fld = MAIN_RESOURCES + "/" + JAXB_RESOURCES + "/" + key;
+            LOG.log(Level.INFO, "Creando carpeta : {0}", fld);
+            File subFolder = new File(projectFolderFile, fld);
+            if (subFolder.mkdirs()){
+                LOG.log(Level.INFO, "Carpeta {0} creada ", subFolder.getCanonicalPath());
+            }
+        }
+        
+        
+
+        
+        
+        
+        
             /*
             if (name.startsWith("schemas/")) {
                 File schema = new File(srcMainResourcesJaxb, name);
@@ -183,7 +220,6 @@ public class GenProject {
                         
                         continue;
                     }
-                    
                     
                     schema.mkdirs();
                     bind.mkdirs();
@@ -213,9 +249,7 @@ public class GenProject {
             
             
            
-        }
-   
-        zip.close();
+        
         
         
         
