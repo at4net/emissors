@@ -35,6 +35,7 @@ import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.security.CodeSource;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -196,16 +197,71 @@ public class GenProject {
             String fld = MAIN_RESOURCES + "/" + JAXB_RESOURCES + "/" + key;
             LOG.log(Level.INFO, "Creando carpeta : {0}", fld);
             File subFolder = new File(projectFolderFile, fld);
+            File peticion = new File(subFolder, "peticion");
+            File respuesta = new File(subFolder, "respuesta");
             if (subFolder.mkdirs()){
                 LOG.log(Level.INFO, "Carpeta {0} creada ", subFolder.getCanonicalPath());
             }
+            if (peticion.mkdirs()){
+                LOG.log(Level.INFO, "Carpeta {0} creada ", peticion.getCanonicalPath());
+            }
+            if (respuesta.mkdirs()){
+                LOG.log(Level.INFO, "Carpeta {0} creada ", respuesta.getCanonicalPath());
+            }
+            
+            List<String> schemas = resourcesMap.get(key);
+            
+            for (String schema:schemas){
+                if (!schema.endsWith(".xsd")){
+                    LOG.log(Level.INFO, "Extension de esquema distinta de xsd para {0}", schema);
+                    continue;
+                }
+                if (schema.startsWith("soap")){
+                    LOG.log(Level.INFO, "Envoltorio soap para {0}", schema);
+                    continue;
+                }
+                
+                String schemaFolder = null;
+                String[] schemasPeticion = new String[]{"confirmacion-peticion.xsd",
+                    "datos-especificos-ent.xsd","datos-especificos-entrada.xsd",
+                    "peticion_datos_especificos.xsd","peticion.xsd"};
+                String[] schemasRespuesta = new String[]{"solicitud-respuesta.xsd",
+                    "datos-especificos-sal.xsd","datos-especificos-salida.xsd",
+                    "respuesta_datos_especificos.xsd","respuesta.xsd"};
+                
+                schemaFolder = (Arrays.asList(schemasPeticion).contains(schema))?"peticion":schemaFolder;
+                schemaFolder = (Arrays.asList(schemasRespuesta).contains(schema))?"respuesta":schemaFolder;
+                
+                for (String s:new String[]{"peticion","respuesta"}){
+                    if (schemaFolder==null || s.equals(schemaFolder)){
+                        File schemaFile = new File(subFolder, s.concat("/").concat(schema));
+                        schemaFile.createNewFile();
+                        FileOutputStream fos = new FileOutputStream(schemaFile);
+                        InputStream is = XmlHelper.class.getClassLoader().getResourceAsStream("schemas/".concat(key).concat("/").concat(schema));
+                        IOUtils.copy(is, fos);
+                        is.close();
+                        fos.close();
+                    }
+                }
+                
+                XjbBindings xjbBindings = XjbBindingsUtils.getXjbBindings(key);
+                
+                
+            }
+        }
+        
+       
+        
+        for (String key:bindingMap.keySet()){
+            XjbBindings xjbBindings = XjbBindingsUtils.getXjbBindings(key, (List<String>)xsdMap.get(key), SCHEMA_SCOPE);
+            File bindingsFolder = new File(srcMainResourcesJaxbBindings, key);
+            setXjbBindingsXmlDescriptor(bindingsFolder, xjbBindings, SCHEMA_SCOPE);
         }
         
         
-
         
-        
-        
+        Project project = ProjectUtils.getProject(new ArrayList<String>(resourcesMap.keySet()));
+        setPomXmlDescriptor(projectFolderFile, project);
         
             /*
             if (name.startsWith("schemas/")) {

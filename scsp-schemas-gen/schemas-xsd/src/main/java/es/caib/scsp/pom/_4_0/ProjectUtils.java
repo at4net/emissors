@@ -18,6 +18,7 @@ package es.caib.scsp.pom._4_0;
 import es.caib.scsp.genschemas.managers.ProjectXmlManager;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -55,10 +56,11 @@ public class ProjectUtils {
     private static final String WSDL_SCOPE = "wsdl";
      
     private static PluginExecution getExecution(
-            String codigo, 
-            String executionSchemaDirectory, 
-            String executionBindingDirectory, 
-            String scope){
+            String codigo//, 
+            //String executionSchemaDirectory, 
+            //String executionBindingDirectory, 
+            //String scope
+            ){
         
         PluginExecution execution = new PluginExecution();
         String id = codigo + "_" + scope;
@@ -222,7 +224,28 @@ public class ProjectUtils {
         return execution;
         
     } 
-     
+    
+   
+    
+    public static Project getProject(List<String> keys)
+            //Map<String, String> executionMap, Map<String, String> bindingMap) 
+            throws JAXBException, IOException {
+
+        Project project = getProject();
+        for (Plugin plugin : project.getBuild().getPlugins().getPlugin()) {
+            if ("maven-jaxb2-plugin".equals(plugin.getArtifactId())) {
+                for (String key : keys) {
+                    PluginExecution execution;
+                    execution = getExecution(key);
+                    plugin.getExecutions().getExecution().add(execution);
+                }
+            }
+        }
+        return project;
+    }
+
+    
+    /*
     public static Project getProject(Map<String, String> executionMap, Map<String, String> bindingMap) throws JAXBException, IOException {
 
         Project project = getProject();
@@ -242,7 +265,7 @@ public class ProjectUtils {
         }
         return project;
     }
-
+    */
     
 
 
