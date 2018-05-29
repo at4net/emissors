@@ -36,34 +36,22 @@ import org.w3c.dom.Element;
  */
 public class ProjectUtils {
     
-    
-    
-     public static Project getProject() throws JAXBException, IOException{
-        
+    public static Project getProject() throws JAXBException, IOException {
+
         Project project = new Project();
         InputStream pomInputStream = project.getClass().getClassLoader().getResourceAsStream("jaxb/templates/pom.xml.template");
         ProjectXmlManager manager = new ProjectXmlManager();
-        
+
         project = manager.generateItem(pomInputStream);
-        
+
         return project;
-        
-     }
+
+    }
      
-    private static final String SCHEMA_SCOPE = "schemas";
-    private static final String SPECIFIC_SCOPE = "specific";
-    private static final String SOAP_SCOPE = "soap";
-    private static final String WSDL_SCOPE = "wsdl";
-     
-    private static PluginExecution getExecution(
-            String codigo//, 
-            //String executionSchemaDirectory, 
-            //String executionBindingDirectory, 
-            //String scope
-            ){
+    private static PluginExecution getExecution(String codigo, String subfolder){
         
         PluginExecution execution = new PluginExecution();
-        String id = codigo + "_" + scope;
+        String id = codigo + "_" + subfolder;
         execution.setId(id);
         execution.setPhase("generate-sources");
         PluginExecution.Goals goals = new PluginExecution.Goals();
@@ -83,137 +71,54 @@ public class ProjectUtils {
             xjcArgs.appendChild(xjcArg);
             configuration.getAny().add(xjcArgs);
             
+            String executionSchemaDirectory = "src/main/resources/jaxb/"
+                    .concat(codigo).concat("/").concat(subfolder);
+            
             Element schemaDirectory = doc.createElementNS(namespace, "schemaDirectory");
             schemaDirectory.appendChild(doc.createTextNode(executionSchemaDirectory));
             configuration.getAny().add(schemaDirectory);
             
             Element schemaIncludes = doc.createElementNS(namespace, "schemaIncludes");
             Element include = doc.createElementNS(namespace, "include");
-            
-            if (WSDL_SCOPE.equals(scope)){
-                include.appendChild(doc.createTextNode("*.wsdl"));
-            }
-            else if (SOAP_SCOPE.equals(scope)){
-                include.appendChild(doc.createTextNode("soap*.xsd"));
-            }
-            else if (SCHEMA_SCOPE.equals(scope)){
-                include.appendChild(doc.createTextNode("*.xsd"));
-            }
-            //else if (SPECIFIC_SCOPE.equals(scope)){
-            //    include.appendChild(doc.createTextNode("*specifico*.xsd"));
-            //}
-            else {
-                include.appendChild(doc.createTextNode("*.xsd"));
-            }
-            
+            include.appendChild(doc.createTextNode("*.xsd"));
             schemaIncludes.appendChild(include);
             configuration.getAny().add(schemaIncludes);
 
+            /*
             Element schemaExcludes = doc.createElementNS(namespace, "schemaExcludes");
             Element exclude;
-            
-            if (WSDL_SCOPE.equals(scope)) {
-                exclude = doc.createElementNS(namespace, "exclude");
-                exclude.appendChild(doc.createTextNode("*.xsd"));
-                schemaExcludes.appendChild(exclude);
-                configuration.getAny().add(schemaExcludes);
-            } else if (SOAP_SCOPE.equals(scope)) {
-
-                //include.appendChild(doc.createTextNode("*.wsdl"));
-            } else if (SCHEMA_SCOPE.equals(scope)) {
-                
-                /*
-                exclude = doc.createElementNS(namespace, "exclude");
-                exclude.appendChild(doc.createTextNode("*atos-especifico*.xsd"));
-                schemaExcludes.appendChild(exclude);
-                exclude = doc.createElementNS(namespace, "exclude");
-                exclude.appendChild(doc.createTextNode("*atos-especificos-en*.xsd"));
-                schemaExcludes.appendChild(exclude);
-                exclude = doc.createElementNS(namespace, "exclude");
-                exclude.appendChild(doc.createTextNode("*atos-especificos-sa*.xsd"));
-                schemaExcludes.appendChild(exclude);
-                */
-                
-                exclude = doc.createElementNS(namespace, "exclude");
-                exclude.appendChild(doc.createTextNode("*soap*"));
-        
-                schemaExcludes.appendChild(exclude);
-                configuration.getAny().add(schemaExcludes);
-            } else if (SPECIFIC_SCOPE.equals(scope)) {
-                exclude = doc.createElementNS(namespace, "exclude");
-                exclude.appendChild(doc.createTextNode("soap*.xsd"));
-                schemaExcludes.appendChild(exclude);
-                configuration.getAny().add(schemaExcludes);
-            } else {
-                exclude = doc.createElementNS(namespace, "exclude");
-                exclude.appendChild(doc.createTextNode("*.xsd"));
-                schemaExcludes.appendChild(exclude);
-                configuration.getAny().add(schemaExcludes);
-            }
-
+            exclude = doc.createElementNS(namespace, "exclude");
+            exclude.appendChild(doc.createTextNode("*soap*"));
+            schemaExcludes.appendChild(exclude);
+            configuration.getAny().add(schemaExcludes);
+            */
 
             Element generateDirectory = doc.createElementNS(namespace, "generateDirectory");
-            String directory = "${project.build.directory}/generated-sources/xjc-" + id;
+            String directory = "${project.build.directory}/generated-sources/xjc-" + codigo + "-" + subfolder;
             generateDirectory.appendChild(doc.createTextNode(directory));
             configuration.getAny().add(generateDirectory);
             Element episodeFile = doc.createElementNS(namespace, "episodeFile");
-            String file = "${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-" + id + ".episode";
+            String file = "${project.build.directory}/generated-sources/xjc/META-INF/jaxb-schemas-" + codigo + "-" + subfolder +".episode";
             episodeFile.appendChild(doc.createTextNode(file));
             configuration.getAny().add(episodeFile);
 
             Element bindingDirectory = doc.createElementNS(namespace, "bindingDirectory");
-            bindingDirectory.appendChild(doc.createTextNode(executionBindingDirectory));
+            bindingDirectory.appendChild(doc.createTextNode(executionSchemaDirectory));
             configuration.getAny().add(bindingDirectory);
             
             Element bindingIncludes = doc.createElementNS(namespace, "bindingIncludes");
             Element bindingInclude = doc.createElementNS(namespace, "include");
-            
-            if (WSDL_SCOPE.equals(scope)) {
-                bindingInclude.appendChild(doc.createTextNode("*" + WSDL_SCOPE + "*.xjb"));
-                bindingIncludes.appendChild(bindingInclude);
-                configuration.getAny().add(bindingIncludes);
-            } else if (SOAP_SCOPE.equals(scope)) {
-                bindingInclude.appendChild(doc.createTextNode("*" + SOAP_SCOPE + "*.xjb"));
-                bindingIncludes.appendChild(bindingInclude);
-                configuration.getAny().add(bindingIncludes);
-            } else if (SCHEMA_SCOPE.equals(scope)) {
-                bindingInclude.appendChild(doc.createTextNode("*" + SCHEMA_SCOPE + "*.xjb"));
-                bindingIncludes.appendChild(bindingInclude);
-                configuration.getAny().add(bindingIncludes);
-            //} else if (SPECIFIC_SCOPE.equals(scope)) {
-            //    bindingInclude.appendChild(doc.createTextNode("*" + SPECIFIC_SCOPE + "*.xjb"));
-            //    bindingIncludes.appendChild(bindingInclude);
-            //    configuration.getAny().add(bindingIncludes);
-            }else {
-                bindingInclude.appendChild(doc.createTextNode("*.xjb"));
-                bindingIncludes.appendChild(bindingInclude);
-                configuration.getAny().add(bindingIncludes);
-            }
+            bindingInclude.appendChild(doc.createTextNode("*.xjb"));
+            bindingIncludes.appendChild(bindingInclude);
+            configuration.getAny().add(bindingIncludes);
             
             /*
             Element bindingExcludes = doc.createElementNS(namespace, "bindingExcludes");
             Element bindingExclude = doc.createElementNS(namespace, "exclude");
-            
-            if (WSDL_SCOPE.equals(scope)) {
-                bindingExclude.appendChild(doc.createTextNode("*.xjb"));
-                bindingExcludes.appendChild(bindingExclude);
-                configuration.getAny().add(bindingExcludes);
-            } else if (SOAP_SCOPE.equals(scope)) {
-                bindingExclude.appendChild(doc.createTextNode("*.xjb"));
-                bindingExcludes.appendChild(bindingExclude);
-                configuration.getAny().add(bindingExcludes);
-            } else if (SCHEMA_SCOPE.equals(scope)) {
-                bindingExclude.appendChild(doc.createTextNode("*.xjb"));
-                bindingExcludes.appendChild(bindingExclude);
-                configuration.getAny().add(bindingExcludes);
-            } else {
-                bindingExclude.appendChild(doc.createTextNode("*.xjb"));
-                bindingExcludes.appendChild(bindingExclude);
-                configuration.getAny().add(bindingExcludes);
-            }
+            bindingExclude.appendChild(doc.createTextNode("*.xjb"));
+            bindingExcludes.appendChild(bindingExclude);
+            configuration.getAny().add(bindingExcludes);            
             */
-            
-            
 
         } catch (ParserConfigurationException ex) {
             Logger.getLogger(ProjectUtils.class.getName()).log(Level.SEVERE, null, ex);
@@ -227,46 +132,20 @@ public class ProjectUtils {
     
    
     
-    public static Project getProject(List<String> keys)
-            //Map<String, String> executionMap, Map<String, String> bindingMap) 
-            throws JAXBException, IOException {
-
+    public static Project getProject(List<String> keys) throws JAXBException, IOException {
         Project project = getProject();
         for (Plugin plugin : project.getBuild().getPlugins().getPlugin()) {
             if ("maven-jaxb2-plugin".equals(plugin.getArtifactId())) {
                 for (String key : keys) {
-                    PluginExecution execution;
-                    execution = getExecution(key);
-                    plugin.getExecutions().getExecution().add(execution);
+                    for (String subfolder : new String[]{"peticion", "respuesta"}) {
+                        PluginExecution execution;
+                        execution = getExecution(key,subfolder);
+                        plugin.getExecutions().getExecution().add(execution);
+                    }
                 }
             }
         }
         return project;
     }
-
-    
-    /*
-    public static Project getProject(Map<String, String> executionMap, Map<String, String> bindingMap) throws JAXBException, IOException {
-
-        Project project = getProject();
-        for (Plugin plugin : project.getBuild().getPlugins().getPlugin()) {
-            if ("maven-jaxb2-plugin".equals(plugin.getArtifactId())) {
-                for (String key : executionMap.keySet()){
-                    PluginExecution execution;
-                    execution = getExecution(
-                            key,
-                            (String) executionMap.get(key),
-                            (String) bindingMap.get(key),
-                            SCHEMA_SCOPE
-                    );
-                    plugin.getExecutions().getExecution().add(execution);
-                }
-            }
-        }
-        return project;
-    }
-    */
-    
-
 
 }

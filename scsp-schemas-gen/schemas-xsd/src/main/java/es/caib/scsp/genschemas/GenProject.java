@@ -49,11 +49,6 @@ import javax.activation.DataHandler;
 import javax.xml.bind.JAXBException;
 import org.apache.commons.io.IOUtils;
 
-
-
-
-//import org.apache.commons.io.IOUtils;
-
 /**
  *
  * @author gdeignacio
@@ -73,8 +68,6 @@ public class GenProject {
     
     private static final String PROJECT_FOLDER_NAME = "scsp-schemas-xsd";
     private static final String ARTIFACT_NAME = "scsp-schemas-xsd";
-    
-    
     
     
     private void setPomXmlDescriptor(File f, Project project) throws JAXBException, FileNotFoundException, IOException {
@@ -101,11 +94,11 @@ public class GenProject {
     }
 
     
-    private void setXjbBindingsXmlDescriptor(File f, XjbBindings xjbBindings, String scope) throws JAXBException, FileNotFoundException, IOException{
+    private void setXjbBindingsXmlDescriptor(File f, XjbBindings xjbBindings) throws JAXBException, FileNotFoundException, IOException{
         
         f.mkdirs();
         
-        File bindingsxml = new File(f, scope + "_bindings.xjb");
+        File bindingsxml = new File(f, "bindings.xjb");
         
         bindingsxml.createNewFile();
         
@@ -162,25 +155,27 @@ public class GenProject {
         ZipEntry e;
         while ((e=zip.getNextEntry())!=null) {
             String name = e.getName();
-            if (!name.startsWith("schemas") || "schemas/".equals(name)) continue;
+            if (!name.startsWith("schemas") || "schemas/".equals(name)) {
+                continue;
+            }
             LOG.log(Level.INFO, "Procesando recurso : {0}", name);
             String[] arrayName = name.split("/");
-            if (arrayName.length==1){
+            if (arrayName.length == 1) {
                 LOG.log(Level.INFO, "{0} es un directorio vacio. No hacemos nada.", name);
                 continue;
             }
             String key = arrayName[1];
             LOG.log(Level.INFO, "Procesando clave : {0}", key);
-            if (e.isDirectory()){
+            if (e.isDirectory()) {
                 LOG.log(Level.INFO, "{0} es un directorio. No hacemos nada.", name);
                 continue;
             }
-            String schema = arrayName[arrayName.length-1];
+            String schema = arrayName[arrayName.length - 1];
             LOG.log(Level.INFO, "Procesando archivo : {0}", schema);
-            List<String> schemas = (resourcesMap.containsKey(key))?resourcesMap.get(key):new ArrayList<String>();
+            List<String> schemas = (resourcesMap.containsKey(key)) ? resourcesMap.get(key) : new ArrayList<String>();
             schemas.add(schema);
             resourcesMap.put(key, schemas);
-            }
+        }
         zip.close();
         
         LOG.log(Level.INFO, "Listando esquemas");
@@ -210,7 +205,7 @@ public class GenProject {
             }
             
             List<String> schemas = resourcesMap.get(key);
-            
+            Map<String, List<String>> xsdFolderMap = new HashMap<String,List<String>>();
             for (String schema:schemas){
                 if (!schema.endsWith(".xsd")){
                     LOG.log(Level.INFO, "Extension de esquema distinta de xsd para {0}", schema);
@@ -224,16 +219,19 @@ public class GenProject {
                 String schemaFolder = null;
                 String[] schemasPeticion = new String[]{"confirmacion-peticion.xsd",
                     "datos-especificos-ent.xsd","datos-especificos-entrada.xsd",
-                    "peticion_datos_especificos.xsd","peticion.xsd"};
+                    "peticion_datos-especificos.xsd","peticion.xsd"};
                 String[] schemasRespuesta = new String[]{"solicitud-respuesta.xsd",
                     "datos-especificos-sal.xsd","datos-especificos-salida.xsd",
-                    "respuesta_datos_especificos.xsd","respuesta.xsd"};
+                    "respuesta_datos-especificos.xsd","respuesta.xsd"};
                 
                 schemaFolder = (Arrays.asList(schemasPeticion).contains(schema))?"peticion":schemaFolder;
                 schemaFolder = (Arrays.asList(schemasRespuesta).contains(schema))?"respuesta":schemaFolder;
                 
                 for (String s:new String[]{"peticion","respuesta"}){
                     if (schemaFolder==null || s.equals(schemaFolder)){
+                        List<String> xsds= (xsdFolderMap.get(s)!=null)?xsdFolderMap.get(s):new ArrayList<String>();
+                        xsds.add(schema);
+                        xsdFolderMap.put(s, xsds);
                         File schemaFile = new File(subFolder, s.concat("/").concat(schema));
                         schemaFile.createNewFile();
                         FileOutputStream fos = new FileOutputStream(schemaFile);
@@ -241,189 +239,26 @@ public class GenProject {
                         IOUtils.copy(is, fos);
                         is.close();
                         fos.close();
+                        
                     }
                 }
                 
-                XjbBindings xjbBindings = XjbBindingsUtils.getXjbBindings(key);
-                
-                
             }
+            
+            for (File f:new File[]{peticion, respuesta}){
+                XjbBindings xjbBindings = XjbBindingsUtils.getXjbBindings();
+                setXjbBindingsXmlDescriptor(f, xjbBindings);
+            }
+            
         }
-        
-       
-        
-        for (String key:bindingMap.keySet()){
-            XjbBindings xjbBindings = XjbBindingsUtils.getXjbBindings(key, (List<String>)xsdMap.get(key), SCHEMA_SCOPE);
-            File bindingsFolder = new File(srcMainResourcesJaxbBindings, key);
-            setXjbBindingsXmlDescriptor(bindingsFolder, xjbBindings, SCHEMA_SCOPE);
-        }
-        
         
         
         Project project = ProjectUtils.getProject(new ArrayList<String>(resourcesMap.keySet()));
         setPomXmlDescriptor(projectFolderFile, project);
         
-            /*
-            if (name.startsWith("schemas/")) {
-                File schema = new File(srcMainResourcesJaxb, name);
-                File bind = new File(srcMainResourcesJaxb, "bindings/" + schema.getName());
-                
-                if (e.isDirectory()) {
-                    
-                    if ("schemas/".equals(name)) {
-                        
-                        //System.out.println("Directorio schemas encontrado");
-                        
-                        continue;
-                    }
-                    
-                    schema.mkdirs();
-                    bind.mkdirs();
-                    
-                    executionMap.put(schema.getName(), "src/main/resources/jaxb/schemas/" + schema.getName());  
-                    bindingMap.put(schema.getName(), "src/main/resources/jaxb/bindings/" + schema.getName());
-                    
-                    continue;
-                }
-
-                
-                
-                List<String> xsds= (xsdMap.get(schema.getParentFile().getName())!=null)?xsdMap.get(schema.getParentFile().getName()):new ArrayList<String>();
-                xsds.add(schema.getName());
-                xsdMap.put(schema.getParentFile().getName(), xsds);
-                
-                schema.createNewFile();
-                FileOutputStream fos = new FileOutputStream(schema);
-                InputStream is = XmlHelper.class.getClassLoader().getResourceAsStream(name);
-                IOUtils.copy(is, fos);
-                is.close();
-                fos.close();
-
-            }
-            */
-            
-            
-            
-           
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        /*
-        File srcTestJava = new File(folder, "src/test/java");
-        File srcMainJava = new File(folder, "src/main/java");
-        File srcMainResources = new File(folder, "src/main/resources");
-        File srcMainResourcesJaxb = new File(folder, "src/main/resources/jaxb");
-        File srcMainResourcesJaxbSchemas = new File(folder, "src/main/resources/jaxb/schemas");
-        File srcMainResourcesJaxbBindings = new File(folder, "src/main/resources/jaxb/bindings");
-
-        srcMainJava.mkdirs();
-        srcMainResources.mkdirs();
-        srcTestJava.mkdirs();
-
-        srcMainResourcesJaxbSchemas.mkdirs();
-        srcMainResourcesJaxbBindings.mkdirs();
-
-        
-
-        Map<String, String> executionMap = new HashMap<String,String>();
-        Map<String, String> bindingMap = new HashMap<String,String>();
-        HashMap<String, List<String>> xsdMap = new HashMap<String,List<String>>();
-        
-        
-        
-        
-       
-        while (true) {
-            
-            ZipEntry e = zip.getNextEntry();
-            if (e == null) {
-                break;
-            }
-            String name = e.getName();
-            
-            if (name.startsWith("schemas/")) {
-                File schema = new File(srcMainResourcesJaxb, name);
-                File bind = new File(srcMainResourcesJaxb, "bindings/" + schema.getName());
-                
-                if (e.isDirectory()) {
-                    
-                    if ("schemas/".equals(name)) {
-                        
-                        //System.out.println("Directorio schemas encontrado");
-                        
-                        continue;
-                    }
-                    
-                    
-                    schema.mkdirs();
-                    bind.mkdirs();
-                    
-                    executionMap.put(schema.getName(), "src/main/resources/jaxb/schemas/" + schema.getName());  
-                    bindingMap.put(schema.getName(), "src/main/resources/jaxb/bindings/" + schema.getName());
-                    
-                    continue;
-                }
-
-                
-                
-                List<String> xsds= (xsdMap.get(schema.getParentFile().getName())!=null)?xsdMap.get(schema.getParentFile().getName()):new ArrayList<String>();
-                xsds.add(schema.getName());
-                xsdMap.put(schema.getParentFile().getName(), xsds);
-                
-                schema.createNewFile();
-                FileOutputStream fos = new FileOutputStream(schema);
-                InputStream is = XmlHelper.class.getClassLoader().getResourceAsStream(name);
-                IOUtils.copy(is, fos);
-                is.close();
-                fos.close();
-
-            }
-           
-        }
-   
-        zip.close();
-        
-        System.out.println(executionMap.keySet().size() + " codigos");
-        
-        for (String key:bindingMap.keySet()){
-            XjbBindings xjbBindings = XjbBindingsUtils.getXjbBindings(key, (List<String>)xsdMap.get(key), SCHEMA_SCOPE);
-            File bindingsFolder = new File(srcMainResourcesJaxbBindings, key);
-            setXjbBindingsXmlDescriptor(bindingsFolder, xjbBindings, SCHEMA_SCOPE);
-        }
-        
-        Set set = new HashSet();
-        for (String key: xsdMap.keySet()){
-            set.addAll(xsdMap.get(key));
-        }
-        
-        
-        System.out.println(set.size() + " nombres de fichero");
-        List<String> ficheros = new ArrayList(set);
-        for (String fichero: ficheros){
-            System.out.println(fichero);
-        }
-        
-        
-  
-        Project project = ProjectUtils.getProject(executionMap, bindingMap);
-        setPomXmlDescriptor(new File(path.toFile(), PROJECT_FOLDER_NAME), project);
-        
-        */
+ 
         
     }
-    
-    private static final String SCHEMA_SCOPE = "schemas";
-    private static final String SPECIFIC_SCOPE = "specific";
-    private static final String SOAP_SCOPE = "soap";
-    private static final String WSDL_SCOPE = "wsdl";
-
     
     
     public void generate() throws JAXBException, IOException{
