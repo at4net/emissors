@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
@@ -54,10 +55,10 @@ public class XjbBindingsUtils {
 
     }
     
-    private static final String SCHEMA_SCOPE = "schemas";
-    private static final String SPECIFIC_SCOPE = "specific";
-    private static final String SOAP_SCOPE = "soap";
-    private static final String WSDL_SCOPE = "wsdl";
+    //private static final String SCHEMA_SCOPE = "schemas";
+    //private static final String SPECIFIC_SCOPE = "specific";
+    //private static final String SOAP_SCOPE = "soap";
+    //private static final String WSDL_SCOPE = "wsdl";
     
     
     private static Document getDocumentFromXml(String xsd){
@@ -76,26 +77,66 @@ public class XjbBindingsUtils {
         return doc;
     }
     
-
-    public static XjbBindings getXjbBindings(String key, List<String> xsds, String scope) throws JAXBException, IOException{
+    /*
+    <jxb:bindings schemaLocation="xsd/CommonTypes.xsd">
+        <jxb:bindings node="//xs:complexType[@name='AnXSDType']">
+            <jxb:class name="AnXSDTypeFromCommonTypes"/>
+        </jxb:bindings>
+    </jxb:bindings>
+    <jxb:bindings schemaLocation="xsd/EvenMoreCommonTypes.xsd">
+        <jxb:bindings node="//xs:complexType[@name='AnXSDType']">
+            <jxb:class name="AnXSDTypeFromEvenMoreCommonTypes"/>
+        </jxb:bindings>
+    </jxb:bindings>
+    */
+    
+    
+    public static XjbBindings getXjbBindings(String key, String folder, Map<String,List<String>> xsds) throws JAXBException, IOException {
 
         System.out.println("key " + key + ": " + xsds);
-        
+
         XjbBindings xjbBindings = getXjbBindings();
-        
+
         //GlobalBindings globalBindings = new GlobalBindings();
         //globalBindings.setEnableJavaNamingConventions(Boolean.TRUE);
         //globalBindings.setGenerateElementClass(Boolean.TRUE);
         //globalBindings.setGenerateElementProperty(Boolean.TRUE);
         //globalBindings.setLocalScoping("toplevel");
         //xjbBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(globalBindings);
-        
-        for (String xsd : xsds) {
-            
-            XjbBindings xsdBindings = new XjbBindings();
+        for (String xsd : xsds.get(folder)) {
 
-            xsdBindings.setSchemaLocation("../../schemas/" + key + "/" + xsd);
+            XjbBindings xsdBindings = new XjbBindings();
+            //xsdBindings.setSchemaLocation("../../schemas/" + key + "/" + xsd);
+            xsdBindings.setSchemaLocation(xsd);
             //xsdBindings.setNode("//xs:schema");
+            if (xsd.contains("comun")) continue;
+            if (xsd.contains("VolanteEmpadronamientoTipos")) continue;
+
+            SchemaBindings schemaBindings = new SchemaBindings();
+            PackageType packageType = new PackageType();
+            System.out.println("Binding para: " + xsd);
+
+            String packageName = "es.caib.scsp.esquemas." + key + "." + folder + ".";
+            packageName = packageName.concat(CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.replace(".", "_").replace("_xsd", "")).toLowerCase());
+
+            System.out.println(packageName);
+
+            packageType.getName().add(packageName);
+            schemaBindings.setPackage(packageType);
+
+            xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(schemaBindings);
+            //xjbBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(xsdBindings);
+
+            xjbBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(xsdBindings);
+
+        }
+        return xjbBindings;
+    }
+}
+
+
+/*
+
 
             if (WSDL_SCOPE.equals(scope)) {
                 if (xsd.endsWith("xsd")) continue;
@@ -119,7 +160,7 @@ public class XjbBindingsUtils {
                 
                 String packageName = "es.caib.scsp.esquemas." + key + ".";
                 
-                /*
+                
                 if ("datos-especificos.xsd".equals(xsd)){
                     packageName = packageName.concat("datosespecificos_xsd");
                 }
@@ -138,7 +179,7 @@ public class XjbBindingsUtils {
                 else {
                     packageName = packageName.concat(CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.replace(".", "_")).toLowerCase());
                 }
-                */
+                
                 packageName = packageName.concat(CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.replace(".", "_").replace("_xsd", "")).toLowerCase());
                 
                 System.out.println(packageName);
@@ -146,7 +187,7 @@ public class XjbBindingsUtils {
                 packageType.getName().add(packageName);
                 schemaBindings.setPackage(packageType); 
                
-                /*
+                
                 NameXmlTransformType nameXmlTransform = new NameXmlTransformType();
 
                 NameXmlTransformRule typeNameXmlTransformRule = new NameXmlTransformRule();
@@ -165,12 +206,12 @@ public class XjbBindingsUtils {
                 nameXmlTransform.setElementName(elementNameXmlTransformRule);
                 
                 schemaBindings.setNameXmlTransform(nameXmlTransform);
-                */
+                
 
                 xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(schemaBindings);
                 
                 
-                /*
+                
                 if (xsd.contains("especificos-")) {
                     
                     XjbBindings nodeBindings;
@@ -208,10 +249,10 @@ public class XjbBindingsUtils {
                     xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(nodeBindings);
 
                 }
-                */
                 
                 
-                /*
+                
+                
                 if ("peticion.xsd".equals(xsd) || "respuesta.xsd".equals(xsd)) {
                     
                     XjbBindings nodeBindings;
@@ -244,7 +285,7 @@ public class XjbBindingsUtils {
                     xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(nodeBindings);
                 
                 }
-                */
+                
                  
                 
               
@@ -257,20 +298,14 @@ public class XjbBindingsUtils {
 
         //xjbBindings = getXjbBindings();
         return xjbBindings;
+        
+        
 
     }
 
-/*
-    <jxb:bindings schemaLocation="xsd/CommonTypes.xsd">
-        <jxb:bindings node="//xs:complexType[@name='AnXSDType']">
-            <jxb:class name="AnXSDTypeFromCommonTypes"/>
-        </jxb:bindings>
-    </jxb:bindings>
-    <jxb:bindings schemaLocation="xsd/EvenMoreCommonTypes.xsd">
-        <jxb:bindings node="//xs:complexType[@name='AnXSDType']">
-            <jxb:class name="AnXSDTypeFromEvenMoreCommonTypes"/>
-        </jxb:bindings>
-    </jxb:bindings>
- */   
+
+    
+    
     
 }
+*/

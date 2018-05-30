@@ -215,6 +215,15 @@ public class GenProject {
                     LOG.log(Level.INFO, "Envoltorio soap para {0}", schema);
                     continue;
                 }
+                String[] redundantes = new String[]{
+                    "peticion_datos-especificos.xsd",
+                    "respuesta_datos-especificos.xsd",
+                    "xmldsig.xsd"};
+                if  (Arrays.asList(redundantes).contains(schema)){
+                    LOG.log(Level.INFO, "{0} redundante", schema);
+                    continue;
+                }
+                
                 
                 String schemaFolder = null;
                 String[] schemasPeticion = new String[]{"confirmacion-peticion.xsd",
@@ -246,7 +255,8 @@ public class GenProject {
             }
             
             for (File f:new File[]{peticion, respuesta}){
-                XjbBindings xjbBindings = XjbBindingsUtils.getXjbBindings();
+                String name = f.getName();
+                XjbBindings xjbBindings = XjbBindingsUtils.getXjbBindings(key, name, xsdFolderMap);
                 setXjbBindingsXmlDescriptor(f, xjbBindings);
             }
             
