@@ -33,15 +33,14 @@ import org.apache.commons.io.IOUtils;
 /**
  *
  * @author gdeignacio
- * @param <T>
  */
-public class XmlManager<T> {
+public class XmlJAXBManager {
 
-    private final Class<T> clazz;
+    private final Class<?> clazz;
 
     private final JAXBContext jaxbContext;
 
-    public XmlManager(Class<T> clazz) throws JAXBException {
+    public XmlJAXBManager(Class<?> clazz) throws JAXBException {
 
         this.clazz = clazz;
         this.jaxbContext = JAXBContext.newInstance(clazz);
@@ -51,13 +50,13 @@ public class XmlManager<T> {
         return this.jaxbContext;
     }
 
-    private ByteArrayOutputStream marshal(T item) throws JAXBException {
+    private ByteArrayOutputStream marshal(Class<?> item) throws JAXBException {
 
         return marshal(item, Boolean.TRUE);
 
     }
 
-    private ByteArrayOutputStream marshal(T item, boolean formattedOutput) throws JAXBException {
+    private ByteArrayOutputStream marshal(Class<?> item, boolean formattedOutput) throws JAXBException {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
@@ -69,14 +68,14 @@ public class XmlManager<T> {
         return baos;
     }
 
-    private T unmarshal(InputStream is) throws JAXBException {
+    private Object unmarshal(InputStream is) throws JAXBException {
 
        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
        return jaxbUnmarshaller.unmarshal(new StreamSource(is), clazz).getValue();
 
     }
 
-    public DataHandler generateXml(T item) throws JAXBException {
+    public DataHandler generateXml(Class<?> item) throws JAXBException {
 
         byte[] b = marshal(item).toByteArray();
         String mimetype = "application/xml";
@@ -85,7 +84,7 @@ public class XmlManager<T> {
 
     }
 
-    public DataHandler generateXml(List<T> items) throws JAXBException {
+    public DataHandler generateXml(List<Class<?>> items) throws JAXBException {
 
         byte[] b = generateXmlString(items).getBytes();
         String mimetype = "text/plain";
@@ -94,7 +93,7 @@ public class XmlManager<T> {
 
     }
 
-    public DataHandler generateFlatXml(List<T> items) throws JAXBException {
+    public DataHandler generateFlatXml(List<Class<?>> items) throws JAXBException {
 
         byte[] b = generateFlatXmlString(items).getBytes();
         String mimetype = "text/plain";
@@ -103,31 +102,31 @@ public class XmlManager<T> {
 
     }
 
-    public T generateItem(DataHandler document) throws JAXBException, IOException {
+    public Object generateItem(DataHandler document) throws JAXBException, IOException {
         return unmarshal(document.getInputStream());
     }
     
-    public T generateItem(InputStream is) throws JAXBException, IOException {
+    public Object generateItem(InputStream is) throws JAXBException, IOException {
         return unmarshal(is);
     }
     
 
-    public byte[] generateXmlByteArray(T item) throws JAXBException {
+    public byte[] generateXmlByteArray(Class<?> item) throws JAXBException {
 
         return marshal(item).toByteArray();
 
     }
 
-    public String generateFlatXmlString(T item) throws JAXBException {
+    public String generateFlatXmlString(Class<?> item) throws JAXBException {
 
         return marshal(item, Boolean.FALSE).toString();
 
     }
 
-    public String generateFlatXmlString(List<T> items) throws JAXBException {
+    public String generateFlatXmlString(List<Class<?>> items) throws JAXBException {
 
         StringBuilder mensajes = new StringBuilder();
-        for (T item : items) {
+        for (Class<?> item : items) {
             mensajes.append(generateFlatXmlString(item));
             mensajes.append(IOUtils.LINE_SEPARATOR);
         }
@@ -135,16 +134,16 @@ public class XmlManager<T> {
 
     }
 
-    public String generateXmlString(T item) throws JAXBException {
+    public String generateXmlString(Class<?> item) throws JAXBException {
 
         return marshal(item).toString();
 
     }
 
-    public String generateXmlString(List<T> items) throws JAXBException {
+    public String generateXmlString(List<Class<?>> items) throws JAXBException {
 
         StringBuilder mensajes = new StringBuilder();
-        for (T item : items) {
+        for (Class<?> item : items) {
             mensajes.append(generateXmlString(item));
         }
         return mensajes.toString();
@@ -152,7 +151,7 @@ public class XmlManager<T> {
     }
     
     
-    public boolean validateItem(T item, DataHandler xsd) throws JAXBException{
+    public boolean validateItem(Class<?> item, DataHandler xsd) throws JAXBException{
         
         return XmlValidation.validateXMLSchema(xsd, generateXml(item));
     

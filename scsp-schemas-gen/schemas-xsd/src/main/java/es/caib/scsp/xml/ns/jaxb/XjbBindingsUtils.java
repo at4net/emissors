@@ -116,7 +116,11 @@ public class XjbBindingsUtils {
             PackageType packageType = new PackageType();
             System.out.println("Binding para: " + xsd);
 
-            String packageName = "es.caib.scsp.esquemas." + key + "." + folder + ".";
+            String legalizedKey;
+            
+            legalizedKey = (Character.isDigit(key.charAt(0)))?"_".concat(key):key;
+            
+            String packageName = "es.caib.scsp.esquemas." + legalizedKey + "." + folder + ".";
             packageName = packageName.concat(CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.replace(".", "_").replace("_xsd", "")).toLowerCase());
 
             System.out.println(packageName);

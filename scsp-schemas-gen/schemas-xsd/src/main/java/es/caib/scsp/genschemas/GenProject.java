@@ -15,16 +15,15 @@
  */
 package es.caib.scsp.genschemas;
 
-//import es.caib.pinbal.scsp.XmlHelper;
 import es.caib.pinbal.scsp.XmlHelper;
 import es.caib.scsp.genschemas.managers.XjbBindingsXmlManager;
 import es.caib.scsp.pom._4_0.Project;
 import es.caib.scsp.genschemas.managers.ProjectXmlManager;
 import es.caib.scsp.pom._4_0.ProjectUtils;
 import es.caib.scsp.utils.util.DataHandlers;
+import es.caib.scsp.utils.xml.XmlJAXBManager;
 import es.caib.scsp.xml.ns.jaxb.XjbBindings;
 import es.caib.scsp.xml.ns.jaxb.XjbBindingsUtils;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -37,10 +36,8 @@ import java.security.CodeSource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
@@ -69,6 +66,43 @@ public class GenProject {
     private static final String PROJECT_FOLDER_NAME = "scsp-schemas-xsd";
     private static final String ARTIFACT_NAME = "scsp-schemas-xsd";
     
+    /*
+    private void setXmlDescriptor(File f, String descriptorName, Class<?> clazz,  Object obj) throws JAXBException, FileNotFoundException, IOException {
+
+        f.mkdirs();
+        
+        File descriptorxml = new File(f, descriptorName);
+        
+        descriptorxml.createNewFile();
+        
+        LOG.log(Level.INFO, "Creando descriptor: {0}", descriptorxml.getAbsolutePath());
+        
+        XmlJAXBManager manager = new XmlJAXBManager(clazz.getClass());
+        
+        //ProjectXmlManager manager = new ProjectXmlManager();
+        
+       
+        
+        LOG.log(Level.INFO, "Creando descriptor: {0}", clazz.getClass().newInstance());
+        
+        DataHandler dh = manager.generateXml(clazz.getClass().cast(obj));
+
+        FileOutputStream fos = new FileOutputStream(descriptorxml);
+
+        byte[] b = DataHandlers.dataHandlerToByteArray(dh);
+
+        fos.write(b);
+
+        fos.close();
+    }
+    
+    
+    private void setPomXmlDescriptor(File f, Project project) throws JAXBException, FileNotFoundException, IOException {
+
+        setXmlDescriptor(f, "pom.xml", Project.class, project);
+    }
+    */
+    
     
     private void setPomXmlDescriptor(File f, Project project) throws JAXBException, FileNotFoundException, IOException {
 
@@ -92,6 +126,7 @@ public class GenProject {
 
         fos.close();
     }
+    
 
     
     private void setXjbBindingsXmlDescriptor(File f, XjbBindings xjbBindings) throws JAXBException, FileNotFoundException, IOException{
