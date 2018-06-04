@@ -15,13 +15,19 @@
  */
 package es.caib.scsp.pom._4_0;
 
+import es.caib.scsp.genschemas.GenMultipleProjects;
 import es.caib.scsp.genschemas.managers.ProjectXmlManager;
+import es.caib.scsp.utils.util.DataHandlers;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.activation.DataHandler;
 import javax.xml.bind.JAXBException;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -35,6 +41,24 @@ import org.w3c.dom.Element;
  * @author gdeignacio
  */
 public class ProjectUtils {
+    
+    protected static final Logger LOG = Logger.getLogger(GenMultipleProjects.class.getName());
+    
+    public static void setPomXmlDescriptor(File f, Project project) throws JAXBException, FileNotFoundException, IOException {
+        f.mkdirs();
+        File pomxml = new File(f, "pom.xml");
+        pomxml.createNewFile();
+        LOG.log(Level.INFO, "Creando pom: {0}", pomxml.getAbsolutePath());
+        ProjectXmlManager manager = new ProjectXmlManager();
+        DataHandler dh = manager.generateXml(project);
+        FileOutputStream fos = new FileOutputStream(pomxml);
+        byte[] b = DataHandlers.dataHandlerToByteArray(dh);
+        fos.write(b);
+        fos.close();
+    }
+    
+    
+    
     
     public static Project getProject() throws JAXBException, IOException {
 

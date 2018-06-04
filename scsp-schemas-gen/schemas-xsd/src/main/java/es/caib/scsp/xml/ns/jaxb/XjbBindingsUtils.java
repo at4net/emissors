@@ -22,6 +22,10 @@ import com.sun.java.xml.ns.jaxb.NameXmlTransformType;
 import com.sun.java.xml.ns.jaxb.PackageType;
 import com.sun.java.xml.ns.jaxb.SchemaBindings;
 import es.caib.scsp.genschemas.managers.XjbBindingsXmlManager;
+import es.caib.scsp.utils.util.DataHandlers;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -29,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.activation.DataHandler;
 import javax.xml.bind.JAXBException;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -43,6 +48,21 @@ import org.xml.sax.SAXException;
  */
 public class XjbBindingsUtils {
 
+    
+    public static void setXjbBindingsXmlDescriptor(File f, XjbBindings xjbBindings) throws JAXBException, FileNotFoundException, IOException{
+        f.mkdirs();
+        File bindingsxml = new File(f, "bindings.xjb");
+        bindingsxml.createNewFile();
+        XjbBindingsXmlManager manager = new XjbBindingsXmlManager();
+        DataHandler dh = manager.generateXml(xjbBindings);
+        FileOutputStream fos = new FileOutputStream(bindingsxml);
+        byte[] b = DataHandlers.dataHandlerToByteArray(dh);
+        fos.write(b);
+        fos.close();
+    }
+    
+    
+    
     public static XjbBindings getXjbBindings() throws JAXBException, IOException {
 
         XjbBindings xjbBindings = new XjbBindings();

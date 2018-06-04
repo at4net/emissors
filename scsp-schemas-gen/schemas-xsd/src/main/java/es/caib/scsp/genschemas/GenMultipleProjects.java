@@ -16,16 +16,11 @@
 package es.caib.scsp.genschemas;
 
 import es.caib.pinbal.scsp.XmlHelper;
-import es.caib.scsp.genschemas.managers.XjbBindingsXmlManager;
 import es.caib.scsp.pom._4_0.Project;
-import es.caib.scsp.genschemas.managers.ProjectXmlManager;
 import es.caib.scsp.pom._4_0.ProjectUtils;
-import es.caib.scsp.utils.util.DataHandlers;
-import es.caib.scsp.utils.xml.XmlManager;
 import es.caib.scsp.xml.ns.jaxb.XjbBindings;
 import es.caib.scsp.xml.ns.jaxb.XjbBindingsUtils;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,7 +37,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-import javax.activation.DataHandler;
 import javax.xml.bind.JAXBException;
 import org.apache.commons.io.IOUtils;
 
@@ -50,24 +44,24 @@ import org.apache.commons.io.IOUtils;
  *
  * @author gdeignacio
  */
-public class GenProject {
+public class GenMultipleProjects {
     
-    protected static final Logger LOG = Logger.getLogger(GenProject.class.getName());
-    private static final GenProject gen = new GenProject();
+    protected static final Logger LOG = Logger.getLogger(GenMultipleProjects.class.getName());
+    private static final GenMultipleProjects gen = new GenMultipleProjects();
     
-    private GenProject(){
+    private GenMultipleProjects(){
         super();
     }
  
-    public static GenProject getGen(){
+    public static GenMultipleProjects getGen(){
         return gen;
     }
     
     private static final String PROJECT_FOLDER_NAME = "scsp-schemas-xsd";
     private static final String ARTIFACT_NAME = "scsp-schemas-xsd";
     
-   
-    private void setXmlDescriptor(File f, String descriptorName, Object obj) throws JAXBException, FileNotFoundException, IOException {
+    /*
+    private void setXmlDescriptor(File f, String descriptorName, Class<?> clazz,  Object obj) throws JAXBException, FileNotFoundException, IOException {
 
         f.mkdirs();
         
@@ -77,15 +71,15 @@ public class GenProject {
         
         LOG.log(Level.INFO, "Creando descriptor: {0}", descriptorxml.getAbsolutePath());
         
-        //XmlJAXBManager manager = new XmlJAXBManager(clazz.getClass());
+        XmlJAXBManager manager = new XmlJAXBManager(clazz.getClass());
         
         //ProjectXmlManager manager = new ProjectXmlManager();
         
-        XmlManager<Project> manager = new XmlManager<Project>(Project.class);
+       
         
-        LOG.log(Level.INFO, "Creando descriptor: {0}", manager);
+        LOG.log(Level.INFO, "Creando descriptor: {0}", clazz.getClass().newInstance());
         
-        DataHandler dh = manager.generateXml((Project)obj);
+        DataHandler dh = manager.generateXml(clazz.getClass().cast(obj));
 
         FileOutputStream fos = new FileOutputStream(descriptorxml);
 
@@ -99,56 +93,16 @@ public class GenProject {
     
     private void setPomXmlDescriptor(File f, Project project) throws JAXBException, FileNotFoundException, IOException {
 
-        setXmlDescriptor(f, "pom.xml", project);
-    }
-    
-    
-    /*
-    private void setPomXmlDescriptor(File f, Project project) throws JAXBException, FileNotFoundException, IOException {
-
-        f.mkdirs();
-        
-        File pomxml = new File(f, "pom.xml");
-        
-        pomxml.createNewFile();
-        
-        LOG.log(Level.INFO, "Creando pom: {0}", pomxml.getAbsolutePath());
-        
-        ProjectXmlManager manager = new ProjectXmlManager();
-        
-        DataHandler dh = manager.generateXml(project);
-
-        FileOutputStream fos = new FileOutputStream(pomxml);
-
-        byte[] b = DataHandlers.dataHandlerToByteArray(dh);
-
-        fos.write(b);
-
-        fos.close();
+        setXmlDescriptor(f, "pom.xml", Project.class, project);
     }
     */
+    
+    
 
     
-    private void setXjbBindingsXmlDescriptor(File f, XjbBindings xjbBindings) throws JAXBException, FileNotFoundException, IOException{
-        
-        f.mkdirs();
-        
-        File bindingsxml = new File(f, "bindings.xjb");
-        
-        bindingsxml.createNewFile();
-        
-        XjbBindingsXmlManager manager = new XjbBindingsXmlManager();
-        
-        DataHandler dh = manager.generateXml(xjbBindings);
-        
-        FileOutputStream fos = new FileOutputStream(bindingsxml);
-        
-        byte[] b = DataHandlers.dataHandlerToByteArray(dh);
-        
-        fos.write(b);
+
     
-        fos.close();
-    }
+    
     
     private static final String MAIN_JAVA = "src/main/java";
     private static final String TEST_JAVA = "src/test/java";
@@ -292,14 +246,14 @@ public class GenProject {
             for (File f:new File[]{peticion, respuesta}){
                 String name = f.getName();
                 XjbBindings xjbBindings = XjbBindingsUtils.getXjbBindings(key, name, xsdFolderMap);
-                setXjbBindingsXmlDescriptor(f, xjbBindings);
+                XjbBindingsUtils.setXjbBindingsXmlDescriptor(f, xjbBindings);
             }
             
         }
         
         
         Project project = ProjectUtils.getProject(new ArrayList<String>(resourcesMap.keySet()));
-        setPomXmlDescriptor(projectFolderFile, project);
+        ProjectUtils.setPomXmlDescriptor(projectFolderFile, project);
         
  
         
@@ -330,7 +284,7 @@ public class GenProject {
     public static void main(String args[]) throws Exception {
 
         // Obtenim instància
-        GenProject gen = GenProject.getGen();
+        GenMultipleProjects gen = GenMultipleProjects.getGen();
         LOG.log(Level.INFO, "Inicio generación : {0}", ARTIFACT_NAME);
         // Generam el projecte
         gen.generate();
