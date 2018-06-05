@@ -98,10 +98,6 @@ public class GenMultipleProjects {
     */
     
     
-
-    
-
-    
     
     
     private static final String MAIN_JAVA = "src/main/java";

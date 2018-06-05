@@ -18,9 +18,9 @@ package es.caib.scsp.genschemas;
 import es.caib.pinbal.scsp.XmlHelper;
 import es.caib.scsp.genschemas.managers.XjbBindingsXmlManager;
 import es.caib.scsp.pom._4_0.Project;
-import es.caib.scsp.genschemas.managers.ProjectXmlManager;
 import es.caib.scsp.pom._4_0.ProjectUtils;
 import es.caib.scsp.utils.util.DataHandlers;
+import es.caib.scsp.utils.xml.XmlManager;
 import es.caib.scsp.xml.ns.jaxb.XjbBindings;
 import es.caib.scsp.xml.ns.jaxb.XjbBindingsUtils;
 import java.io.File;
@@ -49,24 +49,23 @@ import org.apache.commons.io.IOUtils;
  *
  * @author gdeignacio
  */
-public class GenProject {
+public class GenMainProject {
     
-    protected static final Logger LOG = Logger.getLogger(GenProject.class.getName());
-    private static final GenProject gen = new GenProject();
+    protected static final Logger LOG = Logger.getLogger(GenMainProject.class.getName());
+    private static final GenMainProject gen = new GenMainProject();
     
-    private GenProject(){
+    private GenMainProject(){
         super();
     }
  
-    public static GenProject getGen(){
+    public static GenMainProject getGen(){
         return gen;
     }
     
-    private static final String PROJECT_FOLDER_NAME = "scsp-schemas-xsd-all";
-    private static final String ARTIFACT_NAME = "scsp-schemas-xsd-all";
+    private static final String PROJECT_FOLDER_NAME = "scsp-schemas-xsd";
+    private static final String ARTIFACT_NAME = "scsp-schemas-xsd";
     
    
-    /*
     private void setXmlDescriptor(File f, String descriptorName, Object obj) throws JAXBException, FileNotFoundException, IOException {
 
         f.mkdirs();
@@ -102,8 +101,8 @@ public class GenProject {
         setXmlDescriptor(f, "pom.xml", project);
     }
     
-    */
     
+    /*
     private void setPomXmlDescriptor(File f, Project project) throws JAXBException, FileNotFoundException, IOException {
 
         f.mkdirs();
@@ -126,7 +125,7 @@ public class GenProject {
 
         fos.close();
     }
-    
+    */
 
     
     private void setXjbBindingsXmlDescriptor(File f, XjbBindings xjbBindings) throws JAXBException, FileNotFoundException, IOException{
@@ -330,7 +329,7 @@ public class GenProject {
     public static void main(String args[]) throws Exception {
 
         // Obtenim instància
-        GenProject gen = GenProject.getGen();
+        GenMainProject gen = GenMainProject.getGen();
         LOG.log(Level.INFO, "Inicio generación : {0}", ARTIFACT_NAME);
         // Generam el projecte
         gen.generate();
