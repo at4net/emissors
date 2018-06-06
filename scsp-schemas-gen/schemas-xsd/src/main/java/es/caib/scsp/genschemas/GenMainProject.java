@@ -62,8 +62,8 @@ public class GenMainProject {
         return gen;
     }
     
-    private static final String PROJECT_FOLDER_NAME = "scsp-schemas-xsd";
-    private static final String ARTIFACT_NAME = "scsp-schemas-xsd";
+    private static final String PROJECT_FOLDER_NAME = "scsp-schemas-xsd-split";
+    private static final String ARTIFACT_NAME = "scsp-schemas-xsd-split";
     
    
     private void setXmlDescriptor(File f, String descriptorName, Object obj) throws JAXBException, FileNotFoundException, IOException {
