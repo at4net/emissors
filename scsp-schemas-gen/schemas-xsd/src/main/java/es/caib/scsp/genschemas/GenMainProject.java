@@ -49,7 +49,7 @@ import org.apache.commons.io.IOUtils;
  *
  * @author gdeignacio
  */
-public class GenMainProject {
+public class GenMainProject extends GenericProject{
     
     protected static final Logger LOG = Logger.getLogger(GenMainProject.class.getName());
     private static final GenMainProject gen = new GenMainProject();
