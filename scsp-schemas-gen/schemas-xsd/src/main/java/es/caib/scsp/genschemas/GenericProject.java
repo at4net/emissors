@@ -49,8 +49,7 @@ import org.apache.commons.io.IOUtils;
  *
  * @author gdeignacio
  */
-public class GenericProject {
-    
+public abstract class GenericProject {
     
     protected GenericProject(Logger log, String projectFolderName, String artifactName){
         super();
@@ -58,8 +57,7 @@ public class GenericProject {
         this.projectFolderName=projectFolderName;
         this.artifactName=artifactName;
     }
-    
-    
+   
     private Logger log;
     private String projectFolderName;
     private String artifactName;
@@ -90,8 +88,44 @@ public class GenericProject {
     
     protected abstract File getProjectFolder();
     
+    protected abstract Project getProjectPom();
+    
     protected abstract void projectGeneration(Project project, Path path);
     
+    public void generate() throws JAXBException, IOException {
+            
+    }
+    
+    
+    /*
+    public void generate() throws JAXBException, IOException {
+
+        String execStrPath = System.getProperty("user.dir");
+
+        log.log(Level.INFO, "Directorio ejecucion: {0}", execStrPath);
+
+        Path projectFolderPath = FileSystems.getDefault().getPath(execStrPath);
+
+        if (projectFolderPath == null) {
+            return;
+        }
+        if (projectFolderPath.getParent() == null) {
+            return;
+        }
+
+        projectFolderPath = projectFolderPath.getParent();
+        projectFolderPath = (projectFolderPath != projectFolderPath.getRoot()) ? projectFolderPath.getParent() : projectFolderPath.getRoot();
+
+        log.log(Level.INFO, "Directorio generación {0}", projectFolderPath);
+
+        projectGeneration(projectFolderPath);
+
+    }
+    */
+    
+    
+    
+    /*
     private void projectGeneration(Path projectFolderPath) throws JAXBException, IOException {
 
         log.log(Level.INFO, "Generando proyecto " + PROJECT_FOLDER_NAME + " en : {0}", projectFolderPath);
@@ -240,48 +274,16 @@ public class GenericProject {
         
     }
     
+    */
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    public void generate() throws JAXBException, IOException{
-
-        String execStrPath = System.getProperty("user.dir");
-        
-        log.log(Level.INFO, "Directorio ejecucion: {0}", execStrPath);
-        
-        Path projectFolderPath = FileSystems.getDefault().getPath(execStrPath);
-        
-        if (projectFolderPath == null) return;
-        if (projectFolderPath.getParent() == null) return;
-        
-        projectFolderPath = projectFolderPath.getParent();
-        projectFolderPath = (projectFolderPath!=projectFolderPath.getRoot())?projectFolderPath.getParent():projectFolderPath.getRoot();
-        
-        log.log(Level.INFO, "Directorio generación {0}", projectFolderPath);
-        
-        projectGeneration(projectFolderPath);
-
-    }
     
     
    
+    
+    
+    
+    
     
     /*
     protected static final Logger log = Logger.getLogger(GenericProject.class.getName());
@@ -540,7 +542,7 @@ public class GenericProject {
         
     }
     
-    
+    /*
     public void generate() throws JAXBException, IOException{
 
         String execStrPath = System.getProperty("user.dir");
@@ -560,8 +562,10 @@ public class GenericProject {
         projectGeneration(projectFolderPath);
 
     }
+    */
     
     
+    /*
     public static void main(String args[]) throws Exception {
 
         // Obtenim instància
@@ -571,7 +575,7 @@ public class GenericProject {
         gen.generate();
         log.log(Level.INFO, "Fin generación : {0}", ARTIFACT_NAME);
         
-        /*
+        
         CodeSource src = XmlHelper.class.getProtectionDomain().getCodeSource();
         if (src == null) {
             return;
@@ -600,9 +604,10 @@ public class GenericProject {
         IOUtils.copy(is, baos);
         is.close();
         baos.close();
-        */
+        
 
     }
-
+    */
+    
    
 }
