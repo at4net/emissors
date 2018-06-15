@@ -50,15 +50,15 @@ import org.apache.commons.io.IOUtils;
  *
  * @author gdeignacio
  */
-public abstract class GenericProject {
+public abstract class ProjectGenerator {
     
-    protected GenericProject(String projectFolderName, String artifactName){
+    protected ProjectGenerator(String projectFolderName, String artifactName){
         super();
         this.projectFolderName=projectFolderName;
         this.artifactName=artifactName;
     }
    
-    private static final Logger log=Logger.getLogger(GenericProject.class.getName());;
+    private static final Logger LOG=Logger.getLogger(ProjectGenerator.class.getName());;
     private String projectFolderName;
     private String artifactName;
 
@@ -78,6 +78,26 @@ public abstract class GenericProject {
         this.artifactName = artifactName;
     }
     
+    protected Path getMainProjectFolderPath(){
+        
+        String strExecutionPath = System.getProperty("user.dir");
+        
+        LOG.log(Level.INFO, "Directorio ejecucion: {0}", strExecutionPath);
+        
+        Path executionPath = FileSystems.getDefault().getPath(strExecutionPath);
+        
+        if (executionPath == null) return null;
+        if (executionPath.getParent() == null) return null;
+        if (executionPath.getParent()==executionPath.getRoot()) return executionPath.getRoot();
+        
+        Path projectFolderPath = executionPath.getParent().getParent();
+        
+        LOG.log(Level.INFO, "Directorio principal generación {0}", projectFolderPath);
+        
+        return projectFolderPath;
+        
+    }
+    
     protected abstract File getProjectFolder();
     
     protected abstract Project getProject();
@@ -85,7 +105,7 @@ public abstract class GenericProject {
     protected abstract void projectGeneration(Project project, Path path);
     
     
-    private void generatePomXmlDescriptor(Path p, Project project) throws IOException, JAXBException{
+    private final void generatePomXmlDescriptor(Path p, Project project) throws IOException, JAXBException{
         
         File projectFolder = p.toFile();
         File pom = new File(projectFolder, "pom.xml");
@@ -99,7 +119,9 @@ public abstract class GenericProject {
         
     }
     
+    
     public void generate() throws JAXBException, IOException {
+        
         
         
         
