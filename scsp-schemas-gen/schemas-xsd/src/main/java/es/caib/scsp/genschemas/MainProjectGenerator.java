@@ -18,6 +18,7 @@ package es.caib.scsp.genschemas;
 import es.caib.scsp.pom._4_0.Project;
 import java.io.File;
 import java.nio.file.Path;
+import java.util.logging.Level;
 
 /**
  *
@@ -28,17 +29,20 @@ public class MainProjectGenerator extends ProjectGenerator {
     private static final String PROJECT_FOLDER_NAME = "scsp-schemas-xsd-ced";
     private static final String ARTIFACT_NAME = "scsp-schemas-xsd-ced";
 
+    /*
     public MainProjectGenerator() {
-        super(PROJECT_FOLDER_NAME, ARTIFACT_NAME);
-    }
+        //super(PROJECT_FOLDER_NAME, ARTIFACT_NAME);
+        super();
+    }*/
 
     @Override
     protected File getProjectFolder() {
         
-        
-        
-        
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Path mainProjectFolderPath = getMainProjectFolderPath();
+        LOG.log(Level.INFO, "Generando proyecto " + PROJECT_FOLDER_NAME + " en : {0}", mainProjectFolderPath);
+        File projectFolderFile = new File(mainProjectFolderPath.toFile(), PROJECT_FOLDER_NAME);
+        LOG.log(Level.INFO, "Generando proyecto " + PROJECT_FOLDER_NAME + " con carpeta : {0}", projectFolderFile);
+        return projectFolderFile;
         
     }
 
@@ -50,7 +54,12 @@ public class MainProjectGenerator extends ProjectGenerator {
     }
 
     @Override
-    protected void projectGeneration(Project project, Path path) {
+    protected void projectGeneration(File projectFolder) {
+        
+        
+        
+        
+        
         
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         

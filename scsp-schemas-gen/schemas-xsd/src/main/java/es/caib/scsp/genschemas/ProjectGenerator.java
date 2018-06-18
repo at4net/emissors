@@ -51,17 +51,18 @@ import org.apache.commons.io.IOUtils;
  * @author gdeignacio
  */
 public abstract class ProjectGenerator {
-    
+    /*
     protected ProjectGenerator(String projectFolderName, String artifactName){
         super();
         this.projectFolderName=projectFolderName;
         this.artifactName=artifactName;
-    }
+    }*/
    
-    private static final Logger LOG=Logger.getLogger(ProjectGenerator.class.getName());;
-    private String projectFolderName;
-    private String artifactName;
+    protected static final Logger LOG=Logger.getLogger(ProjectGenerator.class.getName());;
+    //private String projectFolderName;
+    //private String artifactName;
 
+    /*
     protected String getProjectFolderName() {
         return projectFolderName;
     }
@@ -76,7 +77,7 @@ public abstract class ProjectGenerator {
 
     protected void setArtifactName(String artifactName) {
         this.artifactName = artifactName;
-    }
+    }*/
     
     protected Path getMainProjectFolderPath(){
         
@@ -102,7 +103,7 @@ public abstract class ProjectGenerator {
     
     protected abstract Project getProject();
     
-    protected abstract void projectGeneration(Project project, Path path);
+    protected abstract void projectGeneration(File projectFolder);
     
     
     private final void generatePomXmlDescriptor(Path p, Project project) throws IOException, JAXBException{
@@ -119,14 +120,62 @@ public abstract class ProjectGenerator {
         
     }
     
-    
     public void generate() throws JAXBException, IOException {
-        
-        
-        
-        
-        
+        projectGeneration(getProjectFolder());
     }
+    
+    protected Map<String, List<String>> getResourcesMap() throws IOException {
+
+        Map<String, List<String>> resourcesMapByFolder = new HashMap<String, List<String>>();
+        LOG.log(Level.INFO, "Recuperando fuentes de esquemas");
+        CodeSource src = XmlHelper.class.getProtectionDomain().getCodeSource();
+
+        if (src == null) {
+            LOG.log(Level.INFO, "No encontrado. Saliendo");
+            return resourcesMapByFolder;
+        }
+        LOG.log(Level.INFO, "Fuentes en src : {0}", src);
+        URL jar = src.getLocation();
+        LOG.log(Level.INFO, "Fuentes en jar : {0}", jar);
+
+        ZipInputStream zip = new ZipInputStream(jar.openStream());
+        ZipEntry e;
+        while ((e = zip.getNextEntry()) != null) {
+            String name = e.getName();
+            if (!name.startsWith("schemas") || "schemas/".equals(name)) {
+                continue;
+            }
+            LOG.log(Level.INFO, "Procesando recurso : {0}", name);
+            String[] arrayName = name.split("/");
+            if (arrayName.length == 1) {
+                LOG.log(Level.INFO, "{0} es un directorio vacio. No hacemos nada.", name);
+                continue;
+            }
+            String key = arrayName[1];
+            LOG.log(Level.INFO, "Procesando clave : {0}", key);
+            if (e.isDirectory()) {
+                LOG.log(Level.INFO, "{0} es un directorio. No hacemos nada.", name);
+                continue;
+            }
+            String schema = arrayName[arrayName.length - 1];
+            LOG.log(Level.INFO, "Procesando archivo : {0}", schema);
+            List<String> schemas = (resourcesMapByFolder.containsKey(key)) ? resourcesMapByFolder.get(key) : new ArrayList<String>();
+            schemas.add(schema);
+            resourcesMapByFolder.put(key, schemas);
+        }
+        zip.close();
+        LOG.log(Level.INFO, "Listando esquemas");
+        for (String key : resourcesMapByFolder.keySet()) {
+            LOG.log(Level.INFO, "Esquemas para : {0}", key);
+            List<String> schemas = resourcesMapByFolder.get(key);
+            LOG.log(Level.INFO, "{0}", schemas.toString());
+        }
+        return resourcesMapByFolder;
+
+    }
+    
+    
+    
     
     
     
