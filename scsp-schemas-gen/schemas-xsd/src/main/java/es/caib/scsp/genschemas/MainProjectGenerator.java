@@ -15,10 +15,19 @@
  */
 package es.caib.scsp.genschemas;
 
+import es.caib.pinbal.scsp.XmlHelper;
 import es.caib.scsp.pom._4_0.Project;
+import es.caib.scsp.utils.xml.XmlManager;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
+import javax.xml.bind.JAXBException;
+import org.apache.commons.io.IOUtils;
 
 /**
  *
@@ -47,22 +56,60 @@ public class MainProjectGenerator extends ProjectGenerator {
     }
 
     @Override
-    protected Project getProject() {
+    protected Project getProject() throws IOException, JAXBException {
+        return getMainProject(new ArrayList<String>(getResourcesMap().keySet()));
+    }
+    
+    private Project getMainProject() throws JAXBException, IOException {
+
+        Project project = new Project();
+        InputStream pomInputStream = project.getClass().getClassLoader().getResourceAsStream("jaxb/templates/pom_main.xml.template");
+        XmlManager<Project> manager = new XmlManager<Project>(Project.class);
+        project = manager.generateItem(pomInputStream);
+        return project;
+
+    }
+    
+    private Project getMainProject(List<String> keys) throws JAXBException, IOException{
         
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Project project = getMainProject();
+        for (String key: keys){
+            String module = "scsp-schemas-xsd-prefix".replace("prefix", key);
+            project.getModules().getModule().add(module);
+        }
+        return project;
         
     }
+    
 
     @Override
-    protected void projectGeneration(File projectFolder) {
+    protected void generateContent(File projectFolder) throws IOException {
         
+        for (String template : new String[]{
+            "deploy.bat.template",
+            "deploy.sh.template",
+            "dozip.bat.template",
+            "dozip.sh.template",
+            "help.bat.template",
+            "help.sh.template",
+            "help.txt.template",
+            "nuevaVersion.bat.template",
+            "nuevaVersion.sh.template",
+            "versio.txt.template"
+        }) {
+            File contentFile = new File(projectFolder,template.replace(".template", ""));
+            contentFile.createNewFile();
+            FileOutputStream fos = new FileOutputStream(contentFile);
+            InputStream is = XmlHelper.class.getClassLoader().getResourceAsStream("content/parent/".concat(template));
+            IOUtils.copy(is, fos);
+            is.close();
+            fos.close();
+        }
         
-        
-        
-        
-        
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
+        // TODO
+        // ProjectGenerator projectGenerator = new ProjectGenerator();
+        // 
+        //
     }
     
 }

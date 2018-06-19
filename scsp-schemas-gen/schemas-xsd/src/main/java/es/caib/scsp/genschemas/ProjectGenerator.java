@@ -16,25 +16,17 @@
 package es.caib.scsp.genschemas;
 
 import es.caib.pinbal.scsp.XmlHelper;
-import es.caib.scsp.genschemas.managers.XjbBindingsXmlManager;
 import es.caib.scsp.pom._4_0.Project;
-import es.caib.scsp.genschemas.managers.ProjectXmlManager;
-import es.caib.scsp.pom._4_0.ProjectUtils;
 import es.caib.scsp.utils.util.DataHandlers;
 import es.caib.scsp.utils.xml.XmlManager;
-import es.caib.scsp.xml.ns.jaxb.XjbBindings;
-import es.caib.scsp.xml.ns.jaxb.XjbBindingsUtils;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.security.CodeSource;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +36,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.activation.DataHandler;
 import javax.xml.bind.JAXBException;
-import org.apache.commons.io.IOUtils;
 
 /**
  *
@@ -82,33 +73,32 @@ public abstract class ProjectGenerator {
     protected Path getMainProjectFolderPath(){
         
         String strExecutionPath = System.getProperty("user.dir");
-        
         LOG.log(Level.INFO, "Directorio ejecucion: {0}", strExecutionPath);
-        
         Path executionPath = FileSystems.getDefault().getPath(strExecutionPath);
         
         if (executionPath == null) return null;
         if (executionPath.getParent() == null) return null;
-        if (executionPath.getParent()==executionPath.getRoot()) return executionPath.getRoot();
+        if (executionPath.getParent() == executionPath.getRoot()) return executionPath.getRoot();
         
         Path projectFolderPath = executionPath.getParent().getParent();
-        
         LOG.log(Level.INFO, "Directorio principal generación {0}", projectFolderPath);
-        
         return projectFolderPath;
         
     }
     
     protected abstract File getProjectFolder();
+    protected abstract Project getProject() throws JAXBException, IOException;
+    protected abstract void generateContent(File projectFolder) throws IOException;
     
-    protected abstract Project getProject();
-    
-    protected abstract void projectGeneration(File projectFolder);
-    
-    
-    private final void generatePomXmlDescriptor(Path p, Project project) throws IOException, JAXBException{
-        
+    private final void generatePomXmlDescriptor(Path p, Project project) throws IOException, JAXBException {
+
         File projectFolder = p.toFile();
+        generatePomXmlDescriptor(projectFolder, project);
+
+    }
+    
+    private final void generatePomXmlDescriptor(File projectFolder, Project project) throws IOException, JAXBException{
+        
         File pom = new File(projectFolder, "pom.xml");
         pom.createNewFile();
         XmlManager<Project> manager = new XmlManager<Project>(Project.class);
@@ -121,7 +111,12 @@ public abstract class ProjectGenerator {
     }
     
     public void generate() throws JAXBException, IOException {
-        projectGeneration(getProjectFolder());
+        
+        File projectFolder = getProjectFolder();
+        generateContent(projectFolder);
+        Project project = getProject();
+        generatePomXmlDescriptor(projectFolder, project);
+        
     }
     
     protected Map<String, List<String>> getResourcesMap() throws IOException {
@@ -170,14 +165,9 @@ public abstract class ProjectGenerator {
             List<String> schemas = resourcesMapByFolder.get(key);
             LOG.log(Level.INFO, "{0}", schemas.toString());
         }
+        
         return resourcesMapByFolder;
-
     }
-    
-    
-    
-    
-    
     
     
 }
