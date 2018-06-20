@@ -18,13 +18,14 @@ package es.caib.scsp.pom._4_0;
 import es.caib.scsp.genschemas.GenMultipleProjects;
 import es.caib.scsp.genschemas.managers.ProjectXmlManager;
 import es.caib.scsp.utils.util.DataHandlers;
+import es.caib.scsp.utils.xml.XmlManager;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.activation.DataHandler;
@@ -44,6 +45,7 @@ public class ProjectUtils {
     
     protected static final Logger LOG = Logger.getLogger(GenMultipleProjects.class.getName());
     
+    @Deprecated
     public static void setPomXmlDescriptor(File f, Project project) throws JAXBException, FileNotFoundException, IOException {
         f.mkdirs();
         File pomxml = new File(f, "pom.xml");
@@ -57,21 +59,78 @@ public class ProjectUtils {
         fos.close();
     }
     
+    public static void generatePomXmlDescriptor(Path p, Project project) throws IOException, JAXBException {
+
+        File projectFolder = p.toFile();
+        generatePomXmlDescriptor(projectFolder, project);
+
+    }
+
+    public static void generatePomXmlDescriptor(File projectFolder, Project project) throws IOException, JAXBException {
+        
+        projectFolder.mkdirs();
+        File pom = new File(projectFolder, "pom.xml");
+        pom.createNewFile();
+        XmlManager<Project> manager = new XmlManager<Project>(Project.class);
+        DataHandler dh = manager.generateXml(project);
+        FileOutputStream fos = new FileOutputStream(pom);
+        byte[] b = DataHandlers.dataHandlerToByteArray(dh);
+        fos.write(b);
+        fos.close();
+        
+    }
     
     
     
-    public static Project getProject() throws JAXBException, IOException {
+    public static Project getMainProject() throws JAXBException, IOException {
 
         Project project = new Project();
-        InputStream pomInputStream = project.getClass().getClassLoader().getResourceAsStream("jaxb/templates/pom.xml.template");
-        ProjectXmlManager manager = new ProjectXmlManager();
-
+        InputStream pomInputStream = project.getClass().getClassLoader().getResourceAsStream("jaxb/templates/pom_main.xml.template");
+        XmlManager<Project> manager = new XmlManager<Project>(Project.class);
         project = manager.generateItem(pomInputStream);
-
         return project;
 
     }
-     
+    
+    public static Project getMainProject(List<String> keys) throws JAXBException, IOException{
+        
+        Project project = getMainProject();
+        for (String key: keys){
+            String module = "scsp-schemas-xsd-service".replace("service", key);
+            project.getModules().getModule().add(module);
+        }
+        return project;
+        
+    }
+    
+    
+    public static Project getServiceProject() throws JAXBException, IOException {
+
+        Project project = new Project();
+        InputStream pomInputStream = project.getClass().getClassLoader().getResourceAsStream("jaxb/templates/pom_service.xml.template");
+        XmlManager<Project> manager = new XmlManager<Project>(Project.class);
+        project = manager.generateItem(pomInputStream);
+        return project;
+
+    }
+    
+    public static Project getServiceProject(List<String> keys) throws JAXBException, IOException {
+        Project project = getServiceProject();
+        for (Plugin plugin : project.getBuild().getPlugins().getPlugin()) {
+            if ("maven-jaxb2-plugin".equals(plugin.getArtifactId())) {
+                for (String key : keys) {
+                    for (String subfolder : new String[]{"peticion", "respuesta"}) {
+                        PluginExecution execution;
+                        execution = getExecution(key,subfolder);
+                        plugin.getExecutions().getExecution().add(execution);
+                    }
+                }
+            }
+        }
+        return project;
+    }
+    
+    
     private static PluginExecution getExecution(String codigo, String subfolder){
         
         PluginExecution execution = new PluginExecution();
@@ -154,8 +213,20 @@ public class ProjectUtils {
         
     } 
     
-   
+   @Deprecated
+    public static Project getProject() throws JAXBException, IOException {
+
+        Project project = new Project();
+        InputStream pomInputStream = project.getClass().getClassLoader().getResourceAsStream("jaxb/templates/pom.xml.template");
+        ProjectXmlManager manager = new ProjectXmlManager();
+
+        project = manager.generateItem(pomInputStream);
+
+        return project;
+
+    }
     
+    @Deprecated
     public static Project getProject(List<String> keys) throws JAXBException, IOException {
         Project project = getProject();
         for (Plugin plugin : project.getBuild().getPlugins().getPlugin()) {

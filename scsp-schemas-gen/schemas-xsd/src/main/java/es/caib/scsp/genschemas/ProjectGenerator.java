@@ -17,10 +17,8 @@ package es.caib.scsp.genschemas;
 
 import es.caib.pinbal.scsp.XmlHelper;
 import es.caib.scsp.pom._4_0.Project;
-import es.caib.scsp.utils.util.DataHandlers;
-import es.caib.scsp.utils.xml.XmlManager;
+import es.caib.scsp.pom._4_0.ProjectUtils;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.FileSystems;
@@ -34,7 +32,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-import javax.activation.DataHandler;
 import javax.xml.bind.JAXBException;
 
 /**
@@ -42,34 +39,22 @@ import javax.xml.bind.JAXBException;
  * @author gdeignacio
  */
 public abstract class ProjectGenerator {
-    /*
-    protected ProjectGenerator(String projectFolderName, String artifactName){
-        super();
-        this.projectFolderName=projectFolderName;
-        this.artifactName=artifactName;
-    }*/
-   
-    protected static final Logger LOG=Logger.getLogger(ProjectGenerator.class.getName());;
-    //private String projectFolderName;
-    //private String artifactName;
-
-    /*
-    protected String getProjectFolderName() {
-        return projectFolderName;
-    }
-
-    protected void setProjectFolderName(String projectFolderName) {
-        this.projectFolderName = projectFolderName;
-    }
-
-    protected String getArtifactName() {
-        return artifactName;
-    }
-
-    protected void setArtifactName(String artifactName) {
-        this.artifactName = artifactName;
-    }*/
     
+    protected ProjectGenerator() {
+        super();
+        this.resourcesMap = new HashMap<String, List<String>>();
+    }
+    
+    protected static final String MAIN_PROJECT_FOLDER_NAME = "scsp-schemas-xsd-main";
+    protected static final String MAIN_ARTIFACT_NAME = "scsp-schemas-xsd-main";
+    
+    protected static final String SERVICE_PROJECT_FOLDER_NAME = "scsp-schemas-xsd-service";
+    protected static final String SERVICE_ARTIFACT_NAME = "scsp-schemas-xsd-service";
+    
+    protected static final Logger LOG=Logger.getLogger(ProjectGenerator.class.getName());;
+    
+    protected Map<String, List<String>> resourcesMap;
+
     protected Path getMainProjectFolderPath(){
         
         String strExecutionPath = System.getProperty("user.dir");
@@ -89,37 +74,17 @@ public abstract class ProjectGenerator {
     protected abstract File getProjectFolder();
     protected abstract Project getProject() throws JAXBException, IOException;
     protected abstract void generateContent(File projectFolder) throws IOException;
-    
-    private final void generatePomXmlDescriptor(Path p, Project project) throws IOException, JAXBException {
-
-        File projectFolder = p.toFile();
-        generatePomXmlDescriptor(projectFolder, project);
-
-    }
-    
-    private final void generatePomXmlDescriptor(File projectFolder, Project project) throws IOException, JAXBException{
-        
-        File pom = new File(projectFolder, "pom.xml");
-        pom.createNewFile();
-        XmlManager<Project> manager = new XmlManager<Project>(Project.class);
-        DataHandler dh = manager.generateXml(project);
-        FileOutputStream fos = new FileOutputStream(pom);
-        byte[] b = DataHandlers.dataHandlerToByteArray(dh);
-        fos.write(b);
-        fos.close();
-        
-    }
-    
+ 
     public void generate() throws JAXBException, IOException {
         
         File projectFolder = getProjectFolder();
         generateContent(projectFolder);
         Project project = getProject();
-        generatePomXmlDescriptor(projectFolder, project);
+        ProjectUtils.generatePomXmlDescriptor(projectFolder, project);
         
     }
     
-    protected Map<String, List<String>> getResourcesMap() throws IOException {
+    protected final Map<String, List<String>> getResourcesMap() throws IOException {
 
         Map<String, List<String>> resourcesMapByFolder = new HashMap<String, List<String>>();
         LOG.log(Level.INFO, "Recuperando fuentes de esquemas");

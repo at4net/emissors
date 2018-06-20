@@ -14,6 +14,7 @@ import es.caib.scsp.utils.xml.XmlManager;
  *
  * @author gdeignacio
  */
+@Deprecated
 public class ProjectXmlManager extends XmlManager<Project> {
 
     public ProjectXmlManager() throws JAXBException {

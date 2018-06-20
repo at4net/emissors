@@ -17,15 +17,15 @@ package es.caib.scsp.genschemas;
 
 import es.caib.pinbal.scsp.XmlHelper;
 import es.caib.scsp.pom._4_0.Project;
-import es.caib.scsp.utils.xml.XmlManager;
+import es.caib.scsp.pom._4_0.ProjectUtils;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
 import org.apache.commons.io.IOUtils;
 
@@ -35,55 +35,36 @@ import org.apache.commons.io.IOUtils;
  */
 public class MainProjectGenerator extends ProjectGenerator {
     
-    private static final String PROJECT_FOLDER_NAME = "scsp-schemas-xsd-ced";
-    private static final String ARTIFACT_NAME = "scsp-schemas-xsd-ced";
-
-    /*
-    public MainProjectGenerator() {
-        //super(PROJECT_FOLDER_NAME, ARTIFACT_NAME);
+    protected MainProjectGenerator() {
         super();
-    }*/
-
+        try {
+            this.resourcesMap = getResourcesMap();
+        } catch (IOException ex) {
+            Logger.getLogger(MainProjectGenerator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+ 
     @Override
     protected File getProjectFolder() {
         
         Path mainProjectFolderPath = getMainProjectFolderPath();
-        LOG.log(Level.INFO, "Generando proyecto " + PROJECT_FOLDER_NAME + " en : {0}", mainProjectFolderPath);
-        File projectFolderFile = new File(mainProjectFolderPath.toFile(), PROJECT_FOLDER_NAME);
-        LOG.log(Level.INFO, "Generando proyecto " + PROJECT_FOLDER_NAME + " con carpeta : {0}", projectFolderFile);
+        LOG.log(Level.INFO, "Generando proyecto " + MAIN_PROJECT_FOLDER_NAME + " en : {0}", mainProjectFolderPath);
+        File projectFolderFile = new File(mainProjectFolderPath.toFile(), MAIN_PROJECT_FOLDER_NAME);
+        LOG.log(Level.INFO, "Generando proyecto " + MAIN_PROJECT_FOLDER_NAME + " con carpeta : {0}", projectFolderFile);
         return projectFolderFile;
         
     }
 
     @Override
     protected Project getProject() throws IOException, JAXBException {
-        return getMainProject(new ArrayList<String>(getResourcesMap().keySet()));
+        return ProjectUtils.getMainProject(new ArrayList<String>(resourcesMap.keySet()));
     }
     
-    private Project getMainProject() throws JAXBException, IOException {
-
-        Project project = new Project();
-        InputStream pomInputStream = project.getClass().getClassLoader().getResourceAsStream("jaxb/templates/pom_main.xml.template");
-        XmlManager<Project> manager = new XmlManager<Project>(Project.class);
-        project = manager.generateItem(pomInputStream);
-        return project;
-
-    }
-    
-    private Project getMainProject(List<String> keys) throws JAXBException, IOException{
-        
-        Project project = getMainProject();
-        for (String key: keys){
-            String module = "scsp-schemas-xsd-prefix".replace("prefix", key);
-            project.getModules().getModule().add(module);
-        }
-        return project;
-        
-    }
-    
-
+   
     @Override
     protected void generateContent(File projectFolder) throws IOException {
+        
+        projectFolder.mkdirs();
         
         for (String template : new String[]{
             "deploy.bat.template",
@@ -107,9 +88,13 @@ public class MainProjectGenerator extends ProjectGenerator {
         }
         
         // TODO
-        // ProjectGenerator projectGenerator = new ProjectGenerator();
+        // ServiceProjectGenerator serviceProjectGenerator = new ServiceProjectGenerator();
         // 
         //
+        
+        
+        
+        
     }
     
 }

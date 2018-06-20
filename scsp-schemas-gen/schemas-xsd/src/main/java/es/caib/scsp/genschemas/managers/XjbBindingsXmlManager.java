@@ -13,6 +13,7 @@ import es.caib.scsp.xml.ns.jaxb.XjbBindings;
  *
  * @author gdeignacio
  */
+@Deprecated
 public class XjbBindingsXmlManager extends XmlManager<XjbBindings> {
 
     public XjbBindingsXmlManager() throws JAXBException {

@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>es.caib.scsp</groupId>
-        <artifactId>scsp-schemas-xsd-split</artifactId>
+        <artifactId>scsp-schemas-xsd-main</artifactId>
         <version>1.0.0
         </version>
     </parent>
     <groupId>es.caib.scsp</groupId>
-    <artifactId>scsp-schemas-xsd-prefix</artifactId>
+    <artifactId>scsp-schemas-xsd-service</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
@@ -20,13 +20,13 @@
         </license>
     </licenses>
     
-    <name>SCSP Schemas XSD Prefix</name>
+    <name>SCSP Schemas XSD Service</name>
     <description>Esquemas Classes XSD</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <build>
-        <finalName>scsp-schemas-xsd-prefix</finalName>
+        <finalName>scsp-schemas-xsd-service</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
