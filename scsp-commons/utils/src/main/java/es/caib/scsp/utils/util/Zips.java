@@ -37,10 +37,15 @@ public class Zips {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ZipOutputStream zip = new ZipOutputStream(baos);
 
-        for (String key : documents.keySet()) {
+        for (Map.Entry<String, DataHandler> pair : documents.entrySet()) {
+        //for (String key : documents.keySet()) {
 
-            InputStream is = new ByteArrayInputStream(DataHandlers.dataHandlerToByteArray(documents.get(key)));
-            ZipEntry zipEntry = new ZipEntry(key);
+            //InputStream is = new ByteArrayInputStream(DataHandlers.dataHandlerToByteArray(documents.get(key)));
+            //ZipEntry zipEntry = new ZipEntry(key);
+            
+            InputStream is = new ByteArrayInputStream(DataHandlers.dataHandlerToByteArray(pair.getValue()));
+            ZipEntry zipEntry = new ZipEntry(pair.getKey());
+            
             zip.putNextEntry(zipEntry);
             IOUtils.copy(is, zip);
             zip.closeEntry();

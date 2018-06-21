@@ -15,35 +15,10 @@
  */
 package es.caib.scsp.genschemas;
 
-import es.caib.pinbal.scsp.XmlHelper;
-import es.caib.scsp.genschemas.managers.XjbBindingsXmlManager;
-import es.caib.scsp.pom._4_0.Project;
-import es.caib.scsp.genschemas.managers.ProjectXmlManager;
-import es.caib.scsp.pom._4_0.ProjectUtils;
-import es.caib.scsp.utils.util.DataHandlers;
-import es.caib.scsp.xml.ns.jaxb.XjbBindings;
-import es.caib.scsp.xml.ns.jaxb.XjbBindingsUtils;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
-import java.security.CodeSource;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
-import javax.activation.DataHandler;
 import javax.xml.bind.JAXBException;
-import org.apache.commons.io.IOUtils;
 
 /**
  *

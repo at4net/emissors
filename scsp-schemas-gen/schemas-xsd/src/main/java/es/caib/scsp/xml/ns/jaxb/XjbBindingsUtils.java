@@ -23,11 +23,13 @@ import com.sun.java.xml.ns.jaxb.PackageType;
 import com.sun.java.xml.ns.jaxb.SchemaBindings;
 import es.caib.scsp.genschemas.managers.XjbBindingsXmlManager;
 import es.caib.scsp.utils.util.DataHandlers;
+import es.caib.scsp.utils.xml.XmlManager;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -48,12 +50,31 @@ import org.xml.sax.SAXException;
  */
 public class XjbBindingsUtils {
 
-    
+    @Deprecated
     public static void setXjbBindingsXmlDescriptor(File f, XjbBindings xjbBindings) throws JAXBException, FileNotFoundException, IOException{
         f.mkdirs();
         File bindingsxml = new File(f, "bindings.xjb");
         bindingsxml.createNewFile();
         XjbBindingsXmlManager manager = new XjbBindingsXmlManager();
+        DataHandler dh = manager.generateXml(xjbBindings);
+        FileOutputStream fos = new FileOutputStream(bindingsxml);
+        byte[] b = DataHandlers.dataHandlerToByteArray(dh);
+        fos.write(b);
+        fos.close();
+    }
+    
+    
+    public static void generateXjbBindingsXmlDescriptor(Path p, XjbBindings xjbBindings) throws JAXBException, FileNotFoundException, IOException{
+        File bindingsFolder = p.toFile();
+        generateXjbBindingsXmlDescriptor(bindingsFolder, xjbBindings);
+    }
+    
+    
+    public static void generateXjbBindingsXmlDescriptor(File bindingsFolder, XjbBindings xjbBindings) throws JAXBException, FileNotFoundException, IOException{
+        bindingsFolder.mkdirs();
+        File bindingsxml = new File(bindingsFolder, "bindings.xjb");
+        bindingsxml.createNewFile();
+        XmlManager<XjbBindings> manager = new XmlManager<XjbBindings>(XjbBindings.class);
         DataHandler dh = manager.generateXml(xjbBindings);
         FileOutputStream fos = new FileOutputStream(bindingsxml);
         byte[] b = DataHandlers.dataHandlerToByteArray(dh);
@@ -111,6 +132,53 @@ public class XjbBindingsUtils {
     */
     
     
+     public static XjbBindings getXjbBindings(String key, String folder, List<String> xsds) throws JAXBException, IOException {
+
+        System.out.println("key " + key + ": " + xsds);
+
+        XjbBindings xjbBindings = getXjbBindings();
+
+        for (String xsd : xsds) {
+
+            XjbBindings xsdBindings = new XjbBindings();
+            //xsdBindings.setSchemaLocation("../../schemas/" + key + "/" + xsd);
+            xsdBindings.setSchemaLocation(xsd);
+            //xsdBindings.setNode("//xs:schema");
+            if (xsd.contains("comun")) {
+                continue;
+            }
+            if (xsd.contains("VolanteEmpadronamientoTipos")) {
+                continue;
+            }
+
+            SchemaBindings schemaBindings = new SchemaBindings();
+            PackageType packageType = new PackageType();
+            System.out.println("Binding para: " + xsd);
+
+            String legalizedKey;
+
+            legalizedKey = (Character.isDigit(key.charAt(0))) ? "_".concat(key) : key;
+
+            String packageName = "es.caib.scsp.esquemas." + legalizedKey + "." + folder + ".";
+            packageName = packageName.concat(CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, xsd.replace(".", "_").replace("_xsd", "")).toLowerCase());
+
+            System.out.println(packageName);
+
+            packageType.getName().add(packageName);
+            schemaBindings.setPackage(packageType);
+
+            xsdBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(schemaBindings);
+            //xjbBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(xsdBindings);
+
+            xjbBindings.getGlobalBindingsOrSchemaBindingsOrClazz().add(xsdBindings);
+
+        }
+        return xjbBindings;
+    }
+
+    
+    
+    @Deprecated
     public static XjbBindings getXjbBindings(String key, String folder, Map<String,List<String>> xsds) throws JAXBException, IOException {
 
         System.out.println("key " + key + ": " + xsds);

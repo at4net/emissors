@@ -32,6 +32,7 @@ import javax.activation.DataHandler;
 import javax.xml.bind.JAXBException;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import org.apache.maven.pom._4_0.Build;
 import org.apache.maven.pom._4_0.Plugin;
 import org.apache.maven.pom._4_0.PluginExecution;
 import org.w3c.dom.Document;
@@ -130,6 +131,14 @@ public class ProjectUtils {
         return project;
     }
     
+    public static Project getNamedServiceProject(String key, Project project){
+        project.setArtifactId(project.getArtifactId().replace("service", key));
+        project.setName(project.getName().replace("Service", key));
+        Build build = project.getBuild();
+        build.setFinalName(build.getFinalName().replace("service", key));
+        project.setBuild(build);
+        return project;
+    }
     
     private static PluginExecution getExecution(String codigo, String subfolder){
         

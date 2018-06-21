@@ -24,6 +24,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
@@ -62,7 +64,7 @@ public class MainProjectGenerator extends ProjectGenerator {
     
    
     @Override
-    protected void generateContent(File projectFolder) throws IOException {
+    protected void generateContent(File projectFolder) throws IOException, JAXBException {
         
         projectFolder.mkdirs();
         
@@ -87,13 +89,12 @@ public class MainProjectGenerator extends ProjectGenerator {
             fos.close();
         }
         
-        // TODO
-        // ServiceProjectGenerator serviceProjectGenerator = new ServiceProjectGenerator();
-        // 
-        //
+        for (Map.Entry<String, List<String>> pair : resourcesMap.entrySet()){
+            ServiceProjectGenerator serviceProjectGenerator = new ServiceProjectGenerator(pair.getKey(), pair.getValue());
+            serviceProjectGenerator.generate();
+        }
         
-        
-        
+       
         
     }
     

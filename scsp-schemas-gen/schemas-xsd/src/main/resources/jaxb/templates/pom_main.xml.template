@@ -18,8 +18,8 @@
     <description>Esquemas Classes XSD per codi de servei</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <version.txt.template.file>./scripts/templates/versio.txt.template</version.txt.template.file>
-        <version.txt.file>./versio.txt</version.txt.file>
+        <!--<version.txt.template.file>./scripts/templates/versio.txt.template</version.txt.template.file>-->
+        <!--<version.txt.file>./versio.txt</version.txt.file>-->
         <cxf.version>2.2.12</cxf.version>
         <global.version>${project.version}</global.version>
     </properties>
@@ -90,6 +90,8 @@
             </plugins>
         </pluginManagement>
         <plugins>
+            <!--  Descomentar si hay subproyecto scripts    -->
+            <!--
             <plugin>
                 <groupId>com.google.code.maven-replacer-plugin</groupId>
                 <artifactId>maven-replacer-plugin</artifactId>
@@ -114,6 +116,7 @@
                     </replacements>
                 </configuration>
             </plugin>
+            -->
             <plugin>
                 <artifactId>maven-deploy-plugin</artifactId>
                 <version>2.8.1</version>

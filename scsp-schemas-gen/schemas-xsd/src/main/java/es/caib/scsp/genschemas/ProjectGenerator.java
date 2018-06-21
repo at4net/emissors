@@ -73,7 +73,7 @@ public abstract class ProjectGenerator {
     
     protected abstract File getProjectFolder();
     protected abstract Project getProject() throws JAXBException, IOException;
-    protected abstract void generateContent(File projectFolder) throws IOException;
+    protected abstract void generateContent(File projectFolder) throws JAXBException, IOException;
  
     public void generate() throws JAXBException, IOException {
         
@@ -124,10 +124,13 @@ public abstract class ProjectGenerator {
             resourcesMapByFolder.put(key, schemas);
         }
         zip.close();
+        
         LOG.log(Level.INFO, "Listando esquemas");
-        for (String key : resourcesMapByFolder.keySet()) {
-            LOG.log(Level.INFO, "Esquemas para : {0}", key);
-            List<String> schemas = resourcesMapByFolder.get(key);
+        
+        for (Map.Entry<String, List<String>> pair : resourcesMapByFolder.entrySet()){
+        //for (String key : resourcesMapByFolder.keySet()) {
+            LOG.log(Level.INFO, "Esquemas para : {0}", pair.getKey());
+            List<String> schemas = pair.getValue(); //resourcesMapByFolder.get(key);
             LOG.log(Level.INFO, "{0}", schemas.toString());
         }
         
