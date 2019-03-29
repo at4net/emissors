@@ -2,37 +2,27 @@ package es.caib.scsp.pinbal.ws.recobriment.client;
 
 import es.caib.pinbal.ws.recobriment.Atributos;
 import es.caib.pinbal.ws.recobriment.ConfirmacionPeticion;
+import es.caib.pinbal.ws.recobriment.DatosGenericos;
 import es.caib.pinbal.ws.recobriment.Estado;
 import es.caib.pinbal.ws.recobriment.Peticion;
 import es.caib.pinbal.ws.recobriment.Recobriment;
 import es.caib.pinbal.ws.recobriment.RecobrimentService;
 import es.caib.pinbal.ws.recobriment.Respuesta;
+import es.caib.pinbal.ws.recobriment.SolicitudTransmision;
 import es.caib.pinbal.ws.recobriment.Solicitudes;
 import es.caib.scsp.utils.ws.connexio.DadesConnexioSOAP;
-import java.lang.reflect.Field;
 import java.net.Authenticator;
 import java.net.MalformedURLException;
 import java.net.PasswordAuthentication;
 import java.net.URL;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Supplier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
 
-import org.apache.cxf.jaxb.JAXBToStringBuilder;
-import org.apache.cxf.jaxb.JAXBToStringStyle;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 
 /**
@@ -179,8 +169,21 @@ public class RecobrimentClient {
         System.setProperty(app + dadesConnexio.getCodClient() + ".baseURL", "http://pinbal.fundaciobit.org/pinbal");
 
         RecobrimentClient client = RecobrimentClient.getClient();
+        Estado est = null;
         
-        Peticion pet = null;
+        Atributos atr = RecobrimentUtils.establecerAtributos("SCDHPAJU", est , null, "1", "2019-03-29T12:47:11.830+01:00");
+        List<SolicitudTransmision> lSol = new ArrayList<SolicitudTransmision>();
+      
+        Emisor emisor = RecobrimentUtils.establecerEmisor(app, app);
+        
+        
+        DatosGenericos datosGenericos = RecobrimentUtils.establecerDatosGenericos(emisor, solicitante, titular, transmision);
+        
+        SolicitudTransmision sol = RecobrimentUtils.establecerSolicitudTransmision(datosGenericos, dadesConnexio);
+        
+        Solicitudes sols = RecobrimentUtils.establecerSolicitudes(lSol);
+        
+        Peticion pet = RecobrimentUtils.establecerPeticion(atr, sols);
 
         client.peticionSincrona(pet);
         
