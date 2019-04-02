@@ -135,7 +135,7 @@ public class PinbalFamiliaClient {
         System.setProperty(app + dadesConnexio.getCodClient() + ".username", "");
         System.setProperty(app + dadesConnexio.getCodClient() + ".password", "");
         System.setProperty(app + dadesConnexio.getCodClient() + ".baseURL", "http://pinbalfamilia.silme.es");
-
+        //System.setProperty(app + dadesConnexio.getCodClient() + ".baseURL", "http://pinbalfamiliaproves.silme.es");
         
         PinbalFamiliaClient client = PinbalFamiliaClient.getClient();
         

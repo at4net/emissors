@@ -37,6 +37,19 @@ import java.util.List;
  */
 public class RecobrimentUtils {
 
+    public static Estado establecerEstado(String codigoEstado, 
+            String codigoEstadoSecundario, 
+            String literalError,
+            Integer tiempoEstimadoRespuesta
+    ){
+        Estado estado = new Estado();
+        estado.setCodigoEstado(codigoEstado);
+        estado.setCodigoEstadoSecundario(codigoEstadoSecundario);
+        estado.setLiteralError(literalError);
+        estado.setTiempoEstimadoRespuesta(tiempoEstimadoRespuesta);
+        return estado;
+    }
+    
     public static Atributos establecerAtributos(
             String codigoCertificado,
             Estado estado,
@@ -142,13 +155,11 @@ public class RecobrimentUtils {
     }
 
     public static SolicitudTransmision establecerSolicitudTransmision(
-            DatosGenericos datosGenericos,
-            Object datosEspecificos
+            DatosGenericos datosGenericos
     ){
         SolicitudTransmision solicitudTransmision = new SolicitudTransmision();
         
         solicitudTransmision.setDatosGenericos(datosGenericos);
-        solicitudTransmision.setDatosEspecificos(datosEspecificos);
         return solicitudTransmision;
     }
     
@@ -170,8 +181,27 @@ public class RecobrimentUtils {
         pet.setSolicitudes(solicitudes);
         return pet;
     }
+
+    public static Funcionario establecerFuncionario(
+            String nifFuncionario,
+            String nombreCompletoFuncionario
+    ) {
+        Funcionario funcionario = new Funcionario();
+        funcionario.setNifFuncionario(nifFuncionario);
+        funcionario.setNombreCompletoFuncionario(nombreCompletoFuncionario);
+        return funcionario;
+    }
     
-    
+    public static Procedimiento establecerProcedimiento(
+            String codProcedimiento,
+            String nombreProcedimiento
+    ) {
+        Procedimiento procedimiento = new Procedimiento();
+        procedimiento.setCodProcedimiento(codProcedimiento);
+        procedimiento.setNombreProcedimiento(nombreProcedimiento);
+        return procedimiento;
+    }
+
     
     
 
