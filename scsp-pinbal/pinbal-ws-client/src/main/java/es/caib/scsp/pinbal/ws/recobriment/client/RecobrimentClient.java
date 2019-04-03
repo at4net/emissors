@@ -18,12 +18,9 @@ import es.caib.pinbal.ws.recobriment.Solicitudes;
 import es.caib.pinbal.ws.recobriment.TipoDocumentacion;
 import es.caib.pinbal.ws.recobriment.Titular;
 import es.caib.pinbal.ws.recobriment.Transmision;
-import es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosEspecificos;
-import es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Solicitud;
 import es.caib.scsp.utils.util.DataHandlers;
 import es.caib.scsp.utils.ws.connexio.DadesConnexioSOAP;
 import es.caib.scsp.utils.xml.XmlManager;
-import java.io.FileOutputStream;
 import java.net.Authenticator;
 import java.net.MalformedURLException;
 import java.net.PasswordAuthentication;
@@ -34,8 +31,14 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.activation.DataHandler;
+import javax.xml.bind.JAXB;
+import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.dom.DOMResult;
 import javax.xml.ws.BindingProvider;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  *
@@ -89,7 +92,6 @@ public class RecobrimentClient {
         } catch (MalformedURLException ex) {
             Logger.getLogger(RecobrimentClient.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         Authenticator.setDefault(new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -174,7 +176,7 @@ public class RecobrimentClient {
 
         String app = "es.caib.scsp.";
 
-        LOG.info("Valor app: " + app);
+        LOG.log(Level.INFO, "Valor app: {0}", app);
 
         // String str = JAXBToStringBuilder.valueOf(app,
         // JAXBToStringStyle.DEFAULT_STYLE);
@@ -183,7 +185,7 @@ public class RecobrimentClient {
 
         System.setProperty(app + dadesConnexio.getCodClient() + ".username", "");
         System.setProperty(app + dadesConnexio.getCodClient() + ".password", "");
-        System.setProperty(app + dadesConnexio.getCodClient() + ".baseURL", "http://pinbal.fundaciobit.org/pinbal");
+        System.setProperty(app + dadesConnexio.getCodClient() + ".baseURL", "https://proves.caib.es/pinbal");
 
         RecobrimentClient client = RecobrimentClient.getClient();
 
@@ -245,9 +247,11 @@ public class RecobrimentClient {
         DatosGenericos datosGenericos = RecobrimentUtils.establecerDatosGenericos(emisor, solicitante, titular,
                 transmision);
 
-        DatosEspecificos datosEspecificos = new DatosEspecificos();
+        es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosEspecificos datosEspecificos = 
+                new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosEspecificos();
 
-        Solicitud solicitud = new Solicitud();
+        es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Solicitud solicitud = 
+                new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Solicitud();
         solicitud.setMunicipioSolicitud("040");
         solicitud.setNumeroAnyos("20");
         solicitud.setProvinciaSolicitud("07");
@@ -256,19 +260,37 @@ public class RecobrimentClient {
         solicitud.setTitular(titul);
         datosEspecificos.setSolicitud(solicitud);
 
-        XmlManager<DatosEspecificos> manager = new XmlManager<DatosEspecificos>(DatosEspecificos.class);
+        /*
+        XmlManager<es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosEspecificos> manager = 
+                new XmlManager<es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosEspecificos>(
+                        es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosEspecificos.class
+                );
         DataHandler dh = manager.generateXml(datosEspecificos);
         byte[] b = DataHandlers.dataHandlerToByteArray(dh);
+        */
 
         SolicitudTransmision solicitudTransmision = RecobrimentUtils.establecerSolicitudTransmision(datosGenericos);
-        solicitudTransmision.setDatosEspecificos(b);
+        
+        //es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.ObjectFactory objectFactory =
+        //        new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.ObjectFactory();
+        
+        //JAXBElement<es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosEspecificos> jaxbDatosEspecificos = 
+        //        objectFactory.createDatosEspecificos(datosEspecificos);
+        
+        Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+        JAXB.marshal(datosEspecificos, new DOMResult(document));
+        Element elementDatosEspecificos = document.getDocumentElement();
+        
+        LOG.info("Previ a petició sincrona 1:\n " + datosEspecificos.toString());
+        
+        solicitudTransmision.setDatosEspecificos(elementDatosEspecificos);
         lSolicitudTransmision.add(solicitudTransmision);
 
         Solicitudes solicitudes = RecobrimentUtils.establecerSolicitudes(lSolicitudTransmision);
 
         Peticion peticion = RecobrimentUtils.establecerPeticion(atributos, solicitudes);
 
-        LOG.info("Previ a petició sincrona: " + peticion.toString());
+        LOG.info("Previ a petició sincrona 2:\n" + peticion.toString());
 
         client.peticionSincrona(peticion);
 
