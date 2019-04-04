@@ -18,21 +18,26 @@ import es.caib.pinbal.ws.recobriment.Solicitudes;
 import es.caib.pinbal.ws.recobriment.TipoDocumentacion;
 import es.caib.pinbal.ws.recobriment.Titular;
 import es.caib.pinbal.ws.recobriment.Transmision;
-import es.caib.scsp.utils.util.DataHandlers;
 import es.caib.scsp.utils.ws.connexio.DadesConnexioSOAP;
-import es.caib.scsp.utils.xml.XmlManager;
 import java.net.Authenticator;
 import java.net.MalformedURLException;
 import java.net.PasswordAuthentication;
 import java.net.URL;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.activation.DataHandler;
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import javax.xml.bind.JAXB;
-import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.dom.DOMResult;
@@ -81,6 +86,48 @@ public class RecobrimentClient {
             DadesConnexioRecobriment._SERVICE_NAME);
 
     private Recobriment getServicePort() {
+        
+        
+           // Create a trust manager that does not validate certificate chains
+        TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
+            @Override
+            public X509Certificate[] getAcceptedIssuers() {
+                return null;
+            }
+
+            @Override
+            public void checkClientTrusted(X509Certificate[] certs, String authType) {
+                // Trust always
+            }
+
+            @Override
+            public void checkServerTrusted(X509Certificate[] certs, String authType) {
+                // Trust always
+            }
+        } };
+        // Install the all-trusting trust manager
+        SSLContext sc = null;
+        try {
+            sc = SSLContext.getInstance("SSL");
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(RecobrimentClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        // Create empty HostnameVerifier
+        HostnameVerifier hv = new HostnameVerifier() {
+            @Override
+            public boolean verify(String arg0, SSLSession arg1) {
+                return true;
+            }
+        };
+        
+        try {
+            sc.init(null, trustAllCerts, new java.security.SecureRandom());
+        } catch (KeyManagementException ex) {
+            Logger.getLogger(RecobrimentClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+        HttpsURLConnection.setDefaultHostnameVerifier(hv);
+        
 
         URL wsdlURL = null;
 
@@ -100,6 +147,8 @@ public class RecobrimentClient {
             }
         });
 
+        
+        
         RecobrimentService ss = new RecobrimentService(wsdlURL, SERVICE_NAME);
         Recobriment port = ss.getRecobrimentServicePort();
 
@@ -183,8 +232,8 @@ public class RecobrimentClient {
 
         DadesConnexioRecobriment dadesConnexio = new DadesConnexioRecobriment(app);
 
-        System.setProperty(app + dadesConnexio.getCodClient() + ".username", "");
-        System.setProperty(app + dadesConnexio.getCodClient() + ".password", "");
+        System.setProperty(app + dadesConnexio.getCodClient() + ".username", "$xestib_pinbal");
+        System.setProperty(app + dadesConnexio.getCodClient() + ".password", "xestib_pinbal");
         System.setProperty(app + dadesConnexio.getCodClient() + ".baseURL", "https://proves.caib.es/pinbal");
 
         RecobrimentClient client = RecobrimentClient.getClient();
@@ -196,7 +245,7 @@ public class RecobrimentClient {
         Estado estado = RecobrimentUtils.establecerEstado(codigoEstado, codigoEstadoSecundario, literalError,
                 tiempoEstimadoRespuesta);
 
-        String codigoCertificado = "SCDHPAJU";
+        String codigoCertificado = "SCDCPAJU";
         String idPeticion = null;
         String numElementos = "1";
         String timeStamp = "2019-03-29T12:47:11.830+01:00";
@@ -247,19 +296,33 @@ public class RecobrimentClient {
         DatosGenericos datosGenericos = RecobrimentUtils.establecerDatosGenericos(emisor, solicitante, titular,
                 transmision);
 
-        es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosEspecificos datosEspecificos = 
-                new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosEspecificos();
+        es.caib.scsp.esquemas.SCDCPAJUv3.peticion.datosespecificos.DatosEspecificos datosEspecificos = 
+                new es.caib.scsp.esquemas.SCDCPAJUv3.peticion.datosespecificos.DatosEspecificos();
 
-        es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Solicitud solicitud = 
-                new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Solicitud();
-        solicitud.setMunicipioSolicitud("040");
-        solicitud.setNumeroAnyos("20");
+        es.caib.scsp.esquemas.SCDCPAJUv3.peticion.datosespecificos.Solicitud solicitud = 
+                new es.caib.scsp.esquemas.SCDCPAJUv3.peticion.datosespecificos.Solicitud();
+        solicitud.setMunicipioSolicitud("002");
+        //solicitud.setNumeroAnyos("20");
         solicitud.setProvinciaSolicitud("07");
-        es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Titular titul = new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Titular();
-        titul.setNIA("GT00261007");
+        es.caib.scsp.esquemas.SCDCPAJUv3.peticion.datosespecificos.Titular titul = new es.caib.scsp.esquemas.SCDCPAJUv3.peticion.datosespecificos.Titular();
+        //titul.setNIA("GT00261007");
+        
+        es.caib.scsp.esquemas.SCDCPAJUv3.peticion.datosespecificos.DatosPersonales datosPersonales = 
+                new es.caib.scsp.esquemas.SCDCPAJUv3.peticion.datosespecificos.DatosPersonales();
+        
+        es.caib.scsp.esquemas.SCDCPAJUv3.peticion.datosespecificos.Documentacion dc = 
+                new es.caib.scsp.esquemas.SCDCPAJUv3.peticion.datosespecificos.Documentacion();
+        
+        dc.setTipo(TipoDocumentacion.PASAPORTE.value());
+        dc.setValor("465610290");
+        
+        //titul.setDatosPersonales(datosPersonales);
+        titul.setDocumentacion(dc);
         solicitud.setTitular(titul);
+        
+        
         datosEspecificos.setSolicitud(solicitud);
-
+        
         /*
         XmlManager<es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosEspecificos> manager = 
                 new XmlManager<es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosEspecificos>(
