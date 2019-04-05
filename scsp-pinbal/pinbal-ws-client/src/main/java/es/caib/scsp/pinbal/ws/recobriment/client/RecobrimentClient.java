@@ -88,7 +88,7 @@ public class RecobrimentClient {
     private Recobriment getServicePort() {
         
         
-           // Create a trust manager that does not validate certificate chains
+        // Create a trust manager that does not validate certificate chains
         TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
             @Override
             public X509Certificate[] getAcceptedIssuers() {
@@ -248,7 +248,7 @@ public class RecobrimentClient {
         String codigoCertificado = "SCDCPAJU";
         String idPeticion = null;
         String numElementos = "1";
-        String timeStamp = "2019-03-29T12:47:11.830+01:00";
+        String timeStamp = "2019-03-26T08:32:12.098+01:00";
         Atributos atributos = RecobrimentUtils.establecerAtributos(codigoCertificado, estado, idPeticion, numElementos,
                 timeStamp);
 
@@ -258,8 +258,8 @@ public class RecobrimentClient {
         String nombreEmisor = "CAIB";
         Emisor emisor = RecobrimentUtils.establecerEmisor(nifEmisor, nombreEmisor);
 
-        String nifFuncionario = "43087806C";
-        String nombreCompletoFuncionario = "OLIVER BESTARD, MARIA MAGDALENA";
+        String nifFuncionario = "43085384J";
+        String nombreCompletoFuncionario = "SEBASTIÁN SASTRE, DOMINGO";
         Funcionario funcionario = RecobrimentUtils.establecerFuncionario(nifFuncionario, nombreCompletoFuncionario);
 
         String codProcedimiento = "EC_ESCOOBL_2014";
@@ -268,7 +268,7 @@ public class RecobrimentClient {
 
         Consentimiento consentimiento = Consentimiento.SI;
         String finalidad = "Baremacions per el proces d'escolaritzacio";
-        String idExpediente = "W517QR";
+        String idExpediente = "2ZXW2U";
         String identificadorSolicitante = "S0711001H";
         String nombreSolicitante = "Conselleria d'Educació i Universitat";
         String unidadTramitadora = "Servei d'escolarització";
@@ -278,7 +278,7 @@ public class RecobrimentClient {
 
         String apellido1 = "";
         String apellido2 = "";
-        String documentacion = "465610290";
+        String documentacion = "43188365T";
         String nombre = "";
         String nombreCompleto = "";
         TipoDocumentacion tipoDocumentacion = TipoDocumentacion.PASAPORTE;
@@ -301,7 +301,7 @@ public class RecobrimentClient {
 
         es.caib.scsp.esquemas.SCDCPAJUv3.peticion.datosespecificos.Solicitud solicitud = 
                 new es.caib.scsp.esquemas.SCDCPAJUv3.peticion.datosespecificos.Solicitud();
-        solicitud.setMunicipioSolicitud("002");
+        solicitud.setMunicipioSolicitud("011");
         //solicitud.setNumeroAnyos("20");
         solicitud.setProvinciaSolicitud("07");
         es.caib.scsp.esquemas.SCDCPAJUv3.peticion.datosespecificos.Titular titul = new es.caib.scsp.esquemas.SCDCPAJUv3.peticion.datosespecificos.Titular();
@@ -313,8 +313,8 @@ public class RecobrimentClient {
         es.caib.scsp.esquemas.SCDCPAJUv3.peticion.datosespecificos.Documentacion dc = 
                 new es.caib.scsp.esquemas.SCDCPAJUv3.peticion.datosespecificos.Documentacion();
         
-        dc.setTipo(TipoDocumentacion.PASAPORTE.value());
-        dc.setValor("465610290");
+        dc.setTipo(TipoDocumentacion.NIF.value());
+        dc.setValor("43188365T");
         
         //titul.setDatosPersonales(datosPersonales);
         titul.setDocumentacion(dc);
