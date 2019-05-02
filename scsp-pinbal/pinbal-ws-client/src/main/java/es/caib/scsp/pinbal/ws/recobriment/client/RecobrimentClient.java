@@ -248,7 +248,7 @@ public class RecobrimentClient {
         String codigoCertificado = "SCDCPAJU";
         String idPeticion = null;
         String numElementos = "1";
-        String timeStamp = "2019-03-26T08:32:12.098+01:00";
+        String timeStamp = null;
         Atributos atributos = RecobrimentUtils.establecerAtributos(codigoCertificado, estado, idPeticion, numElementos,
                 timeStamp);
 
@@ -258,8 +258,8 @@ public class RecobrimentClient {
         String nombreEmisor = "CAIB";
         Emisor emisor = RecobrimentUtils.establecerEmisor(nifEmisor, nombreEmisor);
 
-        String nifFuncionario = "43085384J";
-        String nombreCompletoFuncionario = "SEBASTIÁN SASTRE, DOMINGO";
+        String nifFuncionario = "78210244D";
+        String nombreCompletoFuncionario = "SANS AGUILAR, CATALINA";
         Funcionario funcionario = RecobrimentUtils.establecerFuncionario(nifFuncionario, nombreCompletoFuncionario);
 
         String codProcedimiento = "EC_ESCOOBL_2014";
@@ -268,7 +268,7 @@ public class RecobrimentClient {
 
         Consentimiento consentimiento = Consentimiento.SI;
         String finalidad = "Baremacions per el proces d'escolaritzacio";
-        String idExpediente = "2ZXW2U";
+        String idExpediente = "Q9WREU";
         String identificadorSolicitante = "S0711001H";
         String nombreSolicitante = "Conselleria d'Educació i Universitat";
         String unidadTramitadora = "Servei d'escolarització";
@@ -278,10 +278,10 @@ public class RecobrimentClient {
 
         String apellido1 = "";
         String apellido2 = "";
-        String documentacion = "43188365T";
+        String documentacion = "78215122B";
         String nombre = "";
         String nombreCompleto = "";
-        TipoDocumentacion tipoDocumentacion = TipoDocumentacion.PASAPORTE;
+        TipoDocumentacion tipoDocumentacion = TipoDocumentacion.NIF;
 
         Titular titular = RecobrimentUtils.establecerTitular(apellido1, apellido2, documentacion, nombre,
                 nombreCompleto, tipoDocumentacion);
@@ -296,27 +296,28 @@ public class RecobrimentClient {
         DatosGenericos datosGenericos = RecobrimentUtils.establecerDatosGenericos(emisor, solicitante, titular,
                 transmision);
 
-        es.caib.scsp.esquemas.SCDCPAJUv3.peticion.datosespecificos.DatosEspecificos datosEspecificos = 
-                new es.caib.scsp.esquemas.SCDCPAJUv3.peticion.datosespecificos.DatosEspecificos();
+        es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosEspecificos datosEspecificos = 
+                new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosEspecificos();
 
-        es.caib.scsp.esquemas.SCDCPAJUv3.peticion.datosespecificos.Solicitud solicitud = 
-                new es.caib.scsp.esquemas.SCDCPAJUv3.peticion.datosespecificos.Solicitud();
-        solicitud.setMunicipioSolicitud("011");
+        es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Solicitud solicitud = 
+                new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Solicitud();
+        solicitud.setMunicipioSolicitud("029");
         //solicitud.setNumeroAnyos("20");
         solicitud.setProvinciaSolicitud("07");
-        es.caib.scsp.esquemas.SCDCPAJUv3.peticion.datosespecificos.Titular titul = new es.caib.scsp.esquemas.SCDCPAJUv3.peticion.datosespecificos.Titular();
+        es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Titular titul = new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Titular();
         //titul.setNIA("GT00261007");
         
-        es.caib.scsp.esquemas.SCDCPAJUv3.peticion.datosespecificos.DatosPersonales datosPersonales = 
-                new es.caib.scsp.esquemas.SCDCPAJUv3.peticion.datosespecificos.DatosPersonales();
+        es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosPersonales datosPersonales = 
+                new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosPersonales();
         
-        es.caib.scsp.esquemas.SCDCPAJUv3.peticion.datosespecificos.Documentacion dc = 
-                new es.caib.scsp.esquemas.SCDCPAJUv3.peticion.datosespecificos.Documentacion();
+        es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Documentacion dc = 
+                new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Documentacion();
         
         dc.setTipo(TipoDocumentacion.NIF.value());
-        dc.setValor("43188365T");
+        dc.setValor("78215122B");
         
         //titul.setDatosPersonales(datosPersonales);
+        
         titul.setDocumentacion(dc);
         solicitud.setTitular(titul);
         
@@ -355,7 +356,7 @@ public class RecobrimentClient {
 
         LOG.info("Previ a petició sincrona 2:\n" + peticion.toString());
 
-        client.peticionSincrona(peticion);
+        Respuesta response = client.peticionSincrona(peticion);
 
     }
 

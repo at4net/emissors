@@ -81,6 +81,22 @@
             <type>jar</type>
         </dependency>
         
+         <dependency>
+            <groupId>es.caib.scsp</groupId>
+            <artifactId>scsp-schemas-xsd-SCDHPAJUv3</artifactId>
+            <version>1.0.0</version>
+            <type>jar</type>
+        </dependency>
+        
+        <dependency>
+            <groupId>es.caib.scsp</groupId>
+            <artifactId>scsp-schemas-xsd-SVDSCTFNWS01v3</artifactId>
+            <version>1.0.0</version>
+            <type>jar</type>
+        </dependency>
+        
+        
+        
     </dependencies>
 
 
@@ -158,8 +174,8 @@
                             <!--sourceRoot>${basedir}/target/generated/cxf-codegen-plugin</sourceRoot-->
                             <wsdlOptions>
                                 <wsdlOption>
-                                    <!--wsdl>${basedir}/src/main/resources/wsdl/v1/Tramitacio.wsdl</wsdl-->
-                                    <wsdl>http://pinbal.fundaciobit.org/pinbal/ws/recobriment?wsdl</wsdl>
+                                    <wsdl>${basedir}/src/main/resources/wsdl/recobriment.wsdl</wsdl>
+                                    <!-- <wsdl>http://pinbal.fundaciobit.org/pinbal/ws/recobriment?wsdl</wsdl> -->
                                     <extraargs>
                                         <!--
                                         <extraarg>-xjc-Xts</extraarg>
