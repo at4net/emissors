@@ -51,7 +51,17 @@ import org.w3c.dom.Element;
  */
 public class RecobrimentClient {
 
-    private String propertyBase = "es.caib.scsp.";
+    //private String propertyBase = "es.caib.scsp.";
+    
+private DadesConnexioSOAP dadesConnexio;
+
+    public DadesConnexioSOAP getDadesConnexio() {
+        return dadesConnexio;
+    }
+
+    public void setDadesConnexio(DadesConnexioSOAP dadesConnexio) {
+        this.dadesConnexio = dadesConnexio;
+    }
 
     protected static final Logger LOG = Logger.getLogger(RecobrimentClient.class.getName());
 
@@ -69,19 +79,46 @@ public class RecobrimentClient {
         super();
     }
 
+   
+    
     /**
      * Recupera l objecte singleton.
      *
-     * @return objete singleton de la clase CMAIBDocumentOrganismeWsClient.
+     * @return objete singleton de la clase.
      */
-    public static RecobrimentClient getClient() {
+    private static RecobrimentClient _getClient(DadesConnexioRecobriment dadesConnexio) {
+        client.setDadesConnexio(dadesConnexio);
         return client;
     }
-
-    public void setPropertyBase(String propertyBase) {
-        this.propertyBase = propertyBase;
+    
+    /**
+     * Recupera el singleton amb dadesConnexio prèviament inicialitzat
+     * new DadesConnexioRecobriment("foo.bar")
+     * properties foo.bar.helium.client.xxx
+     * @param dadesConnexio
+     * @return 
+     * @see DadesConnexioRecobriment
+     * @see RecobrimentClient
+     */
+    public static RecobrimentClient getClient(DadesConnexioRecobriment dadesConnexio) {
+        DadesConnexioRecobriment dct = (dadesConnexio!=null)?dadesConnexio:new DadesConnexioRecobriment("");
+        return _getClient(dct);
     }
-
+    
+    /**
+     * Recupera el singleton i inicialitza DadesConnexio 
+     * new DadesConnexio("")
+     * properties helium.client.xxx
+     * @return 
+     * @see DadesConnexioRecobriment
+     * @see RecobrimentClient
+     */
+    public static RecobrimentClient getClient(){
+        DadesConnexioRecobriment dct = new DadesConnexioRecobriment("");
+        return _getClient(dct);
+    }
+    
+    
     private static final QName SERVICE_NAME = new QName(DadesConnexioRecobriment._QNAME,
             DadesConnexioRecobriment._SERVICE_NAME);
 
