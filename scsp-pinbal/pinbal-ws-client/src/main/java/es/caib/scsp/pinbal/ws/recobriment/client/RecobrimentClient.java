@@ -23,20 +23,11 @@ import java.net.Authenticator;
 import java.net.MalformedURLException;
 import java.net.PasswordAuthentication;
 import java.net.URL;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 import javax.xml.bind.JAXB;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -44,6 +35,8 @@ import javax.xml.transform.dom.DOMResult;
 import javax.xml.ws.BindingProvider;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import es.caib.scsp.utils.cxf.authentication.AuthenticatorReplacer;
 
 /**
  *
@@ -124,7 +117,7 @@ private DadesConnexioSOAP dadesConnexio;
 
     private Recobriment getServicePort() {
         
-        
+        /*
         // Create a trust manager that does not validate certificate chains
         TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
             @Override
@@ -165,10 +158,13 @@ private DadesConnexioSOAP dadesConnexio;
         HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
         HttpsURLConnection.setDefaultHostnameVerifier(hv);
         
-
+        */
+        
+        AuthenticatorReplacer.verifyHost();
+        
         URL wsdlURL = null;
 
-        final DadesConnexioSOAP dadesConnexio = new DadesConnexioRecobriment(propertyBase);
+        //final DadesConnexioSOAP dadesConnexio = new DadesConnexioRecobriment(propertyBase);
 
         try {
             LOG.info(dadesConnexio.getWsdlLocation());
@@ -176,6 +172,8 @@ private DadesConnexioSOAP dadesConnexio;
         } catch (MalformedURLException ex) {
             Logger.getLogger(RecobrimentClient.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        /*
         Authenticator.setDefault(new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -183,7 +181,15 @@ private DadesConnexioSOAP dadesConnexio;
                         dadesConnexio.getPassword().toCharArray());
             }
         });
-
+        */
+        
+        String userName = dadesConnexio.getUserName();
+        String password = dadesConnexio.getPassword();
+        
+        AuthenticatorReplacer.setAuthenticator(userName, password);
+        
+        LOG.log(Level.INFO, "Servicio:  {0}", SERVICE_NAME);
+        LOG.log(Level.INFO, "URL: {0}", wsdlURL);
         
         
         RecobrimentService ss = new RecobrimentService(wsdlURL, SERVICE_NAME);

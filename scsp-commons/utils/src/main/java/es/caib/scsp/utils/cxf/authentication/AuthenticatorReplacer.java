@@ -36,7 +36,7 @@ import javax.net.ssl.X509TrustManager;
  */
 public class AuthenticatorReplacer {
     
-    private static void verifyHost(){
+    public static void verifyHost(){
     
           // Create a trust manager that does not validate certificate chains
         TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
