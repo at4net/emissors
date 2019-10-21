@@ -30,6 +30,7 @@ import es.caib.pinbal.ws.recobriment.TipoDocumentacion;
 import es.caib.pinbal.ws.recobriment.Titular;
 import es.caib.pinbal.ws.recobriment.Transmision;
 import java.util.List;
+import org.w3c.dom.Element;
 
 /**
  *
@@ -146,20 +147,13 @@ public class RecobrimentUtils {
         datosGenericos.setTransmision(transmision);
         return datosGenericos;
     }
-    
-    public static Object establecerDatosEspecificos(){
-        
-        Object obj = new Object();
-        
-        return obj;
-    }
-
+  
     public static SolicitudTransmision establecerSolicitudTransmision(
-            DatosGenericos datosGenericos
+            DatosGenericos datosGenericos, Element datosEspecificos
     ){
         SolicitudTransmision solicitudTransmision = new SolicitudTransmision();
-        
         solicitudTransmision.setDatosGenericos(datosGenericos);
+        solicitudTransmision.setDatosEspecificos(datosEspecificos);
         return solicitudTransmision;
     }
     

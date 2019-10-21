@@ -27,8 +27,13 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.stream.StreamSource;
 import org.apache.commons.io.IOUtils;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 /**
  *
@@ -69,6 +74,28 @@ public class XmlManager<T> {
         return baos;
     }
 
+    private Element element(T item, boolean formattedOutput) throws JAXBException, ParserConfigurationException {
+
+        Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+        
+        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, formattedOutput);
+
+        jaxbMarshaller.marshal(item, document);
+
+        
+
+        
+        //JAXB.marshal(datosEspecificos, new DOMResult(document));
+        Element element = document.getDocumentElement();
+        
+        //jaxbMarshaller.marshal(item, new DOMResult(document));
+
+        return element;
+    }
+    
+    
+    
     private T unmarshal(InputStream is) throws JAXBException {
 
        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();

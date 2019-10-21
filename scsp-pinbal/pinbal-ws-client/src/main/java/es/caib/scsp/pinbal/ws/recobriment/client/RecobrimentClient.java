@@ -19,9 +19,7 @@ import es.caib.pinbal.ws.recobriment.TipoDocumentacion;
 import es.caib.pinbal.ws.recobriment.Titular;
 import es.caib.pinbal.ws.recobriment.Transmision;
 import es.caib.scsp.utils.ws.connexio.DadesConnexioSOAP;
-import java.net.Authenticator;
 import java.net.MalformedURLException;
-import java.net.PasswordAuthentication;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,8 +43,7 @@ import es.caib.scsp.utils.cxf.authentication.AuthenticatorReplacer;
 public class RecobrimentClient {
 
     //private String propertyBase = "es.caib.scsp.";
-    
-private DadesConnexioSOAP dadesConnexio;
+    private DadesConnexioSOAP dadesConnexio;
 
     public DadesConnexioSOAP getDadesConnexio() {
         return dadesConnexio;
@@ -59,7 +56,8 @@ private DadesConnexioSOAP dadesConnexio;
     protected static final Logger LOG = Logger.getLogger(RecobrimentClient.class.getName());
 
     /**
-     * Objecte que emmagatzema la instancia de la classe segons el patro singleton
+     * Objecte que emmagatzema la instancia de la classe segons el patro
+     * singleton
      *
      */
     private static final RecobrimentClient client = new RecobrimentClient();
@@ -72,8 +70,6 @@ private DadesConnexioSOAP dadesConnexio;
         super();
     }
 
-   
-    
     /**
      * Recupera l objecte singleton.
      *
@@ -83,40 +79,39 @@ private DadesConnexioSOAP dadesConnexio;
         client.setDadesConnexio(dadesConnexio);
         return client;
     }
-    
+
     /**
-     * Recupera el singleton amb dadesConnexio prèviament inicialitzat
-     * new DadesConnexioRecobriment("foo.bar")
-     * properties foo.bar.helium.client.xxx
+     * Recupera el singleton amb dadesConnexio prèviament inicialitzat new
+     * DadesConnexioRecobriment("foo.bar") properties foo.bar.helium.client.xxx
+     *
      * @param dadesConnexio
-     * @return 
+     * @return
      * @see DadesConnexioRecobriment
      * @see RecobrimentClient
      */
     public static RecobrimentClient getClient(DadesConnexioRecobriment dadesConnexio) {
-        DadesConnexioRecobriment dct = (dadesConnexio!=null)?dadesConnexio:new DadesConnexioRecobriment("");
+        DadesConnexioRecobriment dct = (dadesConnexio != null) ? dadesConnexio : new DadesConnexioRecobriment("");
         return _getClient(dct);
     }
-    
+
     /**
-     * Recupera el singleton i inicialitza DadesConnexio 
-     * new DadesConnexio("")
+     * Recupera el singleton i inicialitza DadesConnexio new DadesConnexio("")
      * properties helium.client.xxx
-     * @return 
+     *
+     * @return
      * @see DadesConnexioRecobriment
      * @see RecobrimentClient
      */
-    public static RecobrimentClient getClient(){
+    public static RecobrimentClient getClient() {
         DadesConnexioRecobriment dct = new DadesConnexioRecobriment("");
         return _getClient(dct);
     }
-    
-    
+
     private static final QName SERVICE_NAME = new QName(DadesConnexioRecobriment._QNAME,
             DadesConnexioRecobriment._SERVICE_NAME);
 
     private Recobriment getServicePort() {
-        
+
         /*
         // Create a trust manager that does not validate certificate chains
         TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
@@ -158,21 +153,19 @@ private DadesConnexioSOAP dadesConnexio;
         HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
         HttpsURLConnection.setDefaultHostnameVerifier(hv);
         
-        */
-        
+         */
         AuthenticatorReplacer.verifyHost();
-        
+
         URL wsdlURL = null;
 
         //final DadesConnexioSOAP dadesConnexio = new DadesConnexioRecobriment(propertyBase);
-
         try {
             LOG.info(dadesConnexio.getWsdlLocation());
             wsdlURL = new URL(dadesConnexio.getWsdlLocation());
         } catch (MalformedURLException ex) {
             Logger.getLogger(RecobrimentClient.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         /*
         Authenticator.setDefault(new Authenticator() {
             @Override
@@ -181,17 +174,15 @@ private DadesConnexioSOAP dadesConnexio;
                         dadesConnexio.getPassword().toCharArray());
             }
         });
-        */
-        
+         */
         String userName = dadesConnexio.getUserName();
         String password = dadesConnexio.getPassword();
-        
+
         AuthenticatorReplacer.setAuthenticator(userName, password);
-        
+
         LOG.log(Level.INFO, "Servicio:  {0}", SERVICE_NAME);
         LOG.log(Level.INFO, "URL: {0}", wsdlURL);
-        
-        
+
         RecobrimentService ss = new RecobrimentService(wsdlURL, SERVICE_NAME);
         Recobriment port = ss.getRecobrimentServicePort();
 
@@ -272,7 +263,6 @@ private DadesConnexioSOAP dadesConnexio;
 
         // String str = JAXBToStringBuilder.valueOf(app,
         // JAXBToStringStyle.DEFAULT_STYLE);
-
         DadesConnexioRecobriment dadesConnexio = new DadesConnexioRecobriment(app);
 
         System.setProperty(app + dadesConnexio.getCodClient() + ".username", "$xestib_pinbal");
@@ -339,34 +329,36 @@ private DadesConnexioSOAP dadesConnexio;
         DatosGenericos datosGenericos = RecobrimentUtils.establecerDatosGenericos(emisor, solicitante, titular,
                 transmision);
 
-        es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosEspecificos datosEspecificos = 
-                new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosEspecificos();
+        
+        // Datos específicos
+        //
+        
+        es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosEspecificos datosEspecificos
+                = new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosEspecificos();
 
-        es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Solicitud solicitud = 
-                new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Solicitud();
+        es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Solicitud solicitud
+                = new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Solicitud();
         solicitud.setMunicipioSolicitud("029");
         //solicitud.setNumeroAnyos("20");
         solicitud.setProvinciaSolicitud("07");
         es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Titular titul = new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Titular();
         //titul.setNIA("GT00261007");
-        
-        es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosPersonales datosPersonales = 
-                new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosPersonales();
-        
-        es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Documentacion dc = 
-                new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Documentacion();
-        
+
+        es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosPersonales datosPersonales
+                = new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosPersonales();
+
+        es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Documentacion dc
+                = new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Documentacion();
+
         dc.setTipo(TipoDocumentacion.NIF.value());
         dc.setValor("78215122B");
-        
+
         //titul.setDatosPersonales(datosPersonales);
-        
         titul.setDocumentacion(dc);
         solicitud.setTitular(titul);
-        
-        
+
         datosEspecificos.setSolicitud(solicitud);
-        
+
         /*
         XmlManager<es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosEspecificos> manager = 
                 new XmlManager<es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosEspecificos>(
@@ -374,23 +366,25 @@ private DadesConnexioSOAP dadesConnexio;
                 );
         DataHandler dh = manager.generateXml(datosEspecificos);
         byte[] b = DataHandlers.dataHandlerToByteArray(dh);
-        */
-
-        SolicitudTransmision solicitudTransmision = RecobrimentUtils.establecerSolicitudTransmision(datosGenericos);
+         */
         
+
         //es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.ObjectFactory objectFactory =
         //        new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.ObjectFactory();
-        
         //JAXBElement<es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosEspecificos> jaxbDatosEspecificos = 
         //        objectFactory.createDatosEspecificos(datosEspecificos);
-        
         Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
         JAXB.marshal(datosEspecificos, new DOMResult(document));
         Element elementDatosEspecificos = document.getDocumentElement();
+
+        LOG.log(Level.INFO, "Previ a petici\u00f3 sincrona 1:\n {0}", datosEspecificos.toString());
+
+        //solicitudTransmision.setDatosEspecificos(elementDatosEspecificos);
         
-        LOG.info("Previ a petició sincrona 1:\n " + datosEspecificos.toString());
         
-        solicitudTransmision.setDatosEspecificos(elementDatosEspecificos);
+        
+        SolicitudTransmision solicitudTransmision = RecobrimentUtils.establecerSolicitudTransmision(datosGenericos, elementDatosEspecificos);
+        
         lSolicitudTransmision.add(solicitudTransmision);
 
         Solicitudes solicitudes = RecobrimentUtils.establecerSolicitudes(lSolicitudTransmision);
