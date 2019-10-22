@@ -26,13 +26,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.xml.bind.JAXB;
 import javax.xml.namespace.QName;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.dom.DOMResult;
 import javax.xml.ws.BindingProvider;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 import es.caib.scsp.utils.cxf.authentication.AuthenticatorReplacer;
 
@@ -373,10 +368,12 @@ public class RecobrimentClient {
         //        new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.ObjectFactory();
         //JAXBElement<es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosEspecificos> jaxbDatosEspecificos = 
         //        objectFactory.createDatosEspecificos(datosEspecificos);
-        Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-        JAXB.marshal(datosEspecificos, new DOMResult(document));
-        Element elementDatosEspecificos = document.getDocumentElement();
+        //Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+        //JAXB.marshal(datosEspecificos, new DOMResult(document));
+        //Element elementDatosEspecificos = document.getDocumentElement();
 
+        
+        
         LOG.log(Level.INFO, "Previ a petici\u00f3 sincrona 1:\n {0}", datosEspecificos.toString());
 
         //solicitudTransmision.setDatosEspecificos(elementDatosEspecificos);

@@ -23,7 +23,6 @@ import java.util.List;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
@@ -33,7 +32,6 @@ import javax.xml.transform.stream.StreamSource;
 import org.apache.commons.io.IOUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 /**
  *
@@ -56,13 +54,13 @@ public class XmlManager<T> {
         return this.jaxbContext;
     }
 
-    private ByteArrayOutputStream marshal(T item) throws JAXBException {
+    private ByteArrayOutputStream marshalToByteArrayOutputStream(T item) throws JAXBException {
 
-        return marshal(item, Boolean.TRUE);
+        return XmlManager.this.marshalToByteArrayOutputStream(item, Boolean.TRUE);
 
     }
 
-    private ByteArrayOutputStream marshal(T item, boolean formattedOutput) throws JAXBException {
+    private ByteArrayOutputStream marshalToByteArrayOutputStream(T item, boolean formattedOutput) throws JAXBException {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
@@ -74,7 +72,11 @@ public class XmlManager<T> {
         return baos;
     }
 
-    private Element element(T item, boolean formattedOutput) throws JAXBException, ParserConfigurationException {
+    private Element marshalToElement(T item) throws JAXBException, ParserConfigurationException{
+        return XmlManager.this.marshalToElement(item, Boolean.TRUE);
+    }
+    
+    private Element marshalToElement(T item, boolean formattedOutput) throws JAXBException, ParserConfigurationException {
 
         Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
         
@@ -83,18 +85,13 @@ public class XmlManager<T> {
 
         jaxbMarshaller.marshal(item, document);
 
-        
-
-        
         //JAXB.marshal(datosEspecificos, new DOMResult(document));
         Element element = document.getDocumentElement();
         
         //jaxbMarshaller.marshal(item, new DOMResult(document));
-
+ 
         return element;
     }
-    
-    
     
     private T unmarshal(InputStream is) throws JAXBException {
 
@@ -102,10 +99,16 @@ public class XmlManager<T> {
        return jaxbUnmarshaller.unmarshal(new StreamSource(is), clazz).getValue();
 
     }
-
+    
+    public Element generateElement(T item) throws JAXBException, ParserConfigurationException{
+        Element el;
+        el = marshalToElement(item);
+        return el;
+    }
+    
     public DataHandler generateXml(T item) throws JAXBException {
 
-        byte[] b = marshal(item).toByteArray();
+        byte[] b = marshalToByteArrayOutputStream(item).toByteArray();
         String mimetype = "application/xml";
         DataSource ds = new ByteArrayDataSource(b, mimetype);
         return new DataHandler(ds);
@@ -141,13 +144,13 @@ public class XmlManager<T> {
 
     public byte[] generateXmlByteArray(T item) throws JAXBException {
 
-        return marshal(item).toByteArray();
+        return marshalToByteArrayOutputStream(item).toByteArray();
 
     }
 
     public String generateFlatXmlString(T item) throws JAXBException {
 
-        return marshal(item, Boolean.FALSE).toString();
+        return XmlManager.this.marshalToByteArrayOutputStream(item, Boolean.FALSE).toString();
 
     }
 
@@ -164,7 +167,7 @@ public class XmlManager<T> {
 
     public String generateXmlString(T item) throws JAXBException {
 
-        return marshal(item).toString();
+        return marshalToByteArrayOutputStream(item).toString();
 
     }
 
