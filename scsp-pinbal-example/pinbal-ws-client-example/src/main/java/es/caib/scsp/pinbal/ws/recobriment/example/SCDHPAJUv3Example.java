@@ -1,7 +1,9 @@
-package es.caib.scsp.pinbal.ws.recobriment.client;
+package es.caib.scsp.pinbal.ws.recobriment.example;
 
+
+import java.util.ArrayList;
+import java.util.List;
 import es.caib.pinbal.ws.recobriment.Atributos;
-import es.caib.pinbal.ws.recobriment.ConfirmacionPeticion;
 import es.caib.pinbal.ws.recobriment.Consentimiento;
 import es.caib.pinbal.ws.recobriment.DatosGenericos;
 import es.caib.pinbal.ws.recobriment.Emisor;
@@ -9,8 +11,6 @@ import es.caib.pinbal.ws.recobriment.Estado;
 import es.caib.pinbal.ws.recobriment.Funcionario;
 import es.caib.pinbal.ws.recobriment.Peticion;
 import es.caib.pinbal.ws.recobriment.Procedimiento;
-import es.caib.pinbal.ws.recobriment.Recobriment;
-import es.caib.pinbal.ws.recobriment.RecobrimentService;
 import es.caib.pinbal.ws.recobriment.Respuesta;
 import es.caib.pinbal.ws.recobriment.Solicitante;
 import es.caib.pinbal.ws.recobriment.SolicitudTransmision;
@@ -18,230 +18,35 @@ import es.caib.pinbal.ws.recobriment.Solicitudes;
 import es.caib.pinbal.ws.recobriment.TipoDocumentacion;
 import es.caib.pinbal.ws.recobriment.Titular;
 import es.caib.pinbal.ws.recobriment.Transmision;
-import es.caib.scsp.utils.ws.connexio.DadesConnexioSOAP;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.xml.namespace.QName;
-import javax.xml.ws.BindingProvider;
-
-import es.caib.scsp.utils.cxf.authentication.AuthenticatorReplacer;
+import es.caib.scsp.pinbal.ws.recobriment.client.DadesConnexioRecobriment;
+import es.caib.scsp.pinbal.ws.recobriment.client.RecobrimentClient;
+import es.caib.scsp.pinbal.ws.recobriment.client.RecobrimentUtils;
 import javax.xml.bind.JAXB;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.dom.DOMResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+
 /**
  *
  * @author gdeignacio
  */
-public class RecobrimentClient {
+public class SCDHPAJUv3Example {
 
-    //private String propertyBase = "es.caib.scsp.";
-    private DadesConnexioSOAP dadesConnexio;
+    protected static final Logger LOG = Logger.getLogger(SCDHPAJUv3Example.class.getName());
 
-    public DadesConnexioSOAP getDadesConnexio() {
-        return dadesConnexio;
-    }
-
-    public void setDadesConnexio(DadesConnexioSOAP dadesConnexio) {
-        this.dadesConnexio = dadesConnexio;
-    }
-
-    protected static final Logger LOG = Logger.getLogger(RecobrimentClient.class.getName());
-
-    /**
-     * Objecte que emmagatzema la instancia de la classe segons el patro
-     * singleton
-     *
-     */
-    private static final RecobrimentClient client = new RecobrimentClient();
-
-    /**
-     * Construeix un objecte de la classe. Aquest metode es privat per forcar el
-     * patro singleton.
-     */
-    private RecobrimentClient() {
-        super();
-    }
-
-    /**
-     * Recupera l objecte singleton.
-     *
-     * @return objete singleton de la clase.
-     */
-    private static RecobrimentClient _getClient(DadesConnexioRecobriment dadesConnexio) {
-        client.setDadesConnexio(dadesConnexio);
-        return client;
-    }
-
-    /**
-     * Recupera el singleton amb dadesConnexio prèviament inicialitzat new
-     * DadesConnexioRecobriment("foo.bar") properties foo.bar.helium.client.xxx
-     *
-     * @param dadesConnexio
-     * @return
-     * @see DadesConnexioRecobriment
-     * @see RecobrimentClient
-     */
-    public static RecobrimentClient getClient(DadesConnexioRecobriment dadesConnexio) {
-        DadesConnexioRecobriment dct = (dadesConnexio != null) ? dadesConnexio : new DadesConnexioRecobriment("");
-        return _getClient(dct);
-    }
-
-    /**
-     * Recupera el singleton i inicialitza DadesConnexio new DadesConnexio("")
-     * properties helium.client.xxx
-     *
-     * @return
-     * @see DadesConnexioRecobriment
-     * @see RecobrimentClient
-     */
-    public static RecobrimentClient getClient() {
-        DadesConnexioRecobriment dct = new DadesConnexioRecobriment("");
-        return _getClient(dct);
-    }
-
-    private static final QName SERVICE_NAME = new QName(DadesConnexioRecobriment._QNAME,
-            DadesConnexioRecobriment._SERVICE_NAME);
-
-    private Recobriment getServicePort() {
-
-        /*
-        // Create a trust manager that does not validate certificate chains
-        TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
-            @Override
-            public X509Certificate[] getAcceptedIssuers() {
-                return null;
-            }
-
-            @Override
-            public void checkClientTrusted(X509Certificate[] certs, String authType) {
-                // Trust always
-            }
-
-            @Override
-            public void checkServerTrusted(X509Certificate[] certs, String authType) {
-                // Trust always
-            }
-        } };
-        // Install the all-trusting trust manager
-        SSLContext sc = null;
-        try {
-            sc = SSLContext.getInstance("SSL");
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(RecobrimentClient.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        // Create empty HostnameVerifier
-        HostnameVerifier hv = new HostnameVerifier() {
-            @Override
-            public boolean verify(String arg0, SSLSession arg1) {
-                return true;
-            }
-        };
-        
-        try {
-            sc.init(null, trustAllCerts, new java.security.SecureRandom());
-        } catch (KeyManagementException ex) {
-            Logger.getLogger(RecobrimentClient.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-        HttpsURLConnection.setDefaultHostnameVerifier(hv);
-        
-         */
-        AuthenticatorReplacer.verifyHost();
-
-        URL wsdlURL = null;
-
-        //final DadesConnexioSOAP dadesConnexio = new DadesConnexioRecobriment(propertyBase);
-        try {
-            LOG.info(dadesConnexio.getWsdlLocation());
-            wsdlURL = new URL(dadesConnexio.getWsdlLocation());
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(RecobrimentClient.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        /*
-        Authenticator.setDefault(new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(dadesConnexio.getUserName(),
-                        dadesConnexio.getPassword().toCharArray());
-            }
-        });
-         */
-        String userName = dadesConnexio.getUserName();
-        String password = dadesConnexio.getPassword();
-
-        AuthenticatorReplacer.setAuthenticator(userName, password);
-
-        LOG.log(Level.INFO, "Servicio:  {0}", SERVICE_NAME);
-        LOG.log(Level.INFO, "URL: {0}", wsdlURL);
-
-        RecobrimentService ss = new RecobrimentService(wsdlURL, SERVICE_NAME);
-        Recobriment port = ss.getRecobrimentServicePort();
-
-        Map<String, Object> req = ((BindingProvider) port).getRequestContext();
-
-        req.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, dadesConnexio.getEndPoint());
-
-        req.put(BindingProvider.USERNAME_PROPERTY, dadesConnexio.getUserName());
-        req.put(BindingProvider.PASSWORD_PROPERTY, dadesConnexio.getPassword());
-
-        return port;
-
-    }
-
-    private static void dummy(Recobriment port) {
+    private static void dummy() {
 
         LOG.log(Level.INFO, "Invoking dummy...");
 
         // port.consultaFormulariTasca(_CODAPP, _CODAPP)
     }
 
-    public Respuesta peticionSincrona(Peticion pet) {
-        Recobriment port = getServicePort();
-        Respuesta response;
-        response = peticionSincrona(port, pet);
-        return response;
-    }
 
-    private static Respuesta peticionSincrona(Recobriment port, Peticion pet) {
-        LOG.log(Level.INFO, "Invoking port...");
-        Respuesta _peticionSincrona__return = port.peticionSincrona(pet);
-        LOG.log(Level.INFO, "Return port...");
-        return _peticionSincrona__return;
-    }
-
-    public ConfirmacionPeticion peticionAsincrona(Peticion pet) {
-        Recobriment port = getServicePort();
-        ConfirmacionPeticion response;
-        response = peticionAsincrona(port, pet);
-        return response;
-    }
-
-    private static ConfirmacionPeticion peticionAsincrona(Recobriment port, Peticion pet) {
-        ConfirmacionPeticion _peticionAsincrona__return = port.peticionAsincrona(pet);
-        return _peticionAsincrona__return;
-    }
-
-    public Respuesta getRespuesta(String idPeticion) {
-        Recobriment port = getServicePort();
-        Respuesta response;
-        response = getRespuesta(port, idPeticion);
-        return response;
-    }
-
-    private static Respuesta getRespuesta(Recobriment port, String idPeticion) {
-        Respuesta _getRespuesta__return = port.getRespuesta(idPeticion);
-        return _getRespuesta__return;
-    }
-
+/*
     private static final String CODIGO_CERTIFICADO = "VDRSFWS02";
     private static final Consentimiento CONSENTIMIENTO = Consentimiento.LEY;
     private static final String FINALIDAD = "Test recobriment";
@@ -254,7 +59,8 @@ public class RecobrimentClient {
     private static final String UNIDAD_CODIGO = null;
     private static final String UNIDAD_NOMBRE = "Unitat de test";
     private static final String EXPEDIENTE_ID = null;
-
+*/
+    
     public static void main(String args[]) throws Exception {
 
         String app = "es.caib.scsp.";
@@ -265,11 +71,11 @@ public class RecobrimentClient {
         // JAXBToStringStyle.DEFAULT_STYLE);
         DadesConnexioRecobriment dadesConnexio = new DadesConnexioRecobriment(app);
 
-        System.setProperty(app + dadesConnexio.getCodClient() + ".username", "$xestib_pinbal");
-        System.setProperty(app + dadesConnexio.getCodClient() + ".password", "xestib_pinbal");
-        System.setProperty(app + dadesConnexio.getCodClient() + ".baseURL", "https://proves.caib.es/pinbal");
+        System.setProperty(app  + "pinbal.client.username", "$xestib_pinbal");
+        System.setProperty(app  + "pinbal.client.password", "xestib_pinbal");
+        System.setProperty(app  + "pinbal.client.baseURL", "https://proves.caib.es/pinbal");
 
-        RecobrimentClient client = RecobrimentClient.getClient();
+        RecobrimentClient client = RecobrimentClient.getClient(dadesConnexio);
 
         String codigoEstado = null;
         String codigoEstadoSecundario = null;
@@ -278,7 +84,7 @@ public class RecobrimentClient {
         Estado estado = RecobrimentUtils.establecerEstado(codigoEstado, codigoEstadoSecundario, literalError,
                 tiempoEstimadoRespuesta);
 
-        String codigoCertificado = "SCDCPAJU";
+        String codigoCertificado = "SCDHPAJU";
         String idPeticion = null;
         String numElementos = "1";
         String timeStamp = null;
@@ -333,8 +139,7 @@ public class RecobrimentClient {
         // Datos específicos
         //
         
-        es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosEspecificos datosEspecificos
-                = new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosEspecificos();
+        PeticionDatosEspecificos datosEspecificos = new PeticionDatosEspecificos();
 
         es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Solicitud solicitud
                 = new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Solicitud();
@@ -377,6 +182,8 @@ public class RecobrimentClient {
         JAXB.marshal(datosEspecificos, new DOMResult(document));
         Element elementDatosEspecificos = document.getDocumentElement();
 
+        
+        
         
         
         LOG.log(Level.INFO, "Previ a petici\u00f3 sincrona 1:\n {0}", datosEspecificos.toString());
