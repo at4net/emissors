@@ -45,8 +45,7 @@ public class SCDHPAJUv3Example {
         // port.consultaFormulariTasca(_CODAPP, _CODAPP)
     }
 
-
-/*
+    
     private static final String CODIGO_CERTIFICADO = "VDRSFWS02";
     private static final Consentimiento CONSENTIMIENTO = Consentimiento.LEY;
     private static final String FINALIDAD = "Test recobriment";
@@ -59,7 +58,7 @@ public class SCDHPAJUv3Example {
     private static final String UNIDAD_CODIGO = null;
     private static final String UNIDAD_NOMBRE = "Unitat de test";
     private static final String EXPEDIENTE_ID = null;
-*/
+
     
     public static void main(String args[]) throws Exception {
 
@@ -67,8 +66,7 @@ public class SCDHPAJUv3Example {
 
         LOG.log(Level.INFO, "Valor app: {0}", app);
 
-        // String str = JAXBToStringBuilder.valueOf(app,
-        // JAXBToStringStyle.DEFAULT_STYLE);
+       
         DadesConnexioRecobriment dadesConnexio = new DadesConnexioRecobriment(app);
 
         System.setProperty(app  + "pinbal.client.username", "$xestib_pinbal");
@@ -76,6 +74,10 @@ public class SCDHPAJUv3Example {
         System.setProperty(app  + "pinbal.client.baseURL", "https://proves.caib.es/pinbal");
 
         RecobrimentClient client = RecobrimentClient.getClient(dadesConnexio);
+        
+        
+        
+        /*
 
         String codigoEstado = null;
         String codigoEstadoSecundario = null;
@@ -132,12 +134,14 @@ public class SCDHPAJUv3Example {
         Transmision transmision = RecobrimentUtils.establecerTransmision(codigoCertificado, fechaGeneracion,
                 idSolicitud, idTransmision);
 
-        DatosGenericos datosGenericos = RecobrimentUtils.establecerDatosGenericos(emisor, solicitante, titular,
-                transmision);
+        DatosGenericos datosGenericos = RecobrimentUtils.establecerDatosGenericos(emisor, solicitante, titular, transmision);
 
+        */
         
         // Datos específicos
         //
+        
+        /*
         
         PeticionDatosEspecificos datosEspecificos = new PeticionDatosEspecificos();
 
@@ -157,13 +161,18 @@ public class SCDHPAJUv3Example {
 
         dc.setTipo(TipoDocumentacion.NIF.value());
         dc.setValor("78215122B");
+        
+        */
 
         //titul.setDatosPersonales(datosPersonales);
+        
+        
+        /*
         titul.setDocumentacion(dc);
         solicitud.setTitular(titul);
-
         datosEspecificos.setSolicitud(solicitud);
-
+        */
+        
         /*
         XmlManager<es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosEspecificos> manager = 
                 new XmlManager<es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosEspecificos>(
@@ -178,19 +187,24 @@ public class SCDHPAJUv3Example {
         //        new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.ObjectFactory();
         //JAXBElement<es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosEspecificos> jaxbDatosEspecificos = 
         //        objectFactory.createDatosEspecificos(datosEspecificos);
+       
+        /*
+        
         Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
         JAXB.marshal(datosEspecificos, new DOMResult(document));
         Element elementDatosEspecificos = document.getDocumentElement();
 
         
-        
-        
-        
         LOG.log(Level.INFO, "Previ a petici\u00f3 sincrona 1:\n {0}", datosEspecificos.toString());
 
+        */
+        
+        
         //solicitudTransmision.setDatosEspecificos(elementDatosEspecificos);
         
         
+        
+        /*
         
         SolicitudTransmision solicitudTransmision = RecobrimentUtils.establecerSolicitudTransmision(datosGenericos, elementDatosEspecificos);
         
@@ -203,6 +217,8 @@ public class SCDHPAJUv3Example {
         LOG.info("Previ a petició sincrona 2:\n" + peticion.toString());
 
         Respuesta response = client.peticionSincrona(peticion);
+
+        */
 
     }
 

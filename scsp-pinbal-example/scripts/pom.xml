@@ -3,7 +3,7 @@
 
     <parent>
         <groupId>es.caib.scsp</groupId>
-        <artifactId>scsp-pinbal</artifactId>
+        <artifactId>scsp-pinbal-example</artifactId>
         <version>1.0.0</version>
     </parent>
     <artifactId>scsp-pinbal-example-scripts</artifactId>

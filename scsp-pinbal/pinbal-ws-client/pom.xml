@@ -73,30 +73,6 @@
             <type>jar</type>
         </dependency>
         
-        
-        <dependency>
-            <groupId>es.caib.scsp</groupId>
-            <artifactId>scsp-schemas-xsd-SCDCPAJUv3</artifactId>
-            <version>1.0.0</version>
-            <type>jar</type>
-        </dependency>
-        
-        <dependency>
-            <groupId>es.caib.scsp</groupId>
-            <artifactId>scsp-schemas-xsd-SCDHPAJUv3</artifactId>
-            <version>1.0.0</version>
-            <type>jar</type>
-        </dependency>
-        
-        <dependency>
-            <groupId>es.caib.scsp</groupId>
-            <artifactId>scsp-schemas-xsd-SVDSCTFNWS01v3</artifactId>
-            <version>1.0.0</version>
-            <type>jar</type>
-        </dependency>
-        
-        
-        
     </dependencies>
 
 
