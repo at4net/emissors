@@ -45,7 +45,7 @@ public class SCDHPAJUv3Example {
         // port.consultaFormulariTasca(_CODAPP, _CODAPP)
     }
 
-    
+    /*
     private static final String CODIGO_CERTIFICADO = "VDRSFWS02";
     private static final Consentimiento CONSENTIMIENTO = Consentimiento.LEY;
     private static final String FINALIDAD = "Test recobriment";
@@ -58,7 +58,7 @@ public class SCDHPAJUv3Example {
     private static final String UNIDAD_CODIGO = null;
     private static final String UNIDAD_NOMBRE = "Unitat de test";
     private static final String EXPEDIENTE_ID = null;
-
+    */
     
     public static void main(String args[]) throws Exception {
 
