@@ -42,7 +42,6 @@ public class SCDHPAJUv3Example {
 
         LOG.log(Level.INFO, "Invoking dummy...");
 
-        // port.consultaFormulariTasca(_CODAPP, _CODAPP)
     }
 
     /*
