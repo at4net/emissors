@@ -1,70 +1,20 @@
 package es.caib.scsp.pinbal.ws.recobriment.example;
 
 
-import java.util.ArrayList;
-import java.util.List;
-import es.caib.pinbal.ws.recobriment.Atributos;
-import es.caib.pinbal.ws.recobriment.Consentimiento;
-import es.caib.pinbal.ws.recobriment.DatosGenericos;
-import es.caib.pinbal.ws.recobriment.Emisor;
-import es.caib.pinbal.ws.recobriment.Estado;
-import es.caib.pinbal.ws.recobriment.Funcionario;
-import es.caib.pinbal.ws.recobriment.Peticion;
-import es.caib.pinbal.ws.recobriment.Procedimiento;
-import es.caib.pinbal.ws.recobriment.Respuesta;
-import es.caib.pinbal.ws.recobriment.Solicitante;
-import es.caib.pinbal.ws.recobriment.SolicitudTransmision;
-import es.caib.pinbal.ws.recobriment.Solicitudes;
-import es.caib.pinbal.ws.recobriment.TipoDocumentacion;
-import es.caib.pinbal.ws.recobriment.Titular;
-import es.caib.pinbal.ws.recobriment.Transmision;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import es.caib.scsp.pinbal.ws.recobriment.client.DadesConnexioRecobriment;
 import es.caib.scsp.pinbal.ws.recobriment.client.RecobrimentClient;
-import es.caib.scsp.pinbal.ws.recobriment.client.RecobrimentUtils;
-import javax.xml.bind.JAXB;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.dom.DOMResult;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 
 /**
  *
  * @author gdeignacio
  */
-public class SCDHPAJUv3Example {
+public class Example {
 
-    protected static final Logger LOG = Logger.getLogger(SCDHPAJUv3Example.class.getName());
+    protected static final Logger LOG = Logger.getLogger(Example.class.getName());
 
-    public RecobrimentClient client;
-    
-    SCDHPAJUv3Example(RecobrimentClient client){
-        this.client = client;
-    }
-    
-    public RecobrimentClient getDefaultRecobrimentClient(){
-        
-        String app = "es.caib.scsp.";
-
-        LOG.log(Level.INFO, "Valor app: {0}", app);
-
-        DadesConnexioRecobriment dadesConnexio = new DadesConnexioRecobriment(app);
-
-        System.setProperty(app  + "pinbal.client.username", "$xestib_pinbal");
-        System.setProperty(app  + "pinbal.client.password", "xestib_pinbal");
-        System.setProperty(app  + "pinbal.client.baseURL", "https://proves.caib.es/pinbal");
-
-        RecobrimentClient client = RecobrimentClient.getClient(dadesConnexio);
-        
-        return client;
-        
-    }
-    
-    
-    
-    
     private static void dummy() {
 
         LOG.log(Level.INFO, "Invoking dummy...");
@@ -86,8 +36,23 @@ public class SCDHPAJUv3Example {
     private static final String EXPEDIENTE_ID = null;
     */
     
-    
-     /*
+    public static void main(String args[]) throws Exception {
+
+        String app = "es.caib.scsp.";
+
+        LOG.log(Level.INFO, "Valor app: {0}", app);
+
+        DadesConnexioRecobriment dadesConnexio = new DadesConnexioRecobriment(app);
+
+        System.setProperty(app  + "pinbal.client.username", "$xestib_pinbal");
+        System.setProperty(app  + "pinbal.client.password", "xestib_pinbal");
+        System.setProperty(app  + "pinbal.client.baseURL", "https://proves.caib.es/pinbal");
+
+        RecobrimentClient client = RecobrimentClient.getClient(dadesConnexio);
+        
+        
+        
+        /*
 
         //CODSVDR_GBA_20121107
         
@@ -232,12 +197,6 @@ public class SCDHPAJUv3Example {
         Respuesta response = client.peticionSincrona(peticion);
 
         */
-    
-    
-
-    
-    public static void main(String args[]) throws Exception {
-  
 
     }
 
