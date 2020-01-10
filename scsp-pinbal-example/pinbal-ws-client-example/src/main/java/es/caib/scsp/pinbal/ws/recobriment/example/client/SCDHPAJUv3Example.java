@@ -250,8 +250,8 @@ public class SCDHPAJUv3Example {
     
     public Funcionario establecerFuncionario() {
         return RecobrimentUtils.establecerFuncionario(
-                nifEmisor,
-                nombreEmisor
+                nifFuncionario, 
+                nombreCompletoFuncionario
         );
     }  
     
