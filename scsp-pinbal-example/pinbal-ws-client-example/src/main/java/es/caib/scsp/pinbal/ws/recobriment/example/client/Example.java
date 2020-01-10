@@ -1,4 +1,4 @@
-package es.caib.scsp.pinbal.ws.recobriment.example;
+package es.caib.scsp.pinbal.ws.recobriment.example.client;
 
 
 import java.util.logging.Level;

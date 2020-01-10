@@ -1,4 +1,4 @@
-package es.caib.scsp.pinbal.ws.recobriment.example;
+package es.caib.scsp.pinbal.ws.recobriment.example.client;
 
 
 import java.util.ArrayList;
@@ -35,40 +35,69 @@ import org.w3c.dom.Element;
  * @author gdeignacio
  */
 public class SCDHPAJUv3Example {
+    
+    // Estado
+    private String codigoEstado = null;
+    private String codigoEstadoSecundario = null;
+    private String literalError = null;
+    private Integer tiempoEstimadoRespuesta = null;
+    
+    //Atributos
+    private String codigoCertificado = "SCDHPAJU";
+    private String idPeticion = null;
+    private String numElementos = "1";
+    private String timeStamp = null;
+    
+    //Emisor
+    private String nifEmisor = "S0711001H";
+    private String nombreEmisor = "CAIB";
+    
+    //Funcionario
+    private String nifFuncionario = "78210244D";
+    private String nombreCompletoFuncionario = "SANS AGUILAR, CATALINA";
+      
+    //Procedimiento
+    private String codProcedimiento = "EC_ESCOOBL_2014";
+    private String nombreProcedimiento = "Esco. obligatòria";
+    
+    private Consentimiento consentimiento = Consentimiento.SI;
+    private String finalidad = "Baremacions per el proces d'escolaritzacio";
+    private String idExpediente = "Q9WREU";
+    private String identificadorSolicitante = "S0711001H";
+    private String nombreSolicitante = "Conselleria d'Educació i Universitat";
+    private String unidadTramitadora = "Servei d'escolarització";
+    
+    
+    
+    
+    private Estado estado;
+    private Atributos atributos;
+    private Emisor emisor;
+    private Funcionario funcionario;
+    private Procedimiento procedimiento;
+    private Solicitante solicitante;
 
     protected static final Logger LOG = Logger.getLogger(SCDHPAJUv3Example.class.getName());
 
-    public RecobrimentClient client;
+    private RecobrimentClient client;
     
-    SCDHPAJUv3Example(RecobrimentClient client){
+    public SCDHPAJUv3Example(RecobrimentClient client){
         this.client = client;
-    }
-    
-    public RecobrimentClient getDefaultRecobrimentClient(){
-        
-        String app = "es.caib.scsp.";
-
-        LOG.log(Level.INFO, "Valor app: {0}", app);
-
-        DadesConnexioRecobriment dadesConnexio = new DadesConnexioRecobriment(app);
-
-        System.setProperty(app  + "pinbal.client.username", "$xestib_pinbal");
-        System.setProperty(app  + "pinbal.client.password", "xestib_pinbal");
-        System.setProperty(app  + "pinbal.client.baseURL", "https://proves.caib.es/pinbal");
-
-        RecobrimentClient client = RecobrimentClient.getClient(dadesConnexio);
-        
-        return client;
-        
+        this.estado = establecerEstado();
+        this.atributos = establecerAtributos();
+        this.emisor = establecerEmisor();
+        this.funcionario = establecerFuncionario();
+        this.procedimiento = establecerProcedimiento();
+        this.solicitante = establecerSolicitante();
     }
     
     
+    public void dummy(){
+        _dummy();
+    }
     
-    
-    private static void dummy() {
-
+    private static void _dummy() {
         LOG.log(Level.INFO, "Invoking dummy...");
-
     }
 
     /*
@@ -90,46 +119,11 @@ public class SCDHPAJUv3Example {
      /*
 
         //CODSVDR_GBA_20121107
-        
-        
-        String codigoEstado = null;
-        String codigoEstadoSecundario = null;
-        String literalError = null;
-        Integer tiempoEstimadoRespuesta = null;
-        Estado estado = RecobrimentUtils.establecerEstado(codigoEstado, codigoEstadoSecundario, literalError,
-                tiempoEstimadoRespuesta);
-
-        String codigoCertificado = "SCDHPAJU";
-        String idPeticion = null;
-        String numElementos = "1";
-        String timeStamp = null;
-        Atributos atributos = RecobrimentUtils.establecerAtributos(codigoCertificado, estado, idPeticion, numElementos,
-                timeStamp);
 
         List<SolicitudTransmision> lSolicitudTransmision = new ArrayList<SolicitudTransmision>();
 
-        String nifEmisor = "S0711001H";
-        String nombreEmisor = "CAIB";
-        Emisor emisor = RecobrimentUtils.establecerEmisor(nifEmisor, nombreEmisor);
-
-        String nifFuncionario = "78210244D";
-        String nombreCompletoFuncionario = "SANS AGUILAR, CATALINA";
-        Funcionario funcionario = RecobrimentUtils.establecerFuncionario(nifFuncionario, nombreCompletoFuncionario);
-
-        String codProcedimiento = "EC_ESCOOBL_2014";
-        String nombreProcedimiento = "Esco. obligatòria";
-        Procedimiento procedimiento = RecobrimentUtils.establecerProcedimiento(codProcedimiento, nombreProcedimiento);
-
-        Consentimiento consentimiento = Consentimiento.SI;
-        String finalidad = "Baremacions per el proces d'escolaritzacio";
-        String idExpediente = "Q9WREU";
-        String identificadorSolicitante = "S0711001H";
-        String nombreSolicitante = "Conselleria d'Educació i Universitat";
-        String unidadTramitadora = "Servei d'escolarització";
-
-        Solicitante solicitante = RecobrimentUtils.establecerSolicitante(consentimiento, finalidad, funcionario,
-                idExpediente, identificadorSolicitante, nombreSolicitante, procedimiento, unidadTramitadora);
-
+     
+    
         String apellido1 = "";
         String apellido2 = "";
         String documentacion = "78215122B";
@@ -234,7 +228,69 @@ public class SCDHPAJUv3Example {
         */
     
     
-
+    public Solicitante establecerSolicitante(){
+        return RecobrimentUtils.establecerSolicitante(
+                consentimiento, 
+                finalidad, 
+                funcionario, 
+                idExpediente, 
+                identificadorSolicitante, 
+                nombreSolicitante, 
+                procedimiento, 
+                unidadTramitadora
+        );
+    }
+    
+    public Procedimiento establecerProcedimiento() {
+        return RecobrimentUtils.establecerProcedimiento(
+                codProcedimiento, 
+                nombreProcedimiento
+        );
+    }  
+    
+    public Funcionario establecerFuncionario() {
+        return RecobrimentUtils.establecerFuncionario(
+                nifEmisor,
+                nombreEmisor
+        );
+    }  
+    
+ 
+    public Emisor establecerEmisor() {
+        return RecobrimentUtils.establecerEmisor(
+                nifEmisor,
+                nombreEmisor
+        );
+    }   
+    
+    
+    public Atributos establecerAtributos(){
+        return RecobrimentUtils.establecerAtributos(
+                codigoCertificado, 
+                estado, 
+                idPeticion, 
+                numElementos, 
+                timeStamp
+        );
+       
+    }
+    
+    
+    public Estado establecerEstado(){
+        return RecobrimentUtils.establecerEstado(
+                codigoEstado,
+                codigoEstadoSecundario,
+                literalError,
+                tiempoEstimadoRespuesta
+        );
+    }
+    
+    
+    public Respuesta getPeticionSincrona(Peticion pet){
+        Respuesta response = client.peticionSincrona(pet);
+        return response;
+    }
+    
     
     public static void main(String args[]) throws Exception {
   

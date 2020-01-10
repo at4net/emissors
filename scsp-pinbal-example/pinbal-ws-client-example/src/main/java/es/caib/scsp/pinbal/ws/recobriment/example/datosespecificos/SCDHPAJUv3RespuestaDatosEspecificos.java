@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package es.caib.scsp.pinbal.ws.recobriment.example;
+package es.caib.scsp.pinbal.ws.recobriment.example.datosespecificos;
         
 /**
  *

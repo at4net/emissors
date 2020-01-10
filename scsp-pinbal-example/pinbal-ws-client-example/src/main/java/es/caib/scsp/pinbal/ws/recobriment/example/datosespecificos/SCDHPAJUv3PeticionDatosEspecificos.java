@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package es.caib.scsp.pinbal.ws.recobriment.example;
+package es.caib.scsp.pinbal.ws.recobriment.example.datosespecificos;
         
 /**
  *
  * @author gdeignacio
  */
-public class PeticionDatosEspecificos extends es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosEspecificos {
+public class SCDHPAJUv3PeticionDatosEspecificos extends es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosEspecificos {
 
 }
