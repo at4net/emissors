@@ -20,11 +20,12 @@ import es.caib.pinbal.ws.recobriment.Titular;
 import es.caib.pinbal.ws.recobriment.Transmision;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import es.caib.scsp.pinbal.ws.recobriment.client.DadesConnexioRecobriment;
 import es.caib.scsp.pinbal.ws.recobriment.client.RecobrimentClient;
 import es.caib.scsp.pinbal.ws.recobriment.client.RecobrimentUtils;
+import es.caib.scsp.pinbal.ws.recobriment.example.datosespecificos.SCDHPAJUv3PeticionDatosEspecificos;
 import javax.xml.bind.JAXB;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.dom.DOMResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -36,6 +37,7 @@ import org.w3c.dom.Element;
  */
 public class SCDHPAJUv3Example {
     
+   
     // Estado
     private String codigoEstado = null;
     private String codigoEstadoSecundario = null;
@@ -60,6 +62,7 @@ public class SCDHPAJUv3Example {
     private String codProcedimiento = "EC_ESCOOBL_2014";
     private String nombreProcedimiento = "Esco. obligatòria";
     
+    //Solicitante
     private Consentimiento consentimiento = Consentimiento.SI;
     private String finalidad = "Baremacions per el proces d'escolaritzacio";
     private String idExpediente = "Q9WREU";
@@ -67,8 +70,35 @@ public class SCDHPAJUv3Example {
     private String nombreSolicitante = "Conselleria d'Educació i Universitat";
     private String unidadTramitadora = "Servei d'escolarització";
     
+    //Titular
+    private String apellido1 = "";
+    private String apellido2 = "";
+    private String documentacion = "78215122B";
+    private String nombre = "";
+    private String nombreCompleto = "";
+    private TipoDocumentacion tipoDocumentacion = TipoDocumentacion.NIF;
+    
+    // Transmision
+    private String fechaGeneracion = "";
+    private String idSolicitud = "";
+    private String idTransmision = "";
     
     
+    // Datos Especificos
+    // PeticionDatosEspecificos
+    // Solicitud
+    private String municipioSolicitud = "029";
+    private String numeroAnyos = "20";
+    private String provinciaSolicitud = "07";
+    // Titular
+    private String NIA = "GT00261007";
+    // Documentacion
+    private String tipo = TipoDocumentacion.NIF.value();
+    private String valor = "78215122B";
+    // Fin datos especificos
+    
+  
+      
     
     private Estado estado;
     private Atributos atributos;
@@ -76,7 +106,20 @@ public class SCDHPAJUv3Example {
     private Funcionario funcionario;
     private Procedimiento procedimiento;
     private Solicitante solicitante;
-
+    private Titular titular;
+    private Transmision transmision;
+    
+    private DatosGenericos datosGenericos;
+    
+    private SCDHPAJUv3PeticionDatosEspecificos datosEspecificos;
+    
+    private SolicitudTransmision solicitudTransmision; 
+    private List<SolicitudTransmision> solicitudesTransmision;
+    private Solicitudes solicitudes;
+    
+    private Peticion peticion;
+    
+    
     protected static final Logger LOG = Logger.getLogger(SCDHPAJUv3Example.class.getName());
 
     private RecobrimentClient client;
@@ -89,6 +132,13 @@ public class SCDHPAJUv3Example {
         this.funcionario = establecerFuncionario();
         this.procedimiento = establecerProcedimiento();
         this.solicitante = establecerSolicitante();
+        this.titular = establecerTitular();
+        this.transmision = establecerTransmision();
+        this.datosGenericos = establecerDatosGenericos();
+        this.solicitudTransmision = establecerSolicitudTransmision();
+        this.solicitudesTransmision = establecerSolicitudesTransmision();
+        this.solicitudes = establecerSolicitudes();
+        this.peticion = establecerPeticion();
     }
     
     
@@ -116,117 +166,106 @@ public class SCDHPAJUv3Example {
     */
     
     
-     /*
-
+    /*
         //CODSVDR_GBA_20121107
-
-        List<SolicitudTransmision> lSolicitudTransmision = new ArrayList<SolicitudTransmision>();
-
-     
+    */
+        
     
-        String apellido1 = "";
-        String apellido2 = "";
-        String documentacion = "78215122B";
-        String nombre = "";
-        String nombreCompleto = "";
-        TipoDocumentacion tipoDocumentacion = TipoDocumentacion.NIF;
-
-        Titular titular = RecobrimentUtils.establecerTitular(apellido1, apellido2, documentacion, nombre,
-                nombreCompleto, tipoDocumentacion);
-
-        String fechaGeneracion = "";
-        String idSolicitud = "";
-        String idTransmision = "";
-
-        Transmision transmision = RecobrimentUtils.establecerTransmision(codigoCertificado, fechaGeneracion,
-                idSolicitud, idTransmision);
-
-        DatosGenericos datosGenericos = RecobrimentUtils.establecerDatosGenericos(emisor, solicitante, titular, transmision);
-
-        */
+   
+    public Peticion establecerPeticion(){
+        return RecobrimentUtils.establecerPeticion(atributos, solicitudes);
+    }
+    
+    public Solicitudes establecerSolicitudes(){
+        return RecobrimentUtils.establecerSolicitudes(solicitudesTransmision);
+    }
+    
+    public List<SolicitudTransmision> establecerSolicitudesTransmision(){
+        List<SolicitudTransmision> lst = new ArrayList<SolicitudTransmision>();
+        lst.add(solicitudTransmision);
+        return lst;
+    }
+    
+    
+    public SolicitudTransmision establecerSolicitudTransmision(){
+        Document document;
+        Element elementDatosEspecificos;
+        try {
+            document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+            JAXB.marshal(datosEspecificos, new DOMResult(document));
+            elementDatosEspecificos = document.getDocumentElement();
+            return RecobrimentUtils.establecerSolicitudTransmision(
+                datosGenericos, 
+                elementDatosEspecificos
+            );
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(SCDHPAJUv3Example.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;    
+    }
+    
+    
+    
+    public SCDHPAJUv3PeticionDatosEspecificos establecerDatosEspecificosPeticion(){
         
-        // Datos específicos
-        //
         
-        /*
         
-        PeticionDatosEspecificos datosEspecificos = new PeticionDatosEspecificos();
-
-        es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Solicitud solicitud
-                = new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Solicitud();
-        solicitud.setMunicipioSolicitud("029");
-        //solicitud.setNumeroAnyos("20");
-        solicitud.setProvinciaSolicitud("07");
-        es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Titular titul = new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Titular();
-        //titul.setNIA("GT00261007");
-
         es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosPersonales datosPersonales
                 = new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosPersonales();
-
-        es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Documentacion dc
+        
+        es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Documentacion datosEspecificosDocumentacion
                 = new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Documentacion();
-
-        dc.setTipo(TipoDocumentacion.NIF.value());
-        dc.setValor("78215122B");
+        datosEspecificosDocumentacion.setTipo(tipo);
+        datosEspecificosDocumentacion.setValor(valor);
         
-        */
-
-        //titul.setDatosPersonales(datosPersonales);
+        es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Titular datosEspecificosTitular = new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Titular();
+        datosEspecificosTitular.setDatosPersonales(datosPersonales);
+        datosEspecificosTitular.setDocumentacion(datosEspecificosDocumentacion);
+        datosEspecificosTitular.setNIA(NIA);
         
+        es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Solicitud solicitud
+                = new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Solicitud();
+        solicitud.setMunicipioSolicitud(municipioSolicitud);
+        solicitud.setNumeroAnyos(numeroAnyos);
+        solicitud.setProvinciaSolicitud(provinciaSolicitud);
+        solicitud.setTitular(datosEspecificosTitular);
         
-        /*
-        titul.setDocumentacion(dc);
-        solicitud.setTitular(titul);
+        SCDHPAJUv3PeticionDatosEspecificos datosEspecificos = new SCDHPAJUv3PeticionDatosEspecificos();
+        
         datosEspecificos.setSolicitud(solicitud);
-        */
         
-        /*
-        XmlManager<es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosEspecificos> manager = 
-                new XmlManager<es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosEspecificos>(
-                        es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosEspecificos.class
-                );
-        DataHandler dh = manager.generateXml(datosEspecificos);
-        byte[] b = DataHandlers.dataHandlerToByteArray(dh);
-         */
-        
-
-        //es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.ObjectFactory objectFactory =
-        //        new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.ObjectFactory();
-        //JAXBElement<es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.DatosEspecificos> jaxbDatosEspecificos = 
-        //        objectFactory.createDatosEspecificos(datosEspecificos);
-       
-        /*
-        
-        Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-        JAXB.marshal(datosEspecificos, new DOMResult(document));
-        Element elementDatosEspecificos = document.getDocumentElement();
-
-        
-        LOG.log(Level.INFO, "Previ a petici\u00f3 sincrona 1:\n {0}", datosEspecificos.toString());
-
-        */
-        
-        
-        //solicitudTransmision.setDatosEspecificos(elementDatosEspecificos);
-        
-        
-        
-        /*
-        
-        SolicitudTransmision solicitudTransmision = RecobrimentUtils.establecerSolicitudTransmision(datosGenericos, elementDatosEspecificos);
-        
-        lSolicitudTransmision.add(solicitudTransmision);
-
-        Solicitudes solicitudes = RecobrimentUtils.establecerSolicitudes(lSolicitudTransmision);
-
-        Peticion peticion = RecobrimentUtils.establecerPeticion(atributos, solicitudes);
-
-        LOG.info("Previ a petició sincrona 2:\n" + peticion.toString());
-
-        Respuesta response = client.peticionSincrona(peticion);
-
-        */
+        return datosEspecificos;
+    }
     
+    
+    public DatosGenericos establecerDatosGenericos(){
+        return RecobrimentUtils.establecerDatosGenericos(
+                emisor,
+                solicitante,
+                titular,
+                transmision
+        );
+    }
+    
+    public Transmision establecerTransmision(){
+        return RecobrimentUtils.establecerTransmision(
+                codigoCertificado, 
+                fechaGeneracion,
+                idSolicitud, 
+                idTransmision
+        );
+    }
+    
+    public Titular establecerTitular(){
+        return RecobrimentUtils.establecerTitular(
+                apellido1, 
+                apellido2, 
+                documentacion, 
+                nombre,
+                nombreCompleto,
+                tipoDocumentacion
+        );
+    }
     
     public Solicitante establecerSolicitante(){
         return RecobrimentUtils.establecerSolicitante(
@@ -293,7 +332,8 @@ public class SCDHPAJUv3Example {
     
     
     public static void main(String args[]) throws Exception {
-  
+        
+        
 
     }
 
