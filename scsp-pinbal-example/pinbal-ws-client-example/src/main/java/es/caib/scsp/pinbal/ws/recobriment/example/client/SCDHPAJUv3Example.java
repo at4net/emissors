@@ -18,6 +18,7 @@ import es.caib.pinbal.ws.recobriment.Solicitudes;
 import es.caib.pinbal.ws.recobriment.TipoDocumentacion;
 import es.caib.pinbal.ws.recobriment.Titular;
 import es.caib.pinbal.ws.recobriment.Transmision;
+import es.caib.scsp.pinbal.ws.recobriment.client.DadesConnexioRecobriment;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import es.caib.scsp.pinbal.ws.recobriment.client.RecobrimentClient;
@@ -149,28 +150,6 @@ public class SCDHPAJUv3Example {
     private static void _dummy() {
         LOG.log(Level.INFO, "Invoking dummy...");
     }
-
-    /*
-    private static final String CODIGO_CERTIFICADO = "VDRSFWS02";
-    private static final Consentimiento CONSENTIMIENTO = Consentimiento.LEY;
-    private static final String FINALIDAD = "Test recobriment";
-    private static final String FUNCIONARIO_NIF = "97669911C";
-    private static final String FUNCIONARIO_NOMBRE = "MPR TESTER";
-    private static final String SOLICITANTE_ID = "G07896004";
-    private static final String SOLICITANTE_NOMBRE = "Fundació BIT";
-    private static final String PROCEDIMIENTO_CODIGO = "IBIT_20101223_PRUEBA";
-    private static final String PROCEDIMIENTO_NOMBRE = "PROCEDIMIENTO DE PRUEBA FUNDACION IBIT";
-    private static final String UNIDAD_CODIGO = null;
-    private static final String UNIDAD_NOMBRE = "Unitat de test";
-    private static final String EXPEDIENTE_ID = null;
-    */
-    
-    
-    /*
-        //CODSVDR_GBA_20121107
-    */
-        
-    
    
     public Peticion establecerPeticion(){
         return RecobrimentUtils.establecerPeticion(atributos, solicitudes);
@@ -201,7 +180,7 @@ public class SCDHPAJUv3Example {
         } catch (ParserConfigurationException ex) {
             Logger.getLogger(SCDHPAJUv3Example.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;    
+        return new SolicitudTransmision();    
     }
     
     
@@ -327,13 +306,23 @@ public class SCDHPAJUv3Example {
     
     public Respuesta getPeticionSincrona(Peticion pet){
         Respuesta response = client.peticionSincrona(pet);
+        
         return response;
     }
     
     
     public static void main(String args[]) throws Exception {
         
+        String app = "es.caib.scsp.";
+        DadesConnexioRecobriment dadesConnexio = new DadesConnexioRecobriment(app);
+        System.setProperty(app  + "pinbal.client.username", "$xestib_pinbal");
+        System.setProperty(app  + "pinbal.client.password", "xestib_pinbal");
+        System.setProperty(app  + "pinbal.client.baseURL", "https://proves.caib.es/pinbal");
+        RecobrimentClient cliente = RecobrimentClient.getClient(dadesConnexio);
         
+        System.out.println(cliente.getDadesConnexio().getWsdlLocation());
+        
+        //example = new SCDHPAJUv3Example(cliente);
 
     }
 

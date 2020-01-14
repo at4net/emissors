@@ -63,13 +63,17 @@ public class SCDHPAJUv3ExampleTest {
     }
     
     @Before
-    public void setUp() {        
+    public void setUp() {
+        
         String app = "es.caib.scsp.";
         DadesConnexioRecobriment dadesConnexio = new DadesConnexioRecobriment(app);
         System.setProperty(app  + "pinbal.client.username", "$xestib_pinbal");
         System.setProperty(app  + "pinbal.client.password", "xestib_pinbal");
         System.setProperty(app  + "pinbal.client.baseURL", "https://proves.caib.es/pinbal");
         client = RecobrimentClient.getClient(dadesConnexio);
+        
+        System.out.println(client.getDadesConnexio().getWsdlLocation());
+        
         example = new SCDHPAJUv3Example(client);
     }
     
@@ -95,6 +99,15 @@ public class SCDHPAJUv3ExampleTest {
      */
     @Test
     public void testDummy() throws Exception {
+        
+        String app = "es.caib.scsp.";
+        DadesConnexioRecobriment dadesConnexio = new DadesConnexioRecobriment(app);
+        System.setProperty(app  + "pinbal.client.username", "$xestib_pinbal");
+        System.setProperty(app  + "pinbal.client.password", "xestib_pinbal");
+        System.setProperty(app  + "pinbal.client.baseURL", "https://proves.caib.es/pinbal");
+        client = RecobrimentClient.getClient(dadesConnexio);
+        example = new SCDHPAJUv3Example(client);
+        
         System.out.println("dummy");
         example.dummy();
         // TODO review the generated test code and remove the default call to fail.
