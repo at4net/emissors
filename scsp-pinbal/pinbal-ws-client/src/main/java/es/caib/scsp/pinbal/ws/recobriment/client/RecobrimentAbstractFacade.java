@@ -15,6 +15,14 @@
  */
 package es.caib.scsp.pinbal.ws.recobriment.client;
 
+import es.caib.pinbal.ws.recobriment.Atributos;
+import es.caib.pinbal.ws.recobriment.Estado;
+import es.caib.pinbal.ws.recobriment.Peticion;
+import es.caib.pinbal.ws.recobriment.Respuesta;
+import es.caib.pinbal.ws.recobriment.SolicitudTransmision;
+import es.caib.pinbal.ws.recobriment.Solicitudes;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -23,11 +31,59 @@ import java.util.logging.Logger;
  */
 public class RecobrimentAbstractFacade {
     
-     protected static final Logger LOG = Logger.getLogger(RecobrimentAbstractFacade.class.getName());
+    private static String APP = "es.caib.scsp.";
+    
+    protected static final Logger LOG = Logger.getLogger(RecobrimentAbstractFacade.class.getName());
      
+    private RecobrimentClient client;
+    
+    public RecobrimentAbstractFacade(){
+        this(APP);
+    }
+ 
+    public RecobrimentAbstractFacade(String app){
+        DadesConnexioRecobriment dadesConnexio = new DadesConnexioRecobriment(app);
+        this.client = RecobrimentClient.getClient(dadesConnexio);
+    }
+    
+    public RespuestaClientAdapter peticionSincrona(){
+        return null;
+    }
+    
+    
+    private RespuestaClientAdapter peticionSincrona(PeticionClientAdapter peticionClient){
+        Peticion peticion = peticionClient2Peticion(peticionClient);
+        Respuesta response = this.client.peticionSincrona(peticion);
+        return null;
+    }
+
+    private Peticion peticionClient2Peticion(PeticionClientAdapter peticionClient) {
+        
+        Estado estado = RecobrimentUtils.establecerEstado(
+                peticionClient.getCodigoEstado(),
+                peticionClient.getCodigoEstadoSecundario(),
+                peticionClient.getLiteralError(),
+                peticionClient.getTiempoEstimadoRespuesta()
+        );
+        
+        Atributos atributos = RecobrimentUtils.establecerAtributos(
+                peticionClient.getCodigoCertificado(), 
+                estado, 
+                peticionClient.getIdPeticion(), 
+                peticionClient.getNumElementos(), 
+                peticionClient.getTimeStamp()
+        );
+        
+        List<SolicitudTransmision> solicitudesTransmision = peticionClient.getSolicitudesTransmision();
+         
+        Solicitudes solicitudes = RecobrimentUtils.establecerSolicitudes(solicitudesTransmision);
+        
+        Peticion peticion = RecobrimentUtils.establecerPeticion(atributos, solicitudes);
+        
+    }
      
-     
-     
-     
+    
+    
+    
     
 }
