@@ -16,12 +16,136 @@
 package es.caib.scsp.pinbal.ws.recobriment.client;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  *
  * @author gdeignacio
  */
 public class PeticionClientAdapter implements Serializable {
+    
+    // Estado
+    private String codigoEstado;
+    private String codigoEstadoSecundario;
+    private String literalError;
+    private Integer tiempoEstimadoRespuesta;
+    
+    //Atributos
+    private String codigoCertificado;
+    private String idPeticion;
+    private String numElementos;
+    private String timeStamp;
+    
+   
+    
+    private List<SolicitudTransmisionClientAdapter> solicitudesClient;
+
+    public String getCodigoEstado() {
+        return codigoEstado;
+    }
+
+    public void setCodigoEstado(String codigoEstado) {
+        this.codigoEstado = codigoEstado;
+    }
+
+    public String getCodigoEstadoSecundario() {
+        return codigoEstadoSecundario;
+    }
+
+    public void setCodigoEstadoSecundario(String codigoEstadoSecundario) {
+        this.codigoEstadoSecundario = codigoEstadoSecundario;
+    }
+
+    public String getLiteralError() {
+        return literalError;
+    }
+
+    public void setLiteralError(String literalError) {
+        this.literalError = literalError;
+    }
+
+    public Integer getTiempoEstimadoRespuesta() {
+        return tiempoEstimadoRespuesta;
+    }
+
+    public void setTiempoEstimadoRespuesta(Integer tiempoEstimadoRespuesta) {
+        this.tiempoEstimadoRespuesta = tiempoEstimadoRespuesta;
+    }
+
+    public String getCodigoCertificado() {
+        return codigoCertificado;
+    }
+
+    public void setCodigoCertificado(String codigoCertificado) {
+        this.codigoCertificado = codigoCertificado;
+    }
+
+    public String getIdPeticion() {
+        return idPeticion;
+    }
+
+    public void setIdPeticion(String idPeticion) {
+        this.idPeticion = idPeticion;
+    }
+
+    public String getNumElementos() {
+        return numElementos;
+    }
+
+    public void setNumElementos(String numElementos) {
+        this.numElementos = numElementos;
+    }
+
+    public String getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(String timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
+   
+
+    public List<SolicitudTransmisionClientAdapter> getSolicitudesClient() {
+        return solicitudesClient;
+    }
+
+    public void setSolicitudesClient(List<SolicitudTransmisionClientAdapter> solicitudesClient) {
+        this.solicitudesClient = solicitudesClient;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 23 * hash + (this.idPeticion != null ? this.idPeticion.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final PeticionClientAdapter other = (PeticionClientAdapter) obj;
+        if ((this.idPeticion == null) ? (other.idPeticion != null) : !this.idPeticion.equals(other.idPeticion)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "PeticionClientAdapter{" + "codigoEstado=" + codigoEstado + ", codigoEstadoSecundario=" + codigoEstadoSecundario + ", literalError=" + literalError + ", tiempoEstimadoRespuesta=" + tiempoEstimadoRespuesta + ", codigoCertificado=" + codigoCertificado + ", idPeticion=" + idPeticion + ", numElementos=" + numElementos + ", timeStamp=" + timeStamp + ", solicitudesClient=" + solicitudesClient.toString() + '}';
+    }
+
+   
+    
     
     
     

@@ -1,5 +1,7 @@
 package es.caib.scsp.pinbal.ws.recobriment.client;
 
+import es.caib.pinbal.ws.recobriment.Consentimiento;
+import es.caib.pinbal.ws.recobriment.TipoDocumentacion;
 import java.io.Serializable;
 
 /*
@@ -23,5 +25,209 @@ import java.io.Serializable;
  * @author gdeignacio
  */
 public class SolicitudTransmisionClientAdapter implements Serializable {
+    
+     //Emisor
+    private String nifEmisor;
+    private String nombreEmisor;
+    
+    //Funcionario
+    private String nifFuncionario;
+    private String nombreCompletoFuncionario;
+      
+    //Procedimiento
+    private String codProcedimiento;
+    private String nombreProcedimiento;
+    
+    //Solicitante
+    private Consentimiento consentimiento;
+    private String finalidad;
+    private String idExpediente;
+    private String identificadorSolicitante;
+    private String nombreSolicitante;
+    private String unidadTramitadora;
+    
+    //Titular
+    private String apellido1;
+    private String apellido2;
+    private String documentacion;
+    private String nombre;
+    private String nombreCompleto;
+    private TipoDocumentacion tipoDocumentacion;
+    
+    // Transmision
+    private String fechaGeneracion;
+    private String idSolicitud;
+    private String idTransmision;
+    
+    
+     public String getNifEmisor() {
+        return nifEmisor;
+    }
+
+    public void setNifEmisor(String nifEmisor) {
+        this.nifEmisor = nifEmisor;
+    }
+
+    public String getNombreEmisor() {
+        return nombreEmisor;
+    }
+
+    public void setNombreEmisor(String nombreEmisor) {
+        this.nombreEmisor = nombreEmisor;
+    }
+
+    public String getNifFuncionario() {
+        return nifFuncionario;
+    }
+
+    public void setNifFuncionario(String nifFuncionario) {
+        this.nifFuncionario = nifFuncionario;
+    }
+
+    public String getNombreCompletoFuncionario() {
+        return nombreCompletoFuncionario;
+    }
+
+    public void setNombreCompletoFuncionario(String nombreCompletoFuncionario) {
+        this.nombreCompletoFuncionario = nombreCompletoFuncionario;
+    }
+
+    public String getCodProcedimiento() {
+        return codProcedimiento;
+    }
+
+    public void setCodProcedimiento(String codProcedimiento) {
+        this.codProcedimiento = codProcedimiento;
+    }
+
+    public String getNombreProcedimiento() {
+        return nombreProcedimiento;
+    }
+
+    public void setNombreProcedimiento(String nombreProcedimiento) {
+        this.nombreProcedimiento = nombreProcedimiento;
+    }
+
+    public Consentimiento getConsentimiento() {
+        return consentimiento;
+    }
+
+    public void setConsentimiento(Consentimiento consentimiento) {
+        this.consentimiento = consentimiento;
+    }
+
+    public String getFinalidad() {
+        return finalidad;
+    }
+
+    public void setFinalidad(String finalidad) {
+        this.finalidad = finalidad;
+    }
+
+    public String getIdExpediente() {
+        return idExpediente;
+    }
+
+    public void setIdExpediente(String idExpediente) {
+        this.idExpediente = idExpediente;
+    }
+
+    public String getIdentificadorSolicitante() {
+        return identificadorSolicitante;
+    }
+
+    public void setIdentificadorSolicitante(String identificadorSolicitante) {
+        this.identificadorSolicitante = identificadorSolicitante;
+    }
+
+    public String getNombreSolicitante() {
+        return nombreSolicitante;
+    }
+
+    public void setNombreSolicitante(String nombreSolicitante) {
+        this.nombreSolicitante = nombreSolicitante;
+    }
+
+    public String getUnidadTramitadora() {
+        return unidadTramitadora;
+    }
+
+    public void setUnidadTramitadora(String unidadTramitadora) {
+        this.unidadTramitadora = unidadTramitadora;
+    }
+
+    public String getApellido1() {
+        return apellido1;
+    }
+
+    public void setApellido1(String apellido1) {
+        this.apellido1 = apellido1;
+    }
+
+    public String getApellido2() {
+        return apellido2;
+    }
+
+    public void setApellido2(String apellido2) {
+        this.apellido2 = apellido2;
+    }
+
+    public String getDocumentacion() {
+        return documentacion;
+    }
+
+    public void setDocumentacion(String documentacion) {
+        this.documentacion = documentacion;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getNombreCompleto() {
+        return nombreCompleto;
+    }
+
+    public void setNombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
+    }
+
+    public TipoDocumentacion getTipoDocumentacion() {
+        return tipoDocumentacion;
+    }
+
+    public void setTipoDocumentacion(TipoDocumentacion tipoDocumentacion) {
+        this.tipoDocumentacion = tipoDocumentacion;
+    }
+
+    public String getFechaGeneracion() {
+        return fechaGeneracion;
+    }
+
+    public void setFechaGeneracion(String fechaGeneracion) {
+        this.fechaGeneracion = fechaGeneracion;
+    }
+
+    public String getIdSolicitud() {
+        return idSolicitud;
+    }
+
+    public void setIdSolicitud(String idSolicitud) {
+        this.idSolicitud = idSolicitud;
+    }
+
+    public String getIdTransmision() {
+        return idTransmision;
+    }
+
+    public void setIdTransmision(String idTransmision) {
+        this.idTransmision = idTransmision;
+    }
+    
+    
     
 }

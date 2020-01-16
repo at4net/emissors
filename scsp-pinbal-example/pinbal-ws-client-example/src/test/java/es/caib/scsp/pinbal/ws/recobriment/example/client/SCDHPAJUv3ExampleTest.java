@@ -34,6 +34,7 @@ import es.caib.scsp.pinbal.ws.recobriment.example.datosespecificos.SCDHPAJUv3Pet
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -199,7 +200,18 @@ public class SCDHPAJUv3ExampleTest {
     @Test
     public void testEstablecerDatosEspecificosPeticion() throws Exception {
         SCDHPAJUv3PeticionDatosEspecificos datosEspecificos  = example.establecerDatosEspecificosPeticion();
+        assertNotNull(datosEspecificos);
     }
+    
+    
+    /**
+     * Test of  method establecerSolicitudesTransmision, of class SCDHPAJUv3Example.
+     */
+    @Test
+    public void testEstablecerSolicitudTransmision() throws Exception {
+        SolicitudTransmision solic  = example.establecerSolicitudTransmision();
+    }
+    
     
    
     /**

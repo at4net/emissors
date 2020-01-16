@@ -136,7 +136,7 @@ public class SCDHPAJUv3Example {
         this.titular = establecerTitular();
         this.transmision = establecerTransmision();
         this.datosGenericos = establecerDatosGenericos();
-        this.solicitudTransmision = establecerSolicitudTransmision();
+        //this.solicitudTransmision = establecerSolicitudTransmision();
         this.solicitudesTransmision = establecerSolicitudesTransmision();
         this.solicitudes = establecerSolicitudes();
         this.peticion = establecerPeticion();

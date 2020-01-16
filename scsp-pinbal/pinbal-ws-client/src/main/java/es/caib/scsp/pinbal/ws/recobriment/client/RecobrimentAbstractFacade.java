@@ -21,9 +21,11 @@ import es.caib.pinbal.ws.recobriment.Peticion;
 import es.caib.pinbal.ws.recobriment.Respuesta;
 import es.caib.pinbal.ws.recobriment.SolicitudTransmision;
 import es.caib.pinbal.ws.recobriment.Solicitudes;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+
+import com.google.common.base.Function;
+import com.google.common.collect.Lists;
 
 /**
  *
@@ -74,16 +76,35 @@ public class RecobrimentAbstractFacade {
                 peticionClient.getTimeStamp()
         );
         
-        List<SolicitudTransmision> solicitudesTransmision = peticionClient.getSolicitudesTransmision();
+        List<SolicitudTransmision> solicitudesTransmision = 
+                solicitudesTransmisionClientAdapter2SolicitudesTransmision(peticionClient.getSolicitudesClient());
          
         Solicitudes solicitudes = RecobrimentUtils.establecerSolicitudes(solicitudesTransmision);
         
         Peticion peticion = RecobrimentUtils.establecerPeticion(atributos, solicitudes);
         
+        return peticion;
+        
     }
      
     
+    private List<SolicitudTransmision> solicitudesTransmisionClientAdapter2SolicitudesTransmision(List<SolicitudTransmisionClientAdapter> solicitudesTransmisionClient){
+        Function<SolicitudTransmisionClientAdapter,SolicitudTransmision> solicitudesTransmision =
+                    new Function<SolicitudTransmisionClientAdapter, SolicitudTransmision>(){
+                        public SolicitudTransmision apply(SolicitudTransmisionClientAdapter solicitudTransmisionClient){
+                            return solicitudTransmisionClientAdapter2SolicitudTransmision(solicitudTransmisionClient);
+                        }
+                    };
+        return Lists.transform(solicitudesTransmisionClient, solicitudesTransmision);  
+    }
     
+    
+    private SolicitudTransmision solicitudTransmisionClientAdapter2SolicitudTransmision(SolicitudTransmisionClientAdapter solicitudTransmisionClient) {
+                
+        
+        return null;
+    
+    }
     
     
 }
