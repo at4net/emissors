@@ -16,6 +16,7 @@
 package es.caib.scsp.pinbal.ws.recobriment.client;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +24,10 @@ import java.util.List;
  * @author gdeignacio
  */
 public class PeticionClientAdapter implements Serializable {
+    
+    PeticionClientAdapter(){
+        this.solicitudesClient = new ArrayList<SolicitudTransmisionClientAdapter>();
+    }
     
     // Estado
     private String codigoEstado;
@@ -35,8 +40,6 @@ public class PeticionClientAdapter implements Serializable {
     private String idPeticion;
     private String numElementos;
     private String timeStamp;
-    
-   
     
     private List<SolicitudTransmisionClientAdapter> solicitudesClient;
 
@@ -104,7 +107,6 @@ public class PeticionClientAdapter implements Serializable {
         this.timeStamp = timeStamp;
     }
 
-   
 
     public List<SolicitudTransmisionClientAdapter> getSolicitudesClient() {
         return solicitudesClient;

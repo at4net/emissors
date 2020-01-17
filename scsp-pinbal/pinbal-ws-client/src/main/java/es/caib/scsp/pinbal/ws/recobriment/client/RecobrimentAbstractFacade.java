@@ -26,6 +26,9 @@ import java.util.logging.Logger;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
+import es.caib.pinbal.ws.recobriment.Consentimiento;
+import es.caib.pinbal.ws.recobriment.TipoDocumentacion;
+import java.util.ArrayList;
 
 /**
  *
@@ -48,16 +51,71 @@ public class RecobrimentAbstractFacade {
         this.client = RecobrimentClient.getClient(dadesConnexio);
     }
     
-    public RespuestaClientAdapter peticionSincrona(){
-        return null;
-    }
+    public Respuesta peticionSincrona(Peticion peticion){
+        return this.client.peticionSincrona(peticion);
+    } 
     
-    
-    private RespuestaClientAdapter peticionSincrona(PeticionClientAdapter peticionClient){
+    public RespuestaClientAdapter peticionSincrona(PeticionClientAdapter peticionClient){
         Peticion peticion = peticionClient2Peticion(peticionClient);
-        Respuesta response = this.client.peticionSincrona(peticion);
-        return null;
+        Respuesta response = peticionSincrona(peticion);
+        RespuestaClientAdapter respuesta = respuesta2RespuestaClientAdapter(response);
+        return respuesta;
     }
+    
+    
+    public RespuestaClientAdapter peticionSincrona(
+            String codigoEstado, String codigoEstadoSecundario, String literalError, Integer tiempoEstimadoRespuesta,
+            String codigoCertificado, String idPeticion, String numElementos, String timeStamp,
+            String nifEmisor, String nombreEmisor, String nifFuncionario, String nombreCompletoFuncionario,
+            String codProcedimiento, String nombreProcedimiento, Consentimiento consentimiento, String finalidad, 
+            String idExpediente, String identificadorSolicitante, String nombreSolicitante, String unidadTramitadora,
+            String apellido1, String apellido2, String documentacion, String nombre, String nombreCompleto,
+            TipoDocumentacion tipoDocumentacion, String fechaGeneracion, String idSolicitud, String idTransmision
+    ){
+        
+        PeticionClientAdapter peticionClient = new PeticionClientAdapter();
+        
+        peticionClient.setCodigoEstado(codigoEstado);
+        peticionClient.setCodigoEstadoSecundario(codigoEstadoSecundario);
+        peticionClient.setLiteralError(literalError);
+        peticionClient.setTiempoEstimadoRespuesta(tiempoEstimadoRespuesta);
+        peticionClient.setCodigoCertificado(codigoCertificado);
+        peticionClient.setIdPeticion(idPeticion);
+        peticionClient.setNumElementos(numElementos);
+        peticionClient.setTimeStamp(timeStamp);
+        
+        SolicitudTransmisionClientAdapter solicitudTransmision = new SolicitudTransmisionClientAdapter();
+        
+        solicitudTransmision.setNifEmisor(nifEmisor);
+        solicitudTransmision.setNombreEmisor(nombreEmisor);
+        solicitudTransmision.setNifFuncionario(nifFuncionario);
+        solicitudTransmision.setNombreCompletoFuncionario(nombreCompletoFuncionario);
+        solicitudTransmision.setCodProcedimiento(codProcedimiento);
+        solicitudTransmision.setNombreProcedimiento(nombreProcedimiento);
+        solicitudTransmision.setConsentimiento(consentimiento);
+        solicitudTransmision.setFinalidad(finalidad);
+        solicitudTransmision.setIdExpediente(idExpediente);
+        solicitudTransmision.setIdentificadorSolicitante(identificadorSolicitante);
+        solicitudTransmision.setNombreSolicitante(nombreSolicitante);
+        solicitudTransmision.setUnidadTramitadora(unidadTramitadora);
+        solicitudTransmision.setApellido1(apellido1);
+        solicitudTransmision.setApellido2(apellido2);
+        solicitudTransmision.setDocumentacion(documentacion);
+        solicitudTransmision.setNombre(nombre);
+        solicitudTransmision.setNombreCompleto(nombreCompleto);
+        solicitudTransmision.setTipoDocumentacion(tipoDocumentacion);
+        solicitudTransmision.setFechaGeneracion(fechaGeneracion);
+        solicitudTransmision.setIdSolicitud(idSolicitud);
+        solicitudTransmision.setIdTransmision(idTransmision);
+        
+        List<SolicitudTransmisionClientAdapter> solicitudesTransmision = new ArrayList<SolicitudTransmisionClientAdapter>();
+        solicitudesTransmision.add(solicitudTransmision);
+        
+        peticionClient.setSolicitudesClient(solicitudesTransmision);
+        
+        return peticionSincrona(peticionClient);
+    }
+    
 
     private Peticion peticionClient2Peticion(PeticionClientAdapter peticionClient) {
         
@@ -101,9 +159,20 @@ public class RecobrimentAbstractFacade {
     
     private SolicitudTransmision solicitudTransmisionClientAdapter2SolicitudTransmision(SolicitudTransmisionClientAdapter solicitudTransmisionClient) {
                 
+        SolicitudTransmision solicitudTransmision = null;
         
-        return null;
+        return solicitudTransmision;
     
+    }
+
+    private RespuestaClientAdapter respuesta2RespuestaClientAdapter(Respuesta response) {
+        
+        RespuestaClientAdapter respuesta = new RespuestaClientAdapter();
+        
+        
+        
+        
+        return respuesta;
     }
     
     
