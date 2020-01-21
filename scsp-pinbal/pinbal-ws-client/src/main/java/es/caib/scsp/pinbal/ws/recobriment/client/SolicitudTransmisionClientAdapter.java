@@ -3,6 +3,7 @@ package es.caib.scsp.pinbal.ws.recobriment.client;
 import es.caib.pinbal.ws.recobriment.Consentimiento;
 import es.caib.pinbal.ws.recobriment.TipoDocumentacion;
 import java.io.Serializable;
+import org.w3c.dom.Element;
 
 /*
  * Copyright 2020 gdeignacio.
@@ -55,10 +56,12 @@ public class SolicitudTransmisionClientAdapter implements Serializable {
     private TipoDocumentacion tipoDocumentacion;
     
     // Transmision
+    private String codigoCertificado;
     private String fechaGeneracion;
     private String idSolicitud;
     private String idTransmision;
     
+    private Element datosEspecificos;
     
      public String getNifEmisor() {
         return nifEmisor;
@@ -204,6 +207,14 @@ public class SolicitudTransmisionClientAdapter implements Serializable {
         this.tipoDocumentacion = tipoDocumentacion;
     }
 
+    public String getCodigoCertificado() {
+        return codigoCertificado;
+    }
+
+    public void setCodigoCertificado(String codigoCertificado) {
+        this.codigoCertificado = codigoCertificado;
+    }
+
     public String getFechaGeneracion() {
         return fechaGeneracion;
     }
@@ -226,6 +237,14 @@ public class SolicitudTransmisionClientAdapter implements Serializable {
 
     public void setIdTransmision(String idTransmision) {
         this.idTransmision = idTransmision;
+    }
+
+    public Element getDatosEspecificos() {
+        return datosEspecificos;
+    }
+
+    public void setDatosEspecificos(Element datosEspecificos) {
+        this.datosEspecificos = datosEspecificos;
     }
     
     

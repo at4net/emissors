@@ -27,26 +27,34 @@ import java.util.logging.Logger;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import es.caib.pinbal.ws.recobriment.Consentimiento;
+import es.caib.pinbal.ws.recobriment.DatosGenericos;
+import es.caib.pinbal.ws.recobriment.Emisor;
+import es.caib.pinbal.ws.recobriment.Funcionario;
+import es.caib.pinbal.ws.recobriment.Procedimiento;
+import es.caib.pinbal.ws.recobriment.Solicitante;
 import es.caib.pinbal.ws.recobriment.TipoDocumentacion;
+import es.caib.pinbal.ws.recobriment.Titular;
+import es.caib.pinbal.ws.recobriment.Transmision;
 import java.util.ArrayList;
 
 /**
  *
  * @author gdeignacio
+ * @param <T>
  */
-public class RecobrimentAbstractFacade {
+public class RecobrimentFacade<T, S> {
     
     private static String APP = "es.caib.scsp.";
     
-    protected static final Logger LOG = Logger.getLogger(RecobrimentAbstractFacade.class.getName());
+    protected static final Logger LOG = Logger.getLogger(RecobrimentFacade.class.getName());
      
     private RecobrimentClient client;
     
-    public RecobrimentAbstractFacade(){
+    public RecobrimentFacade(){
         this(APP);
     }
  
-    public RecobrimentAbstractFacade(String app){
+    public RecobrimentFacade(String app){
         DadesConnexioRecobriment dadesConnexio = new DadesConnexioRecobriment(app);
         this.client = RecobrimentClient.getClient(dadesConnexio);
     }
@@ -70,7 +78,8 @@ public class RecobrimentAbstractFacade {
             String codProcedimiento, String nombreProcedimiento, Consentimiento consentimiento, String finalidad, 
             String idExpediente, String identificadorSolicitante, String nombreSolicitante, String unidadTramitadora,
             String apellido1, String apellido2, String documentacion, String nombre, String nombreCompleto,
-            TipoDocumentacion tipoDocumentacion, String fechaGeneracion, String idSolicitud, String idTransmision
+            TipoDocumentacion tipoDocumentacion, String fechaGeneracion, String idSolicitud, String idTransmision,
+            T datosEspecificos
     ){
         
         PeticionClientAdapter peticionClient = new PeticionClientAdapter();
@@ -104,9 +113,12 @@ public class RecobrimentAbstractFacade {
         solicitudTransmision.setNombre(nombre);
         solicitudTransmision.setNombreCompleto(nombreCompleto);
         solicitudTransmision.setTipoDocumentacion(tipoDocumentacion);
+        solicitudTransmision.setCodigoCertificado(codigoCertificado);
         solicitudTransmision.setFechaGeneracion(fechaGeneracion);
         solicitudTransmision.setIdSolicitud(idSolicitud);
         solicitudTransmision.setIdTransmision(idTransmision);
+        
+        //solicitudTransmision.setDatosEspecificos(datosEspecificos);
         
         List<SolicitudTransmisionClientAdapter> solicitudesTransmision = new ArrayList<SolicitudTransmisionClientAdapter>();
         solicitudesTransmision.add(solicitudTransmision);
@@ -158,8 +170,60 @@ public class RecobrimentAbstractFacade {
     
     
     private SolicitudTransmision solicitudTransmisionClientAdapter2SolicitudTransmision(SolicitudTransmisionClientAdapter solicitudTransmisionClient) {
-                
-        SolicitudTransmision solicitudTransmision = null;
+        
+        Procedimiento procedimiento = RecobrimentUtils.establecerProcedimiento(
+                solicitudTransmisionClient.getCodProcedimiento(), 
+                solicitudTransmisionClient.getNombreProcedimiento()
+        );
+        
+        Funcionario funcionario = RecobrimentUtils.establecerFuncionario(
+              solicitudTransmisionClient.getNifFuncionario(),
+              solicitudTransmisionClient.getNombreCompletoFuncionario()
+        );
+       
+        Solicitante solicitante = RecobrimentUtils.establecerSolicitante(
+                solicitudTransmisionClient.getConsentimiento(),
+                solicitudTransmisionClient.getFinalidad(),
+                funcionario,
+                solicitudTransmisionClient.getIdExpediente(),
+                solicitudTransmisionClient.getIdentificadorSolicitante(),
+                solicitudTransmisionClient.getNombreSolicitante(),
+                procedimiento,
+                solicitudTransmisionClient.getUnidadTramitadora()
+        );
+        
+        Emisor emisor = RecobrimentUtils.establecerEmisor(
+                solicitudTransmisionClient.getNifEmisor(),
+                solicitudTransmisionClient.getNombreEmisor()
+        );
+        
+        Titular titular = RecobrimentUtils.establecerTitular(
+                solicitudTransmisionClient.getApellido1(),
+                solicitudTransmisionClient.getApellido2(),
+                solicitudTransmisionClient.getDocumentacion(),
+                solicitudTransmisionClient.getNombre(),
+                solicitudTransmisionClient.getNombreCompleto(), 
+                solicitudTransmisionClient.getTipoDocumentacion()
+        );
+        
+        Transmision transmision = RecobrimentUtils.establecerTransmision(
+                solicitudTransmisionClient.getCodigoCertificado(),
+                solicitudTransmisionClient.getFechaGeneracion(),
+                solicitudTransmisionClient.getIdSolicitud(),
+                solicitudTransmisionClient.getIdTransmision()
+        );
+        
+        DatosGenericos datosGenericos = RecobrimentUtils.establecerDatosGenericos(
+                emisor, 
+                solicitante, 
+                titular, 
+                transmision
+        );
+        
+        SolicitudTransmision solicitudTransmision = RecobrimentUtils.establecerSolicitudTransmision(
+                datosGenericos, 
+                solicitudTransmisionClient.getDatosEspecificos()
+        );
         
         return solicitudTransmision;
     
