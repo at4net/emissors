@@ -24,8 +24,9 @@ import org.w3c.dom.Element;
 /**
  *
  * @author gdeignacio
+ * @param <TDatosEspecificos>
  */
-public class SolicitudTransmisionClientAdapter implements Serializable {
+public class SolicitudTransmisionClientAdapter<TDatosEspecificos> implements Serializable {
     
      //Emisor
     private String nifEmisor;
@@ -61,7 +62,7 @@ public class SolicitudTransmisionClientAdapter implements Serializable {
     private String idSolicitud;
     private String idTransmision;
     
-    private Element datosEspecificos;
+    private TDatosEspecificos datosEspecificos;
     
      public String getNifEmisor() {
         return nifEmisor;
@@ -239,11 +240,11 @@ public class SolicitudTransmisionClientAdapter implements Serializable {
         this.idTransmision = idTransmision;
     }
 
-    public Element getDatosEspecificos() {
+    public TDatosEspecificos getDatosEspecificos() {
         return datosEspecificos;
     }
 
-    public void setDatosEspecificos(Element datosEspecificos) {
+    public void setDatosEspecificos(TDatosEspecificos datosEspecificos) {
         this.datosEspecificos = datosEspecificos;
     }
     

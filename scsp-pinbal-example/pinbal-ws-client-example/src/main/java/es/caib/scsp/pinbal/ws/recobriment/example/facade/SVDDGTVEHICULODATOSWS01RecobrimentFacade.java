@@ -13,15 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package es.caib.scsp.pinbal.ws.recobriment.client;
+package es.caib.scsp.pinbal.ws.recobriment.example.facade;
 
-import java.io.Serializable;
+import es.caib.scsp.pinbal.ws.recobriment.client.RecobrimentFacade;
 
 /**
  *
  * @author gdeignacio
- * @param <T>
+ * @param <SVDDGTVEHICULODATOSWS01v3PeticionDatosEspecificos>
+ * @param <SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos>
  */
-public class RespuestaClientAdapter<T> implements Serializable {
+public class SVDDGTVEHICULODATOSWS01RecobrimentFacade<
+        SVDDGTVEHICULODATOSWS01v3PeticionDatosEspecificos,
+        SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos> extends RecobrimentFacade {
+
+    public SVDDGTVEHICULODATOSWS01RecobrimentFacade(String app){ 
+        super(app);
+    }
     
 }

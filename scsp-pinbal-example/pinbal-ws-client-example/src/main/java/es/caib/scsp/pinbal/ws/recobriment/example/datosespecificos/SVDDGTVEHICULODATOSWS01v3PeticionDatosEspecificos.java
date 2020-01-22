@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 gdeignacio.
+ * Copyright 2019 gdeignacio.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package es.caib.scsp.pinbal.ws.recobriment.client;
-
-import java.io.Serializable;
-
+package es.caib.scsp.pinbal.ws.recobriment.example.datosespecificos;
+        
 /**
  *
  * @author gdeignacio
- * @param <T>
  */
-public class RespuestaClientAdapter<T> implements Serializable {
-    
+public class SVDDGTVEHICULODATOSWS01v3PeticionDatosEspecificos extends es.caib.scsp.esquemas.SVDDGTVEHICULODATOSWS01v3.peticion.datosespecificos.DatosEspecificos {
 }

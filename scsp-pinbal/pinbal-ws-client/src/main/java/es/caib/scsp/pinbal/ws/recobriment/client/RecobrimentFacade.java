@@ -36,13 +36,21 @@ import es.caib.pinbal.ws.recobriment.TipoDocumentacion;
 import es.caib.pinbal.ws.recobriment.Titular;
 import es.caib.pinbal.ws.recobriment.Transmision;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import javax.xml.bind.JAXB;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.dom.DOMResult;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  *
  * @author gdeignacio
- * @param <T>
+ * @param <TDatosEspecificosPeticion>
+ * @param <TDatosEspecificosRespuesta>
  */
-public class RecobrimentFacade<T, S> {
+public class RecobrimentFacade<TDatosEspecificosPeticion, TDatosEspecificosRespuesta> {
     
     private static String APP = "es.caib.scsp.";
     
@@ -63,15 +71,15 @@ public class RecobrimentFacade<T, S> {
         return this.client.peticionSincrona(peticion);
     } 
     
-    public RespuestaClientAdapter peticionSincrona(PeticionClientAdapter peticionClient){
+    public RespuestaClientAdapter<TDatosEspecificosRespuesta> peticionSincrona(PeticionClientAdapter peticionClient){
         Peticion peticion = peticionClient2Peticion(peticionClient);
         Respuesta response = peticionSincrona(peticion);
-        RespuestaClientAdapter respuesta = respuesta2RespuestaClientAdapter(response);
+        RespuestaClientAdapter<TDatosEspecificosRespuesta> respuesta = respuesta2RespuestaClientAdapter(response);
         return respuesta;
     }
     
     
-    public RespuestaClientAdapter peticionSincrona(
+    public RespuestaClientAdapter<TDatosEspecificosRespuesta> peticionSincrona(
             String codigoEstado, String codigoEstadoSecundario, String literalError, Integer tiempoEstimadoRespuesta,
             String codigoCertificado, String idPeticion, String numElementos, String timeStamp,
             String nifEmisor, String nombreEmisor, String nifFuncionario, String nombreCompletoFuncionario,
@@ -79,7 +87,7 @@ public class RecobrimentFacade<T, S> {
             String idExpediente, String identificadorSolicitante, String nombreSolicitante, String unidadTramitadora,
             String apellido1, String apellido2, String documentacion, String nombre, String nombreCompleto,
             TipoDocumentacion tipoDocumentacion, String fechaGeneracion, String idSolicitud, String idTransmision,
-            T datosEspecificos
+            TDatosEspecificosPeticion datosEspecificosPeticion
     ){
         
         PeticionClientAdapter peticionClient = new PeticionClientAdapter();
@@ -118,7 +126,13 @@ public class RecobrimentFacade<T, S> {
         solicitudTransmision.setIdSolicitud(idSolicitud);
         solicitudTransmision.setIdTransmision(idTransmision);
         
-        //solicitudTransmision.setDatosEspecificos(datosEspecificos);
+        try {
+            Element elementDatosEspecificos = datosEspecificos2Element(datosEspecificos);
+            solicitudTransmision.setDatosEspecificos(elementDatosEspecificos);
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
         
         List<SolicitudTransmisionClientAdapter> solicitudesTransmision = new ArrayList<SolicitudTransmisionClientAdapter>();
         solicitudesTransmision.add(solicitudTransmision);
@@ -128,7 +142,18 @@ public class RecobrimentFacade<T, S> {
         return peticionSincrona(peticionClient);
     }
     
-
+    private Element datosEspecificos2Element(T datosEspecificos) throws ParserConfigurationException{
+        
+        Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+        JAXB.marshal(datosEspecificos, new DOMResult(document));
+        
+        
+        Element elementDatosEspecificos = document.getDocumentElement();
+        return elementDatosEspecificos;
+        
+    }
+    
+    
     private Peticion peticionClient2Peticion(PeticionClientAdapter peticionClient) {
         
         Estado estado = RecobrimentUtils.establecerEstado(
@@ -229,9 +254,10 @@ public class RecobrimentFacade<T, S> {
     
     }
 
-    private RespuestaClientAdapter respuesta2RespuestaClientAdapter(Respuesta response) {
+    private RespuestaClientAdapter<S> respuesta2RespuestaClientAdapter(Respuesta response) {
         
-        RespuestaClientAdapter respuesta = new RespuestaClientAdapter();
+        RespuestaClientAdapter<S> respuesta = new RespuestaClientAdapter<S>();
+        
         
         
         
