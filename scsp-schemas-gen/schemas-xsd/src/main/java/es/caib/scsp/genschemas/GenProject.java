@@ -50,7 +50,7 @@ import org.apache.commons.io.IOUtils;
  * @author gdeignacio
  */
 public class GenProject {
-    
+    // Desuso. Ver gen splits
     protected static final Logger LOG = Logger.getLogger(GenProject.class.getName());
     private static final GenProject gen = new GenProject();
     

@@ -37,11 +37,8 @@ import es.caib.pinbal.ws.recobriment.Titular;
 import es.caib.pinbal.ws.recobriment.Transmision;
 import java.util.ArrayList;
 import java.util.logging.Level;
-import javax.xml.bind.JAXB;
-import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.dom.DOMResult;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
@@ -50,7 +47,7 @@ import org.w3c.dom.Element;
  * @param <TDatosEspecificosPeticion>
  * @param <TDatosEspecificosRespuesta>
  */
-public class RecobrimentFacade<TDatosEspecificosPeticion, TDatosEspecificosRespuesta> {
+public abstract class RecobrimentFacade<TDatosEspecificosPeticion, TDatosEspecificosRespuesta> {
     
     private static String APP = "es.caib.scsp.";
     
@@ -78,8 +75,51 @@ public class RecobrimentFacade<TDatosEspecificosPeticion, TDatosEspecificosRespu
         return respuesta;
     }
     
+    /**
+     *
+     * @param codigoEstado
+     * @param codigoEstadoSecundario
+     * @param literalError
+     * @param tiempoEstimadoRespuesta
+     * @param codigoCertificado
+     * @param idPeticion
+     * @param numElementos
+     * @param timeStamp
+     * @param nifEmisor
+     * @param nombreEmisor
+     * @param nifFuncionario
+     * @param nombreCompletoFuncionario
+     * @param codProcedimiento
+     * @param nombreProcedimiento
+     * @param consentimiento
+     * @param finalidad
+     * @param idExpediente
+     * @param identificadorSolicitante
+     * @param nombreSolicitante
+     * @param unidadTramitadora
+     * @param apellido1
+     * @param apellido2
+     * @param documentacion
+     * @param nombre
+     * @param nombreCompleto
+     * @param tipoDocumentacion
+     * @param fechaGeneracion
+     * @param idSolicitud
+     * @param idTransmision
+     * @param datosEspecificosPeticion
+     * @return
+     */
+    public abstract RespuestaClientAdapter<TDatosEspecificosRespuesta> peticionSincrona(
+            String codigoEstado, String codigoEstadoSecundario, String literalError, Integer tiempoEstimadoRespuesta,
+            String codigoCertificado, String idPeticion, String numElementos, String timeStamp,
+            String nifEmisor, String nombreEmisor, String nifFuncionario, String nombreCompletoFuncionario,
+            String codProcedimiento, String nombreProcedimiento, Consentimiento consentimiento, String finalidad, 
+            String idExpediente, String identificadorSolicitante, String nombreSolicitante, String unidadTramitadora,
+            String apellido1, String apellido2, String documentacion, String nombre, String nombreCompleto,
+            TipoDocumentacion tipoDocumentacion, String fechaGeneracion, String idSolicitud, String idTransmision
+    );
     
-    public RespuestaClientAdapter<TDatosEspecificosRespuesta> peticionSincrona(
+    protected RespuestaClientAdapter<TDatosEspecificosRespuesta> peticionSincrona(
             String codigoEstado, String codigoEstadoSecundario, String literalError, Integer tiempoEstimadoRespuesta,
             String codigoCertificado, String idPeticion, String numElementos, String timeStamp,
             String nifEmisor, String nombreEmisor, String nifFuncionario, String nombreCompletoFuncionario,
@@ -101,58 +141,42 @@ public class RecobrimentFacade<TDatosEspecificosPeticion, TDatosEspecificosRespu
         peticionClient.setNumElementos(numElementos);
         peticionClient.setTimeStamp(timeStamp);
         
-        SolicitudTransmisionClientAdapter solicitudTransmision = new SolicitudTransmisionClientAdapter();
+        SolicitudTransmisionClientAdapter<TDatosEspecificosPeticion> solicitudTransmisionClient = new SolicitudTransmisionClientAdapter<TDatosEspecificosPeticion>();
         
-        solicitudTransmision.setNifEmisor(nifEmisor);
-        solicitudTransmision.setNombreEmisor(nombreEmisor);
-        solicitudTransmision.setNifFuncionario(nifFuncionario);
-        solicitudTransmision.setNombreCompletoFuncionario(nombreCompletoFuncionario);
-        solicitudTransmision.setCodProcedimiento(codProcedimiento);
-        solicitudTransmision.setNombreProcedimiento(nombreProcedimiento);
-        solicitudTransmision.setConsentimiento(consentimiento);
-        solicitudTransmision.setFinalidad(finalidad);
-        solicitudTransmision.setIdExpediente(idExpediente);
-        solicitudTransmision.setIdentificadorSolicitante(identificadorSolicitante);
-        solicitudTransmision.setNombreSolicitante(nombreSolicitante);
-        solicitudTransmision.setUnidadTramitadora(unidadTramitadora);
-        solicitudTransmision.setApellido1(apellido1);
-        solicitudTransmision.setApellido2(apellido2);
-        solicitudTransmision.setDocumentacion(documentacion);
-        solicitudTransmision.setNombre(nombre);
-        solicitudTransmision.setNombreCompleto(nombreCompleto);
-        solicitudTransmision.setTipoDocumentacion(tipoDocumentacion);
-        solicitudTransmision.setCodigoCertificado(codigoCertificado);
-        solicitudTransmision.setFechaGeneracion(fechaGeneracion);
-        solicitudTransmision.setIdSolicitud(idSolicitud);
-        solicitudTransmision.setIdTransmision(idTransmision);
+        solicitudTransmisionClient.setNifEmisor(nifEmisor);
+        solicitudTransmisionClient.setNombreEmisor(nombreEmisor);
+        solicitudTransmisionClient.setNifFuncionario(nifFuncionario);
+        solicitudTransmisionClient.setNombreCompletoFuncionario(nombreCompletoFuncionario);
+        solicitudTransmisionClient.setCodProcedimiento(codProcedimiento);
+        solicitudTransmisionClient.setNombreProcedimiento(nombreProcedimiento);
+        solicitudTransmisionClient.setConsentimiento(consentimiento);
+        solicitudTransmisionClient.setFinalidad(finalidad);
+        solicitudTransmisionClient.setIdExpediente(idExpediente);
+        solicitudTransmisionClient.setIdentificadorSolicitante(identificadorSolicitante);
+        solicitudTransmisionClient.setNombreSolicitante(nombreSolicitante);
+        solicitudTransmisionClient.setUnidadTramitadora(unidadTramitadora);
+        solicitudTransmisionClient.setApellido1(apellido1);
+        solicitudTransmisionClient.setApellido2(apellido2);
+        solicitudTransmisionClient.setDocumentacion(documentacion);
+        solicitudTransmisionClient.setNombre(nombre);
+        solicitudTransmisionClient.setNombreCompleto(nombreCompleto);
+        solicitudTransmisionClient.setTipoDocumentacion(tipoDocumentacion);
+        solicitudTransmisionClient.setCodigoCertificado(codigoCertificado);
+        solicitudTransmisionClient.setFechaGeneracion(fechaGeneracion);
+        solicitudTransmisionClient.setIdSolicitud(idSolicitud);
+        solicitudTransmisionClient.setIdTransmision(idTransmision);
         
-        try {
-            Element elementDatosEspecificos = datosEspecificos2Element(datosEspecificos);
-            solicitudTransmision.setDatosEspecificos(elementDatosEspecificos);
-        } catch (ParserConfigurationException ex) {
-            Logger.getLogger(RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
+        solicitudTransmisionClient.setDatosEspecificos(datosEspecificosPeticion);
         
-        List<SolicitudTransmisionClientAdapter> solicitudesTransmision = new ArrayList<SolicitudTransmisionClientAdapter>();
-        solicitudesTransmision.add(solicitudTransmision);
+        List<SolicitudTransmisionClientAdapter> solicitudesTransmisionClient = new ArrayList<SolicitudTransmisionClientAdapter>();
+        solicitudesTransmisionClient.add(solicitudTransmisionClient);
         
-        peticionClient.setSolicitudesClient(solicitudesTransmision);
+        peticionClient.setSolicitudesClient(solicitudesTransmisionClient);
         
         return peticionSincrona(peticionClient);
     }
     
-    private Element datosEspecificos2Element(T datosEspecificos) throws ParserConfigurationException{
-        
-        Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-        JAXB.marshal(datosEspecificos, new DOMResult(document));
-        
-        
-        Element elementDatosEspecificos = document.getDocumentElement();
-        return elementDatosEspecificos;
-        
-    }
-    
+    protected abstract Element datosEspecificos2Element(TDatosEspecificosPeticion datosEspecificosPeticion) throws JAXBException, ParserConfigurationException;
     
     private Peticion peticionClient2Peticion(PeticionClientAdapter peticionClient) {
         
@@ -187,14 +211,22 @@ public class RecobrimentFacade<TDatosEspecificosPeticion, TDatosEspecificosRespu
         Function<SolicitudTransmisionClientAdapter,SolicitudTransmision> solicitudesTransmision =
                     new Function<SolicitudTransmisionClientAdapter, SolicitudTransmision>(){
                         public SolicitudTransmision apply(SolicitudTransmisionClientAdapter solicitudTransmisionClient){
-                            return solicitudTransmisionClientAdapter2SolicitudTransmision(solicitudTransmisionClient);
+                            try {
+                                return solicitudTransmisionClientAdapter2SolicitudTransmision(solicitudTransmisionClient);
+                            } catch (JAXBException ex) {
+                                Logger.getLogger(RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
+                                throw new RuntimeException(ex);
+                            } catch (ParserConfigurationException ex) {
+                                Logger.getLogger(RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
+                                throw new RuntimeException(ex);
+                            }
                         }
                     };
         return Lists.transform(solicitudesTransmisionClient, solicitudesTransmision);  
     }
     
     
-    private SolicitudTransmision solicitudTransmisionClientAdapter2SolicitudTransmision(SolicitudTransmisionClientAdapter solicitudTransmisionClient) {
+    private SolicitudTransmision solicitudTransmisionClientAdapter2SolicitudTransmision(SolicitudTransmisionClientAdapter<TDatosEspecificosPeticion> solicitudTransmisionClient) throws JAXBException, ParserConfigurationException {
         
         Procedimiento procedimiento = RecobrimentUtils.establecerProcedimiento(
                 solicitudTransmisionClient.getCodProcedimiento(), 
@@ -245,18 +277,19 @@ public class RecobrimentFacade<TDatosEspecificosPeticion, TDatosEspecificosRespu
                 transmision
         );
         
+        Element elementDatosEspecificos = datosEspecificos2Element(solicitudTransmisionClient.getDatosEspecificos());
         SolicitudTransmision solicitudTransmision = RecobrimentUtils.establecerSolicitudTransmision(
-                datosGenericos, 
-                solicitudTransmisionClient.getDatosEspecificos()
+                datosGenericos,
+                elementDatosEspecificos
         );
-        
+            
         return solicitudTransmision;
     
     }
 
-    private RespuestaClientAdapter<S> respuesta2RespuestaClientAdapter(Respuesta response) {
+    private RespuestaClientAdapter<TDatosEspecificosRespuesta> respuesta2RespuestaClientAdapter(Respuesta response) {
         
-        RespuestaClientAdapter<S> respuesta = new RespuestaClientAdapter<S>();
+        RespuestaClientAdapter<TDatosEspecificosRespuesta> respuesta = new RespuestaClientAdapter<TDatosEspecificosRespuesta>();
         
         
         

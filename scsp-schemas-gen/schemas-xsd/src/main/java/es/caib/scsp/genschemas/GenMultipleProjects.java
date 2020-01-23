@@ -45,7 +45,7 @@ import org.apache.commons.io.IOUtils;
  * @author gdeignacio
  */
 public class GenMultipleProjects {
-    
+    // En Desuso. Ver GenSplits
     protected static final Logger LOG = Logger.getLogger(GenMultipleProjects.class.getName());
     private static final GenMultipleProjects gen = new GenMultipleProjects();
     
