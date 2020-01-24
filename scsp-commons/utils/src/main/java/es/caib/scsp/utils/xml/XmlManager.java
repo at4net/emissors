@@ -28,6 +28,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.stream.StreamSource;
 import org.apache.commons.io.IOUtils;
 import org.w3c.dom.Document;
@@ -83,7 +84,7 @@ public class XmlManager<T> {
         Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
         jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, formattedOutput);
 
-        jaxbMarshaller.marshal(item, document);
+        jaxbMarshaller.marshal(item, new DOMResult(document));
 
         //JAXB.marshal(datosEspecificos, new DOMResult(document));
         Element element = document.getDocumentElement();

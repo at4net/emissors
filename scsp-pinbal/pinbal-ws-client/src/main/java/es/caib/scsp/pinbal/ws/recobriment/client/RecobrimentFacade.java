@@ -68,55 +68,24 @@ public abstract class RecobrimentFacade<TDatosEspecificosPeticion, TDatosEspecif
         return this.client.peticionSincrona(peticion);
     } 
     
-    public RespuestaClientAdapter<TDatosEspecificosRespuesta> peticionSincrona(PeticionClientAdapter peticionClient){
+    public RespuestaClientAdapter<TDatosEspecificosRespuesta> peticionSincrona(PeticionClientAdapter<TDatosEspecificosPeticion> peticionClient){
         Peticion peticion = peticionClient2Peticion(peticionClient);
         Respuesta response = peticionSincrona(peticion);
         RespuestaClientAdapter<TDatosEspecificosRespuesta> respuesta = respuesta2RespuestaClientAdapter(response);
         return respuesta;
     }
     
-    /**
-     *
-     * @param codigoEstado
-     * @param codigoEstadoSecundario
-     * @param literalError
-     * @param tiempoEstimadoRespuesta
-     * @param codigoCertificado
-     * @param idPeticion
-     * @param numElementos
-     * @param timeStamp
-     * @param nifEmisor
-     * @param nombreEmisor
-     * @param nifFuncionario
-     * @param nombreCompletoFuncionario
-     * @param codProcedimiento
-     * @param nombreProcedimiento
-     * @param consentimiento
-     * @param finalidad
-     * @param idExpediente
-     * @param identificadorSolicitante
-     * @param nombreSolicitante
-     * @param unidadTramitadora
-     * @param apellido1
-     * @param apellido2
-     * @param documentacion
-     * @param nombre
-     * @param nombreCompleto
-     * @param tipoDocumentacion
-     * @param fechaGeneracion
-     * @param idSolicitud
-     * @param idTransmision
-     * @param datosEspecificosPeticion
-     * @return
-     */
-    public abstract RespuestaClientAdapter<TDatosEspecificosRespuesta> peticionSincrona(
+   
+
+    protected abstract RespuestaClientAdapter<TDatosEspecificosRespuesta> peticionSincronaEspecifica(
             String codigoEstado, String codigoEstadoSecundario, String literalError, Integer tiempoEstimadoRespuesta,
             String codigoCertificado, String idPeticion, String numElementos, String timeStamp,
             String nifEmisor, String nombreEmisor, String nifFuncionario, String nombreCompletoFuncionario,
             String codProcedimiento, String nombreProcedimiento, Consentimiento consentimiento, String finalidad, 
             String idExpediente, String identificadorSolicitante, String nombreSolicitante, String unidadTramitadora,
             String apellido1, String apellido2, String documentacion, String nombre, String nombreCompleto,
-            TipoDocumentacion tipoDocumentacion, String fechaGeneracion, String idSolicitud, String idTransmision
+            TipoDocumentacion tipoDocumentacion, String fechaGeneracion, String idSolicitud, String idTransmision,
+            TDatosEspecificosPeticion datosEspecificosPeticion
     );
     
     protected RespuestaClientAdapter<TDatosEspecificosRespuesta> peticionSincrona(
@@ -130,7 +99,7 @@ public abstract class RecobrimentFacade<TDatosEspecificosPeticion, TDatosEspecif
             TDatosEspecificosPeticion datosEspecificosPeticion
     ){
         
-        PeticionClientAdapter peticionClient = new PeticionClientAdapter();
+        PeticionClientAdapter<TDatosEspecificosPeticion> peticionClient = new PeticionClientAdapter<TDatosEspecificosPeticion>();
         
         peticionClient.setCodigoEstado(codigoEstado);
         peticionClient.setCodigoEstadoSecundario(codigoEstadoSecundario);
@@ -168,7 +137,7 @@ public abstract class RecobrimentFacade<TDatosEspecificosPeticion, TDatosEspecif
         
         solicitudTransmisionClient.setDatosEspecificos(datosEspecificosPeticion);
         
-        List<SolicitudTransmisionClientAdapter> solicitudesTransmisionClient = new ArrayList<SolicitudTransmisionClientAdapter>();
+        List<SolicitudTransmisionClientAdapter<TDatosEspecificosPeticion>> solicitudesTransmisionClient = new ArrayList<SolicitudTransmisionClientAdapter<TDatosEspecificosPeticion>>();
         solicitudesTransmisionClient.add(solicitudTransmisionClient);
         
         peticionClient.setSolicitudesClient(solicitudesTransmisionClient);
@@ -176,7 +145,7 @@ public abstract class RecobrimentFacade<TDatosEspecificosPeticion, TDatosEspecif
         return peticionSincrona(peticionClient);
     }
     
-    protected abstract Element datosEspecificos2Element(TDatosEspecificosPeticion datosEspecificosPeticion) throws JAXBException, ParserConfigurationException;
+    protected abstract Element datosEspecificos2Element(TDatosEspecificosPeticion datosEspecificosPeticion);
     
     private Peticion peticionClient2Peticion(PeticionClientAdapter peticionClient) {
         
@@ -207,26 +176,20 @@ public abstract class RecobrimentFacade<TDatosEspecificosPeticion, TDatosEspecif
     }
      
     
-    private List<SolicitudTransmision> solicitudesTransmisionClientAdapter2SolicitudesTransmision(List<SolicitudTransmisionClientAdapter> solicitudesTransmisionClient){
-        Function<SolicitudTransmisionClientAdapter,SolicitudTransmision> solicitudesTransmision =
-                    new Function<SolicitudTransmisionClientAdapter, SolicitudTransmision>(){
-                        public SolicitudTransmision apply(SolicitudTransmisionClientAdapter solicitudTransmisionClient){
-                            try {
+    private List<SolicitudTransmision> solicitudesTransmisionClientAdapter2SolicitudesTransmision(
+            List<SolicitudTransmisionClientAdapter<TDatosEspecificosPeticion>> solicitudesTransmisionClient)
+    {
+        Function<SolicitudTransmisionClientAdapter<TDatosEspecificosPeticion>,SolicitudTransmision> solicitudesTransmision =
+                    new Function<SolicitudTransmisionClientAdapter<TDatosEspecificosPeticion>, SolicitudTransmision>(){
+                        public SolicitudTransmision apply(SolicitudTransmisionClientAdapter<TDatosEspecificosPeticion> solicitudTransmisionClient){
                                 return solicitudTransmisionClientAdapter2SolicitudTransmision(solicitudTransmisionClient);
-                            } catch (JAXBException ex) {
-                                Logger.getLogger(RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
-                                throw new RuntimeException(ex);
-                            } catch (ParserConfigurationException ex) {
-                                Logger.getLogger(RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
-                                throw new RuntimeException(ex);
-                            }
                         }
                     };
         return Lists.transform(solicitudesTransmisionClient, solicitudesTransmision);  
     }
     
-    
-    private SolicitudTransmision solicitudTransmisionClientAdapter2SolicitudTransmision(SolicitudTransmisionClientAdapter<TDatosEspecificosPeticion> solicitudTransmisionClient) throws JAXBException, ParserConfigurationException {
+  
+    private SolicitudTransmision solicitudTransmisionClientAdapter2SolicitudTransmision(SolicitudTransmisionClientAdapter<TDatosEspecificosPeticion> solicitudTransmisionClient){
         
         Procedimiento procedimiento = RecobrimentUtils.establecerProcedimiento(
                 solicitudTransmisionClient.getCodProcedimiento(), 
@@ -291,8 +254,7 @@ public abstract class RecobrimentFacade<TDatosEspecificosPeticion, TDatosEspecif
         
         RespuestaClientAdapter<TDatosEspecificosRespuesta> respuesta = new RespuestaClientAdapter<TDatosEspecificosRespuesta>();
         
-        
-        
+        Logger.getLogger(RecobrimentFacade.class.getName()).log(Level.INFO, response.toString());
         
         
         return respuesta;

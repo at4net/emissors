@@ -60,8 +60,8 @@ public class SCDHPAJUv3Example {
     private String nombreCompletoFuncionario = "SANS AGUILAR, CATALINA";
       
     //Procedimiento
-    private String codProcedimiento = "EC_ESCOOBL_2014";
-    private String nombreProcedimiento = "Esco. obligatòria";
+    private String codProcedimiento = "CODSVDR_GBA_20121107";
+    private String nombreProcedimiento = "";
     
     //Solicitante
     private Consentimiento consentimiento = Consentimiento.SI;
@@ -136,7 +136,7 @@ public class SCDHPAJUv3Example {
         this.titular = establecerTitular();
         this.transmision = establecerTransmision();
         this.datosGenericos = establecerDatosGenericos();
-        //this.solicitudTransmision = establecerSolicitudTransmision();
+        this.solicitudTransmision = establecerSolicitudTransmision();
         this.solicitudesTransmision = establecerSolicitudesTransmision();
         this.solicitudes = establecerSolicitudes();
         this.peticion = establecerPeticion();

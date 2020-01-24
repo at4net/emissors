@@ -23,10 +23,10 @@ import java.util.List;
  *
  * @author gdeignacio
  */
-public class PeticionClientAdapter implements Serializable {
+public class PeticionClientAdapter<TDatosEspecificosPeticion> implements Serializable {
     
     PeticionClientAdapter(){
-        this.solicitudesClient = new ArrayList<SolicitudTransmisionClientAdapter>();
+        this.solicitudesClient = new ArrayList<SolicitudTransmisionClientAdapter<TDatosEspecificosPeticion>>();
     }
     
     // Estado
@@ -41,7 +41,7 @@ public class PeticionClientAdapter implements Serializable {
     private String numElementos;
     private String timeStamp;
     
-    private List<SolicitudTransmisionClientAdapter> solicitudesClient;
+    private List<SolicitudTransmisionClientAdapter<TDatosEspecificosPeticion>> solicitudesClient;
 
     public String getCodigoEstado() {
         return codigoEstado;
@@ -108,11 +108,11 @@ public class PeticionClientAdapter implements Serializable {
     }
 
 
-    public List<SolicitudTransmisionClientAdapter> getSolicitudesClient() {
+    public List<SolicitudTransmisionClientAdapter<TDatosEspecificosPeticion>> getSolicitudesClient() {
         return solicitudesClient;
     }
 
-    public void setSolicitudesClient(List<SolicitudTransmisionClientAdapter> solicitudesClient) {
+    public void setSolicitudesClient(List<SolicitudTransmisionClientAdapter<TDatosEspecificosPeticion>> solicitudesClient) {
         this.solicitudesClient = solicitudesClient;
     }
 

@@ -24,8 +24,12 @@ import es.caib.scsp.pinbal.ws.recobriment.example.datosespecificos.SVDDGTVEHICUL
 import es.caib.scsp.utils.xml.XmlManager;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.xml.bind.JAXB;
 import javax.xml.bind.JAXBException;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.dom.DOMResult;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
@@ -44,21 +48,174 @@ public class SVDDGTVEHICULODATOSWS01RecobrimentFacade
      *
      * @param datosEspecificosPeticion
      * @return
-     * @throws JAXBException
-     * @throws ParserConfigurationException
      */
     @Override
-    protected Element datosEspecificos2Element(SVDDGTVEHICULODATOSWS01v3PeticionDatosEspecificos datosEspecificosPeticion) throws JAXBException, ParserConfigurationException {
-        XmlManager<SVDDGTVEHICULODATOSWS01v3PeticionDatosEspecificos> manager
-                = new XmlManager<SVDDGTVEHICULODATOSWS01v3PeticionDatosEspecificos>(SVDDGTVEHICULODATOSWS01v3PeticionDatosEspecificos.class);
-        Element elementDatosEspecificos = manager.generateElement(datosEspecificosPeticion);
-        return elementDatosEspecificos;
+    protected Element datosEspecificos2Element(SVDDGTVEHICULODATOSWS01v3PeticionDatosEspecificos datosEspecificosPeticion){
+        
+        Element elementDatosEspecificos;
+        
+        
+        try {
+            XmlManager<SVDDGTVEHICULODATOSWS01v3PeticionDatosEspecificos> manager
+                    = new XmlManager<SVDDGTVEHICULODATOSWS01v3PeticionDatosEspecificos>(SVDDGTVEHICULODATOSWS01v3PeticionDatosEspecificos.class);
+            elementDatosEspecificos = manager.generateElement(datosEspecificosPeticion);
+            return elementDatosEspecificos;
+        } catch (JAXBException ex) {
+            Logger.getLogger(SVDDGTVEHICULODATOSWS01RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(SVDDGTVEHICULODATOSWS01RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+            
+        
+        
+        /*
+        try {
+            Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+            JAXB.marshal(datosEspecificosPeticion, new DOMResult(document));
+            elementDatosEspecificos = document.getDocumentElement();
+
+            return elementDatosEspecificos;
+
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(SVDDGTVEHICULODATOSWS01RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+        */
+        
     }
 
     @Override
-    public RespuestaClientAdapter<SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos> peticionSincrona(String codigoEstado, String codigoEstadoSecundario, String literalError, Integer tiempoEstimadoRespuesta, String codigoCertificado, String idPeticion, String numElementos, String timeStamp, String nifEmisor, String nombreEmisor, String nifFuncionario, String nombreCompletoFuncionario, String codProcedimiento, String nombreProcedimiento, Consentimiento consentimiento, String finalidad, String idExpediente, String identificadorSolicitante, String nombreSolicitante, String unidadTramitadora, String apellido1, String apellido2, String documentacion, String nombre, String nombreCompleto, TipoDocumentacion tipoDocumentacion, String fechaGeneracion, String idSolicitud, String idTransmision) {
-
-        return this.peticionSincrona(codigoEstado, codigoEstadoSecundario, literalError, tiempoEstimadoRespuesta, codigoCertificado, idPeticion, numElementos, timeStamp, nifEmisor, nombreEmisor, nifFuncionario, nombreCompletoFuncionario, codProcedimiento, nombreProcedimiento, consentimiento, finalidad, idExpediente, identificadorSolicitante, nombreSolicitante, unidadTramitadora, apellido1, apellido2, documentacion, nombre, nombreCompleto, tipoDocumentacion, fechaGeneracion, idSolicitud, idTransmision, datosEspecificosPeticion);
+    protected RespuestaClientAdapter<SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos> peticionSincronaEspecifica(
+                String codigoEstado, String codigoEstadoSecundario, 
+                String literalError, Integer tiempoEstimadoRespuesta, 
+                String codigoCertificado, String idPeticion, 
+                String numElementos, String timeStamp, String nifEmisor, 
+                String nombreEmisor, String nifFuncionario, 
+                String nombreCompletoFuncionario, String codProcedimiento, 
+                String nombreProcedimiento, Consentimiento consentimiento, 
+                String finalidad, String idExpediente, 
+                String identificadorSolicitante, String nombreSolicitante, 
+                String unidadTramitadora, String apellido1, String apellido2, 
+                String documentacion, String nombre, String nombreCompleto, 
+                TipoDocumentacion tipoDocumentacion, String fechaGeneracion, 
+                String idSolicitud, String idTransmision, 
+                SVDDGTVEHICULODATOSWS01v3PeticionDatosEspecificos datosEspecificosPeticion) {
+        
+        return this.peticionSincrona(
+                codigoEstado,
+                codigoEstadoSecundario,
+                literalError,
+                tiempoEstimadoRespuesta,
+                codigoCertificado,
+                idPeticion,
+                numElementos,
+                timeStamp,
+                nifEmisor,
+                nombreEmisor,
+                nifFuncionario,
+                nombreCompletoFuncionario,
+                codProcedimiento,
+                nombreProcedimiento,
+                consentimiento,
+                finalidad,
+                idExpediente,
+                identificadorSolicitante,
+                nombreSolicitante,
+                unidadTramitadora,
+                apellido1,
+                apellido2,
+                documentacion,
+                nombre,
+                nombreCompleto,
+                tipoDocumentacion,
+                fechaGeneracion,
+                idSolicitud,
+                idTransmision,
+                datosEspecificosPeticion
+        );
     }
+    
+    
+    private SVDDGTVEHICULODATOSWS01v3PeticionDatosEspecificos establecerDatosEspecificosPeticion(
+            String bastidor, String matricula, String NIVE
+    ){
+    
+        SVDDGTVEHICULODATOSWS01v3PeticionDatosEspecificos datosEspecificos = new SVDDGTVEHICULODATOSWS01v3PeticionDatosEspecificos();
+        
+        es.caib.scsp.esquemas.SVDDGTVEHICULODATOSWS01v3.peticion.datosespecificos.Consulta consulta =
+                new es.caib.scsp.esquemas.SVDDGTVEHICULODATOSWS01v3.peticion.datosespecificos.Consulta();
+        consulta.setBastidor(bastidor);
+        consulta.setMatricula(matricula);
+        consulta.setNIVE(NIVE);   
+        
+        datosEspecificos.setConsulta(consulta);
+        
+        return datosEspecificos;
+    }
+    
+    
+    public RespuestaClientAdapter<SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos> peticionSincrona(
+                String codigoEstado, String codigoEstadoSecundario, 
+                String literalError, Integer tiempoEstimadoRespuesta, 
+                String codigoCertificado, String idPeticion, 
+                String numElementos, String timeStamp, String nifEmisor, 
+                String nombreEmisor, String nifFuncionario, 
+                String nombreCompletoFuncionario, String codProcedimiento, 
+                String nombreProcedimiento, Consentimiento consentimiento, 
+                String finalidad, String idExpediente, 
+                String identificadorSolicitante, String nombreSolicitante, 
+                String unidadTramitadora, String apellido1, String apellido2, 
+                String documentacion, String nombre, String nombreCompleto, 
+                TipoDocumentacion tipoDocumentacion, String fechaGeneracion, 
+                String idSolicitud, String idTransmision,
+                String bastidor, String matricula, String NIVE
+                ) {
+        
+        
+        SVDDGTVEHICULODATOSWS01v3PeticionDatosEspecificos datosEspecificosPeticion = 
+                establecerDatosEspecificosPeticion(bastidor, matricula, NIVE);
+        
+        
+        return this.peticionSincronaEspecifica(
+                codigoEstado,
+                codigoEstadoSecundario,
+                literalError,
+                tiempoEstimadoRespuesta,
+                codigoCertificado,
+                idPeticion,
+                numElementos,
+                timeStamp,
+                nifEmisor,
+                nombreEmisor,
+                nifFuncionario,
+                nombreCompletoFuncionario,
+                codProcedimiento,
+                nombreProcedimiento,
+                consentimiento,
+                finalidad,
+                idExpediente,
+                identificadorSolicitante,
+                nombreSolicitante,
+                unidadTramitadora,
+                apellido1,
+                apellido2,
+                documentacion,
+                nombre,
+                nombreCompleto,
+                tipoDocumentacion,
+                fechaGeneracion,
+                idSolicitud,
+                idTransmision,
+                datosEspecificosPeticion
+        );
+    }
+    
+    
+    
+    
+    
+    
 
 }
