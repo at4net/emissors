@@ -33,6 +33,7 @@ public class PeticionClientAdapter<TDatosEspecificosPeticion> implements Seriali
     private String codigoEstado;
     private String codigoEstadoSecundario;
     private String literalError;
+    private String literalErrorSec;
     private Integer tiempoEstimadoRespuesta;
     
     //Atributos
@@ -66,6 +67,16 @@ public class PeticionClientAdapter<TDatosEspecificosPeticion> implements Seriali
     public void setLiteralError(String literalError) {
         this.literalError = literalError;
     }
+
+    public String getLiteralErrorSec() {
+        return literalErrorSec;
+    }
+
+    public void setLiteralErrorSec(String literalErrorSec) {
+        this.literalErrorSec = literalErrorSec;
+    }
+    
+    
 
     public Integer getTiempoEstimadoRespuesta() {
         return tiempoEstimadoRespuesta;
@@ -143,13 +154,9 @@ public class PeticionClientAdapter<TDatosEspecificosPeticion> implements Seriali
 
     @Override
     public String toString() {
-        return "PeticionClientAdapter{" + "codigoEstado=" + codigoEstado + ", codigoEstadoSecundario=" + codigoEstadoSecundario + ", literalError=" + literalError + ", tiempoEstimadoRespuesta=" + tiempoEstimadoRespuesta + ", codigoCertificado=" + codigoCertificado + ", idPeticion=" + idPeticion + ", numElementos=" + numElementos + ", timeStamp=" + timeStamp + ", solicitudesClient=" + solicitudesClient.toString() + '}';
+        return "PeticionClientAdapter{" + "codigoEstado=" + codigoEstado + ", codigoEstadoSecundario=" + codigoEstadoSecundario + ", literalError=" + literalError + ", literalErrorSec=" + literalErrorSec + ", tiempoEstimadoRespuesta=" + tiempoEstimadoRespuesta + ", codigoCertificado=" + codigoCertificado + ", idPeticion=" + idPeticion + ", numElementos=" + numElementos + ", timeStamp=" + timeStamp + ", solicitudesClient=" + solicitudesClient + '}';
     }
 
-   
-    
-    
-    
-    
+ 
     
 }

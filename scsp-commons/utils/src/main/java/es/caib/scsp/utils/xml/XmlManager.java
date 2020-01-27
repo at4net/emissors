@@ -101,6 +101,11 @@ public class XmlManager<T> {
 
     }
     
+    private T unmarshal(Element element) throws JAXBException{
+        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+        return jaxbUnmarshaller.unmarshal(element, clazz).getValue();
+    }
+    
     public Element generateElement(T item) throws JAXBException, ParserConfigurationException{
         Element el;
         el = marshalToElement(item);
@@ -142,6 +147,9 @@ public class XmlManager<T> {
         return unmarshal(is);
     }
     
+    public T generateItem(Element element) throws JAXBException{
+        return unmarshal(element);
+    }
 
     public byte[] generateXmlByteArray(T item) throws JAXBException {
 

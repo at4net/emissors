@@ -23,6 +23,7 @@ public class SVDDGTVEHICULODATOSWS01v3Example {
     private String codigoEstado = null;
     private String codigoEstadoSecundario = null;
     private String literalError = null;
+    private String literalErrorSec = null;
     private Integer tiempoEstimadoRespuesta = null;
 
     //Atributos
@@ -41,6 +42,7 @@ public class SVDDGTVEHICULODATOSWS01v3Example {
 
     private String nifFuncionario = "43014534A";
     private String nombreCompletoFuncionario = "GINARD PRATS, BERNARDO";
+    private String seudonimo = null;
 
     //Procedimiento
 
@@ -48,20 +50,20 @@ public class SVDDGTVEHICULODATOSWS01v3Example {
     private String nombreProcedimiento = "PRUEBAS DE INTEGRACION PARA GOBIERNO DE BALEARES";
 
     //Solicitante
-
+    private String codigoUnidadTramitadora = null;
     private Consentimiento consentimiento = Consentimiento.SI;
     private String finalidad = "Consulta dades vehicle";
-    private String idExpediente = "";                                                                
-    //private String idExpediente = "Q9WREU";                                                                
-    private String identificadorSolicitante = "L01070407";
-    private String nombreSolicitante = "Ajuntament de Palma";
+    //private String idExpediente = "";                                                                
+    private String idExpediente = "Q9WREU";                                                                
+    private String identificadorSolicitante = "S0711001H";
+    private String nombreSolicitante = "Govern de les Illes Balears";
     private String unidadTramitadora = "Secció Tributaria";
 
     //Titular
 
     private String apellido1 = "";
     private String apellido2 = "";
-    private String documentacion = "78215122B";
+    private String documentacion = "";
     private String nombre = "";
     private String nombreCompleto = "";
     private TipoDocumentacion tipoDocumentacion = TipoDocumentacion.NIF;
@@ -75,8 +77,8 @@ public class SVDDGTVEHICULODATOSWS01v3Example {
     // Datos Especificos
 
     private String matricula="6201CXP";
-    private String bastidor = "";
-    private String NIVE = "";
+    private String bastidor = null;
+    private String NIVE = null;
     
   
     
@@ -105,7 +107,9 @@ public class SVDDGTVEHICULODATOSWS01v3Example {
     public RespuestaClientAdapter<SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos> peticionSincrona(){
         
         RespuestaClientAdapter<SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos> respuestaClient =
-                facade.peticionSincrona(codigoEstado, codigoEstadoSecundario, literalError, tiempoEstimadoRespuesta, codigoCertificado, idPeticion, numElementos, timeStamp, nifEmisor, nombreEmisor, nifFuncionario, nombreCompletoFuncionario, codProcedimiento, nombreProcedimiento, consentimiento, finalidad, idExpediente, identificadorSolicitante, nombreSolicitante, unidadTramitadora, apellido1, apellido2, documentacion, nombre, nombreCompleto, tipoDocumentacion, fechaGeneracion, idSolicitud, idTransmision, bastidor, matricula, NIVE);
+                facade.peticionSincrona(codigoEstado, codigoEstadoSecundario, literalError, literalErrorSec , tiempoEstimadoRespuesta, codigoCertificado, idPeticion, numElementos, timeStamp, nifEmisor, nombreEmisor, nifFuncionario, nombreCompletoFuncionario, seudonimo, codProcedimiento, nombreProcedimiento, codigoUnidadTramitadora, consentimiento, finalidad, idExpediente, identificadorSolicitante, nombreSolicitante, unidadTramitadora, apellido1, apellido2, documentacion, nombre, nombreCompleto, tipoDocumentacion, fechaGeneracion, idSolicitud, idTransmision, bastidor, matricula, NIVE);
+        
+        
         return respuestaClient;
     }
     

@@ -35,10 +35,9 @@ import es.caib.pinbal.ws.recobriment.Solicitante;
 import es.caib.pinbal.ws.recobriment.TipoDocumentacion;
 import es.caib.pinbal.ws.recobriment.Titular;
 import es.caib.pinbal.ws.recobriment.Transmision;
+import es.caib.pinbal.ws.recobriment.TransmisionDatos;
+import es.caib.pinbal.ws.recobriment.Transmisiones;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import javax.xml.bind.JAXBException;
-import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Element;
 
 /**
@@ -78,10 +77,12 @@ public abstract class RecobrimentFacade<TDatosEspecificosPeticion, TDatosEspecif
    
 
     protected abstract RespuestaClientAdapter<TDatosEspecificosRespuesta> peticionSincronaEspecifica(
-            String codigoEstado, String codigoEstadoSecundario, String literalError, Integer tiempoEstimadoRespuesta,
+            String codigoEstado, String codigoEstadoSecundario, String literalError, 
+            String literalErrorSec, Integer tiempoEstimadoRespuesta,
             String codigoCertificado, String idPeticion, String numElementos, String timeStamp,
             String nifEmisor, String nombreEmisor, String nifFuncionario, String nombreCompletoFuncionario,
-            String codProcedimiento, String nombreProcedimiento, Consentimiento consentimiento, String finalidad, 
+            String seudonimo, String codProcedimiento, 
+            String nombreProcedimiento, String codigoUnidadTramitadora, Consentimiento consentimiento, String finalidad, 
             String idExpediente, String identificadorSolicitante, String nombreSolicitante, String unidadTramitadora,
             String apellido1, String apellido2, String documentacion, String nombre, String nombreCompleto,
             TipoDocumentacion tipoDocumentacion, String fechaGeneracion, String idSolicitud, String idTransmision,
@@ -89,10 +90,13 @@ public abstract class RecobrimentFacade<TDatosEspecificosPeticion, TDatosEspecif
     );
     
     protected RespuestaClientAdapter<TDatosEspecificosRespuesta> peticionSincrona(
-            String codigoEstado, String codigoEstadoSecundario, String literalError, Integer tiempoEstimadoRespuesta,
+            String codigoEstado, String codigoEstadoSecundario, String literalError,
+            String literalErrorSec, Integer tiempoEstimadoRespuesta,
             String codigoCertificado, String idPeticion, String numElementos, String timeStamp,
             String nifEmisor, String nombreEmisor, String nifFuncionario, String nombreCompletoFuncionario,
-            String codProcedimiento, String nombreProcedimiento, Consentimiento consentimiento, String finalidad, 
+            String seudonimo,
+            String codProcedimiento, String nombreProcedimiento, String codigoUnidadTramitadora, 
+            Consentimiento consentimiento, String finalidad, 
             String idExpediente, String identificadorSolicitante, String nombreSolicitante, String unidadTramitadora,
             String apellido1, String apellido2, String documentacion, String nombre, String nombreCompleto,
             TipoDocumentacion tipoDocumentacion, String fechaGeneracion, String idSolicitud, String idTransmision,
@@ -104,6 +108,7 @@ public abstract class RecobrimentFacade<TDatosEspecificosPeticion, TDatosEspecif
         peticionClient.setCodigoEstado(codigoEstado);
         peticionClient.setCodigoEstadoSecundario(codigoEstadoSecundario);
         peticionClient.setLiteralError(literalError);
+        peticionClient.setLiteralErrorSec(literalErrorSec);
         peticionClient.setTiempoEstimadoRespuesta(tiempoEstimadoRespuesta);
         peticionClient.setCodigoCertificado(codigoCertificado);
         peticionClient.setIdPeticion(idPeticion);
@@ -116,8 +121,10 @@ public abstract class RecobrimentFacade<TDatosEspecificosPeticion, TDatosEspecif
         solicitudTransmisionClient.setNombreEmisor(nombreEmisor);
         solicitudTransmisionClient.setNifFuncionario(nifFuncionario);
         solicitudTransmisionClient.setNombreCompletoFuncionario(nombreCompletoFuncionario);
+        solicitudTransmisionClient.setSeudonimo(seudonimo);
         solicitudTransmisionClient.setCodProcedimiento(codProcedimiento);
         solicitudTransmisionClient.setNombreProcedimiento(nombreProcedimiento);
+        solicitudTransmisionClient.setCodigoUnidadTramitadora(codigoUnidadTramitadora);
         solicitudTransmisionClient.setConsentimiento(consentimiento);
         solicitudTransmisionClient.setFinalidad(finalidad);
         solicitudTransmisionClient.setIdExpediente(idExpediente);
@@ -153,6 +160,7 @@ public abstract class RecobrimentFacade<TDatosEspecificosPeticion, TDatosEspecif
                 peticionClient.getCodigoEstado(),
                 peticionClient.getCodigoEstadoSecundario(),
                 peticionClient.getLiteralError(),
+                peticionClient.getLiteralErrorSec(),
                 peticionClient.getTiempoEstimadoRespuesta()
         );
         
@@ -198,10 +206,12 @@ public abstract class RecobrimentFacade<TDatosEspecificosPeticion, TDatosEspecif
         
         Funcionario funcionario = RecobrimentUtils.establecerFuncionario(
               solicitudTransmisionClient.getNifFuncionario(),
-              solicitudTransmisionClient.getNombreCompletoFuncionario()
+              solicitudTransmisionClient.getNombreCompletoFuncionario(),
+              solicitudTransmisionClient.getSeudonimo()
         );
        
         Solicitante solicitante = RecobrimentUtils.establecerSolicitante(
+                solicitudTransmisionClient.getCodigoUnidadTramitadora(),
                 solicitudTransmisionClient.getConsentimiento(),
                 solicitudTransmisionClient.getFinalidad(),
                 funcionario,
@@ -251,14 +261,163 @@ public abstract class RecobrimentFacade<TDatosEspecificosPeticion, TDatosEspecif
     }
 
     private RespuestaClientAdapter<TDatosEspecificosRespuesta> respuesta2RespuestaClientAdapter(Respuesta response) {
-        
-        RespuestaClientAdapter<TDatosEspecificosRespuesta> respuesta = new RespuestaClientAdapter<TDatosEspecificosRespuesta>();
-        
-        Logger.getLogger(RecobrimentFacade.class.getName()).log(Level.INFO, response.toString());
-        
-        
-        return respuesta;
+
+        RespuestaClientAdapter<TDatosEspecificosRespuesta> respuestaClient = new RespuestaClientAdapter<TDatosEspecificosRespuesta>();
+
+        Atributos atributos = response.getAtributos();
+
+        if (atributos != null) {
+
+            respuestaClient.setCodigoCertificado(atributos.getCodigoCertificado());
+            respuestaClient.setIdPeticion(atributos.getIdPeticion());
+            respuestaClient.setNumElementos(atributos.getNumElementos());
+            respuestaClient.setTimeStamp(atributos.getTimeStamp());
+
+            Estado estado = atributos.getEstado();
+
+            if (estado != null) {
+
+                respuestaClient.setCodigoEstado(estado.getCodigoEstado());
+                respuestaClient.setCodigoEstadoSecundario(estado.getCodigoEstadoSecundario());
+                respuestaClient.setLiteralError(estado.getLiteralError());
+                respuestaClient.setLiteralErrorSec(estado.getLiteralErrorSec());
+                respuestaClient.setTiempoEstimadoRespuesta(estado.getTiempoEstimadoRespuesta());
+            }
+
+            Solicitante solicitante = atributos.getSolicitante();
+
+            if (solicitante != null) {
+
+                respuestaClient.setCodigoUnidadTramitadora(solicitante.getCodigoUnidadTramitadora());
+                respuestaClient.setConsentimiento(solicitante.getConsentimiento());
+                respuestaClient.setFinalidad(solicitante.getFinalidad());
+                respuestaClient.setIdExpediente(solicitante.getIdExpediente());
+                respuestaClient.setIdentificadorSolicitante(solicitante.getIdentificadorSolicitante());
+                respuestaClient.setNombreSolicitante(solicitante.getNombreSolicitante());
+                respuestaClient.setUnidadTramitadora(solicitante.getUnidadTramitadora());
+
+                Funcionario funcionario = solicitante.getFuncionario();
+
+                if (funcionario != null) {
+                    respuestaClient.setNifFuncionario(funcionario.getNifFuncionario());
+                    respuestaClient.setNombreCompletoFuncionario(funcionario.getNombreCompletoFuncionario());
+                    respuestaClient.setSeudonimo(funcionario.getSeudonimo());
+                }
+
+                Procedimiento procedimiento = solicitante.getProcedimiento();
+
+                if (procedimiento != null) {
+                    respuestaClient.setCodProcedimiento(procedimiento.getCodProcedimiento());
+                    respuestaClient.setNombreProcedimiento(procedimiento.getNombreProcedimiento());
+                }
+
+            }
+        }
+
+        Transmisiones transmisiones = response.getTransmisiones();
+
+        List<TransmisionDatosClientAdapter<TDatosEspecificosRespuesta>> transmisionesClient
+                = new ArrayList<TransmisionDatosClientAdapter<TDatosEspecificosRespuesta>>();
+
+        if (transmisiones != null) {
+            List<TransmisionDatos> transmisionesDatos = transmisiones.getTransmisionDatos();
+            if (transmisionesDatos != null) {
+                transmisionesClient = transmisionesDatos2TransmisionesDatosClientAdapter(transmisionesDatos);
+            }
+        }
+
+        respuestaClient.setTransmisionesClient(transmisionesClient);
+
+        return respuestaClient;
+
     }
     
+    
+    
+    private List<TransmisionDatosClientAdapter<TDatosEspecificosRespuesta>> transmisionesDatos2TransmisionesDatosClientAdapter(
+            List<TransmisionDatos> transmisionesDatos) {
+        Function<TransmisionDatos, TransmisionDatosClientAdapter<TDatosEspecificosRespuesta>> transmisionesDatosClient
+                = new Function<TransmisionDatos, TransmisionDatosClientAdapter<TDatosEspecificosRespuesta>>() {
+            public TransmisionDatosClientAdapter<TDatosEspecificosRespuesta> apply(TransmisionDatos transmisionDatos) {
+                return transmisionDatos2TransmisionDatosClientAdapter(transmisionDatos);
+            }
+        };
+        return Lists.transform(transmisionesDatos, transmisionesDatosClient);
+    }
+
+    protected abstract TDatosEspecificosRespuesta element2DatosEspecificos(Element elementDatosEspecificos);
+    
+    private TransmisionDatosClientAdapter<TDatosEspecificosRespuesta> transmisionDatos2TransmisionDatosClientAdapter(TransmisionDatos transmisionDatos) {
+
+        TransmisionDatosClientAdapter<TDatosEspecificosRespuesta> transmisionDatosClient
+                = new TransmisionDatosClientAdapter<TDatosEspecificosRespuesta>();
+
+        if (transmisionDatos == null) {
+            return transmisionDatosClient;
+        }
+
+        transmisionDatosClient.setId(transmisionDatos.getId());
+
+        DatosGenericos datosGenericos = transmisionDatos.getDatosGenericos();
+
+        if (datosGenericos != null) {
+
+            Emisor emisor = datosGenericos.getEmisor();
+            if (emisor != null) {
+                transmisionDatosClient.setNifEmisor(emisor.getNifEmisor());
+                transmisionDatosClient.setNombreEmisor(emisor.getNombreEmisor());
+            }
+
+            Solicitante solicitante = datosGenericos.getSolicitante();
+            if (solicitante != null) {
+
+                transmisionDatosClient.setCodigoUnidadTramitadora(solicitante.getCodigoUnidadTramitadora());
+                transmisionDatosClient.setConsentimiento(solicitante.getConsentimiento());
+                transmisionDatosClient.setFinalidad(solicitante.getFinalidad());
+                transmisionDatosClient.setIdExpediente(solicitante.getIdExpediente());
+                transmisionDatosClient.setIdentificadorSolicitante(solicitante.getIdentificadorSolicitante());
+                transmisionDatosClient.setNombreSolicitante(solicitante.getNombreSolicitante());
+                transmisionDatosClient.setUnidadTramitadora(solicitante.getUnidadTramitadora());
+
+                Funcionario funcionario = solicitante.getFuncionario();
+                if (funcionario != null) {
+                    transmisionDatosClient.setNifFuncionario(funcionario.getNifFuncionario());
+                    transmisionDatosClient.setNombreCompletoFuncionario(funcionario.getNombreCompletoFuncionario());
+                    transmisionDatosClient.setSeudonimo(funcionario.getSeudonimo());
+                }
+
+                Procedimiento procedimiento = solicitante.getProcedimiento();
+                if (procedimiento != null) {
+                    transmisionDatosClient.setCodProcedimiento(procedimiento.getCodProcedimiento());
+                    transmisionDatosClient.setNombreProcedimiento(procedimiento.getNombreProcedimiento());
+                }
+            }
+
+            Titular titular = datosGenericos.getTitular();
+            if (titular != null) {
+                transmisionDatosClient.setApellido1(titular.getApellido1());
+                transmisionDatosClient.setApellido2(titular.getApellido2());
+                transmisionDatosClient.setDocumentacion(titular.getDocumentacion());
+                transmisionDatosClient.setNombre(titular.getNombre());
+                transmisionDatosClient.setNombreCompleto(titular.getNombreCompleto());
+                transmisionDatosClient.setTipoDocumentacion(titular.getTipoDocumentacion());
+            }
+
+            Transmision transmision = datosGenericos.getTransmision();
+            if (transmision != null) {
+                transmisionDatosClient.setCodigoCertificado(transmision.getCodigoCertificado());
+                transmisionDatosClient.setFechaGeneracion(transmision.getFechaGeneracion());
+                transmisionDatosClient.setIdSolicitud(transmision.getIdSolicitud());
+                transmisionDatosClient.setIdTransmision(transmision.getIdTransmision());
+            }
+        }
+
+        Element elementDatosEspecificos = (Element) transmisionDatos.getDatosEspecificos();
+        
+        transmisionDatosClient.setDatosEspecificos(element2DatosEspecificos(elementDatosEspecificos));
+        
+        return transmisionDatosClient;
+
+    }
     
 }

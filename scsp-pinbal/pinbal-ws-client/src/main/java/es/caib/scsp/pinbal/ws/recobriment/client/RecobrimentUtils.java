@@ -38,15 +38,17 @@ import org.w3c.dom.Element;
  */
 public class RecobrimentUtils {
 
-    public static Estado establecerEstado(String codigoEstado, 
+    public static Estado establecerEstado(
+            String codigoEstado, 
             String codigoEstadoSecundario, 
-            String literalError,
+            String literalError, String literalErrorSec,
             Integer tiempoEstimadoRespuesta
     ){
         Estado estado = new Estado();
         estado.setCodigoEstado(codigoEstado);
         estado.setCodigoEstadoSecundario(codigoEstadoSecundario);
         estado.setLiteralError(literalError);
+        estado.setLiteralErrorSec(literalErrorSec);
         estado.setTiempoEstimadoRespuesta(tiempoEstimadoRespuesta);
         return estado;
     }
@@ -79,6 +81,7 @@ public class RecobrimentUtils {
     }
 
     public static Solicitante establecerSolicitante(
+            String codigoUnidadTramitadora,
             Consentimiento consentimiento,
             String finalidad,
             Funcionario funcionario,
@@ -89,6 +92,7 @@ public class RecobrimentUtils {
             String unidadTramitadora
     ) {
         Solicitante solicitante = new Solicitante();
+        solicitante.setCodigoUnidadTramitadora(codigoUnidadTramitadora);
         solicitante.setConsentimiento(consentimiento);
         solicitante.setFinalidad(finalidad);
         solicitante.setFuncionario(funcionario);
@@ -178,11 +182,13 @@ public class RecobrimentUtils {
 
     public static Funcionario establecerFuncionario(
             String nifFuncionario,
-            String nombreCompletoFuncionario
+            String nombreCompletoFuncionario,
+            String seudonimo
     ) {
         Funcionario funcionario = new Funcionario();
         funcionario.setNifFuncionario(nifFuncionario);
         funcionario.setNombreCompletoFuncionario(nombreCompletoFuncionario);
+        funcionario.setSeudonimo(seudonimo);
         return funcionario;
     }
     

@@ -43,6 +43,7 @@ public class SCDHPAJUv3Example {
     private String codigoEstado = null;
     private String codigoEstadoSecundario = null;
     private String literalError = null;
+    private String literalErrorSec = null;
     private Integer tiempoEstimadoRespuesta = null;
     
     //Atributos
@@ -58,12 +59,14 @@ public class SCDHPAJUv3Example {
     //Funcionario
     private String nifFuncionario = "78210244D";
     private String nombreCompletoFuncionario = "SANS AGUILAR, CATALINA";
+    private String seudonimo = null;
       
     //Procedimiento
     private String codProcedimiento = "CODSVDR_GBA_20121107";
     private String nombreProcedimiento = "";
     
     //Solicitante
+    private String codigoUnidadTramitadora = null;
     private Consentimiento consentimiento = Consentimiento.SI;
     private String finalidad = "Baremacions per el proces d'escolaritzacio";
     private String idExpediente = "Q9WREU";
@@ -248,6 +251,7 @@ public class SCDHPAJUv3Example {
     
     public Solicitante establecerSolicitante(){
         return RecobrimentUtils.establecerSolicitante(
+                codigoUnidadTramitadora,
                 consentimiento, 
                 finalidad, 
                 funcionario, 
@@ -269,7 +273,8 @@ public class SCDHPAJUv3Example {
     public Funcionario establecerFuncionario() {
         return RecobrimentUtils.establecerFuncionario(
                 nifFuncionario, 
-                nombreCompletoFuncionario
+                nombreCompletoFuncionario,
+                seudonimo
         );
     }  
     
@@ -299,6 +304,7 @@ public class SCDHPAJUv3Example {
                 codigoEstado,
                 codigoEstadoSecundario,
                 literalError,
+                literalErrorSec,
                 tiempoEstimadoRespuesta
         );
     }

@@ -24,12 +24,8 @@ import es.caib.scsp.pinbal.ws.recobriment.example.datosespecificos.SVDDGTVEHICUL
 import es.caib.scsp.utils.xml.XmlManager;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.xml.bind.JAXB;
 import javax.xml.bind.JAXBException;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.dom.DOMResult;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
@@ -54,7 +50,6 @@ public class SVDDGTVEHICULODATOSWS01RecobrimentFacade
         
         Element elementDatosEspecificos;
         
-        
         try {
             XmlManager<SVDDGTVEHICULODATOSWS01v3PeticionDatosEspecificos> manager
                     = new XmlManager<SVDDGTVEHICULODATOSWS01v3PeticionDatosEspecificos>(SVDDGTVEHICULODATOSWS01v3PeticionDatosEspecificos.class);
@@ -67,34 +62,18 @@ public class SVDDGTVEHICULODATOSWS01RecobrimentFacade
         }
         return null;
             
-        
-        
-        /*
-        try {
-            Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-            JAXB.marshal(datosEspecificosPeticion, new DOMResult(document));
-            elementDatosEspecificos = document.getDocumentElement();
-
-            return elementDatosEspecificos;
-
-        } catch (ParserConfigurationException ex) {
-            Logger.getLogger(SVDDGTVEHICULODATOSWS01RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return null;
-        */
-        
+ 
     }
 
     @Override
     protected RespuestaClientAdapter<SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos> peticionSincronaEspecifica(
                 String codigoEstado, String codigoEstadoSecundario, 
-                String literalError, Integer tiempoEstimadoRespuesta, 
+                String literalError, String literalErrorSec, Integer tiempoEstimadoRespuesta, 
                 String codigoCertificado, String idPeticion, 
                 String numElementos, String timeStamp, String nifEmisor, 
                 String nombreEmisor, String nifFuncionario, 
-                String nombreCompletoFuncionario, String codProcedimiento, 
-                String nombreProcedimiento, Consentimiento consentimiento, 
+                String nombreCompletoFuncionario, String seudonimo, String codProcedimiento, 
+                String nombreProcedimiento, String codigoUnidadTramitadora, Consentimiento consentimiento, 
                 String finalidad, String idExpediente, 
                 String identificadorSolicitante, String nombreSolicitante, 
                 String unidadTramitadora, String apellido1, String apellido2, 
@@ -107,6 +86,7 @@ public class SVDDGTVEHICULODATOSWS01RecobrimentFacade
                 codigoEstado,
                 codigoEstadoSecundario,
                 literalError,
+                literalErrorSec,
                 tiempoEstimadoRespuesta,
                 codigoCertificado,
                 idPeticion,
@@ -116,8 +96,10 @@ public class SVDDGTVEHICULODATOSWS01RecobrimentFacade
                 nombreEmisor,
                 nifFuncionario,
                 nombreCompletoFuncionario,
+                seudonimo,
                 codProcedimiento,
                 nombreProcedimiento,
+                codigoUnidadTramitadora,
                 consentimiento,
                 finalidad,
                 idExpediente,
@@ -158,12 +140,13 @@ public class SVDDGTVEHICULODATOSWS01RecobrimentFacade
     
     public RespuestaClientAdapter<SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos> peticionSincrona(
                 String codigoEstado, String codigoEstadoSecundario, 
-                String literalError, Integer tiempoEstimadoRespuesta, 
+                String literalError, String literalErrorSec, Integer tiempoEstimadoRespuesta, 
                 String codigoCertificado, String idPeticion, 
                 String numElementos, String timeStamp, String nifEmisor, 
                 String nombreEmisor, String nifFuncionario, 
-                String nombreCompletoFuncionario, String codProcedimiento, 
-                String nombreProcedimiento, Consentimiento consentimiento, 
+                String nombreCompletoFuncionario, String seudonimo, String codProcedimiento, 
+                String nombreProcedimiento, 
+                String codigoUnidadTramitadora, Consentimiento consentimiento, 
                 String finalidad, String idExpediente, 
                 String identificadorSolicitante, String nombreSolicitante, 
                 String unidadTramitadora, String apellido1, String apellido2, 
@@ -182,6 +165,7 @@ public class SVDDGTVEHICULODATOSWS01RecobrimentFacade
                 codigoEstado,
                 codigoEstadoSecundario,
                 literalError,
+                literalErrorSec,
                 tiempoEstimadoRespuesta,
                 codigoCertificado,
                 idPeticion,
@@ -191,8 +175,10 @@ public class SVDDGTVEHICULODATOSWS01RecobrimentFacade
                 nombreEmisor,
                 nifFuncionario,
                 nombreCompletoFuncionario,
+                seudonimo,
                 codProcedimiento,
                 nombreProcedimiento,
+                codigoUnidadTramitadora,
                 consentimiento,
                 finalidad,
                 idExpediente,
@@ -211,11 +197,21 @@ public class SVDDGTVEHICULODATOSWS01RecobrimentFacade
                 datosEspecificosPeticion
         );
     }
-    
-    
-    
-    
-    
-    
+
+    @Override
+    protected SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos element2DatosEspecificos(Element elementDatosEspecificos) {
+        
+        SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos datosEspecificos;
+        try {
+            XmlManager<SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos> manager
+                    = new XmlManager<SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos>(SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos.class);
+            datosEspecificos = manager.generateItem(elementDatosEspecificos);
+            return datosEspecificos;
+        } catch (JAXBException ex) {
+            Logger.getLogger(SVDDGTVEHICULODATOSWS01RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
 
 }
