@@ -38,6 +38,7 @@ import es.caib.pinbal.ws.recobriment.Transmision;
 import es.caib.pinbal.ws.recobriment.TransmisionDatos;
 import es.caib.pinbal.ws.recobriment.Transmisiones;
 import java.util.ArrayList;
+import java.util.logging.Level;
 import org.w3c.dom.Element;
 
 /**
@@ -412,7 +413,13 @@ public abstract class RecobrimentFacade<TDatosEspecificosPeticion, TDatosEspecif
             }
         }
 
+        Logger.getLogger(RecobrimentFacade.class.getName()).log(Level.INFO, transmisionDatos.toString());
+        
+        Logger.getLogger(RecobrimentFacade.class.getName()).log(Level.INFO, transmisionDatos.getDatosEspecificos().toString());
+        
         Element elementDatosEspecificos = (Element) transmisionDatos.getDatosEspecificos();
+        
+        Logger.getLogger(RecobrimentFacade.class.getName()).log(Level.INFO, elementDatosEspecificos.toString());
         
         transmisionDatosClient.setDatosEspecificos(element2DatosEspecificos(elementDatosEspecificos));
         

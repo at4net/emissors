@@ -7,7 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import es.caib.scsp.pinbal.ws.recobriment.client.RespuestaClientAdapter;
 import es.caib.scsp.pinbal.ws.recobriment.example.datosespecificos.SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos;
-import es.caib.scsp.pinbal.ws.recobriment.example.facade.SVDDGTVEHICULODATOSWS01RecobrimentFacade;
+import es.caib.scsp.pinbal.ws.recobriment.example.facade.SVDDGTVEHICULODATOSWS01v3RecobrimentFacade;
 
 
 /**
@@ -53,7 +53,6 @@ public class SVDDGTVEHICULODATOSWS01v3Example {
     private String codigoUnidadTramitadora = null;
     private Consentimiento consentimiento = Consentimiento.SI;
     private String finalidad = "Consulta dades vehicle";
-    //private String idExpediente = "";                                                                
     private String idExpediente = "Q9WREU";                                                                
     private String identificadorSolicitante = "S0711001H";
     private String nombreSolicitante = "Govern de les Illes Balears";
@@ -84,14 +83,14 @@ public class SVDDGTVEHICULODATOSWS01v3Example {
     
     protected static final Logger LOG = Logger.getLogger(SVDDGTVEHICULODATOSWS01v3Example.class.getName());
 
-    private SVDDGTVEHICULODATOSWS01RecobrimentFacade facade;
+    private SVDDGTVEHICULODATOSWS01v3RecobrimentFacade facade;
     
     public SVDDGTVEHICULODATOSWS01v3Example(){
         this(APP);
     }
     
     public SVDDGTVEHICULODATOSWS01v3Example(String app){
-        this.facade = new SVDDGTVEHICULODATOSWS01RecobrimentFacade(app);
+        this.facade = new SVDDGTVEHICULODATOSWS01v3RecobrimentFacade(app);
     }
     
     public void dummy(){

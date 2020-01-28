@@ -23,7 +23,6 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -57,8 +56,6 @@ public class SVDDGTVEHICULODATOSWS01v3ExampleTest {
         
         example = new SVDDGTVEHICULODATOSWS01v3Example(app);
         
-        
-        
     }
     
     @After
@@ -86,6 +83,11 @@ public class SVDDGTVEHICULODATOSWS01v3ExampleTest {
         SVDDGTVEHICULODATOSWS01v3Example instance = new SVDDGTVEHICULODATOSWS01v3Example();
         RespuestaClientAdapter<SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos> expResult = null;
         RespuestaClientAdapter<SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos> result = instance.peticionSincrona();
+        
+        System.out.println("---------------------BASTIDOR----------------------------");
+       
+        
+        
         //assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");

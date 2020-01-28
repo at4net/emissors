@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 gdeignacio.
+ * Copyright 2020 gdeignacio.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,31 +15,14 @@
  */
 package es.caib.scsp.pinbal.ws.recobriment.example.client;
 
-import es.caib.pinbal.ws.recobriment.Atributos;
-import es.caib.pinbal.ws.recobriment.DatosGenericos;
-import es.caib.pinbal.ws.recobriment.Emisor;
-import es.caib.pinbal.ws.recobriment.Estado;
-import es.caib.pinbal.ws.recobriment.Funcionario;
-import es.caib.pinbal.ws.recobriment.Peticion;
-import es.caib.pinbal.ws.recobriment.Procedimiento;
-import es.caib.pinbal.ws.recobriment.Respuesta;
-import es.caib.pinbal.ws.recobriment.Solicitante;
-import es.caib.pinbal.ws.recobriment.SolicitudTransmision;
-import es.caib.pinbal.ws.recobriment.Solicitudes;
-import es.caib.pinbal.ws.recobriment.Titular;
-import es.caib.pinbal.ws.recobriment.Transmision;
 import es.caib.scsp.pinbal.ws.recobriment.client.DadesConnexioRecobriment;
-import es.caib.scsp.pinbal.ws.recobriment.client.RecobrimentClient;
-import es.caib.scsp.pinbal.ws.recobriment.example.datosespecificos.SCDHPAJUv3PeticionDatosEspecificos;
-import java.util.List;
+import es.caib.scsp.pinbal.ws.recobriment.client.RespuestaClientAdapter;
+import es.caib.scsp.pinbal.ws.recobriment.example.datosespecificos.SCDHPAJUv3RespuestaDatosEspecificos;
 import org.junit.After;
 import org.junit.AfterClass;
-import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-
 
 /**
  *
@@ -47,7 +30,7 @@ import org.junit.Test;
  */
 public class SCDHPAJUv3ExampleTest {
     
-    private RecobrimentClient client;
+    
     private SCDHPAJUv3Example example;
     
     public SCDHPAJUv3ExampleTest() {
@@ -55,7 +38,6 @@ public class SCDHPAJUv3ExampleTest {
     
     @BeforeClass
     public static void setUpClass() {
-        
     }
     
     @AfterClass
@@ -65,16 +47,17 @@ public class SCDHPAJUv3ExampleTest {
     @Before
     public void setUp() {
         
+        
         String app = "es.caib.scsp.";
         DadesConnexioRecobriment dadesConnexio = new DadesConnexioRecobriment(app);
         System.setProperty(app  + "pinbal.client.username", "$xestib_pinbal");
         System.setProperty(app  + "pinbal.client.password", "xestib_pinbal");
         System.setProperty(app  + "pinbal.client.baseURL", "https://proves.caib.es/pinbal");
-        client = RecobrimentClient.getClient(dadesConnexio);
         
-        System.out.println(client.getDadesConnexio().getWsdlLocation());
+        example = new SCDHPAJUv3Example(app);
         
-        example = new SCDHPAJUv3Example(client);
+        
+        
     }
     
     @After
@@ -82,8 +65,35 @@ public class SCDHPAJUv3ExampleTest {
     }
 
     /**
+     * Test of dummy method, of class SCDHPAJUv3Example.
+     */
+    @Test
+    public void testDummy() {
+        System.out.println("dummy");
+        SCDHPAJUv3Example instance = new SCDHPAJUv3Example();
+        instance.dummy();
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of peticionSincrona method, of class SCDHPAJUv3Example.
+     */
+    @Test
+    public void testPeticionSincrona() {
+        System.out.println("peticionSincrona");
+        SCDHPAJUv3Example instance = new SCDHPAJUv3Example();
+        RespuestaClientAdapter<SCDHPAJUv3RespuestaDatosEspecificos> expResult = null;
+        RespuestaClientAdapter<SCDHPAJUv3RespuestaDatosEspecificos> result = instance.peticionSincrona();
+        //assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
+    }
+
+    /**
      * Test of main method, of class SCDHPAJUv3Example.
      */
+    /*
     @Test
     public void testMain() throws Exception {
         System.out.println("main");
@@ -92,163 +102,6 @@ public class SCDHPAJUv3ExampleTest {
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
-    
-    
-    /**
-     * Test of dummy method, of class SCDHPAJUv3Example.
-     */
-    @Test
-    public void testDummy() throws Exception {
-        
-        String app = "es.caib.scsp.";
-        DadesConnexioRecobriment dadesConnexio = new DadesConnexioRecobriment(app);
-        System.setProperty(app  + "pinbal.client.username", "$xestib_pinbal");
-        System.setProperty(app  + "pinbal.client.password", "xestib_pinbal");
-        System.setProperty(app  + "pinbal.client.baseURL", "https://proves.caib.es/pinbal");
-        client = RecobrimentClient.getClient(dadesConnexio);
-        example = new SCDHPAJUv3Example(client);
-        
-        System.out.println("dummy");
-        example.dummy();
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
-    }
-    
-   
-    /**
-     * Test of  method getEstado, of class SCDHPAJUv3Example.
-     */
-    @Test
-    public void testEstablecerEstado() throws Exception {
-        Estado estado = example.establecerEstado();
-    }
-    
-    
-    /**
-     * Test of  method establecerAtributos, of class SCDHPAJUv3Example.
-     */
-    @Test
-    public void testEstablecerAtributos() throws Exception {
-        Atributos atributos = example.establecerAtributos();
-    }
-    
-    
-    
-    
-    
-    
-    /**
-     * Test of  method establecerEmisor, of class SCDHPAJUv3Example.
-     */
-    @Test
-    public void testEstablecerEmisor() throws Exception {
-        Emisor emisor = example.establecerEmisor();
-    }
-    
-    /**
-     * Test of  method establecerFuncionario, of class SCDHPAJUv3Example.
-     */
-    @Test
-    public void testEstablecerFuncionario() throws Exception {
-        Funcionario funcionario = example.establecerFuncionario();
-    }
-    
-    /**
-     * Test of  method establecerProcedimiento, of class SCDHPAJUv3Example.
-     */
-    @Test
-    public void testEstablecerProcedimiento() throws Exception {
-        Procedimiento procedimiento = example.establecerProcedimiento();
-    }
-    
-    /**
-     * Test of  method establecerSolicitante, of class SCDHPAJUv3Example.
-     */
-    @Test
-    public void testEstablecerSolicitante() throws Exception {
-        Solicitante solicitante = example.establecerSolicitante();
-    }
-    
-    /**
-     * Test of  method establecerTitular, of class SCDHPAJUv3Example.
-     */
-    @Test
-    public void testEstablecerTitular() throws Exception {
-        Titular titular = example.establecerTitular();
-    }
-    
-      /**
-     * Test of  method establecerTransmision, of class SCDHPAJUv3Example.
-     */
-    @Test
-    public void testEstablecerTransmision() throws Exception {
-        Transmision transmision = example.establecerTransmision();
-    }
-    
-      /**
-     * Test of  method establecerDatosGenericos, of class SCDHPAJUv3Example.
-     */
-    @Test
-    public void testEstablecerDatosGenericos() throws Exception {
-        DatosGenericos datosGenericos  = example.establecerDatosGenericos();
-    }
-    
-      /**
-     * Test of  method establecerDatosEspecificosPeticion, of class SCDHPAJUv3Example.
-     */
-    @Test
-    public void testEstablecerDatosEspecificosPeticion() throws Exception {
-        SCDHPAJUv3PeticionDatosEspecificos datosEspecificos  = example.establecerDatosEspecificosPeticion();
-        assertNotNull(datosEspecificos);
-    }
-    
-    
-    /**
-     * Test of  method establecerSolicitudesTransmision, of class SCDHPAJUv3Example.
-     */
-    @Test
-    public void testEstablecerSolicitudTransmision() throws Exception {
-        SolicitudTransmision solic  = example.establecerSolicitudTransmision();
-    }
-    
-    
-   
-    /**
-     * Test of  method establecerSolicitudesTransmision, of class SCDHPAJUv3Example.
-     */
-    @Test
-    public void testEstablecerSolicitudesTransmision() throws Exception {
-        List<SolicitudTransmision> lst  = example.establecerSolicitudesTransmision();
-    }
-    
-      /**
-     * Test of  method establecerSolicitudes, of class SCDHPAJUv3Example.
-     */
-    @Test
-    public void testEstablecerSolicitudes() throws Exception {
-        Solicitudes solicitudes  = example.establecerSolicitudes();
-    }
-    
-    
-    /**
-     * Test of  method establecerPeticion, of class SCDHPAJUv3Example.
-     */
-    @Test
-    public void testEstablecerPeticion() throws Exception {
-        Peticion peticion  = example.establecerPeticion();
-    }
-    
-    
-    
-    
-    /**
-     * Test of main method, of class SCDHPAJUv3Example.
-     */
-    @Test
-    public void testPeticionSincrona() throws Exception {
-        Peticion pet =  example.establecerPeticion();
-        Respuesta response = example.getPeticionSincrona(pet);
-    }
-    
+*/
     
 }

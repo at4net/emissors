@@ -133,6 +133,9 @@ public class RecobrimentClient {
         Recobriment port = getServicePort();
         Respuesta response;
         response = peticionSincrona(port, pet);
+        
+        LOG.log(Level.INFO, "Respuesta: " +  response.toString());
+        
         return response;
     }
 

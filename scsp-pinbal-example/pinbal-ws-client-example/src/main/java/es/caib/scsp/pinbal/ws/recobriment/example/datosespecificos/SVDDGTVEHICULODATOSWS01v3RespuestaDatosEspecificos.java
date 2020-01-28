@@ -15,9 +15,16 @@
  */
 package es.caib.scsp.pinbal.ws.recobriment.example.datosespecificos;
         
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  *
  * @author gdeignacio
  */
-public class SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos extends es.caib.scsp.esquemas.SCDHPAJUv3.respuesta.datosespecificos.DatosEspecificos {
+@XmlRootElement(name = "DatosEspecificos")
+public class SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos 
+        extends es.caib.scsp.esquemas.SVDDGTVEHICULODATOSWS01v3.respuesta.datosespecificos.DatosEspecificos {
+    public SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos(){
+        super();
+    }
 }

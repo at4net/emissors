@@ -32,11 +32,11 @@ import org.w3c.dom.Element;
  *
  * @author gdeignacio
  */
-public class SVDDGTVEHICULODATOSWS01RecobrimentFacade
+public class SVDDGTVEHICULODATOSWS01v3RecobrimentFacade
         extends RecobrimentFacade<
         SVDDGTVEHICULODATOSWS01v3PeticionDatosEspecificos, SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos> {
 
-    public SVDDGTVEHICULODATOSWS01RecobrimentFacade(String app) {
+    public SVDDGTVEHICULODATOSWS01v3RecobrimentFacade(String app) {
         super(app);
     }
 
@@ -56,9 +56,9 @@ public class SVDDGTVEHICULODATOSWS01RecobrimentFacade
             elementDatosEspecificos = manager.generateElement(datosEspecificosPeticion);
             return elementDatosEspecificos;
         } catch (JAXBException ex) {
-            Logger.getLogger(SVDDGTVEHICULODATOSWS01RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SVDDGTVEHICULODATOSWS01v3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParserConfigurationException ex) {
-            Logger.getLogger(SVDDGTVEHICULODATOSWS01RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SVDDGTVEHICULODATOSWS01v3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
             
@@ -205,10 +205,14 @@ public class SVDDGTVEHICULODATOSWS01RecobrimentFacade
         try {
             XmlManager<SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos> manager
                     = new XmlManager<SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos>(SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos.class);
+            
+            
+            Logger.getLogger(SVDDGTVEHICULODATOSWS01v3RecobrimentFacade.class.getName()).log(Level.INFO, elementDatosEspecificos.toString());
+            
             datosEspecificos = manager.generateItem(elementDatosEspecificos);
             return datosEspecificos;
         } catch (JAXBException ex) {
-            Logger.getLogger(SVDDGTVEHICULODATOSWS01RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SVDDGTVEHICULODATOSWS01v3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
