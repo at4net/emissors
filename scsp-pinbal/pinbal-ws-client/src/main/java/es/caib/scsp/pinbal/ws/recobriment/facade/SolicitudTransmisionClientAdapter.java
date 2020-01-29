@@ -1,3 +1,10 @@
+package es.caib.scsp.pinbal.ws.recobriment.facade;
+
+import es.caib.pinbal.ws.recobriment.Consentimiento;
+import es.caib.pinbal.ws.recobriment.TipoDocumentacion;
+import java.io.Serializable;
+import org.w3c.dom.Element;
+
 /*
  * Copyright 2020 gdeignacio.
  *
@@ -13,19 +20,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package es.caib.scsp.pinbal.ws.recobriment.client;
-
-import es.caib.pinbal.ws.recobriment.Consentimiento;
-import es.caib.pinbal.ws.recobriment.TipoDocumentacion;
-import java.io.Serializable;
 
 /**
  *
  * @author gdeignacio
+ * @param <TDatosEspecificos>
  */
-public class TransmisionDatosClientAdapter<TDatosEspecificos> implements Serializable {
-    
-    private String id;
+public class SolicitudTransmisionClientAdapter<TDatosEspecificos> implements Serializable {
     
      //Emisor
     private String nifEmisor;
@@ -35,7 +36,7 @@ public class TransmisionDatosClientAdapter<TDatosEspecificos> implements Seriali
     private String nifFuncionario;
     private String nombreCompletoFuncionario;
     private String seudonimo;
-    
+      
     //Procedimiento
     private String codProcedimiento;
     private String nombreProcedimiento;
@@ -49,7 +50,7 @@ public class TransmisionDatosClientAdapter<TDatosEspecificos> implements Seriali
     private String nombreSolicitante;
     private String unidadTramitadora;
     
-       //Titular
+    //Titular
     private String apellido1;
     private String apellido2;
     private String documentacion;
@@ -65,16 +66,7 @@ public class TransmisionDatosClientAdapter<TDatosEspecificos> implements Seriali
     
     private TDatosEspecificos datosEspecificos;
     
-    
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getNifEmisor() {
+     public String getNifEmisor() {
         return nifEmisor;
     }
 
@@ -113,7 +105,7 @@ public class TransmisionDatosClientAdapter<TDatosEspecificos> implements Seriali
     public void setSeudonimo(String seudonimo) {
         this.seudonimo = seudonimo;
     }
-
+    
     public String getCodProcedimiento() {
         return codProcedimiento;
     }
@@ -273,5 +265,7 @@ public class TransmisionDatosClientAdapter<TDatosEspecificos> implements Seriali
     public void setDatosEspecificos(TDatosEspecificos datosEspecificos) {
         this.datosEspecificos = datosEspecificos;
     }
+    
+    
     
 }

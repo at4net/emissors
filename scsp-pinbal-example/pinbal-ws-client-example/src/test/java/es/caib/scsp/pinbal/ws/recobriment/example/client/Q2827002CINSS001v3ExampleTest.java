@@ -17,7 +17,7 @@ package es.caib.scsp.pinbal.ws.recobriment.example.client;
 
 import es.caib.scsp.pinbal.ws.recobriment.client.DadesConnexioRecobriment;
 import es.caib.scsp.pinbal.ws.recobriment.facade.RespuestaClientAdapter;
-import es.caib.scsp.pinbal.ws.recobriment.example.datosespecificos.SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos;
+import es.caib.scsp.pinbal.ws.recobriment.example.datosespecificos.Q2827002CINSS001v3RespuestaDatosEspecificos;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -28,12 +28,12 @@ import org.junit.Test;
  *
  * @author gdeignacio
  */
-public class SVDDGTVEHICULODATOSWS01v3ExampleTest {
+public class Q2827002CINSS001v3ExampleTest {
     
     
-    private SVDDGTVEHICULODATOSWS01v3Example example;
+    private Q2827002CINSS001v3Example example;
     
-    public SVDDGTVEHICULODATOSWS01v3ExampleTest() {
+    public Q2827002CINSS001v3ExampleTest() {
     }
     
     @BeforeClass
@@ -50,11 +50,11 @@ public class SVDDGTVEHICULODATOSWS01v3ExampleTest {
         
         String app = "es.caib.scsp.";
         DadesConnexioRecobriment dadesConnexio = new DadesConnexioRecobriment(app);
-        System.setProperty(app  + "pinbal.client.username", "$palmaatexpol_pinbal");
-        System.setProperty(app  + "pinbal.client.password", "palmaatexpol_pinbal");
+        System.setProperty(app  + "pinbal.client.username", "$atibinss_pinbal");
+        System.setProperty(app  + "pinbal.client.password", "atibinss_pinbal");
         System.setProperty(app  + "pinbal.client.baseURL", "https://proves.caib.es/pinbal");
         
-        example = new SVDDGTVEHICULODATOSWS01v3Example(app);
+        example = new Q2827002CINSS001v3Example(app);
         
     }
     
@@ -63,26 +63,26 @@ public class SVDDGTVEHICULODATOSWS01v3ExampleTest {
     }
 
     /**
-     * Test of dummy method, of class SVDDGTVEHICULODATOSWS01v3Example.
+     * Test of dummy method, of class Q2827002CINSS001v3Example.
      */
     @Test
     public void testDummy() {
         System.out.println("dummy");
-        SVDDGTVEHICULODATOSWS01v3Example instance = new SVDDGTVEHICULODATOSWS01v3Example();
+        Q2827002CINSS001v3Example instance = new Q2827002CINSS001v3Example();
         instance.dummy();
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
 
     /**
-     * Test of peticionSincrona method, of class SVDDGTVEHICULODATOSWS01v3Example.
+     * Test of peticionSincrona method, of class Q2827002CINSS001v3Example.
      */
     @Test
     public void testPeticionSincrona() {
         System.out.println("peticionSincrona");
-        SVDDGTVEHICULODATOSWS01v3Example instance = new SVDDGTVEHICULODATOSWS01v3Example();
-        RespuestaClientAdapter<SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos> expResult = null;
-        RespuestaClientAdapter<SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos> result = instance.peticionSincrona();
+        Q2827002CINSS001v3Example instance = new Q2827002CINSS001v3Example();
+        RespuestaClientAdapter<Q2827002CINSS001v3RespuestaDatosEspecificos> expResult = null;
+        RespuestaClientAdapter<Q2827002CINSS001v3RespuestaDatosEspecificos> result = instance.peticionSincrona();
         
         System.out.println("---------------------BASTIDOR----------------------------");
        
@@ -94,14 +94,14 @@ public class SVDDGTVEHICULODATOSWS01v3ExampleTest {
     }
 
     /**
-     * Test of main method, of class SVDDGTVEHICULODATOSWS01v3Example.
+     * Test of main method, of class Q2827002CINSS001v3Example.
      */
     /*
     @Test
     public void testMain() throws Exception {
         System.out.println("main");
         String[] args = null;
-        SVDDGTVEHICULODATOSWS01v3Example.main(args);
+        Q2827002CINSS001v3Example.main(args);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }

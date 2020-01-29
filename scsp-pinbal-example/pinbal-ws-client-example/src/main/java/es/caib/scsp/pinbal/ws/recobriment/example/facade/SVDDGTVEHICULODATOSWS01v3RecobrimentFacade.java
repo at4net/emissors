@@ -17,8 +17,8 @@ package es.caib.scsp.pinbal.ws.recobriment.example.facade;
 
 import es.caib.pinbal.ws.recobriment.Consentimiento;
 import es.caib.pinbal.ws.recobriment.TipoDocumentacion;
-import es.caib.scsp.pinbal.ws.recobriment.client.RecobrimentFacade;
-import es.caib.scsp.pinbal.ws.recobriment.client.RespuestaClientAdapter;
+import es.caib.scsp.pinbal.ws.recobriment.facade.RecobrimentFacade;
+import es.caib.scsp.pinbal.ws.recobriment.facade.RespuestaClientAdapter;
 import es.caib.scsp.pinbal.ws.recobriment.example.datosespecificos.SVDDGTVEHICULODATOSWS01v3PeticionDatosEspecificos;
 import es.caib.scsp.pinbal.ws.recobriment.example.datosespecificos.SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos;
 import es.caib.scsp.utils.xml.XmlManager;

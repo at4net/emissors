@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package es.caib.scsp.pinbal.ws.recobriment.client;
+package es.caib.scsp.pinbal.ws.recobriment.facade;
 
+import es.caib.scsp.pinbal.ws.recobriment.facade.TransmisionDatosClientAdapter;
 import es.caib.pinbal.ws.recobriment.Consentimiento;
 import java.io.Serializable;
 import java.util.ArrayList;

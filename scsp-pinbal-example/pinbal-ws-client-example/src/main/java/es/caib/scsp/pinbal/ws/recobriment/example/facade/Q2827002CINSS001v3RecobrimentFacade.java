@@ -19,8 +19,8 @@ import es.caib.pinbal.ws.recobriment.Consentimiento;
 import es.caib.pinbal.ws.recobriment.TipoDocumentacion;
 import es.caib.scsp.pinbal.ws.recobriment.facade.RecobrimentFacade;
 import es.caib.scsp.pinbal.ws.recobriment.facade.RespuestaClientAdapter;
-import es.caib.scsp.pinbal.ws.recobriment.example.datosespecificos.SCDHPAJUv3PeticionDatosEspecificos;
-import es.caib.scsp.pinbal.ws.recobriment.example.datosespecificos.SCDHPAJUv3RespuestaDatosEspecificos;
+import es.caib.scsp.pinbal.ws.recobriment.example.datosespecificos.Q2827002CINSS001v3PeticionDatosEspecificos;
+import es.caib.scsp.pinbal.ws.recobriment.example.datosespecificos.Q2827002CINSS001v3RespuestaDatosEspecificos;
 import es.caib.scsp.utils.xml.XmlManager;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,11 +32,11 @@ import org.w3c.dom.Element;
  *
  * @author gdeignacio
  */
-public class SCDHPAJUv3RecobrimentFacade
+public class Q2827002CINSS001v3RecobrimentFacade
         extends RecobrimentFacade<
-        SCDHPAJUv3PeticionDatosEspecificos, SCDHPAJUv3RespuestaDatosEspecificos> {
+        Q2827002CINSS001v3PeticionDatosEspecificos, Q2827002CINSS001v3RespuestaDatosEspecificos> {
 
-    public SCDHPAJUv3RecobrimentFacade(String app) {
+    public Q2827002CINSS001v3RecobrimentFacade(String app) {
         super(app);
     }
 
@@ -46,27 +46,30 @@ public class SCDHPAJUv3RecobrimentFacade
      * @return
      */
     @Override
-    protected Element datosEspecificos2Element(SCDHPAJUv3PeticionDatosEspecificos datosEspecificosPeticion){
+    protected Element datosEspecificos2Element(Q2827002CINSS001v3PeticionDatosEspecificos datosEspecificosPeticion){
+        
+        if (datosEspecificosPeticion==null) return null;
         
         Element elementDatosEspecificos;
         
         try {
-            XmlManager<SCDHPAJUv3PeticionDatosEspecificos> manager
-                    = new XmlManager<SCDHPAJUv3PeticionDatosEspecificos>(SCDHPAJUv3PeticionDatosEspecificos.class);
+            XmlManager<Q2827002CINSS001v3PeticionDatosEspecificos> manager
+                    = new XmlManager<Q2827002CINSS001v3PeticionDatosEspecificos>(Q2827002CINSS001v3PeticionDatosEspecificos.class);
             elementDatosEspecificos = manager.generateElement(datosEspecificosPeticion);
             return elementDatosEspecificos;
         } catch (JAXBException ex) {
-            Logger.getLogger(SCDHPAJUv3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Q2827002CINSS001v3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParserConfigurationException ex) {
-            Logger.getLogger(SCDHPAJUv3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Q2827002CINSS001v3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         return null;
             
  
     }
 
     @Override
-    protected RespuestaClientAdapter<SCDHPAJUv3RespuestaDatosEspecificos> peticionSincronaEspecifica(
+    protected RespuestaClientAdapter<Q2827002CINSS001v3RespuestaDatosEspecificos> peticionSincronaEspecifica(
                 String codigoEstado, String codigoEstadoSecundario, 
                 String literalError, String literalErrorSec, Integer tiempoEstimadoRespuesta, 
                 String codigoCertificado, String idPeticion, 
@@ -80,7 +83,7 @@ public class SCDHPAJUv3RecobrimentFacade
                 String documentacion, String nombre, String nombreCompleto, 
                 TipoDocumentacion tipoDocumentacion, String fechaGeneracion, 
                 String idSolicitud, String idTransmision, 
-                SCDHPAJUv3PeticionDatosEspecificos datosEspecificosPeticion) {
+                Q2827002CINSS001v3PeticionDatosEspecificos datosEspecificosPeticion) {
         
         return this.peticionSincrona(
                 codigoEstado,
@@ -120,46 +123,14 @@ public class SCDHPAJUv3RecobrimentFacade
     }
     
     
-    private SCDHPAJUv3PeticionDatosEspecificos establecerDatosEspecificosPeticion(
-            String municipioSolicitud, String numeroAnyos, String provinciaSolicitud,
-            String nombreTipoDocumentacion, String valorDocumentacion, String NIA
+    private Q2827002CINSS001v3PeticionDatosEspecificos establecerDatosEspecificosPeticion(
+            
     ){
-    
-        
-        
-       
-        
-        
-        es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Documentacion documentacion
-                = new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Documentacion();
-        documentacion.setTipo(nombreTipoDocumentacion);
-        documentacion.setValor(valorDocumentacion);
-        
-        
-        es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Titular titular = 
-                 new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Titular();
-        
-        
-        titular.setDocumentacion(documentacion);
-        titular.setNIA(NIA);
-        
-        es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Solicitud solicitud =
-                new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Solicitud();
-        
-        solicitud.setMunicipioSolicitud(municipioSolicitud);
-        solicitud.setNumeroAnyos(numeroAnyos);
-        solicitud.setProvinciaSolicitud(provinciaSolicitud);
-        solicitud.setTitular(titular);
-        
-        SCDHPAJUv3PeticionDatosEspecificos datosEspecificos = new SCDHPAJUv3PeticionDatosEspecificos();
-        
-        datosEspecificos.setSolicitud(solicitud);
-        
-        return datosEspecificos;
+        return null;
     }
     
     
-    public RespuestaClientAdapter<SCDHPAJUv3RespuestaDatosEspecificos> peticionSincrona(
+    public RespuestaClientAdapter<Q2827002CINSS001v3RespuestaDatosEspecificos> peticionSincrona(
                 String codigoEstado, String codigoEstadoSecundario, 
                 String literalError, String literalErrorSec, Integer tiempoEstimadoRespuesta, 
                 String codigoCertificado, String idPeticion, 
@@ -173,15 +144,12 @@ public class SCDHPAJUv3RecobrimentFacade
                 String unidadTramitadora, String apellido1, String apellido2, 
                 String documentacion, String nombre, String nombreCompleto, 
                 TipoDocumentacion tipoDocumentacion, String fechaGeneracion, 
-                String idSolicitud, String idTransmision,
-                String municipioSolicitud, String numeroAnyos, String provinciaSolicitud,
-                String nombreTipoDocumentacion, String valorDocumentacion, String NIA
+                String idSolicitud, String idTransmision
                 ) {
         
         
-        SCDHPAJUv3PeticionDatosEspecificos datosEspecificosPeticion = 
-                establecerDatosEspecificosPeticion(municipioSolicitud, numeroAnyos,
-                provinciaSolicitud, nombreTipoDocumentacion,valorDocumentacion, NIA);
+        Q2827002CINSS001v3PeticionDatosEspecificos datosEspecificosPeticion = 
+                establecerDatosEspecificosPeticion();
         
         
         return this.peticionSincronaEspecifica(
@@ -222,16 +190,20 @@ public class SCDHPAJUv3RecobrimentFacade
     }
 
     @Override
-    protected SCDHPAJUv3RespuestaDatosEspecificos element2DatosEspecificos(Element elementDatosEspecificos) {
+    protected Q2827002CINSS001v3RespuestaDatosEspecificos element2DatosEspecificos(Element elementDatosEspecificos) {
         
-        SCDHPAJUv3RespuestaDatosEspecificos datosEspecificos;
+        Q2827002CINSS001v3RespuestaDatosEspecificos datosEspecificos;
         try {
-            XmlManager<SCDHPAJUv3RespuestaDatosEspecificos> manager
-                    = new XmlManager<SCDHPAJUv3RespuestaDatosEspecificos>(SCDHPAJUv3RespuestaDatosEspecificos.class);
+            XmlManager<Q2827002CINSS001v3RespuestaDatosEspecificos> manager
+                    = new XmlManager<Q2827002CINSS001v3RespuestaDatosEspecificos>(Q2827002CINSS001v3RespuestaDatosEspecificos.class);
+            
+            
+            Logger.getLogger(Q2827002CINSS001v3RecobrimentFacade.class.getName()).log(Level.INFO, elementDatosEspecificos.toString());
+            
             datosEspecificos = manager.generateItem(elementDatosEspecificos);
             return datosEspecificos;
         } catch (JAXBException ex) {
-            Logger.getLogger(SCDHPAJUv3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Q2827002CINSS001v3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

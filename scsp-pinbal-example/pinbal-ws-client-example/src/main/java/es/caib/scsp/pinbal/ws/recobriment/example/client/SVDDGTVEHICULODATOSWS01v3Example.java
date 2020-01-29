@@ -5,7 +5,7 @@ import es.caib.pinbal.ws.recobriment.Consentimiento;
 import es.caib.pinbal.ws.recobriment.TipoDocumentacion;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import es.caib.scsp.pinbal.ws.recobriment.client.RespuestaClientAdapter;
+import es.caib.scsp.pinbal.ws.recobriment.facade.RespuestaClientAdapter;
 import es.caib.scsp.pinbal.ws.recobriment.example.datosespecificos.SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos;
 import es.caib.scsp.pinbal.ws.recobriment.example.facade.SVDDGTVEHICULODATOSWS01v3RecobrimentFacade;
 

@@ -1,10 +1,3 @@
-package es.caib.scsp.pinbal.ws.recobriment.client;
-
-import es.caib.pinbal.ws.recobriment.Consentimiento;
-import es.caib.pinbal.ws.recobriment.TipoDocumentacion;
-import java.io.Serializable;
-import org.w3c.dom.Element;
-
 /*
  * Copyright 2020 gdeignacio.
  *
@@ -20,13 +13,19 @@ import org.w3c.dom.Element;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package es.caib.scsp.pinbal.ws.recobriment.facade;
+
+import es.caib.pinbal.ws.recobriment.Consentimiento;
+import es.caib.pinbal.ws.recobriment.TipoDocumentacion;
+import java.io.Serializable;
 
 /**
  *
  * @author gdeignacio
- * @param <TDatosEspecificos>
  */
-public class SolicitudTransmisionClientAdapter<TDatosEspecificos> implements Serializable {
+public class TransmisionDatosClientAdapter<TDatosEspecificos> implements Serializable {
+    
+    private String id;
     
      //Emisor
     private String nifEmisor;
@@ -36,7 +35,7 @@ public class SolicitudTransmisionClientAdapter<TDatosEspecificos> implements Ser
     private String nifFuncionario;
     private String nombreCompletoFuncionario;
     private String seudonimo;
-      
+    
     //Procedimiento
     private String codProcedimiento;
     private String nombreProcedimiento;
@@ -50,7 +49,7 @@ public class SolicitudTransmisionClientAdapter<TDatosEspecificos> implements Ser
     private String nombreSolicitante;
     private String unidadTramitadora;
     
-    //Titular
+       //Titular
     private String apellido1;
     private String apellido2;
     private String documentacion;
@@ -66,7 +65,16 @@ public class SolicitudTransmisionClientAdapter<TDatosEspecificos> implements Ser
     
     private TDatosEspecificos datosEspecificos;
     
-     public String getNifEmisor() {
+    
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getNifEmisor() {
         return nifEmisor;
     }
 
@@ -105,7 +113,7 @@ public class SolicitudTransmisionClientAdapter<TDatosEspecificos> implements Ser
     public void setSeudonimo(String seudonimo) {
         this.seudonimo = seudonimo;
     }
-    
+
     public String getCodProcedimiento() {
         return codProcedimiento;
     }
@@ -265,7 +273,5 @@ public class SolicitudTransmisionClientAdapter<TDatosEspecificos> implements Ser
     public void setDatosEspecificos(TDatosEspecificos datosEspecificos) {
         this.datosEspecificos = datosEspecificos;
     }
-    
-    
     
 }

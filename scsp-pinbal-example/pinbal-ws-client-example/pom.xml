@@ -48,6 +48,13 @@
             <type>jar</type>
         </dependency>
         
+        
+        <dependency>
+            <groupId>es.caib.scsp</groupId>
+            <artifactId>scsp-schemas-xsd-Q2827002CINSS001v3</artifactId>
+            <version>1.0.0</version>
+            <type>jar</type>
+        </dependency>
      
         <dependency>
             <groupId>es.caib.scsp</groupId>

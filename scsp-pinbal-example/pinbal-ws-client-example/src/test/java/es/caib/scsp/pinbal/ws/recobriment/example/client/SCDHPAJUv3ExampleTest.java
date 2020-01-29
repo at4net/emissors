@@ -16,7 +16,7 @@
 package es.caib.scsp.pinbal.ws.recobriment.example.client;
 
 import es.caib.scsp.pinbal.ws.recobriment.client.DadesConnexioRecobriment;
-import es.caib.scsp.pinbal.ws.recobriment.client.RespuestaClientAdapter;
+import es.caib.scsp.pinbal.ws.recobriment.facade.RespuestaClientAdapter;
 import es.caib.scsp.pinbal.ws.recobriment.example.datosespecificos.SCDHPAJUv3RespuestaDatosEspecificos;
 import org.junit.After;
 import org.junit.AfterClass;

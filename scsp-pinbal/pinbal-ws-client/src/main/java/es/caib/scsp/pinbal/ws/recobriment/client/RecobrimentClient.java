@@ -134,12 +134,16 @@ public class RecobrimentClient {
         Respuesta response;
         response = peticionSincrona(port, pet);
         
-        LOG.log(Level.INFO, "Respuesta: " +  response.toString());
+      
+        //LOG.log(Level.INFO, "Respuesta: " +  response.toString());
         
         return response;
     }
 
     private static Respuesta peticionSincrona(Recobriment port, Peticion pet) {
+        
+        
+        
         LOG.log(Level.INFO, "Invoking port...");
         Respuesta _peticionSincrona__return = port.peticionSincrona(pet);
         LOG.log(Level.INFO, "Return port...");

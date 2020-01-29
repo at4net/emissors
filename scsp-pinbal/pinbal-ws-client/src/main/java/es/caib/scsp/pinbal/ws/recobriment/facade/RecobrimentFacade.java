@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package es.caib.scsp.pinbal.ws.recobriment.client;
+package es.caib.scsp.pinbal.ws.recobriment.facade;
 
 import es.caib.pinbal.ws.recobriment.Atributos;
 import es.caib.pinbal.ws.recobriment.Estado;
@@ -37,6 +37,9 @@ import es.caib.pinbal.ws.recobriment.Titular;
 import es.caib.pinbal.ws.recobriment.Transmision;
 import es.caib.pinbal.ws.recobriment.TransmisionDatos;
 import es.caib.pinbal.ws.recobriment.Transmisiones;
+import es.caib.scsp.pinbal.ws.recobriment.client.DadesConnexioRecobriment;
+import es.caib.scsp.pinbal.ws.recobriment.client.RecobrimentClient;
+import es.caib.scsp.pinbal.ws.recobriment.client.RecobrimentUtils;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import org.w3c.dom.Element;
