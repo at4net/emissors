@@ -20,6 +20,7 @@
 package org.apache.cxf.jaxb;
 
 import java.util.Collection;
+import javax.xml.transform.dom.DOMResult;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -38,6 +39,9 @@ public final class JAXBToStringBuilder {
         }
         if (object instanceof Collection) {
             object = ((Collection<?>) object).toArray();
+        }
+        if (object instanceof DOMResult ) {
+            object = ((DOMResult) object).getNode().getNodeName();
         }
         return ToStringBuilder.reflectionToString(object, style);        
     }

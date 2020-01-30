@@ -15,6 +15,12 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
 
 import es.caib.scsp.utils.cxf.authentication.AuthenticatorReplacer;
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.ws.handler.Handler;
+import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.frontend.ClientProxy;
+
 
 /**
  *
@@ -113,7 +119,7 @@ public class RecobrimentClient {
 
         RecobrimentService ss = new RecobrimentService(wsdlURL, SERVICE_NAME);
         Recobriment port = ss.getRecobrimentServicePort();
-
+   
         Map<String, Object> req = ((BindingProvider) port).getRequestContext();
 
         req.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, dadesConnexio.getEndPoint());
@@ -124,18 +130,48 @@ public class RecobrimentClient {
         return port;
 
     }
+    
+      private Recobriment getHandledServicePort() {
+ 
+          Recobriment port = getServicePort();
+
+          RecobrimentSOAPHandler sh = new RecobrimentSOAPHandler();
+
+          List<Handler> handlerChain = new ArrayList<Handler>();
+          handlerChain.add(sh);
+          ((BindingProvider) port).getBinding().setHandlerChain(handlerChain);
+
+          return port;
+
+    }
+      
+    private Recobriment getInterceptedServicePort() {
+ 
+          Recobriment port = getServicePort();
+
+          Client cxfclient = ClientProxy.getClient(port);
+          cxfclient.getInInterceptors().add(
+                new RecobrimentPeticionSincronaSOAPInterceptor());
+
+          return port;
+
+    }
+    
 
     private static void dummy(Recobriment port) {
         LOG.log(Level.INFO, "Invoking dummy...");
     }
 
     public Respuesta peticionSincrona(Peticion pet) {
-        Recobriment port = getServicePort();
+        Recobriment port = getHandledServicePort();
         Respuesta response;
         response = peticionSincrona(port, pet);
         
-      
-        //LOG.log(Level.INFO, "Respuesta: " +  response.toString());
+        Map<String, Object> res = ((BindingProvider) port).getResponseContext();
+        
+        //LOG.log(Level.INFO, "Respuesta: " +  res.entrySet());
+        
+        LOG.log(Level.INFO, "Respuesta: " +  response.toString());
         
         return response;
     }

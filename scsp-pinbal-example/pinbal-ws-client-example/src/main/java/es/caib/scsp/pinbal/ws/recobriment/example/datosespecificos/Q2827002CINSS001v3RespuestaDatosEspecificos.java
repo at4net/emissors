@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author gdeignacio
  */
-@XmlRootElement(name = "DatosEspecificos")
+@XmlRootElement(name = "datosEspecificos")
 public class Q2827002CINSS001v3RespuestaDatosEspecificos 
         extends es.caib.scsp.esquemas.Q2827002CINSS001v3.respuesta.datosespecificos.DatosEspecificos {
     public Q2827002CINSS001v3RespuestaDatosEspecificos(){
