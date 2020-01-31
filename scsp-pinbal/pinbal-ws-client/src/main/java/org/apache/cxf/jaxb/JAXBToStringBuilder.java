@@ -19,13 +19,18 @@
 
 package org.apache.cxf.jaxb;
 
+import es.caib.pinbal.ws.recobriment.TransmisionDatos;
 import java.util.Collection;
-import javax.xml.transform.dom.DOMResult;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 public final class JAXBToStringBuilder {
+    
+    protected static final Logger LOG = Logger.getLogger(JAXBToStringBuilder.class.getName());
+    
     private JAXBToStringBuilder() {        
     }
     
@@ -34,15 +39,25 @@ public final class JAXBToStringBuilder {
     }
     
     public static String valueOf(Object object, ToStringStyle style) {
+        
         if (object instanceof String) {
             return (String)object;
         }
         if (object instanceof Collection) {
             object = ((Collection<?>) object).toArray();
         }
-        if (object instanceof DOMResult ) {
-            object = ((DOMResult) object).getNode().getNodeName();
+        
+        if (object instanceof TransmisionDatos) {
+            
+            LOG.log(Level.INFO, "StringBuilder: " +  object.getClass().getName());
+            //LOG.log(Level.INFO, "Respuesta: " +  ((TransmisionDatos)object).toString());
+            LOG.log(Level.INFO, "StringBuilder: " +  ((TransmisionDatos)object).getDatosEspecificos().getClass().getName());
+            LOG.log(Level.INFO, "StringBuilder: " +  ((TransmisionDatos)object).getDatosEspecificos().toString());
+            
+           
+            
         }
+        
         return ToStringBuilder.reflectionToString(object, style);        
     }
 }

@@ -86,7 +86,7 @@ public class SVDDGTVEHICULODATOSWS01v3ExampleTest {
         
         System.out.println("---------------------BASTIDOR----------------------------");
        
-        
+        System.out.println(result.getTransmisionesClient().get(0).toString());
         
         //assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
