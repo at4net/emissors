@@ -1,10 +1,18 @@
 package es.caib.scsp.pinbal.ws.recobriment.client;
 
 import es.caib.pinbal.ws.recobriment.ConfirmacionPeticion;
+import es.caib.pinbal.ws.recobriment.ObjectFactory;
 import es.caib.pinbal.ws.recobriment.Peticion;
 import es.caib.pinbal.ws.recobriment.Recobriment;
 import es.caib.pinbal.ws.recobriment.RecobrimentService;
 import es.caib.pinbal.ws.recobriment.Respuesta;
+import es.caib.pinbal.ws.recobriment.TransmisionDatos;
+import es.caib.pinbal.ws.recobriment.Transmisiones;
+import es.caib.scsp.pinbal.ws.recobriment.cxf.PeticionPinbalClient;
+import es.caib.scsp.pinbal.ws.recobriment.cxf.RecobrimentPinbalClient;
+import es.caib.scsp.pinbal.ws.recobriment.cxf.RecobrimentServicePinbalClient;
+import es.caib.scsp.pinbal.ws.recobriment.cxf.RespuestaPinbalClient;
+import es.caib.scsp.pinbal.ws.recobriment.cxf.TransmisionDatosPinbalClient;
 import es.caib.scsp.utils.ws.connexio.DadesConnexioSOAP;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -131,6 +139,44 @@ public class RecobrimentClient {
 
     }
     
+        private RecobrimentPinbalClient getServicePinbalClientPort() {
+ 
+        AuthenticatorReplacer.verifyHost();
+
+        URL wsdlURL = null;
+
+        try {
+            LOG.info(dadesConnexio.getWsdlLocation());
+            wsdlURL = new URL(dadesConnexio.getWsdlLocation());
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(RecobrimentClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        
+        String userName = dadesConnexio.getUserName();
+        String password = dadesConnexio.getPassword();
+
+        AuthenticatorReplacer.setAuthenticator(userName, password);
+
+        LOG.log(Level.INFO, "Servicio:  {0}", SERVICE_NAME);
+        LOG.log(Level.INFO, "URL: {0}", wsdlURL);
+
+        RecobrimentServicePinbalClient ss = new RecobrimentServicePinbalClient(wsdlURL, SERVICE_NAME);
+        RecobrimentPinbalClient port = ss.getRecobrimentServicePinbalClientPort();
+   
+        Map<String, Object> req = ((BindingProvider) port).getRequestContext();
+
+        req.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, dadesConnexio.getEndPoint());
+
+        req.put(BindingProvider.USERNAME_PROPERTY, dadesConnexio.getUserName());
+        req.put(BindingProvider.PASSWORD_PROPERTY, dadesConnexio.getPassword());
+
+        return port;
+
+    }
+    
+    
+    
       private Recobriment getHandledServicePort() {
  
           Recobriment port = getServicePort();
@@ -163,9 +209,33 @@ public class RecobrimentClient {
     }
 
     public Respuesta peticionSincrona(Peticion pet) {
-        Recobriment port = getHandledServicePort();
+        RecobrimentPinbalClient port = getServicePinbalClientPort();
         Respuesta response;
-        response = peticionSincrona(port, pet);
+        
+        RespuestaPinbalClient respuestaPinbal = peticionSincronaPinbalClient(port, (PeticionPinbalClient)pet);
+        
+        LOG.log(Level.INFO, "Respuesta Pinbal: " +  respuestaPinbal.toString());
+        
+        ObjectFactory of = new ObjectFactory();
+        
+        response = of.createRespuesta();
+        
+        response.setAtributos(respuestaPinbal.getAtributos());
+        
+        Transmisiones transmisiones = of.createTransmisiones();
+        
+        for (TransmisionDatosPinbalClient transmisionDatosPinbal:respuestaPinbal.getTransmisiones().getTransmisionDatos()){
+            
+            TransmisionDatos transmisionDatos = of.createTransmisionDatos();
+
+            transmisionDatos.setDatosEspecificos(transmisionDatosPinbal.getDatosEspecificos());
+            transmisionDatos.setDatosGenericos(transmisionDatosPinbal.getDatosGenericos());
+            transmisionDatos.setId(transmisionDatosPinbal.getId());
+            
+            transmisiones.getTransmisionDatos().add(transmisionDatos);
+        }
+        
+        response.setTransmisiones(transmisiones);
         
         Map<String, Object> res = ((BindingProvider) port).getResponseContext();
         
@@ -176,12 +246,10 @@ public class RecobrimentClient {
         return response;
     }
 
-    private static Respuesta peticionSincrona(Recobriment port, Peticion pet) {
-        
-        
+    private static RespuestaPinbalClient peticionSincronaPinbalClient(RecobrimentPinbalClient port, PeticionPinbalClient pet) {
         
         LOG.log(Level.INFO, "Invoking port...");
-        Respuesta _peticionSincrona__return = port.peticionSincrona(pet);
+        RespuestaPinbalClient _peticionSincrona__return = port.peticionSincronaPinbalClient(pet);
         LOG.log(Level.INFO, "Return port...");
         return _peticionSincrona__return;
     }
