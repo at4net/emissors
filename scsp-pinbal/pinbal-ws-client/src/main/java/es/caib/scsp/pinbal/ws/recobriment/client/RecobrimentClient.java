@@ -7,12 +7,8 @@ import es.caib.pinbal.ws.recobriment.Recobriment;
 import es.caib.pinbal.ws.recobriment.RecobrimentService;
 import es.caib.pinbal.ws.recobriment.Respuesta;
 import es.caib.pinbal.ws.recobriment.TransmisionDatos;
-import es.caib.pinbal.ws.recobriment.Transmisiones;
-import es.caib.scsp.pinbal.ws.recobriment.cxf.PeticionPinbalClient;
 import es.caib.scsp.pinbal.ws.recobriment.cxf.RecobrimentPinbalClient;
 import es.caib.scsp.pinbal.ws.recobriment.cxf.RecobrimentServicePinbalClient;
-import es.caib.scsp.pinbal.ws.recobriment.cxf.RespuestaPinbalClient;
-import es.caib.scsp.pinbal.ws.recobriment.cxf.TransmisionDatosPinbalClient;
 import es.caib.scsp.utils.ws.connexio.DadesConnexioSOAP;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -23,11 +19,23 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
 
 import es.caib.scsp.utils.cxf.authentication.AuthenticatorReplacer;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import javax.xml.ws.handler.Handler;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.frontend.ClientProxy;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 
 /**
@@ -104,7 +112,7 @@ public class RecobrimentClient {
             DadesConnexioRecobriment._SERVICE_NAME);
 
     private Recobriment getServicePort() {
- 
+
         AuthenticatorReplacer.verifyHost();
 
         URL wsdlURL = null;
@@ -116,7 +124,6 @@ public class RecobrimentClient {
             Logger.getLogger(RecobrimentClient.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        
         String userName = dadesConnexio.getUserName();
         String password = dadesConnexio.getPassword();
 
@@ -127,7 +134,7 @@ public class RecobrimentClient {
 
         RecobrimentService ss = new RecobrimentService(wsdlURL, SERVICE_NAME);
         Recobriment port = ss.getRecobrimentServicePort();
-   
+
         Map<String, Object> req = ((BindingProvider) port).getRequestContext();
 
         req.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, dadesConnexio.getEndPoint());
@@ -138,9 +145,9 @@ public class RecobrimentClient {
         return port;
 
     }
-    
-        private RecobrimentPinbalClient getServicePinbalClientPort() {
- 
+
+    private RecobrimentPinbalClient getServicePinbalClientPort() {
+
         AuthenticatorReplacer.verifyHost();
 
         URL wsdlURL = null;
@@ -152,7 +159,6 @@ public class RecobrimentClient {
             Logger.getLogger(RecobrimentClient.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        
         String userName = dadesConnexio.getUserName();
         String password = dadesConnexio.getPassword();
 
@@ -163,7 +169,7 @@ public class RecobrimentClient {
 
         RecobrimentServicePinbalClient ss = new RecobrimentServicePinbalClient(wsdlURL, SERVICE_NAME);
         RecobrimentPinbalClient port = ss.getRecobrimentServicePinbalClientPort();
-   
+
         Map<String, Object> req = ((BindingProvider) port).getRequestContext();
 
         req.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, dadesConnexio.getEndPoint());
@@ -174,82 +180,172 @@ public class RecobrimentClient {
         return port;
 
     }
-    
-    
-    
-      private Recobriment getHandledServicePort() {
- 
-          Recobriment port = getServicePort();
 
-          RecobrimentSOAPHandler sh = new RecobrimentSOAPHandler();
+    private Recobriment getHandledServicePort() {
 
-          List<Handler> handlerChain = new ArrayList<Handler>();
-          handlerChain.add(sh);
-          ((BindingProvider) port).getBinding().setHandlerChain(handlerChain);
+        Recobriment port = getServicePort();
 
-          return port;
+        RecobrimentSOAPHandler sh = new RecobrimentSOAPHandler();
+
+        List<Handler> handlerChain = new ArrayList<Handler>();
+        handlerChain.add(sh);
+        
+        BindingProvider bindingProvider = ((BindingProvider) port);
+        
+        bindingProvider.getBinding().setHandlerChain(handlerChain);
+
+        return port;
 
     }
-      
-    private Recobriment getInterceptedServicePort() {
- 
-          Recobriment port = getServicePort();
 
-          Client cxfclient = ClientProxy.getClient(port);
-          cxfclient.getInInterceptors().add(
+    private Recobriment getInterceptedServicePort() {
+
+        Recobriment port = getServicePort();
+
+        Client cxfclient = ClientProxy.getClient(port);
+        cxfclient.getInInterceptors().add(
                 new RecobrimentPeticionSincronaSOAPInterceptor());
 
-          return port;
+        return port;
 
     }
-    
+
 
     private static void dummy(Recobriment port) {
         LOG.log(Level.INFO, "Invoking dummy...");
     }
 
     public Respuesta peticionSincrona(Peticion pet) {
+        
+        Recobriment port = getHandledServicePort();
+        
+        Respuesta response;
+
+        response = peticionSincrona(port, pet);
+
+        LOG.log(Level.INFO, "Respuesta Pinbal: {0}", response.toString());
+
+        Map<String, Object> res = ((BindingProvider) port).getResponseContext();
+
+        String body = (String)res.get(RecobrimentSOAPHandler.RESPONSE_BODY);
+        
+        String datosEspecificos = StringUtils.substringBetween(body, "<datosEspecificos>", "</datosEspecificos>");
+        
+        datosEspecificos = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><datosEspecificos>".concat(datosEspecificos).concat("</datosEspecificos>");
+        
+        try {
+            
+            Element element = stringToElement(datosEspecificos);
+            LOG.log(Level.INFO, "Element: {0}", element.toString());
+            
+            ObjectFactory of = new ObjectFactory();
+            
+            TransmisionDatos transmisionDatos = of.createTransmisionDatos();
+            
+            for (TransmisionDatos transmisionDatosPinbal:response.getTransmisiones().getTransmisionDatos()){
+                transmisionDatos = transmisionDatosPinbal;
+                break;
+            }
+            
+            LOG.log(Level.INFO, "Element: {0}", element.toString());
+            transmisionDatos.setDatosEspecificos((Object)element);
+            
+            response.getTransmisiones().getTransmisionDatos().set(0, transmisionDatos);
+            
+        } catch (TransformerException ex) {
+            Logger.getLogger(RecobrimentClient.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(RecobrimentClient.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SAXException ex) {
+            Logger.getLogger(RecobrimentClient.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(RecobrimentClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
+        
+        LOG.log(Level.INFO, "Respuesta contexto: {0}", datosEspecificos);
+        
+        
+        LOG.log(Level.INFO, "Respuesta Pinbal TRANSFORMADA: {0}", response.toString());
+        
+        return response;
+    }
+    
+    private Element stringToElement(String xml) throws TransformerException, ParserConfigurationException, SAXException, IOException {
+        
+        //Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+        
+        
+        
+        //DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        //dbFactory.setNamespaceAware(true);
+        //DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+        //StringReader reader = new StringReader(xml);
+        //InputSource inputSource = new InputSource(reader);
+        //Document doc = dBuilder.parse(inputSource);
+        
+        //Document doc = loadXMLFrom(xml);
+        //return document.getDocumentElement();
+        
+        
+        
+
+    Element node =  DocumentBuilderFactory
+    .newInstance()
+    .newDocumentBuilder()
+    .parse(new ByteArrayInputStream("<node>value</node>".getBytes()))
+    .getDocumentElement();
+
+    return node;
+        
+        
+    }
+    
+    
+    /*
+    public Respuesta peticionSincrona(Peticion pet) {
         RecobrimentPinbalClient port = getServicePinbalClientPort();
         Respuesta response;
-        
-        RespuestaPinbalClient respuestaPinbal = peticionSincronaPinbalClient(port, (PeticionPinbalClient)pet);
-        
-        LOG.log(Level.INFO, "Respuesta Pinbal: " +  respuestaPinbal.toString());
-        
+
+        RespuestaPinbalClient respuestaPinbal = peticionSincronaPinbalClient(port, (PeticionPinbalClient) pet);
+
+        LOG.log(Level.INFO, "Respuesta Pinbal: " + respuestaPinbal.toString());
+
         ObjectFactory of = new ObjectFactory();
-        
+
         response = of.createRespuesta();
-        
+
         response.setAtributos(respuestaPinbal.getAtributos());
-        
+
         Transmisiones transmisiones = of.createTransmisiones();
-        
-        for (TransmisionDatosPinbalClient transmisionDatosPinbal:respuestaPinbal.getTransmisiones().getTransmisionDatos()){
-            
+
+        for (TransmisionDatosPinbalClient transmisionDatosPinbal : respuestaPinbal.getTransmisiones().getTransmisionDatos()) {
+
             TransmisionDatos transmisionDatos = of.createTransmisionDatos();
 
             transmisionDatos.setDatosEspecificos(transmisionDatosPinbal.getDatosEspecificos());
             transmisionDatos.setDatosGenericos(transmisionDatosPinbal.getDatosGenericos());
             transmisionDatos.setId(transmisionDatosPinbal.getId());
-            
+
             transmisiones.getTransmisionDatos().add(transmisionDatos);
         }
-        
+
         response.setTransmisiones(transmisiones);
-        
+
         Map<String, Object> res = ((BindingProvider) port).getResponseContext();
-        
+
         //LOG.log(Level.INFO, "Respuesta: " +  res.entrySet());
-        
-        LOG.log(Level.INFO, "Respuesta: " +  response.toString());
-        
+        LOG.log(Level.INFO, "Respuesta: " + response.toString());
+
         return response;
     }
+*/
 
-    private static RespuestaPinbalClient peticionSincronaPinbalClient(RecobrimentPinbalClient port, PeticionPinbalClient pet) {
-        
+    private static Respuesta peticionSincrona(Recobriment port, Peticion pet) {
         LOG.log(Level.INFO, "Invoking port...");
-        RespuestaPinbalClient _peticionSincrona__return = port.peticionSincronaPinbalClient(pet);
+        Respuesta _peticionSincrona__return = port.peticionSincrona(pet);
         LOG.log(Level.INFO, "Return port...");
         return _peticionSincrona__return;
     }
