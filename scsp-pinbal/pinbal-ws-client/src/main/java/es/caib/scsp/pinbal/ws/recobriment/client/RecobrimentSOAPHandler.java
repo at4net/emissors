@@ -17,11 +17,16 @@ package es.caib.scsp.pinbal.ws.recobriment.client;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.namespace.QName;
+import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.ws.handler.MessageContext;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  *
@@ -30,8 +35,9 @@ import javax.xml.ws.handler.soap.SOAPMessageContext;
 public class RecobrimentSOAPHandler implements
         javax.xml.ws.handler.soap.SOAPHandler<SOAPMessageContext> {
 
+    public static String DATOS_ESPECIFICOS = "es.caib.scsp.pinbal.ws.recobriment.client.datosespecificos";
     public static String RESPONSE_BODY = "es.caib.scsp.pinbal.ws.recobriment.client.response";
-    
+            
     protected static final Logger LOG = Logger.getLogger(RecobrimentSOAPHandler.class.getName());
 
     @Override
@@ -41,13 +47,13 @@ public class RecobrimentSOAPHandler implements
 
     @Override
     public boolean handleMessage(SOAPMessageContext smc) {
-        obtenerRespuesta(smc);
+        obtenerDatosEspecificos(smc);
         return true;
     }
 
     @Override
     public boolean handleFault(SOAPMessageContext smc) {
-        obtenerRespuesta(smc);
+        obtenerDatosEspecificos(smc);
         return true;
     }
 
@@ -55,8 +61,66 @@ public class RecobrimentSOAPHandler implements
     public void close(MessageContext messageContext) {
     }
 
-    private void obtenerRespuesta(SOAPMessageContext soapMessageContext) {
-       
+    
+    private void handleTransmisionDatosElement(SOAPMessageContext soapMessageContext, Element transmisionDatosElement){
+        
+        NodeList idSolicitudList = transmisionDatosElement.getElementsByTagName("idSolicitud");
+        
+        if (idSolicitudList==null) return;
+        if (idSolicitudList.getLength()==0) return;
+        
+        NodeList idTransmisionList = transmisionDatosElement.getElementsByTagName("idTransmision");
+        
+        if (idTransmisionList==null) return;
+        if (idTransmisionList.getLength()==0) return;
+        
+        NodeList datosEspecificosList = transmisionDatosElement.getElementsByTagName("datosEspecificos");
+        if (datosEspecificosList==null) return;
+        if (datosEspecificosList.getLength()==0) return;
+        
+        String idSolicitud = idSolicitudList.item(0).getTextContent();
+        String idTransmision = idTransmisionList.item(0).getTextContent();
+        Node datosEspecificosNode = datosEspecificosList.item(0);
+        
+         LOG.log(Level.INFO, "Valor TransmisionDatosElement Handler: {0}", datosEspecificosNode.getTextContent());
+        
+        
+        String key = DATOS_ESPECIFICOS + "." + idSolicitud + "." + idTransmision;
+        Element value = (Element)datosEspecificosNode;
+        
+        LOG.log(Level.INFO, "Clave contexto Handler: {0}", key);
+        LOG.log(Level.INFO, "Valor contexto Handler: {0}", value.getTextContent());
+        
+        soapMessageContext.put(key, value);
+        soapMessageContext.setScope(key, MessageContext.Scope.APPLICATION);
+        
+        LOG.log(Level.INFO, "Full context: {0}", soapMessageContext.toString());
+        
+        
+        
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        String message;
+        try {
+        
+            soapMessageContext.getMessage().writeTo(baos);
+            message = baos.toString();
+            key = RESPONSE_BODY;
+            soapMessageContext.put(key, baos.toString("UTF-8"));
+            soapMessageContext.setScope(key, MessageContext.Scope.APPLICATION);
+
+        } catch (Exception ex) {
+            message = "Error al processar el missatge XML: " + ex.getMessage();
+        }
+        LOG.info(message);
+        
+        
+        
+    
+    }
+    
+    private void obtenerDatosEspecificos(SOAPMessageContext soapMessageContext) {
+
         boolean isRequest = (Boolean) soapMessageContext.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
 
         if (isRequest) {
@@ -64,20 +128,18 @@ public class RecobrimentSOAPHandler implements
         }
 
         SOAPMessage soapMessage = soapMessageContext.getMessage();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-        String message;
         try {
-            soapMessage.writeTo(baos);
-            message = baos.toString();
-            String key = RESPONSE_BODY;
-            soapMessageContext.put(RESPONSE_BODY, baos.toString("UTF-8"));
-            soapMessageContext.setScope(key, MessageContext.Scope.APPLICATION);
+            NodeList transmisionDatosNodeList = soapMessage.getSOAPBody().getElementsByTagName("transmisionDatos");
+            Node transmisionDatosNode = null;
+            for (int i = 0; i < transmisionDatosNodeList.getLength(); i++) {
+                transmisionDatosNode = transmisionDatosNodeList.item(i);
+                handleTransmisionDatosElement(soapMessageContext, (Element)transmisionDatosNode);
+            }
 
-        } catch (Exception ex) {
-            message = "Error al processar el missatge XML: " + ex.getMessage();
+        } catch (SOAPException ex) {
+            Logger.getLogger(RecobrimentSOAPHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
-        LOG.info(message);
 
     }
 

@@ -40,6 +40,12 @@ public class SVDDGTVEHICULODATOSWS01v3RecobrimentFacade
         super(app);
     }
 
+    @Override
+    protected Class<SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos> getDatosEspecificosRespuestaClazz() {
+        return SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos.class;
+    }
+    
+    
     /**
      *
      * @param datosEspecificosPeticion
@@ -216,6 +222,8 @@ public class SVDDGTVEHICULODATOSWS01v3RecobrimentFacade
         }
         return null;
     }
+
+   
 
 
 }

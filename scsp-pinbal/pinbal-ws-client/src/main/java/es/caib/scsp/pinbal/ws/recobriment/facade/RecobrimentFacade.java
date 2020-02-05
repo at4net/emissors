@@ -67,8 +67,10 @@ public abstract class RecobrimentFacade<TDatosEspecificosPeticion, TDatosEspecif
         this.client = RecobrimentClient.getClient(dadesConnexio);
     }
     
+    protected abstract Class<TDatosEspecificosRespuesta> getDatosEspecificosRespuestaClazz();
+    
     public Respuesta peticionSincrona(Peticion peticion){
-        return this.client.peticionSincrona(peticion);
+        return this.client.peticionSincrona(peticion, getDatosEspecificosRespuestaClazz());
     } 
     
     public RespuestaClientAdapter<TDatosEspecificosRespuesta> peticionSincrona(PeticionClientAdapter<TDatosEspecificosPeticion> peticionClient){

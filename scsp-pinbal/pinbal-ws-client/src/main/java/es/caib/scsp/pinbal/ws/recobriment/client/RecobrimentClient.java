@@ -6,6 +6,7 @@ import es.caib.pinbal.ws.recobriment.Peticion;
 import es.caib.pinbal.ws.recobriment.Recobriment;
 import es.caib.pinbal.ws.recobriment.RecobrimentService;
 import es.caib.pinbal.ws.recobriment.Respuesta;
+import es.caib.pinbal.ws.recobriment.Transmision;
 import es.caib.pinbal.ws.recobriment.TransmisionDatos;
 import es.caib.scsp.pinbal.ws.recobriment.cxf.RecobrimentPinbalClient;
 import es.caib.scsp.pinbal.ws.recobriment.cxf.RecobrimentServicePinbalClient;
@@ -21,10 +22,8 @@ import javax.xml.ws.BindingProvider;
 import es.caib.scsp.utils.cxf.authentication.AuthenticatorReplacer;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -32,9 +31,7 @@ import javax.xml.ws.handler.Handler;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.frontend.ClientProxy;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 
@@ -215,7 +212,7 @@ public class RecobrimentClient {
         LOG.log(Level.INFO, "Invoking dummy...");
     }
 
-    public Respuesta peticionSincrona(Peticion pet) {
+    public Respuesta peticionSincrona(Peticion pet, Class<?> datosEspecificosRespuestaClazz) {
         
         Recobriment port = getHandledServicePort();
         
@@ -224,14 +221,41 @@ public class RecobrimentClient {
         response = peticionSincrona(port, pet);
 
         LOG.log(Level.INFO, "Respuesta Pinbal: {0}", response.toString());
-
+        
         Map<String, Object> res = ((BindingProvider) port).getResponseContext();
+        
+        
+        for (TransmisionDatos transmisionDatos:response.getTransmisiones().getTransmisionDatos()){
+                Transmision transmision = transmisionDatos.getDatosGenericos().getTransmision();
+                
+                
+                String key = RecobrimentSOAPHandler.DATOS_ESPECIFICOS + "." 
+                        + transmision.getIdSolicitud() + "." + transmision.getIdTransmision();
+                
+                LOG.log(Level.INFO, "Clave contexto: {0}", key);
+                
+                Element datosEspecificos = (Element)res.get(key);
+                
+                
+                
+                LOG.log(Level.INFO, "Respuesta Element Datos client: {0}", datosEspecificos.getTextContent());
+                transmisionDatos.setDatosEspecificos(datosEspecificos);
+        }
+        
+        
+         LOG.log(Level.INFO, "Client context: {0}", res.toString());
+        
+        
 
-        String body = (String)res.get(RecobrimentSOAPHandler.RESPONSE_BODY);
+
+        //String body = (String)res.get(RecobrimentSOAPHandler.DATOS_ESPECIFICOS);
         
-        String datosEspecificos = StringUtils.substringBetween(body, "<datosEspecificos>", "</datosEspecificos>");
+        //String datosEspecificos = StringUtils.substringBetween(body, "<datosEspecificos>", "</datosEspecificos>");
         
-        datosEspecificos = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><datosEspecificos>".concat(datosEspecificos).concat("</datosEspecificos>");
+        //datosEspecificos = "<datosEspecificos>".concat(datosEspecificos).concat("</datosEspecificos>");
+        
+        /*
+        String datosEspecificos = "<hello>world</hello>";
         
         try {
             
@@ -243,6 +267,7 @@ public class RecobrimentClient {
             TransmisionDatos transmisionDatos = of.createTransmisionDatos();
             
             for (TransmisionDatos transmisionDatosPinbal:response.getTransmisiones().getTransmisionDatos()){
+                LOG.log(Level.INFO, "Id Transmision: {0}", transmisionDatosPinbal.getId());
                 transmisionDatos = transmisionDatosPinbal;
                 break;
             }
@@ -266,6 +291,8 @@ public class RecobrimentClient {
         
         
         LOG.log(Level.INFO, "Respuesta contexto: {0}", datosEspecificos);
+        
+        */
         
         
         LOG.log(Level.INFO, "Respuesta Pinbal TRANSFORMADA: {0}", response.toString());

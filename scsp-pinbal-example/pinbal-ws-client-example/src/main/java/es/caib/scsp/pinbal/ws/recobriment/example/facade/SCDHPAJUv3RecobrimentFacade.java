@@ -40,6 +40,11 @@ public class SCDHPAJUv3RecobrimentFacade
         super(app);
     }
 
+    @Override
+    protected Class<SCDHPAJUv3RespuestaDatosEspecificos> getDatosEspecificosRespuestaClazz() {
+        return SCDHPAJUv3RespuestaDatosEspecificos.class;
+    }
+
     /**
      *
      * @param datosEspecificosPeticion
