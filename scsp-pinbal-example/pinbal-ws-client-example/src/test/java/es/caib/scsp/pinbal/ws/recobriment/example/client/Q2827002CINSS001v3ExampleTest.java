@@ -84,9 +84,7 @@ public class Q2827002CINSS001v3ExampleTest {
         RespuestaClientAdapter<Q2827002CINSS001v3RespuestaDatosEspecificos> expResult = null;
         RespuestaClientAdapter<Q2827002CINSS001v3RespuestaDatosEspecificos> result = instance.peticionSincrona();
         
-        System.out.println("---------------------BASTIDOR----------------------------");
-       
-        
+        System.out.println(result.getTransmisionesClient().get(0).getDatosEspecificos().getRetorno());
         
         //assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.

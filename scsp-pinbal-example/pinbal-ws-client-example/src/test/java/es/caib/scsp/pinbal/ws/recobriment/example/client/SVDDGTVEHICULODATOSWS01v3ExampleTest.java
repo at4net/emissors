@@ -84,10 +84,8 @@ public class SVDDGTVEHICULODATOSWS01v3ExampleTest {
         RespuestaClientAdapter<SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos> expResult = null;
         RespuestaClientAdapter<SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos> result = instance.peticionSincrona();
         
-        System.out.println("---------------------BASTIDOR----------------------------");
-       
-        System.out.println(result.getTransmisionesClient().get(0).toString());
         
+       
         //assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");

@@ -15,18 +15,13 @@
  */
 package es.caib.scsp.utils.xml;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.StringReader;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -48,10 +43,6 @@ public class Documents {
          //If you have an xml string then you can pass the string into StringReader
          inputStream.setCharacterStream(new StringReader(xml));
          Document document = documentBuilder.parse(inputStream);
-         
-         
-         
-         System.out.println("-----------" + document.getChildNodes().getLength());
          
          return document.getDocumentElement();
          

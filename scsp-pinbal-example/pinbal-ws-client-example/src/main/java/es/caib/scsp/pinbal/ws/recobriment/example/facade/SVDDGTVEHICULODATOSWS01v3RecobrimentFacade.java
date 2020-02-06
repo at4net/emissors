@@ -36,6 +36,9 @@ public class SVDDGTVEHICULODATOSWS01v3RecobrimentFacade
         extends RecobrimentFacade<
         SVDDGTVEHICULODATOSWS01v3PeticionDatosEspecificos, SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos> {
 
+    
+    protected static final Logger LOG = Logger.getLogger(SVDDGTVEHICULODATOSWS01v3RecobrimentFacade.class.getName());
+    
     public SVDDGTVEHICULODATOSWS01v3RecobrimentFacade(String app) {
         super(app);
     }
@@ -206,16 +209,24 @@ public class SVDDGTVEHICULODATOSWS01v3RecobrimentFacade
 
     @Override
     protected SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos element2DatosEspecificos(Element elementDatosEspecificos) {
+
         
         SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos datosEspecificos;
         try {
             XmlManager<SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos> manager
                     = new XmlManager<SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos>(SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos.class);
+
             
-            
-            Logger.getLogger(SVDDGTVEHICULODATOSWS01v3RecobrimentFacade.class.getName()).log(Level.INFO, elementDatosEspecificos.toString());
-            
+          
             datosEspecificos = manager.generateItem(elementDatosEspecificos);
+            
+             LOG.info("Element datos Especificos Recobriment Facade: " + elementDatosEspecificos.getTextContent());
+        
+             LOG.info("-------------------------------Element atos Especificos raw: " + elementDatosEspecificos.getFirstChild().getNodeName());
+        
+             //LOG.info("-------------------------------Datos Especificos to string: " + datosEspecificos.getRetorno().getEstado().getCodigoEstado());
+           
+            
             return datosEspecificos;
         } catch (JAXBException ex) {
             Logger.getLogger(SVDDGTVEHICULODATOSWS01v3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);

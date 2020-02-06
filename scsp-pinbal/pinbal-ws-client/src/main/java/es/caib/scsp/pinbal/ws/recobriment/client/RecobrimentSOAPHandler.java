@@ -82,19 +82,19 @@ public class RecobrimentSOAPHandler implements
         String idTransmision = idTransmisionList.item(0).getTextContent();
         Node datosEspecificosNode = datosEspecificosList.item(0);
         
-         LOG.log(Level.INFO, "Valor TransmisionDatosElement Handler: {0}", datosEspecificosNode.getTextContent());
+        //LOG.log(Level.INFO, "Valor TransmisionDatosElement Handler: {0}", datosEspecificosNode.getTextContent());
         
         
         String key = DATOS_ESPECIFICOS + "." + idSolicitud + "." + idTransmision;
         Element value = (Element)datosEspecificosNode;
         
-        LOG.log(Level.INFO, "Clave contexto Handler: {0}", key);
-        LOG.log(Level.INFO, "Valor contexto Handler: {0}", value.getTextContent());
+        //LOG.log(Level.INFO, "Clave contexto Handler: {0}", key);
+        //LOG.log(Level.INFO, "Valor contexto Handler: {0}", value.getTextContent());
         
         soapMessageContext.put(key, value);
         soapMessageContext.setScope(key, MessageContext.Scope.APPLICATION);
         
-        LOG.log(Level.INFO, "Full context: {0}", soapMessageContext.toString());
+        //LOG.log(Level.INFO, "Full context: {0}", soapMessageContext.toString());
         
         
         
@@ -112,7 +112,7 @@ public class RecobrimentSOAPHandler implements
         } catch (Exception ex) {
             message = "Error al processar el missatge XML: " + ex.getMessage();
         }
-        LOG.info(message);
+        //LOG.info(message);
         
         
         
