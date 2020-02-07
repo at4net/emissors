@@ -40,13 +40,6 @@ public class Q2827002CINSS001v3RecobrimentFacade
         super(app);
     }
 
-    @Override
-    protected Class<Q2827002CINSS001v3RespuestaDatosEspecificos> getDatosEspecificosRespuestaClazz() {
-        return Q2827002CINSS001v3RespuestaDatosEspecificos.class;
-    }
-    
-    
-
     /**
      *
      * @param datosEspecificosPeticion

@@ -29,7 +29,7 @@ import org.xml.sax.SAXException;
  *
  * @author gdeignacio
  */
-public class Documents {
+public class XmlUtils {
     
      public static Element stringToElement(String xml) throws ParserConfigurationException, SAXException, IOException {
         

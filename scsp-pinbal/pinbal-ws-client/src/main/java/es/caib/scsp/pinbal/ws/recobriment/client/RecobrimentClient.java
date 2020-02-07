@@ -210,7 +210,7 @@ public class RecobrimentClient {
         LOG.log(Level.INFO, "Invoking dummy...");
     }
 
-    public Respuesta peticionSincrona(Peticion pet, Class<?> datosEspecificosRespuestaClazz) {
+    public Respuesta peticionSincrona(Peticion pet) {
         
         Recobriment port = getHandledServicePort();
         
@@ -218,37 +218,20 @@ public class RecobrimentClient {
 
         response = peticionSincrona(port, pet);
 
-        //LOG.log(Level.INFO, "Respuesta Pinbal: {0}", response.toString());
-        
         Map<String, Object> res = ((BindingProvider) port).getResponseContext();
-        
-       
         
         for (TransmisionDatos transmisionDatos:response.getTransmisiones().getTransmisionDatos()){
                 Transmision transmision = transmisionDatos.getDatosGenericos().getTransmision();
-                
-                
+             
                 String key = RecobrimentSOAPHandler.DATOS_ESPECIFICOS + "." 
                         + transmision.getIdSolicitud() + "." + transmision.getIdTransmision();
-                
-                //LOG.log(Level.INFO, "Clave contexto: {0}", key);
-                
                 Element datosEspecificos = (Element)res.get(key);
-                
-                //LOG.log(Level.INFO, "Respuesta Element Datos client: {0}", datosEspecificos.getTextContent());
-                
-                
                 transmisionDatos.setDatosEspecificos(datosEspecificos);
-                
-                
         }
         
         
-         //LOG.log(Level.INFO, "Client context: {0}", res.toString());
+        //LOG.log(Level.INFO, "Client context: {0}", res.toString());
         
-        
-
-
         //String body = (String)res.get(RecobrimentSOAPHandler.DATOS_ESPECIFICOS);
         
         //String datosEspecificos = StringUtils.substringBetween(body, "<datosEspecificos>", "</datosEspecificos>");
@@ -301,35 +284,7 @@ public class RecobrimentClient {
         return response;
     }
     
-    private Element stringToElement(String xml) throws TransformerException, ParserConfigurationException, SAXException, IOException {
-        
-        //Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-        
-        
-        
-        //DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        //dbFactory.setNamespaceAware(true);
-        //DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        //StringReader reader = new StringReader(xml);
-        //InputSource inputSource = new InputSource(reader);
-        //Document doc = dBuilder.parse(inputSource);
-        
-        //Document doc = loadXMLFrom(xml);
-        //return document.getDocumentElement();
-        
-        
-        
-
-    Element node =  DocumentBuilderFactory
-    .newInstance()
-    .newDocumentBuilder()
-    .parse(new ByteArrayInputStream("<node>value</node>".getBytes()))
-    .getDocumentElement();
-
-    return node;
-        
-        
-    }
+    
     
     
     /*

@@ -41,7 +41,6 @@ import es.caib.scsp.pinbal.ws.recobriment.client.DadesConnexioRecobriment;
 import es.caib.scsp.pinbal.ws.recobriment.client.RecobrimentClient;
 import es.caib.scsp.pinbal.ws.recobriment.client.RecobrimentUtils;
 import java.util.ArrayList;
-import java.util.logging.Level;
 import org.w3c.dom.Element;
 
 /**
@@ -67,10 +66,8 @@ public abstract class RecobrimentFacade<TDatosEspecificosPeticion, TDatosEspecif
         this.client = RecobrimentClient.getClient(dadesConnexio);
     }
     
-    protected abstract Class<TDatosEspecificosRespuesta> getDatosEspecificosRespuestaClazz();
-    
     public Respuesta peticionSincrona(Peticion peticion){
-        return this.client.peticionSincrona(peticion, getDatosEspecificosRespuestaClazz());
+        return this.client.peticionSincrona(peticion);
     } 
     
     public RespuestaClientAdapter<TDatosEspecificosRespuesta> peticionSincrona(PeticionClientAdapter<TDatosEspecificosPeticion> peticionClient){

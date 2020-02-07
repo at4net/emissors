@@ -15,10 +15,12 @@
  */
 package es.caib.scsp.pinbal.ws.recobriment.client;
 
+import es.caib.pinbal.ws.recobriment.TransmisionDatos;
 import java.io.ByteArrayOutputStream;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.xml.bind.annotation.XmlType;
 import javax.xml.namespace.QName;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
@@ -37,6 +39,8 @@ public class RecobrimentSOAPHandler implements
 
     public static String DATOS_ESPECIFICOS = "es.caib.scsp.pinbal.ws.recobriment.client.datosespecificos";
     public static String RESPONSE_BODY = "es.caib.scsp.pinbal.ws.recobriment.client.response";
+    
+    private static String TRANSMISION_DATOS_TAG_NAME = TransmisionDatos.class.getAnnotation(XmlType.class).name();
             
     protected static final Logger LOG = Logger.getLogger(RecobrimentSOAPHandler.class.getName());
 
@@ -47,13 +51,13 @@ public class RecobrimentSOAPHandler implements
 
     @Override
     public boolean handleMessage(SOAPMessageContext smc) {
-        obtenerDatosEspecificos(smc);
+        handleTransmisionDatos(smc);
         return true;
     }
 
     @Override
     public boolean handleFault(SOAPMessageContext smc) {
-        obtenerDatosEspecificos(smc);
+        handleTransmisionDatos(smc);
         return true;
     }
 
@@ -61,8 +65,34 @@ public class RecobrimentSOAPHandler implements
     public void close(MessageContext messageContext) {
     }
 
+    private void handleTransmisionDatos(SOAPMessageContext soapMessageContext) {
+
+        boolean isRequest = (Boolean) soapMessageContext.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
+
+        if (isRequest) {
+            return;
+        }
+
+        SOAPMessage soapMessage = soapMessageContext.getMessage();
+
+        try {
+            NodeList transmisionDatosNodeList = soapMessage.getSOAPBody().getElementsByTagName(TRANSMISION_DATOS_TAG_NAME);
+            for (int i = 0; i < transmisionDatosNodeList.getLength(); i++) {
+                Node transmisionDatosNode = transmisionDatosNodeList.item(i);
+                handleTransmisionDatosNode(soapMessageContext, transmisionDatosNode);
+            }
+        } catch (SOAPException ex) {
+            Logger.getLogger(RecobrimentSOAPHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
     
-    private void handleTransmisionDatosElement(SOAPMessageContext soapMessageContext, Element transmisionDatosElement){
+    
+    
+    private void handleTransmisionDatosNode(SOAPMessageContext soapMessageContext, Node transmisionDatosNode){
+        
+        
+        Element transmisionDatosElement = (Element)transmisionDatosNode;  
         
         NodeList idSolicitudList = transmisionDatosElement.getElementsByTagName("idSolicitud");
         
@@ -82,8 +112,11 @@ public class RecobrimentSOAPHandler implements
         String idTransmision = idTransmisionList.item(0).getTextContent();
         Node datosEspecificosNode = datosEspecificosList.item(0);
         
-        //LOG.log(Level.INFO, "Valor TransmisionDatosElement Handler: {0}", datosEspecificosNode.getTextContent());
+        for (int i=0;i<datosEspecificosNode.getChildNodes().getLength();i++){
+            System.out.println(datosEspecificosNode.getChildNodes().item(i).getTextContent());
+        }
         
+        //LOG.log(Level.INFO, "Valor TransmisionDatosElement Handler: {0}", datosEspecificosNode.getTextContent());
         
         String key = DATOS_ESPECIFICOS + "." + idSolicitud + "." + idTransmision;
         Element value = (Element)datosEspecificosNode;
@@ -119,28 +152,6 @@ public class RecobrimentSOAPHandler implements
     
     }
     
-    private void obtenerDatosEspecificos(SOAPMessageContext soapMessageContext) {
 
-        boolean isRequest = (Boolean) soapMessageContext.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
-
-        if (isRequest) {
-            return;
-        }
-
-        SOAPMessage soapMessage = soapMessageContext.getMessage();
-
-        try {
-            NodeList transmisionDatosNodeList = soapMessage.getSOAPBody().getElementsByTagName("transmisionDatos");
-            Node transmisionDatosNode = null;
-            for (int i = 0; i < transmisionDatosNodeList.getLength(); i++) {
-                transmisionDatosNode = transmisionDatosNodeList.item(i);
-                handleTransmisionDatosElement(soapMessageContext, (Element)transmisionDatosNode);
-            }
-
-        } catch (SOAPException ex) {
-            Logger.getLogger(RecobrimentSOAPHandler.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
 
 }

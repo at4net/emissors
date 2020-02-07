@@ -54,7 +54,7 @@ public class DocumentsTest {
     }
 
     /**
-     * Test of stringToElement method, of class Documents.
+     * Test of stringToElement method, of class XmlUtils.
      */
     @Test
     public void testStringToElement() {
@@ -83,7 +83,7 @@ public class DocumentsTest {
         Element expResult = null;
         Element result = null;
         try {
-            result = Documents.stringToElement(xml);
+            result = XmlUtils.stringToElement(xml);
         } catch (ParserConfigurationException ex) {
             Logger.getLogger(DocumentsTest.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SAXException ex) {

@@ -42,13 +42,7 @@ public class SVDDGTVEHICULODATOSWS01v3RecobrimentFacade
     public SVDDGTVEHICULODATOSWS01v3RecobrimentFacade(String app) {
         super(app);
     }
-
-    @Override
-    protected Class<SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos> getDatosEspecificosRespuestaClazz() {
-        return SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos.class;
-    }
-    
-    
+  
     /**
      *
      * @param datosEspecificosPeticion
