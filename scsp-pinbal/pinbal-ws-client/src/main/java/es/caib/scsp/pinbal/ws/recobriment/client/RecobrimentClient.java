@@ -19,6 +19,7 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
 
 import es.caib.scsp.utils.cxf.authentication.AuthenticatorReplacer;
+import es.caib.scsp.utils.xml.XmlUtils;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -217,7 +218,36 @@ public class RecobrimentClient {
         Respuesta response;
 
         response = peticionSincrona(port, pet);
-
+        
+        
+        
+        Element datosEspecificosPre = (Element)response.getTransmisiones().getTransmisionDatos().get(0).getDatosEspecificos();
+        
+        
+        
+        
+        System.out.println("Datos Especificos Pre" + datosEspecificosPre);
+        
+        Element datosEspecificosPost = XmlUtils.node2Element(datosEspecificosPre);
+        
+        System.out.println("Datos Especificos Post " + datosEspecificosPost.toString());
+        
+        
+        
+        
+        /*
+        for (TransmisionDatos transmisionDatos:response.getTransmisiones().getTransmisionDatos()){
+                //Transmision transmision = transmisionDatos.getDatosGenericos().getTransmision();
+             
+                //String key = RecobrimentSOAPHandler.DATOS_ESPECIFICOS + "." 
+                //        + transmision.getIdSolicitud() + "." + transmision.getIdTransmision();
+                //Element datosEspecificos = (Element)res.get(key);
+                transmisionDatos.setDatosEspecificos(datosEspecificosPost);
+        }
+        */
+        
+        
+        
         Map<String, Object> res = ((BindingProvider) port).getResponseContext();
         
         for (TransmisionDatos transmisionDatos:response.getTransmisiones().getTransmisionDatos()){
@@ -225,7 +255,7 @@ public class RecobrimentClient {
              
                 String key = RecobrimentSOAPHandler.DATOS_ESPECIFICOS + "." 
                         + transmision.getIdSolicitud() + "." + transmision.getIdTransmision();
-                Element datosEspecificos = (Element)res.get(key);
+                Element datosEspecificos = XmlUtils.node2Element((Element)res.get(key));
                 transmisionDatos.setDatosEspecificos(datosEspecificos);
         }
         

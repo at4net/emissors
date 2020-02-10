@@ -85,6 +85,9 @@ public class SCDHPAJUv3ExampleTest {
         SCDHPAJUv3Example instance = new SCDHPAJUv3Example();
         RespuestaClientAdapter<SCDHPAJUv3RespuestaDatosEspecificos> expResult = null;
         RespuestaClientAdapter<SCDHPAJUv3RespuestaDatosEspecificos> result = instance.peticionSincrona();
+        
+        System.out.println("Test retorno corregido  " + result.getTransmisionesClient().get(0).getDatosEspecificos().toString());
+        
         //assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");

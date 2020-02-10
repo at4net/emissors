@@ -216,7 +216,7 @@ public class SVDDGTVEHICULODATOSWS01v3RecobrimentFacade
             
              LOG.info("Element datos Especificos Recobriment Facade: " + elementDatosEspecificos.getTextContent());
         
-             LOG.info("-------------------------------Element atos Especificos raw: " + elementDatosEspecificos.getFirstChild().getNodeName());
+             LOG.info("-------------------------------Element atos Especificos raw: " );
         
              //LOG.info("-------------------------------Datos Especificos to string: " + datosEspecificos.getRetorno().getEstado().getCodigoEstado());
            

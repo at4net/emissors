@@ -84,7 +84,7 @@ public class SVDDGTVEHICULODATOSWS01v3ExampleTest {
         RespuestaClientAdapter<SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos> expResult = null;
         RespuestaClientAdapter<SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos> result = instance.peticionSincrona();
         
-        
+        System.out.println("Test retorno corregido  " + result.getTransmisionesClient().get(0).getDatosEspecificos().getRetorno());
        
         //assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.

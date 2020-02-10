@@ -15,11 +15,15 @@
  */
 package es.caib.scsp.pinbal.ws.recobriment.client;
 
+import es.caib.pinbal.ws.recobriment.Transmision;
 import es.caib.pinbal.ws.recobriment.TransmisionDatos;
+import es.caib.scsp.utils.xml.XmlManager;
+import es.caib.scsp.utils.xml.XmlUtils;
 import java.io.ByteArrayOutputStream;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.namespace.QName;
 import javax.xml.soap.SOAPException;
@@ -83,16 +87,30 @@ public class RecobrimentSOAPHandler implements
             }
         } catch (SOAPException ex) {
             Logger.getLogger(RecobrimentSOAPHandler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JAXBException ex) {
+            Logger.getLogger(RecobrimentSOAPHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
     
     
     
-    private void handleTransmisionDatosNode(SOAPMessageContext soapMessageContext, Node transmisionDatosNode){
+    private void handleTransmisionDatosNode(SOAPMessageContext soapMessageContext, Node transmisionDatosNode) throws JAXBException{
         
+        Element transmisionDatosElement = XmlUtils.node2Element(transmisionDatosNode);  
         
-        Element transmisionDatosElement = (Element)transmisionDatosNode;  
+        XmlManager<TransmisionDatos> transmisionDatosManager = new XmlManager<TransmisionDatos>(TransmisionDatos.class);
+        
+        TransmisionDatos transmisionDatos = transmisionDatosManager.generateItem(transmisionDatosElement);
+        
+        Transmision transmision = transmisionDatos.getDatosGenericos().getTransmision();
+        
+        //String idSolicitud = transmision.getIdSolicitud();
+        //String idTransmision = transmision.getIdTransmision();
+        
+        //
+        
+        System.out.println("------------------------" + transmisionDatos.getDatosGenericos().getTransmision().getIdSolicitud());
         
         NodeList idSolicitudList = transmisionDatosElement.getElementsByTagName("idSolicitud");
         
@@ -113,13 +131,16 @@ public class RecobrimentSOAPHandler implements
         Node datosEspecificosNode = datosEspecificosList.item(0);
         
         for (int i=0;i<datosEspecificosNode.getChildNodes().getLength();i++){
-            System.out.println(datosEspecificosNode.getChildNodes().item(i).getTextContent());
+            System.out.println("Datos especificos node(" + i +  "): "  + datosEspecificosNode.getChildNodes().item(i));
+            System.out.println("Datos especificos node(" + i +  "): "  + datosEspecificosNode.getChildNodes().item(i).getTextContent());
         }
         
         //LOG.log(Level.INFO, "Valor TransmisionDatosElement Handler: {0}", datosEspecificosNode.getTextContent());
         
         String key = DATOS_ESPECIFICOS + "." + idSolicitud + "." + idTransmision;
         Element value = (Element)datosEspecificosNode;
+        
+       
         
         //LOG.log(Level.INFO, "Clave contexto Handler: {0}", key);
         //LOG.log(Level.INFO, "Valor contexto Handler: {0}", value.getTextContent());

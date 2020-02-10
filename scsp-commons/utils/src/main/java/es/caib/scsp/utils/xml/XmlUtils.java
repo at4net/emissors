@@ -22,6 +22,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -30,6 +31,27 @@ import org.xml.sax.SAXException;
  * @author gdeignacio
  */
 public class XmlUtils {
+    
+    public static Element node2Element(Node node){
+    
+        if (node == null) return null;
+        
+        Element element = (Element)node;
+        System.out.println(element.toString());
+        boolean hasChildNodes = node.hasChildNodes();
+        if (!hasChildNodes) return (Element)element.cloneNode(hasChildNodes);
+        
+        for (int i=0; i < element.getChildNodes().getLength(); i++){
+            Node childNode = element.getChildNodes().item(i);
+            if (childNode.getNodeType()==Node.ELEMENT_NODE){
+                Element childElement = node2Element(childNode);
+                element.replaceChild(childElement, childNode);
+            }
+        }
+        return element;
+ 
+    }
+    
     
      public static Element stringToElement(String xml) throws ParserConfigurationException, SAXException, IOException {
         
@@ -44,7 +66,9 @@ public class XmlUtils {
          inputStream.setCharacterStream(new StringReader(xml));
          Document document = documentBuilder.parse(inputStream);
          
-         return document.getDocumentElement();
+         
+         
+         return node2Element(document.getDocumentElement());
          
          /*
          NodeList studentNodeList = document.getElementsByTagName("student");

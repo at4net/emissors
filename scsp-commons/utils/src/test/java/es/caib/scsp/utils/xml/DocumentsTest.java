@@ -58,10 +58,11 @@ public class DocumentsTest {
      */
     @Test
     public void testStringToElement() {
-        System.out.println("stringToElement");
         
-        String xml = "<?xml version=\"1.0\"?>\n" +
-"<!-- Edited by XMLSpy -->\n" +
+        
+        String xml = "" +
+//                "<?xml version=\"1.0\"?>\n" +
+//"<!-- Edited by XMLSpy -->\n" +
 "<catalog>\n" +
 "   <product description=\"Cardigan Sweater\" product_image=\"cardigan.jpg\">\n" +
 "      <catalog_item gender=\"Men's\">\n" +
@@ -80,6 +81,8 @@ public class DocumentsTest {
 "</catalog>";
         
         
+        System.out.println(xml);
+        
         Element expResult = null;
         Element result = null;
         try {
@@ -92,7 +95,8 @@ public class DocumentsTest {
             Logger.getLogger(DocumentsTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        System.out.println(result.toString());
+        System.out.println("------------------------");
+        
         
         //assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
