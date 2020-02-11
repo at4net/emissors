@@ -166,7 +166,8 @@ public class RecobrimentSOAPHandler implements
         } catch (Exception ex) {
             message = "Error al processar el missatge XML: " + ex.getMessage();
         }
-        //LOG.info(message);
+        
+        LOG.info(message);
         
         
         

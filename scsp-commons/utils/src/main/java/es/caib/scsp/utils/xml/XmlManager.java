@@ -19,6 +19,7 @@ import javax.mail.util.ByteArrayDataSource;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.util.List;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -26,6 +27,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.annotation.XmlSchema;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.dom.DOMResult;
@@ -33,6 +35,7 @@ import javax.xml.transform.stream.StreamSource;
 import org.apache.commons.io.IOUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.xml.sax.InputSource;
 
 /**
  *
@@ -53,6 +56,31 @@ public class XmlManager<T> {
 
     public JAXBContext getContext() {
         return this.jaxbContext;
+    }
+    
+    public XmlSchema getXmlSchemaAnnotation(){
+        
+        XmlSchema xmlSchemaAnnotation;
+        
+        xmlSchemaAnnotation = clazz.getAnnotation(XmlSchema.class);
+        
+        if (xmlSchemaAnnotation!=null) return xmlSchemaAnnotation;
+        
+        xmlSchemaAnnotation = clazz.getPackage().getAnnotation(XmlSchema.class);
+        
+        if (xmlSchemaAnnotation!=null) return xmlSchemaAnnotation;
+        
+        if (clazz.getSuperclass()==null) return null;
+        
+        xmlSchemaAnnotation = clazz.getSuperclass().getAnnotation(XmlSchema.class);
+        
+        if (xmlSchemaAnnotation!=null) return xmlSchemaAnnotation;
+        
+        xmlSchemaAnnotation = clazz.getSuperclass().getPackage().getAnnotation(XmlSchema.class);
+        
+        if (xmlSchemaAnnotation!=null) return xmlSchemaAnnotation;
+        
+        return null;
     }
 
     private ByteArrayOutputStream marshalToByteArrayOutputStream(T item) throws JAXBException {
@@ -101,6 +129,14 @@ public class XmlManager<T> {
 
     }
     
+    
+    private T unmarshal(String xml) throws JAXBException {
+
+       Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+       return jaxbUnmarshaller.unmarshal(new StreamSource(new StringReader(xml)), clazz).getValue();
+
+    }
+    
     private T unmarshal(Element element) throws JAXBException{
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
         return jaxbUnmarshaller.unmarshal(element, clazz).getValue();
@@ -145,6 +181,10 @@ public class XmlManager<T> {
     
     public T generateItem(InputStream is) throws JAXBException, IOException {
         return unmarshal(is);
+    }
+    
+    public T generateItem(String xml) throws JAXBException, IOException {
+        return unmarshal(xml);
     }
     
     public T generateItem(Element element) throws JAXBException{

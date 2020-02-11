@@ -25,6 +25,9 @@ import es.caib.scsp.utils.xml.XmlManager;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.annotation.XmlNs;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchema;
 import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Element;
 
@@ -204,24 +207,29 @@ public class SVDDGTVEHICULODATOSWS01v3RecobrimentFacade
     @Override
     protected SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos element2DatosEspecificos(Element elementDatosEspecificos) {
 
-        
         SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos datosEspecificos;
         try {
             XmlManager<SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos> manager
                     = new XmlManager<SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos>(SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos.class);
-
             
-          
+            
+            XmlSchema xmlSchemaAnnotation = manager.getXmlSchemaAnnotation();
+            
+            if (xmlSchemaAnnotation!=null){
+                elementDatosEspecificos.setAttribute("xmlns", xmlSchemaAnnotation.namespace());
+            }
+            
+            //String namesp = SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos.class.getAnnotation(XmlSchema.class).xmlns();
+            //es.caib.scsp.esquemas.SVDDGTVEHICULODATOSWS01v3.respuesta.datosespecificos.DatosEspecificos datos;
+            
+            //System.out.println(namesp);
+            
+            
+            
             datosEspecificos = manager.generateItem(elementDatosEspecificos);
             
-             LOG.info("Element datos Especificos Recobriment Facade: " + elementDatosEspecificos.getTextContent());
-        
-             LOG.info("-------------------------------Element atos Especificos raw: " );
-        
-             //LOG.info("-------------------------------Datos Especificos to string: " + datosEspecificos.getRetorno().getEstado().getCodigoEstado());
-           
-            
             return datosEspecificos;
+            
         } catch (JAXBException ex) {
             Logger.getLogger(SVDDGTVEHICULODATOSWS01v3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
         }

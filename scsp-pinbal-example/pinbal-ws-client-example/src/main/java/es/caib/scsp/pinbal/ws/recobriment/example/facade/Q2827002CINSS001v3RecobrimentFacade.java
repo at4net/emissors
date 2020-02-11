@@ -199,14 +199,8 @@ public class Q2827002CINSS001v3RecobrimentFacade
             
             datosEspecificos = manager.generateItem(elementDatosEspecificos);
             
-             LOG.info("Element datos Especificos Recobriment Facade: " + elementDatosEspecificos.getTextContent());
-        
-             LOG.info("-------------------------------Element atos Especificos raw: " + elementDatosEspecificos.getFirstChild().getNodeName());
-        
-             //LOG.info("-------------------------------Datos Especificos to string: " + datosEspecificos.getRetorno().getCodigo());
-           
-            
             return datosEspecificos;
+            
         } catch (JAXBException ex) {
             Logger.getLogger(Q2827002CINSS001v3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
         }

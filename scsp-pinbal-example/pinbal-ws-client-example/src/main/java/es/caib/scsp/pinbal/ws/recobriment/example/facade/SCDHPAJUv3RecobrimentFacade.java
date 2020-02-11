@@ -230,13 +230,8 @@ public class SCDHPAJUv3RecobrimentFacade
                     = new XmlManager<SCDHPAJUv3RespuestaDatosEspecificos>(SCDHPAJUv3RespuestaDatosEspecificos.class);
             datosEspecificos = manager.generateItem(elementDatosEspecificos);
             
-             LOG.info("Element datos Especificos Recobriment Facade: " + elementDatosEspecificos.getTextContent());
-        
-             LOG.info("-------------------------------Element atos Especificos raw: " + elementDatosEspecificos.getFirstChild().getNodeName());
-        
-             //LOG.info("-------------------------------Datos Especificos to string: " + datosEspecificos.getResultado().getApellido1());
-            
             return datosEspecificos;
+            
         } catch (JAXBException ex) {
             Logger.getLogger(SCDHPAJUv3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
         }

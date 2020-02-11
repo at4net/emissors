@@ -39,7 +39,7 @@ public class XmlUtils {
         Element element = (Element)node;
         System.out.println(element.toString());
         boolean hasChildNodes = node.hasChildNodes();
-        if (!hasChildNodes) return (Element)element.cloneNode(hasChildNodes);
+        if (!hasChildNodes) return (Element)element.cloneNode(true);
         
         for (int i=0; i < element.getChildNodes().getLength(); i++){
             Node childNode = element.getChildNodes().item(i);
