@@ -17,9 +17,11 @@ package es.caib.scsp.utils.xml;
 
 import java.io.IOException;
 import java.io.StringReader;
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -31,6 +33,34 @@ import org.xml.sax.SAXException;
  * @author gdeignacio
  */
 public class XmlUtils {
+    
+    @Deprecated
+    public static Element namespacedElement(Element element, String namespace){
+        
+        Document document = element.getOwnerDocument();
+        
+        if (document==null) return element;
+        
+        Element namespacedElement = document.createElementNS(namespace, element.getTagName());
+        
+        //namespacedElement.setAttributeNS(XMLConstants.W3C_XML_SCHEMA_NS_URI, namespacedElement.getTagName(), namespace);
+        
+        if (element.hasAttributes()){
+            for (int i=0; i< element.getAttributes().getLength(); i++){
+                Attr attr = (Attr)element.getAttributes().item(i);
+                namespacedElement.setAttributeNode(attr);
+            }
+        }
+        
+        if (element.hasChildNodes()){
+            for (int i=0; i< element.getChildNodes().getLength();i++){
+                namespacedElement.appendChild(element.getChildNodes().item(i));
+            }
+        }
+        
+        return namespacedElement;
+        
+    }
     
     public static Element node2Element(Node node){
     

@@ -35,6 +35,8 @@ import javax.xml.transform.stream.StreamSource;
 import org.apache.commons.io.IOUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.ls.DOMImplementationLS;
+import org.w3c.dom.ls.LSSerializer;
 import org.xml.sax.InputSource;
 
 /**
@@ -188,7 +190,12 @@ public class XmlManager<T> {
     }
     
     public T generateItem(Element element) throws JAXBException{
-        return unmarshal(element);
+        Document document = element.getOwnerDocument();
+        DOMImplementationLS domImplLS = (DOMImplementationLS) document
+                    .getImplementation();
+        LSSerializer serializer = domImplLS.createLSSerializer();
+        String xml = serializer.writeToString(element);
+        return unmarshal(xml);
     }
 
     public byte[] generateXmlByteArray(T item) throws JAXBException {

@@ -20,18 +20,12 @@ import javax.xml.ws.BindingProvider;
 
 import es.caib.scsp.utils.cxf.authentication.AuthenticatorReplacer;
 import es.caib.scsp.utils.xml.XmlUtils;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 import javax.xml.ws.handler.Handler;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.frontend.ClientProxy;
 import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
 
 
 /**
