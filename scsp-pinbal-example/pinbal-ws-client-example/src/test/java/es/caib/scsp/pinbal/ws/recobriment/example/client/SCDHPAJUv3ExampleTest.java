@@ -86,7 +86,7 @@ public class SCDHPAJUv3ExampleTest {
         RespuestaClientAdapter<SCDHPAJUv3RespuestaDatosEspecificos> expResult = null;
         RespuestaClientAdapter<SCDHPAJUv3RespuestaDatosEspecificos> result = instance.peticionSincrona();
         
-        System.out.println("Test retorno corregido  " + result.getTransmisionesClient().get(0).getDatosEspecificos().toString());
+        System.out.println("APELLIDO  " + result.getTransmisionesClient().get(0).getDatosEspecificos().getResultado().getApellido1());
         
         //assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.

@@ -39,25 +39,14 @@ public final class JAXBToStringBuilder {
     }
     
     public static String valueOf(Object object, ToStringStyle style) {
-        
+
         if (object instanceof String) {
-            return (String)object;
+            return (String) object;
         }
         if (object instanceof Collection) {
             object = ((Collection<?>) object).toArray();
         }
-        
-        if (object instanceof TransmisionDatos) {
-            
-            LOG.log(Level.INFO, "StringBuilder: " +  object.getClass().getName());
-            //LOG.log(Level.INFO, "Respuesta: " +  ((TransmisionDatos)object).toString());
-            LOG.log(Level.INFO, "StringBuilder: " +  ((TransmisionDatos)object).getDatosEspecificos().getClass().getName());
-            LOG.log(Level.INFO, "StringBuilder: " +  ((TransmisionDatos)object).getDatosEspecificos().toString());
-            
-           
-            
-        }
-        
-        return ToStringBuilder.reflectionToString(object, style);        
+
+        return ToStringBuilder.reflectionToString(object, style);
     }
 }

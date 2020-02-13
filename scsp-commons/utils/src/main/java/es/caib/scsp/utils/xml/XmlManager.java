@@ -23,6 +23,7 @@ import java.io.StringReader;
 import java.util.List;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
+import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -189,13 +190,29 @@ public class XmlManager<T> {
         return unmarshal(xml);
     }
     
-    public T generateItem(Element element) throws JAXBException{
+    public T generateItem(Element element) throws JAXBException, IOException{
+        return generateItem(element, false);
+    }
+    
+    public T generateItem(Element element, boolean noCheckXmlns) throws JAXBException, IOException{
+        
+        if (noCheckXmlns) return serializeElementAndGenerateItem(element);
+        if (!("".equals(element.getAttribute(XMLConstants.XMLNS_ATTRIBUTE)))) return serializeElementAndGenerateItem(element);
+        
+        XmlSchema xmlSchemaAnnotation = getXmlSchemaAnnotation();
+        if (xmlSchemaAnnotation == null) return serializeElementAndGenerateItem(element);
+        element.setAttribute(XMLConstants.XMLNS_ATTRIBUTE, xmlSchemaAnnotation.namespace());
+        return serializeElementAndGenerateItem(element);
+    }
+    
+    
+    private T serializeElementAndGenerateItem(Element element) throws JAXBException, IOException{
         Document document = element.getOwnerDocument();
         DOMImplementationLS domImplLS = (DOMImplementationLS) document
                     .getImplementation();
         LSSerializer serializer = domImplLS.createLSSerializer();
         String xml = serializer.writeToString(element);
-        return unmarshal(xml);
+        return generateItem(xml);
     }
 
     public byte[] generateXmlByteArray(T item) throws JAXBException {

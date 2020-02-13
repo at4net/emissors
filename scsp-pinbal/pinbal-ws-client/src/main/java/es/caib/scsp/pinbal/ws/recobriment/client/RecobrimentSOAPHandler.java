@@ -20,6 +20,7 @@ import es.caib.pinbal.ws.recobriment.TransmisionDatos;
 import es.caib.scsp.utils.xml.XmlManager;
 import es.caib.scsp.utils.xml.XmlUtils;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,9 +44,9 @@ public class RecobrimentSOAPHandler implements
 
     public static String DATOS_ESPECIFICOS = "es.caib.scsp.pinbal.ws.recobriment.client.datosespecificos";
     public static String RESPONSE_BODY = "es.caib.scsp.pinbal.ws.recobriment.client.response";
-    
+
     private static String TRANSMISION_DATOS_TAG_NAME = TransmisionDatos.class.getAnnotation(XmlType.class).name();
-            
+
     protected static final Logger LOG = Logger.getLogger(RecobrimentSOAPHandler.class.getName());
 
     @Override
@@ -89,91 +90,81 @@ public class RecobrimentSOAPHandler implements
             Logger.getLogger(RecobrimentSOAPHandler.class.getName()).log(Level.SEVERE, null, ex);
         } catch (JAXBException ex) {
             Logger.getLogger(RecobrimentSOAPHandler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(RecobrimentSOAPHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
-    
-    
-    
-    private void handleTransmisionDatosNode(SOAPMessageContext soapMessageContext, Node transmisionDatosNode) throws JAXBException{
-        
-        Element transmisionDatosElement = XmlUtils.node2Element(transmisionDatosNode);  
-        
+
+    @Deprecated
+    private void handleTransmisionDatosNode(SOAPMessageContext soapMessageContext, Node transmisionDatosNode) throws JAXBException, IOException {
+
+        Element transmisionDatosElement = XmlUtils.node2Element(transmisionDatosNode);
+
         XmlManager<TransmisionDatos> transmisionDatosManager = new XmlManager<TransmisionDatos>(TransmisionDatos.class);
-        
+
         TransmisionDatos transmisionDatos = transmisionDatosManager.generateItem(transmisionDatosElement);
-        
+
         Transmision transmision = transmisionDatos.getDatosGenericos().getTransmision();
-        
+
         //String idSolicitud = transmision.getIdSolicitud();
         //String idTransmision = transmision.getIdTransmision();
-        
-        //
-        
-        System.out.println("------------------------" + transmisionDatos.getDatosGenericos().getTransmision().getIdSolicitud());
-        
         NodeList idSolicitudList = transmisionDatosElement.getElementsByTagName("idSolicitud");
-        
-        if (idSolicitudList==null) return;
-        if (idSolicitudList.getLength()==0) return;
-        
+
+        if (idSolicitudList == null) {
+            return;
+        }
+        if (idSolicitudList.getLength() == 0) {
+            return;
+        }
+
         NodeList idTransmisionList = transmisionDatosElement.getElementsByTagName("idTransmision");
-        
-        if (idTransmisionList==null) return;
-        if (idTransmisionList.getLength()==0) return;
-        
+
+        if (idTransmisionList == null) {
+            return;
+        }
+        if (idTransmisionList.getLength() == 0) {
+            return;
+        }
+
         NodeList datosEspecificosList = transmisionDatosElement.getElementsByTagName("datosEspecificos");
-        if (datosEspecificosList==null) return;
-        if (datosEspecificosList.getLength()==0) return;
-        
+        if (datosEspecificosList == null) {
+            return;
+        }
+        if (datosEspecificosList.getLength() == 0) {
+            return;
+        }
+
         String idSolicitud = idSolicitudList.item(0).getTextContent();
         String idTransmision = idTransmisionList.item(0).getTextContent();
         Node datosEspecificosNode = datosEspecificosList.item(0);
-        
-        for (int i=0;i<datosEspecificosNode.getChildNodes().getLength();i++){
-            System.out.println("Datos especificos node(" + i +  "): "  + datosEspecificosNode.getChildNodes().item(i));
-            System.out.println("Datos especificos node(" + i +  "): "  + datosEspecificosNode.getChildNodes().item(i).getTextContent());
-        }
-        
-        //LOG.log(Level.INFO, "Valor TransmisionDatosElement Handler: {0}", datosEspecificosNode.getTextContent());
-        
+
         String key = DATOS_ESPECIFICOS + "." + idSolicitud + "." + idTransmision;
-        Element value = (Element)datosEspecificosNode;
-        
-       
-        
-        //LOG.log(Level.INFO, "Clave contexto Handler: {0}", key);
-        //LOG.log(Level.INFO, "Valor contexto Handler: {0}", value.getTextContent());
-        
+        Element value = (Element) datosEspecificosNode;
+
         soapMessageContext.put(key, value);
         soapMessageContext.setScope(key, MessageContext.Scope.APPLICATION);
-        
-        //LOG.log(Level.INFO, "Full context: {0}", soapMessageContext.toString());
-        
-        
-        
+
+        // Log del mensaje
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
         String message;
+
         try {
-        
             soapMessageContext.getMessage().writeTo(baos);
             message = baos.toString();
             key = RESPONSE_BODY;
             soapMessageContext.put(key, baos.toString("UTF-8"));
             soapMessageContext.setScope(key, MessageContext.Scope.APPLICATION);
 
-        } catch (Exception ex) {
+        } catch (IOException ex) {
+            message = "Error al processar el missatge XML: " + ex.getMessage();
+        } catch (SOAPException ex) {
             message = "Error al processar el missatge XML: " + ex.getMessage();
         }
-        
-        LOG.info(message);
-        
-        
-        
-    
-    }
-    
 
+        LOG.info(message);
+
+    }
 
 }

@@ -22,6 +22,7 @@ import es.caib.scsp.pinbal.ws.recobriment.facade.RespuestaClientAdapter;
 import es.caib.scsp.pinbal.ws.recobriment.example.datosespecificos.SCDHPAJUv3PeticionDatosEspecificos;
 import es.caib.scsp.pinbal.ws.recobriment.example.datosespecificos.SCDHPAJUv3RespuestaDatosEspecificos;
 import es.caib.scsp.utils.xml.XmlManager;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
@@ -125,11 +126,6 @@ public class SCDHPAJUv3RecobrimentFacade
             String nombreTipoDocumentacion, String valorDocumentacion, String NIA
     ){
     
-        
-        
-       
-        
-        
         es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Documentacion documentacion
                 = new es.caib.scsp.esquemas.SCDHPAJUv3.peticion.datosespecificos.Documentacion();
         documentacion.setTipo(nombreTipoDocumentacion);
@@ -233,6 +229,8 @@ public class SCDHPAJUv3RecobrimentFacade
             return datosEspecificos;
             
         } catch (JAXBException ex) {
+            Logger.getLogger(SCDHPAJUv3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
             Logger.getLogger(SCDHPAJUv3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;

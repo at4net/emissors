@@ -7,8 +7,6 @@ import es.caib.pinbal.ws.recobriment.RecobrimentService;
 import es.caib.pinbal.ws.recobriment.Respuesta;
 import es.caib.pinbal.ws.recobriment.Transmision;
 import es.caib.pinbal.ws.recobriment.TransmisionDatos;
-import es.caib.scsp.pinbal.ws.recobriment.cxf.RecobrimentPinbalClient;
-import es.caib.scsp.pinbal.ws.recobriment.cxf.RecobrimentServicePinbalClient;
 import es.caib.scsp.utils.ws.connexio.DadesConnexioSOAP;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -136,41 +134,6 @@ public class RecobrimentClient {
 
     }
 
-    private RecobrimentPinbalClient getServicePinbalClientPort() {
-
-        AuthenticatorReplacer.verifyHost();
-
-        URL wsdlURL = null;
-
-        try {
-            LOG.info(dadesConnexio.getWsdlLocation());
-            wsdlURL = new URL(dadesConnexio.getWsdlLocation());
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(RecobrimentClient.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        String userName = dadesConnexio.getUserName();
-        String password = dadesConnexio.getPassword();
-
-        AuthenticatorReplacer.setAuthenticator(userName, password);
-
-        LOG.log(Level.INFO, "Servicio:  {0}", SERVICE_NAME);
-        LOG.log(Level.INFO, "URL: {0}", wsdlURL);
-
-        RecobrimentServicePinbalClient ss = new RecobrimentServicePinbalClient(wsdlURL, SERVICE_NAME);
-        RecobrimentPinbalClient port = ss.getRecobrimentServicePinbalClientPort();
-
-        Map<String, Object> req = ((BindingProvider) port).getRequestContext();
-
-        req.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, dadesConnexio.getEndPoint());
-
-        req.put(BindingProvider.USERNAME_PROPERTY, dadesConnexio.getUserName());
-        req.put(BindingProvider.PASSWORD_PROPERTY, dadesConnexio.getPassword());
-
-        return port;
-
-    }
-
     private Recobriment getHandledServicePort() {
 
         Recobriment port = getServicePort();
@@ -188,59 +151,28 @@ public class RecobrimentClient {
 
     }
 
-    private Recobriment getInterceptedServicePort() {
-
-        Recobriment port = getServicePort();
-
-        Client cxfclient = ClientProxy.getClient(port);
-        cxfclient.getInInterceptors().add(
-                new RecobrimentPeticionSincronaSOAPInterceptor());
-
-        return port;
-
-    }
-
-
     private static void dummy(Recobriment port) {
         LOG.log(Level.INFO, "Invoking dummy...");
     }
 
+   
     public Respuesta peticionSincrona(Peticion pet) {
+        Recobriment port = getServicePort();
+        Respuesta response;
+        response = peticionSincrona(port, pet);
+        return response;
+    }
+    
+    
+    public Respuesta peticionSincrona(Peticion pet, boolean handled) {
+        
+        if (!handled) return peticionSincrona(pet);
         
         Recobriment port = getHandledServicePort();
         
         Respuesta response;
 
         response = peticionSincrona(port, pet);
-        
-        
-        
-        Element datosEspecificosPre = (Element)response.getTransmisiones().getTransmisionDatos().get(0).getDatosEspecificos();
-        
-        
-        
-        
-        System.out.println("Datos Especificos Pre" + datosEspecificosPre);
-        
-        Element datosEspecificosPost = XmlUtils.node2Element(datosEspecificosPre);
-        
-        System.out.println("Datos Especificos Post " + datosEspecificosPost.toString());
-        
-        
-        
-        
-        /*
-        for (TransmisionDatos transmisionDatos:response.getTransmisiones().getTransmisionDatos()){
-                //Transmision transmision = transmisionDatos.getDatosGenericos().getTransmision();
-             
-                //String key = RecobrimentSOAPHandler.DATOS_ESPECIFICOS + "." 
-                //        + transmision.getIdSolicitud() + "." + transmision.getIdTransmision();
-                //Element datosEspecificos = (Element)res.get(key);
-                transmisionDatos.setDatosEspecificos(datosEspecificosPost);
-        }
-        */
-        
-        
         
         Map<String, Object> res = ((BindingProvider) port).getResponseContext();
         
@@ -253,102 +185,9 @@ public class RecobrimentClient {
                 transmisionDatos.setDatosEspecificos(datosEspecificos);
         }
         
-        
-        //LOG.log(Level.INFO, "Client context: {0}", res.toString());
-        
-        //String body = (String)res.get(RecobrimentSOAPHandler.DATOS_ESPECIFICOS);
-        
-        //String datosEspecificos = StringUtils.substringBetween(body, "<datosEspecificos>", "</datosEspecificos>");
-        
-        //datosEspecificos = "<datosEspecificos>".concat(datosEspecificos).concat("</datosEspecificos>");
-        
-        /*
-        String datosEspecificos = "<hello>world</hello>";
-        
-        try {
-            
-            Element element = stringToElement(datosEspecificos);
-            LOG.log(Level.INFO, "Element: {0}", element.toString());
-            
-            ObjectFactory of = new ObjectFactory();
-            
-            TransmisionDatos transmisionDatos = of.createTransmisionDatos();
-            
-            for (TransmisionDatos transmisionDatosPinbal:response.getTransmisiones().getTransmisionDatos()){
-                LOG.log(Level.INFO, "Id Transmision: {0}", transmisionDatosPinbal.getId());
-                transmisionDatos = transmisionDatosPinbal;
-                break;
-            }
-            
-            LOG.log(Level.INFO, "Element: {0}", element.toString());
-            transmisionDatos.setDatosEspecificos((Object)element);
-            
-            response.getTransmisiones().getTransmisionDatos().set(0, transmisionDatos);
-            
-        } catch (TransformerException ex) {
-            Logger.getLogger(RecobrimentClient.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParserConfigurationException ex) {
-            Logger.getLogger(RecobrimentClient.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SAXException ex) {
-            Logger.getLogger(RecobrimentClient.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(RecobrimentClient.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-        
-        
-        LOG.log(Level.INFO, "Respuesta contexto: {0}", datosEspecificos);
-        
-        */
-        
-        
-        LOG.log(Level.INFO, "Respuesta Pinbal TRANSFORMADA: {0}", ((Element)response.getTransmisiones().getTransmisionDatos().get(0).getDatosEspecificos()).getTextContent());
-        
         return response;
     }
     
-    
-    
-    
-    /*
-    public Respuesta peticionSincrona(Peticion pet) {
-        RecobrimentPinbalClient port = getServicePinbalClientPort();
-        Respuesta response;
-
-        RespuestaPinbalClient respuestaPinbal = peticionSincronaPinbalClient(port, (PeticionPinbalClient) pet);
-
-        LOG.log(Level.INFO, "Respuesta Pinbal: " + respuestaPinbal.toString());
-
-        ObjectFactory of = new ObjectFactory();
-
-        response = of.createRespuesta();
-
-        response.setAtributos(respuestaPinbal.getAtributos());
-
-        Transmisiones transmisiones = of.createTransmisiones();
-
-        for (TransmisionDatosPinbalClient transmisionDatosPinbal : respuestaPinbal.getTransmisiones().getTransmisionDatos()) {
-
-            TransmisionDatos transmisionDatos = of.createTransmisionDatos();
-
-            transmisionDatos.setDatosEspecificos(transmisionDatosPinbal.getDatosEspecificos());
-            transmisionDatos.setDatosGenericos(transmisionDatosPinbal.getDatosGenericos());
-            transmisionDatos.setId(transmisionDatosPinbal.getId());
-
-            transmisiones.getTransmisionDatos().add(transmisionDatos);
-        }
-
-        response.setTransmisiones(transmisiones);
-
-        Map<String, Object> res = ((BindingProvider) port).getResponseContext();
-
-        //LOG.log(Level.INFO, "Respuesta: " +  res.entrySet());
-        LOG.log(Level.INFO, "Respuesta: " + response.toString());
-
-        return response;
-    }
-*/
 
     private static Respuesta peticionSincrona(Recobriment port, Peticion pet) {
         LOG.log(Level.INFO, "Invoking port...");

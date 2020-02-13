@@ -22,9 +22,12 @@ import es.caib.scsp.pinbal.ws.recobriment.facade.RespuestaClientAdapter;
 import es.caib.scsp.pinbal.ws.recobriment.example.datosespecificos.Q2827002CINSS001v3PeticionDatosEspecificos;
 import es.caib.scsp.pinbal.ws.recobriment.example.datosespecificos.Q2827002CINSS001v3RespuestaDatosEspecificos;
 import es.caib.scsp.utils.xml.XmlManager;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.annotation.XmlSchema;
 import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Element;
 
@@ -123,12 +126,10 @@ public class Q2827002CINSS001v3RecobrimentFacade
     }
     
     
-    private Q2827002CINSS001v3PeticionDatosEspecificos establecerDatosEspecificosPeticion(
-            
-    ){
+    private Q2827002CINSS001v3PeticionDatosEspecificos establecerDatosEspecificosPeticion() {
         return null;
     }
-    
+
     
     public RespuestaClientAdapter<Q2827002CINSS001v3RespuestaDatosEspecificos> peticionSincrona(
                 String codigoEstado, String codigoEstadoSecundario, 
@@ -196,12 +197,14 @@ public class Q2827002CINSS001v3RecobrimentFacade
         try {
             XmlManager<Q2827002CINSS001v3RespuestaDatosEspecificos> manager
                     = new XmlManager<Q2827002CINSS001v3RespuestaDatosEspecificos>(Q2827002CINSS001v3RespuestaDatosEspecificos.class);
-            
+         
             datosEspecificos = manager.generateItem(elementDatosEspecificos);
             
             return datosEspecificos;
             
         } catch (JAXBException ex) {
+            Logger.getLogger(Q2827002CINSS001v3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
             Logger.getLogger(Q2827002CINSS001v3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
