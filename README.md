@@ -9,7 +9,7 @@
 
 ***Documentació***
 
-[Documentació de branca desenvolupament](../../tree/emissors-1.0/README.md)
+[Documentació de branca desenvolupament](../../tree/emissors-1.0/README.md#documentaci%C3%B3)
 
 
 ***Descripció***
