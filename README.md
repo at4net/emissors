@@ -1,5 +1,5 @@
 
-# ![Logo](https://github.com/GovernIB/emiserv/raw/master/assets/emiserv_logo.png) EMISSORS SCSP
+# ![Logo](https://github.com/GovernIB/emissors/raw/master/assets/emissors_logo.png) EMISSORS SCSP
 
  *Eines de suport a la integració amb la Plataforma de Interoperabilitat de les Illes Balears*
 
