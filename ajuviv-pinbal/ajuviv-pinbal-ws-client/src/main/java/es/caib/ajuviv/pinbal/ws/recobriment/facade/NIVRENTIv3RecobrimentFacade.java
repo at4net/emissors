@@ -25,9 +25,7 @@ import es.caib.scsp.utils.xml.XmlManager;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.annotation.XmlSchema;
 import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Element;
 
@@ -35,17 +33,14 @@ import org.w3c.dom.Element;
  *
  * @author gdeignacio
  */
-public class SVDDGTVEHICULODATOSWS01v3RecobrimentFacade
+public class NIVRENTIv3RecobrimentFacade
         extends RecobrimentFacade<
         NIVRENTIv3PeticionDatosEspecificos, NIVRENTIv3RespuestaDatosEspecificos> {
 
-    
-    protected static final Logger LOG = Logger.getLogger(SVDDGTVEHICULODATOSWS01v3RecobrimentFacade.class.getName());
-    
-    public SVDDGTVEHICULODATOSWS01v3RecobrimentFacade(String app) {
+    public NIVRENTIv3RecobrimentFacade(String app) {
         super(app);
     }
-  
+
     /**
      *
      * @param datosEspecificosPeticion
@@ -62,9 +57,9 @@ public class SVDDGTVEHICULODATOSWS01v3RecobrimentFacade
             elementDatosEspecificos = manager.generateElement(datosEspecificosPeticion);
             return elementDatosEspecificos;
         } catch (JAXBException ex) {
-            Logger.getLogger(SVDDGTVEHICULODATOSWS01v3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NIVRENTIv3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParserConfigurationException ex) {
-            Logger.getLogger(SVDDGTVEHICULODATOSWS01v3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NIVRENTIv3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
             
@@ -127,18 +122,34 @@ public class SVDDGTVEHICULODATOSWS01v3RecobrimentFacade
     
     
     private NIVRENTIv3PeticionDatosEspecificos establecerDatosEspecificosPeticion(
-            String bastidor, String matricula, String NIVE
+            String municipioSolicitud, String numeroAnyos, String provinciaSolicitud,
+            String nombreTipoDocumentacion, String valorDocumentacion, String NIA
     ){
     
+        es.caib.scsp.esquemas.NIVRENTIv3.peticion.datosespecificos.Documentacion documentacion
+                = new es.caib.scsp.esquemas.NIVRENTIv3.peticion.datosespecificos.Documentacion();
+        documentacion.setTipo(nombreTipoDocumentacion);
+        documentacion.setValor(valorDocumentacion);
+        
+        
+        es.caib.scsp.esquemas.NIVRENTIv3.peticion.datosespecificos.Titular titular = 
+                 new es.caib.scsp.esquemas.NIVRENTIv3.peticion.datosespecificos.Titular();
+        
+        
+        titular.setDocumentacion(documentacion);
+        titular.setNIA(NIA);
+        
+        es.caib.scsp.esquemas.NIVRENTIv3.peticion.datosespecificos.Solicitud solicitud =
+                new es.caib.scsp.esquemas.NIVRENTIv3.peticion.datosespecificos.Solicitud();
+        
+        solicitud.setMunicipioSolicitud(municipioSolicitud);
+        solicitud.setNumeroAnyos(numeroAnyos);
+        solicitud.setProvinciaSolicitud(provinciaSolicitud);
+        solicitud.setTitular(titular);
+        
         NIVRENTIv3PeticionDatosEspecificos datosEspecificos = new NIVRENTIv3PeticionDatosEspecificos();
         
-        es.caib.scsp.esquemas.SVDDGTVEHICULODATOSWS01v3.peticion.datosespecificos.Consulta consulta =
-                new es.caib.scsp.esquemas.SVDDGTVEHICULODATOSWS01v3.peticion.datosespecificos.Consulta();
-        consulta.setBastidor(bastidor);
-        consulta.setMatricula(matricula);
-        consulta.setNIVE(NIVE);   
-        
-        datosEspecificos.setConsulta(consulta);
+        datosEspecificos.setSolicitud(solicitud);
         
         return datosEspecificos;
     }
@@ -159,12 +170,14 @@ public class SVDDGTVEHICULODATOSWS01v3RecobrimentFacade
                 String documentacion, String nombre, String nombreCompleto, 
                 TipoDocumentacion tipoDocumentacion, String fechaGeneracion, 
                 String idSolicitud, String idTransmision,
-                String bastidor, String matricula, String NIVE
+                String municipioSolicitud, String numeroAnyos, String provinciaSolicitud,
+                String nombreTipoDocumentacion, String valorDocumentacion, String NIA
                 ) {
         
         
         NIVRENTIv3PeticionDatosEspecificos datosEspecificosPeticion = 
-                establecerDatosEspecificosPeticion(bastidor, matricula, NIVE);
+                establecerDatosEspecificosPeticion(municipioSolicitud, numeroAnyos,
+                provinciaSolicitud, nombreTipoDocumentacion,valorDocumentacion, NIA);
         
         
         return this.peticionSincronaEspecifica(
@@ -206,25 +219,22 @@ public class SVDDGTVEHICULODATOSWS01v3RecobrimentFacade
 
     @Override
     protected NIVRENTIv3RespuestaDatosEspecificos element2DatosEspecificos(Element elementDatosEspecificos) {
-
+        
         NIVRENTIv3RespuestaDatosEspecificos datosEspecificos;
         try {
             XmlManager<NIVRENTIv3RespuestaDatosEspecificos> manager
                     = new XmlManager<NIVRENTIv3RespuestaDatosEspecificos>(NIVRENTIv3RespuestaDatosEspecificos.class);
-            
             datosEspecificos = manager.generateItem(elementDatosEspecificos);
             
             return datosEspecificos;
             
         } catch (JAXBException ex) {
-            Logger.getLogger(SVDDGTVEHICULODATOSWS01v3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NIVRENTIv3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(SVDDGTVEHICULODATOSWS01v3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NIVRENTIv3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
-
-   
 
 
 }

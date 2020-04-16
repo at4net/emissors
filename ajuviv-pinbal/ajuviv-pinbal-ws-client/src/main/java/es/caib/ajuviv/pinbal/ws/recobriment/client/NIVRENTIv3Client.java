@@ -6,15 +6,15 @@ import es.caib.pinbal.ws.recobriment.TipoDocumentacion;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import es.caib.scsp.pinbal.ws.recobriment.facade.RespuestaClientAdapter;
-import es.caib.ajuviv.pinbal.ws.recobriment.datosespecificos.SCDHPAJUv3RespuestaDatosEspecificos;
-import es.caib.ajuviv.pinbal.ws.recobriment.facade.SCDHPAJUv3RecobrimentFacade;
+import es.caib.ajuviv.pinbal.ws.recobriment.datosespecificos.NIVRENTIv3RespuestaDatosEspecificos;
+import es.caib.ajuviv.pinbal.ws.recobriment.facade.NIVRENTIv3RecobrimentFacade;
 
 
 /**
  *
  * @author gdeignacio
  */
-public class SCDHPAJUv3Client {
+public class NIVRENTIv3Client {
     
     private static String APP = "es.caib.ajuviv.";
     
@@ -28,7 +28,7 @@ public class SCDHPAJUv3Client {
 
     //Atributos
 
-    private String codigoCertificado = "SCDHPAJU";
+    private String codigoCertificado = "NIVRENTI";
     private String idPeticion = null;
     private String numElementos = "1";
     private String timeStamp = null;
@@ -88,16 +88,16 @@ public class SCDHPAJUv3Client {
     
   
     
-    protected static final Logger LOG = Logger.getLogger(SCDHPAJUv3Client.class.getName());
+    protected static final Logger LOG = Logger.getLogger(NIVRENTIv3Client.class.getName());
 
-    private SCDHPAJUv3RecobrimentFacade facade;
+    private NIVRENTIv3RecobrimentFacade facade;
     
-    public SCDHPAJUv3Client(){
+    public NIVRENTIv3Client(){
         this(APP);
     }
     
-    public SCDHPAJUv3Client(String app){
-        this.facade = new SCDHPAJUv3RecobrimentFacade(app);
+    public NIVRENTIv3Client(String app){
+        this.facade = new NIVRENTIv3RecobrimentFacade(app);
     }
     
     public void dummy(){
@@ -110,9 +110,9 @@ public class SCDHPAJUv3Client {
    
     
     
-    public RespuestaClientAdapter<SCDHPAJUv3RespuestaDatosEspecificos> peticionSincrona(){
+    public RespuestaClientAdapter<NIVRENTIv3RespuestaDatosEspecificos> peticionSincrona(){
         
-        RespuestaClientAdapter<SCDHPAJUv3RespuestaDatosEspecificos> respuestaClient =
+        RespuestaClientAdapter<NIVRENTIv3RespuestaDatosEspecificos> respuestaClient =
             facade.peticionSincrona(codigoEstado, codigoEstadoSecundario, literalError, literalErrorSec, tiempoEstimadoRespuesta, codigoCertificado, idPeticion, numElementos, timeStamp, nifEmisor, nombreEmisor, nifFuncionario, nombreCompletoFuncionario, seudonimo, codProcedimiento, nombreProcedimiento, codigoUnidadTramitadora, consentimiento, finalidad, idExpediente, identificadorSolicitante, nombreSolicitante, unidadTramitadora, apellido1, apellido2, documentacion, nombre, nombreCompleto, tipoDocumentacion, fechaGeneracion, idSolicitud, idTransmision, municipioSolicitud, numeroAnyos, provinciaSolicitud, nombreTipoDocumentacion, valorDocumentacion, NIA);
         return respuestaClient;
     }

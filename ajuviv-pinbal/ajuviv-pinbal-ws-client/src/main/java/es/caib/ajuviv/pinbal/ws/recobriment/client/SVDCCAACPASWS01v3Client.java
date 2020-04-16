@@ -6,15 +6,15 @@ import es.caib.pinbal.ws.recobriment.TipoDocumentacion;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import es.caib.scsp.pinbal.ws.recobriment.facade.RespuestaClientAdapter;
-import es.caib.ajuviv.pinbal.ws.recobriment.datosespecificos.SCDHPAJUv3RespuestaDatosEspecificos;
-import es.caib.ajuviv.pinbal.ws.recobriment.facade.SCDHPAJUv3RecobrimentFacade;
+import es.caib.ajuviv.pinbal.ws.recobriment.datosespecificos.SVDCCAACPASWS01v3RespuestaDatosEspecificos;
+import es.caib.ajuviv.pinbal.ws.recobriment.facade.SVDCCAACPASWS01v3RecobrimentFacade;
 
 
 /**
  *
  * @author gdeignacio
  */
-public class SCDHPAJUv3Client {
+public class SVDCCAACPASWS01v3Client {
     
     private static String APP = "es.caib.ajuviv.";
     
@@ -28,7 +28,7 @@ public class SCDHPAJUv3Client {
 
     //Atributos
 
-    private String codigoCertificado = "SCDHPAJU";
+    private String codigoCertificado = "SVDCCAACPASWS01";
     private String idPeticion = null;
     private String numElementos = "1";
     private String timeStamp = null;
@@ -88,16 +88,16 @@ public class SCDHPAJUv3Client {
     
   
     
-    protected static final Logger LOG = Logger.getLogger(SCDHPAJUv3Client.class.getName());
+    protected static final Logger LOG = Logger.getLogger(SVDCCAACPASWS01v3Client.class.getName());
 
-    private SCDHPAJUv3RecobrimentFacade facade;
+    private SVDCCAACPASWS01v3RecobrimentFacade facade;
     
-    public SCDHPAJUv3Client(){
+    public SVDCCAACPASWS01v3Client(){
         this(APP);
     }
     
-    public SCDHPAJUv3Client(String app){
-        this.facade = new SCDHPAJUv3RecobrimentFacade(app);
+    public SVDCCAACPASWS01v3Client(String app){
+        this.facade = new SVDCCAACPASWS01v3RecobrimentFacade(app);
     }
     
     public void dummy(){
@@ -110,9 +110,9 @@ public class SCDHPAJUv3Client {
    
     
     
-    public RespuestaClientAdapter<SCDHPAJUv3RespuestaDatosEspecificos> peticionSincrona(){
+    public RespuestaClientAdapter<SVDCCAACPASWS01v3RespuestaDatosEspecificos> peticionSincrona(){
         
-        RespuestaClientAdapter<SCDHPAJUv3RespuestaDatosEspecificos> respuestaClient =
+        RespuestaClientAdapter<SVDCCAACPASWS01v3RespuestaDatosEspecificos> respuestaClient =
             facade.peticionSincrona(codigoEstado, codigoEstadoSecundario, literalError, literalErrorSec, tiempoEstimadoRespuesta, codigoCertificado, idPeticion, numElementos, timeStamp, nifEmisor, nombreEmisor, nifFuncionario, nombreCompletoFuncionario, seudonimo, codProcedimiento, nombreProcedimiento, codigoUnidadTramitadora, consentimiento, finalidad, idExpediente, identificadorSolicitante, nombreSolicitante, unidadTramitadora, apellido1, apellido2, documentacion, nombre, nombreCompleto, tipoDocumentacion, fechaGeneracion, idSolicitud, idTransmision, municipioSolicitud, numeroAnyos, provinciaSolicitud, nombreTipoDocumentacion, valorDocumentacion, NIA);
         return respuestaClient;
     }

@@ -19,15 +19,13 @@ import es.caib.pinbal.ws.recobriment.Consentimiento;
 import es.caib.pinbal.ws.recobriment.TipoDocumentacion;
 import es.caib.scsp.pinbal.ws.recobriment.facade.RecobrimentFacade;
 import es.caib.scsp.pinbal.ws.recobriment.facade.RespuestaClientAdapter;
-import es.caib.codapp.pinbal.ws.recobriment.datosespecificos.Q2827002CINSS001v3PeticionDatosEspecificos;
-import es.caib.codapp.pinbal.ws.recobriment.datosespecificos.Q2827002CINSS001v3RespuestaDatosEspecificos;
+import es.caib.ajuviv.pinbal.ws.recobriment.datosespecificos.SVDCCAACPASWS01v3PeticionDatosEspecificos;
+import es.caib.ajuviv.pinbal.ws.recobriment.datosespecificos.SVDCCAACPASWS01v3RespuestaDatosEspecificos;
 import es.caib.scsp.utils.xml.XmlManager;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.annotation.XmlSchema;
 import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Element;
 
@@ -35,11 +33,11 @@ import org.w3c.dom.Element;
  *
  * @author gdeignacio
  */
-public class Q2827002CINSS001v3RecobrimentFacade
+public class SVDCCAACPASWS01v3RecobrimentFacade
         extends RecobrimentFacade<
-        Q2827002CINSS001v3PeticionDatosEspecificos, Q2827002CINSS001v3RespuestaDatosEspecificos> {
+        SVDCCAACPASWS01v3PeticionDatosEspecificos, SVDCCAACPASWS01v3RespuestaDatosEspecificos> {
 
-    public Q2827002CINSS001v3RecobrimentFacade(String app) {
+    public SVDCCAACPASWS01v3RecobrimentFacade(String app) {
         super(app);
     }
 
@@ -49,30 +47,27 @@ public class Q2827002CINSS001v3RecobrimentFacade
      * @return
      */
     @Override
-    protected Element datosEspecificos2Element(Q2827002CINSS001v3PeticionDatosEspecificos datosEspecificosPeticion){
-        
-        if (datosEspecificosPeticion==null) return null;
+    protected Element datosEspecificos2Element(SVDCCAACPASWS01v3PeticionDatosEspecificos datosEspecificosPeticion){
         
         Element elementDatosEspecificos;
         
         try {
-            XmlManager<Q2827002CINSS001v3PeticionDatosEspecificos> manager
-                    = new XmlManager<Q2827002CINSS001v3PeticionDatosEspecificos>(Q2827002CINSS001v3PeticionDatosEspecificos.class);
+            XmlManager<SVDCCAACPASWS01v3PeticionDatosEspecificos> manager
+                    = new XmlManager<SVDCCAACPASWS01v3PeticionDatosEspecificos>(SVDCCAACPASWS01v3PeticionDatosEspecificos.class);
             elementDatosEspecificos = manager.generateElement(datosEspecificosPeticion);
             return elementDatosEspecificos;
         } catch (JAXBException ex) {
-            Logger.getLogger(Q2827002CINSS001v3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SVDCCAACPASWS01v3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParserConfigurationException ex) {
-            Logger.getLogger(Q2827002CINSS001v3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SVDCCAACPASWS01v3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         return null;
             
  
     }
 
     @Override
-    protected RespuestaClientAdapter<Q2827002CINSS001v3RespuestaDatosEspecificos> peticionSincronaEspecifica(
+    protected RespuestaClientAdapter<SVDCCAACPASWS01v3RespuestaDatosEspecificos> peticionSincronaEspecifica(
                 String codigoEstado, String codigoEstadoSecundario, 
                 String literalError, String literalErrorSec, Integer tiempoEstimadoRespuesta, 
                 String codigoCertificado, String idPeticion, 
@@ -86,7 +81,7 @@ public class Q2827002CINSS001v3RecobrimentFacade
                 String documentacion, String nombre, String nombreCompleto, 
                 TipoDocumentacion tipoDocumentacion, String fechaGeneracion, 
                 String idSolicitud, String idTransmision, 
-                Q2827002CINSS001v3PeticionDatosEspecificos datosEspecificosPeticion) {
+                SVDCCAACPASWS01v3PeticionDatosEspecificos datosEspecificosPeticion) {
         
         return this.peticionSincrona(
                 codigoEstado,
@@ -126,12 +121,41 @@ public class Q2827002CINSS001v3RecobrimentFacade
     }
     
     
-    private Q2827002CINSS001v3PeticionDatosEspecificos establecerDatosEspecificosPeticion() {
-        return null;
-    }
-
+    private SVDCCAACPASWS01v3PeticionDatosEspecificos establecerDatosEspecificosPeticion(
+            String municipioSolicitud, String numeroAnyos, String provinciaSolicitud,
+            String nombreTipoDocumentacion, String valorDocumentacion, String NIA
+    ){
     
-    public RespuestaClientAdapter<Q2827002CINSS001v3RespuestaDatosEspecificos> peticionSincrona(
+        es.caib.scsp.esquemas.SVDCCAACPASWS01v3.peticion.datosespecificos.Documentacion documentacion
+                = new es.caib.scsp.esquemas.SVDCCAACPASWS01v3.peticion.datosespecificos.Documentacion();
+        documentacion.setTipo(nombreTipoDocumentacion);
+        documentacion.setValor(valorDocumentacion);
+        
+        
+        es.caib.scsp.esquemas.SVDCCAACPASWS01v3.peticion.datosespecificos.Titular titular = 
+                 new es.caib.scsp.esquemas.SVDCCAACPASWS01v3.peticion.datosespecificos.Titular();
+        
+        
+        titular.setDocumentacion(documentacion);
+        titular.setNIA(NIA);
+        
+        es.caib.scsp.esquemas.SVDCCAACPASWS01v3.peticion.datosespecificos.Solicitud solicitud =
+                new es.caib.scsp.esquemas.SVDCCAACPASWS01v3.peticion.datosespecificos.Solicitud();
+        
+        solicitud.setMunicipioSolicitud(municipioSolicitud);
+        solicitud.setNumeroAnyos(numeroAnyos);
+        solicitud.setProvinciaSolicitud(provinciaSolicitud);
+        solicitud.setTitular(titular);
+        
+        SVDCCAACPASWS01v3PeticionDatosEspecificos datosEspecificos = new SVDCCAACPASWS01v3PeticionDatosEspecificos();
+        
+        datosEspecificos.setSolicitud(solicitud);
+        
+        return datosEspecificos;
+    }
+    
+    
+    public RespuestaClientAdapter<SVDCCAACPASWS01v3RespuestaDatosEspecificos> peticionSincrona(
                 String codigoEstado, String codigoEstadoSecundario, 
                 String literalError, String literalErrorSec, Integer tiempoEstimadoRespuesta, 
                 String codigoCertificado, String idPeticion, 
@@ -145,12 +169,15 @@ public class Q2827002CINSS001v3RecobrimentFacade
                 String unidadTramitadora, String apellido1, String apellido2, 
                 String documentacion, String nombre, String nombreCompleto, 
                 TipoDocumentacion tipoDocumentacion, String fechaGeneracion, 
-                String idSolicitud, String idTransmision
+                String idSolicitud, String idTransmision,
+                String municipioSolicitud, String numeroAnyos, String provinciaSolicitud,
+                String nombreTipoDocumentacion, String valorDocumentacion, String NIA
                 ) {
         
         
-        Q2827002CINSS001v3PeticionDatosEspecificos datosEspecificosPeticion = 
-                establecerDatosEspecificosPeticion();
+        SVDCCAACPASWS01v3PeticionDatosEspecificos datosEspecificosPeticion = 
+                establecerDatosEspecificosPeticion(municipioSolicitud, numeroAnyos,
+                provinciaSolicitud, nombreTipoDocumentacion,valorDocumentacion, NIA);
         
         
         return this.peticionSincronaEspecifica(
@@ -191,21 +218,20 @@ public class Q2827002CINSS001v3RecobrimentFacade
     }
 
     @Override
-    protected Q2827002CINSS001v3RespuestaDatosEspecificos element2DatosEspecificos(Element elementDatosEspecificos) {
+    protected SVDCCAACPASWS01v3RespuestaDatosEspecificos element2DatosEspecificos(Element elementDatosEspecificos) {
         
-        Q2827002CINSS001v3RespuestaDatosEspecificos datosEspecificos;
+        SVDCCAACPASWS01v3RespuestaDatosEspecificos datosEspecificos;
         try {
-            XmlManager<Q2827002CINSS001v3RespuestaDatosEspecificos> manager
-                    = new XmlManager<Q2827002CINSS001v3RespuestaDatosEspecificos>(Q2827002CINSS001v3RespuestaDatosEspecificos.class);
-         
+            XmlManager<SVDCCAACPASWS01v3RespuestaDatosEspecificos> manager
+                    = new XmlManager<SVDCCAACPASWS01v3RespuestaDatosEspecificos>(SVDCCAACPASWS01v3RespuestaDatosEspecificos.class);
             datosEspecificos = manager.generateItem(elementDatosEspecificos);
             
             return datosEspecificos;
             
         } catch (JAXBException ex) {
-            Logger.getLogger(Q2827002CINSS001v3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SVDCCAACPASWS01v3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(Q2827002CINSS001v3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SVDCCAACPASWS01v3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

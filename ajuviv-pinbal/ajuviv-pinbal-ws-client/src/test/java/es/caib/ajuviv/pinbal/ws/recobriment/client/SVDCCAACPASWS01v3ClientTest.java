@@ -17,7 +17,7 @@ package es.caib.ajuviv.pinbal.ws.recobriment.client;
 
 import es.caib.scsp.pinbal.ws.recobriment.client.DadesConnexioRecobriment;
 import es.caib.scsp.pinbal.ws.recobriment.facade.RespuestaClientAdapter;
-import es.caib.codapp.pinbal.ws.recobriment.datosespecificos.SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos;
+import es.caib.ajuviv.pinbal.ws.recobriment.datosespecificos.SVDCCAACPASWS01v3RespuestaDatosEspecificos;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -28,12 +28,12 @@ import org.junit.Test;
  *
  * @author gdeignacio
  */
-public class SVDDGTVEHICULODATOSWS01v3ClientTest {
+public class SVDCCAACPASWS01v3ClientTest {
     
     
-    private SVDDGTVEHICULODATOSWS01v3Client client;
+    private SVDCCAACPASWS01v3Client client;
     
-    public SVDDGTVEHICULODATOSWS01v3ClientTest() {
+    public SVDCCAACPASWS01v3ClientTest() {
     }
     
     @BeforeClass
@@ -48,13 +48,15 @@ public class SVDDGTVEHICULODATOSWS01v3ClientTest {
     public void setUp() {
         
         
-        String app = "es.caib.codapp.";
+        String app = "es.caib.ajuviv.";
         DadesConnexioRecobriment dadesConnexio = new DadesConnexioRecobriment(app);
-        System.setProperty(app  + "pinbal.client.username", "$palmaatexpol_pinbal");
-        System.setProperty(app  + "pinbal.client.password", "palmaatexpol_pinbal");
+        System.setProperty(app  + "pinbal.client.username", "$ajuviv_pinbal");
+        System.setProperty(app  + "pinbal.client.password", "ajuviv_pinbal");
         System.setProperty(app  + "pinbal.client.baseURL", "https://proves.caib.es/pinbal");
         
-        client = new SVDDGTVEHICULODATOSWS01v3Client(app);
+        client = new SVDCCAACPASWS01v3Client(app);
+        
+        
         
     }
     
@@ -63,42 +65,43 @@ public class SVDDGTVEHICULODATOSWS01v3ClientTest {
     }
 
     /**
-     * Test of dummy method, of class SVDDGTVEHICULODATOSWS01v3Client.
+     * Test of dummy method, of class SVDCCAACPASWS01v3Client.
      */
     @Test
     public void testDummy() {
         System.out.println("dummy");
+        
         client.dummy();
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
 
     /**
-     * Test of peticionSincrona method, of class SVDDGTVEHICULODATOSWS01v3Client.
+     * Test of peticionSincrona method, of class SVDCCAACPASWS01v3Client.
      */
     @Test
     public void testPeticionSincrona() {
         System.out.println("peticionSincrona");
         
-        RespuestaClientAdapter<SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos> expResult = null;
-        RespuestaClientAdapter<SVDDGTVEHICULODATOSWS01v3RespuestaDatosEspecificos> result = client.peticionSincrona();
+        RespuestaClientAdapter<SVDCCAACPASWS01v3RespuestaDatosEspecificos> expResult = null;
+        RespuestaClientAdapter<SVDCCAACPASWS01v3RespuestaDatosEspecificos> result = client.peticionSincrona();
         
-        System.out.println("Bastidor: " + result.getTransmisionesClient().get(0).getDatosEspecificos().getRetorno().getDatosVehiculo().getDatosGenerales().getDescripcionVehiculo().getBastidor());
-       
+        System.out.println("APELLIDO  " + result.getTransmisionesClient().get(0).getDatosEspecificos().getResultado().getApellido1());
+        
         //assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
 
     /**
-     * Test of main method, of class SVDDGTVEHICULODATOSWS01v3Example.
+     * Test of main method, of class SVDCCAACPASWS01v3Example.
      */
     /*
     @Test
     public void testMain() throws Exception {
         System.out.println("main");
         String[] args = null;
-        SVDDGTVEHICULODATOSWS01v3Client.main(args);
+        SVDCCAACPASWS01v3Client.main(args);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }

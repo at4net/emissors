@@ -17,7 +17,7 @@ package es.caib.ajuviv.pinbal.ws.recobriment.client;
 
 import es.caib.scsp.pinbal.ws.recobriment.client.DadesConnexioRecobriment;
 import es.caib.scsp.pinbal.ws.recobriment.facade.RespuestaClientAdapter;
-import es.caib.codapp.pinbal.ws.recobriment.datosespecificos.SCDHPAJUv3RespuestaDatosEspecificos;
+import es.caib.ajuviv.pinbal.ws.recobriment.datosespecificos.Q2827003ATGSS001v3RespuestaDatosEspecificos;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -28,12 +28,12 @@ import org.junit.Test;
  *
  * @author gdeignacio
  */
-public class SCDHPAJUv3ClientTest {
+public class Q2827003ATGSS001v3ClientTest {
     
     
-    private SCDHPAJUv3Client client;
+    private Q2827003ATGSS001v3Client client;
     
-    public SCDHPAJUv3ClientTest() {
+    public Q2827003ATGSS001v3ClientTest() {
     }
     
     @BeforeClass
@@ -48,13 +48,13 @@ public class SCDHPAJUv3ClientTest {
     public void setUp() {
         
         
-        String app = "es.caib.codapp.";
+        String app = "es.caib.ajuviv.";
         DadesConnexioRecobriment dadesConnexio = new DadesConnexioRecobriment(app);
-        System.setProperty(app  + "pinbal.client.username", "$xestib_pinbal");
-        System.setProperty(app  + "pinbal.client.password", "xestib_pinbal");
+        System.setProperty(app  + "pinbal.client.username", "$ajuviv_pinbal");
+        System.setProperty(app  + "pinbal.client.password", "ajuviv_pinbal");
         System.setProperty(app  + "pinbal.client.baseURL", "https://proves.caib.es/pinbal");
         
-        client = new SCDHPAJUv3Client(app);
+        client = new Q2827003ATGSS001v3Client(app);
         
         
         
@@ -65,7 +65,7 @@ public class SCDHPAJUv3ClientTest {
     }
 
     /**
-     * Test of dummy method, of class SCDHPAJUv3Client.
+     * Test of dummy method, of class Q2827003ATGSS001v3Client.
      */
     @Test
     public void testDummy() {
@@ -77,14 +77,14 @@ public class SCDHPAJUv3ClientTest {
     }
 
     /**
-     * Test of peticionSincrona method, of class SCDHPAJUv3Client.
+     * Test of peticionSincrona method, of class Q2827003ATGSS001v3Client.
      */
     @Test
     public void testPeticionSincrona() {
         System.out.println("peticionSincrona");
         
-        RespuestaClientAdapter<SCDHPAJUv3RespuestaDatosEspecificos> expResult = null;
-        RespuestaClientAdapter<SCDHPAJUv3RespuestaDatosEspecificos> result = client.peticionSincrona();
+        RespuestaClientAdapter<Q2827003ATGSS001v3RespuestaDatosEspecificos> expResult = null;
+        RespuestaClientAdapter<Q2827003ATGSS001v3RespuestaDatosEspecificos> result = client.peticionSincrona();
         
         System.out.println("APELLIDO  " + result.getTransmisionesClient().get(0).getDatosEspecificos().getResultado().getApellido1());
         
@@ -94,14 +94,14 @@ public class SCDHPAJUv3ClientTest {
     }
 
     /**
-     * Test of main method, of class SCDHPAJUv3Example.
+     * Test of main method, of class Q2827003ATGSS001v3Example.
      */
     /*
     @Test
     public void testMain() throws Exception {
         System.out.println("main");
         String[] args = null;
-        SCDHPAJUv3Client.main(args);
+        Q2827003ATGSS001v3Client.main(args);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
