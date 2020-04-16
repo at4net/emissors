@@ -31,7 +31,7 @@ import org.junit.Test;
 public class NIVRENTIv3ClientTest {
     
     
-    private AEAT103Iv3Client client;
+    private NIVRENTIv3Client client;
     
     public NIVRENTIv3ClientTest() {
     }
@@ -54,7 +54,7 @@ public class NIVRENTIv3ClientTest {
         System.setProperty(app  + "pinbal.client.password", "ajuviv_pinbal");
         System.setProperty(app  + "pinbal.client.baseURL", "https://proves.caib.es/pinbal");
         
-        client = new AEAT103Iv3Client(app);
+        client = new NIVRENTIv3Client(app);
         
         
         
@@ -83,8 +83,8 @@ public class NIVRENTIv3ClientTest {
     public void testPeticionSincrona() {
         System.out.println("peticionSincrona");
         
-        RespuestaClientAdapter<AEAT103Iv3RespuestaDatosEspecificos> expResult = null;
-        RespuestaClientAdapter<AEAT103Iv3RespuestaDatosEspecificos> result = client.peticionSincrona();
+        RespuestaClientAdapter<NIVRENTIv3RespuestaDatosEspecificos> expResult = null;
+        RespuestaClientAdapter<NIVRENTIv3RespuestaDatosEspecificos> result = client.peticionSincrona();
         
         System.out.println("APELLIDO  " + result.getTransmisionesClient().get(0).getDatosEspecificos().getResultado().getApellido1());
         

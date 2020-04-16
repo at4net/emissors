@@ -122,34 +122,13 @@ public class NIVRENTIv3RecobrimentFacade
     
     
     private NIVRENTIv3PeticionDatosEspecificos establecerDatosEspecificosPeticion(
-            String municipioSolicitud, String numeroAnyos, String provinciaSolicitud,
-            String nombreTipoDocumentacion, String valorDocumentacion, String NIA
+            Integer ejercicio
     ){
-    
-        es.caib.scsp.esquemas.NIVRENTIv3.peticion.datosespecificos.Documentacion documentacion
-                = new es.caib.scsp.esquemas.NIVRENTIv3.peticion.datosespecificos.Documentacion();
-        documentacion.setTipo(nombreTipoDocumentacion);
-        documentacion.setValor(valorDocumentacion);
-        
-        
-        es.caib.scsp.esquemas.NIVRENTIv3.peticion.datosespecificos.Titular titular = 
-                 new es.caib.scsp.esquemas.NIVRENTIv3.peticion.datosespecificos.Titular();
-        
-        
-        titular.setDocumentacion(documentacion);
-        titular.setNIA(NIA);
-        
-        es.caib.scsp.esquemas.NIVRENTIv3.peticion.datosespecificos.Solicitud solicitud =
-                new es.caib.scsp.esquemas.NIVRENTIv3.peticion.datosespecificos.Solicitud();
-        
-        solicitud.setMunicipioSolicitud(municipioSolicitud);
-        solicitud.setNumeroAnyos(numeroAnyos);
-        solicitud.setProvinciaSolicitud(provinciaSolicitud);
-        solicitud.setTitular(titular);
+       
         
         NIVRENTIv3PeticionDatosEspecificos datosEspecificos = new NIVRENTIv3PeticionDatosEspecificos();
         
-        datosEspecificos.setSolicitud(solicitud);
+        datosEspecificos.setEjercicio(ejercicio);
         
         return datosEspecificos;
     }
@@ -170,14 +149,12 @@ public class NIVRENTIv3RecobrimentFacade
                 String documentacion, String nombre, String nombreCompleto, 
                 TipoDocumentacion tipoDocumentacion, String fechaGeneracion, 
                 String idSolicitud, String idTransmision,
-                String municipioSolicitud, String numeroAnyos, String provinciaSolicitud,
-                String nombreTipoDocumentacion, String valorDocumentacion, String NIA
+                Integer ejercicio
                 ) {
         
         
         NIVRENTIv3PeticionDatosEspecificos datosEspecificosPeticion = 
-                establecerDatosEspecificosPeticion(municipioSolicitud, numeroAnyos,
-                provinciaSolicitud, nombreTipoDocumentacion,valorDocumentacion, NIA);
+                establecerDatosEspecificosPeticion(ejercicio);
         
         
         return this.peticionSincronaEspecifica(

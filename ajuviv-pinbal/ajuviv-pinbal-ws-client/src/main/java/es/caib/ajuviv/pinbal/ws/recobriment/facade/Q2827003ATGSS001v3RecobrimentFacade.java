@@ -121,37 +121,9 @@ public class Q2827003ATGSS001v3RecobrimentFacade
     }
     
     
-    private Q2827003ATGSS001v3PeticionDatosEspecificos establecerDatosEspecificosPeticion(
-            String municipioSolicitud, String numeroAnyos, String provinciaSolicitud,
-            String nombreTipoDocumentacion, String valorDocumentacion, String NIA
-    ){
+    private Q2827003ATGSS001v3PeticionDatosEspecificos establecerDatosEspecificosPeticion(){
     
-        es.caib.scsp.esquemas.Q2827003ATGSS001v3.peticion.datosespecificos.Documentacion documentacion
-                = new es.caib.scsp.esquemas.Q2827003ATGSS001v3.peticion.datosespecificos.Documentacion();
-        documentacion.setTipo(nombreTipoDocumentacion);
-        documentacion.setValor(valorDocumentacion);
-        
-        
-        es.caib.scsp.esquemas.Q2827003ATGSS001v3.peticion.datosespecificos.Titular titular = 
-                 new es.caib.scsp.esquemas.Q2827003ATGSS001v3.peticion.datosespecificos.Titular();
-        
-        
-        titular.setDocumentacion(documentacion);
-        titular.setNIA(NIA);
-        
-        es.caib.scsp.esquemas.Q2827003ATGSS001v3.peticion.datosespecificos.Solicitud solicitud =
-                new es.caib.scsp.esquemas.Q2827003ATGSS001v3.peticion.datosespecificos.Solicitud();
-        
-        solicitud.setMunicipioSolicitud(municipioSolicitud);
-        solicitud.setNumeroAnyos(numeroAnyos);
-        solicitud.setProvinciaSolicitud(provinciaSolicitud);
-        solicitud.setTitular(titular);
-        
-        Q2827003ATGSS001v3PeticionDatosEspecificos datosEspecificos = new Q2827003ATGSS001v3PeticionDatosEspecificos();
-        
-        datosEspecificos.setSolicitud(solicitud);
-        
-        return datosEspecificos;
+        return null;
     }
     
     
@@ -169,15 +141,12 @@ public class Q2827003ATGSS001v3RecobrimentFacade
                 String unidadTramitadora, String apellido1, String apellido2, 
                 String documentacion, String nombre, String nombreCompleto, 
                 TipoDocumentacion tipoDocumentacion, String fechaGeneracion, 
-                String idSolicitud, String idTransmision,
-                String municipioSolicitud, String numeroAnyos, String provinciaSolicitud,
-                String nombreTipoDocumentacion, String valorDocumentacion, String NIA
+                String idSolicitud, String idTransmision
                 ) {
         
         
         Q2827003ATGSS001v3PeticionDatosEspecificos datosEspecificosPeticion = 
-                establecerDatosEspecificosPeticion(municipioSolicitud, numeroAnyos,
-                provinciaSolicitud, nombreTipoDocumentacion,valorDocumentacion, NIA);
+                establecerDatosEspecificosPeticion();
         
         
         return this.peticionSincronaEspecifica(

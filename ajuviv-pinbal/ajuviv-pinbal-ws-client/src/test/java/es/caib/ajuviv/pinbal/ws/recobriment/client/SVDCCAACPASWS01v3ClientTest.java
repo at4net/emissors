@@ -81,12 +81,13 @@ public class SVDCCAACPASWS01v3ClientTest {
      */
     @Test
     public void testPeticionSincrona() {
-        System.out.println("peticionSincrona");
         
-        RespuestaClientAdapter<SVDCCAACPASWS01v3RespuestaDatosEspecificos> expResult = null;
-        RespuestaClientAdapter<SVDCCAACPASWS01v3RespuestaDatosEspecificos> result = client.peticionSincrona();
+        //System.out.println("peticionSincrona");
         
-        System.out.println("APELLIDO  " + result.getTransmisionesClient().get(0).getDatosEspecificos().getResultado().getApellido1());
+        //RespuestaClientAdapter<SVDCCAACPASWS01v3RespuestaDatosEspecificos> expResult = null;
+        //RespuestaClientAdapter<SVDCCAACPASWS01v3RespuestaDatosEspecificos> result = client.peticionSincrona();
+        
+        //System.out.println("APELLIDO  " + result.getTransmisionesClient().get(0).getDatosEspecificos().getResultado().getApellido1());
         
         //assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.

@@ -121,37 +121,9 @@ public class SVDCCAACPASWS01v3RecobrimentFacade
     }
     
     
-    private SVDCCAACPASWS01v3PeticionDatosEspecificos establecerDatosEspecificosPeticion(
-            String municipioSolicitud, String numeroAnyos, String provinciaSolicitud,
-            String nombreTipoDocumentacion, String valorDocumentacion, String NIA
-    ){
+    private SVDCCAACPASWS01v3PeticionDatosEspecificos establecerDatosEspecificosPeticion(){
     
-        es.caib.scsp.esquemas.SVDCCAACPASWS01v3.peticion.datosespecificos.Documentacion documentacion
-                = new es.caib.scsp.esquemas.SVDCCAACPASWS01v3.peticion.datosespecificos.Documentacion();
-        documentacion.setTipo(nombreTipoDocumentacion);
-        documentacion.setValor(valorDocumentacion);
-        
-        
-        es.caib.scsp.esquemas.SVDCCAACPASWS01v3.peticion.datosespecificos.Titular titular = 
-                 new es.caib.scsp.esquemas.SVDCCAACPASWS01v3.peticion.datosespecificos.Titular();
-        
-        
-        titular.setDocumentacion(documentacion);
-        titular.setNIA(NIA);
-        
-        es.caib.scsp.esquemas.SVDCCAACPASWS01v3.peticion.datosespecificos.Solicitud solicitud =
-                new es.caib.scsp.esquemas.SVDCCAACPASWS01v3.peticion.datosespecificos.Solicitud();
-        
-        solicitud.setMunicipioSolicitud(municipioSolicitud);
-        solicitud.setNumeroAnyos(numeroAnyos);
-        solicitud.setProvinciaSolicitud(provinciaSolicitud);
-        solicitud.setTitular(titular);
-        
-        SVDCCAACPASWS01v3PeticionDatosEspecificos datosEspecificos = new SVDCCAACPASWS01v3PeticionDatosEspecificos();
-        
-        datosEspecificos.setSolicitud(solicitud);
-        
-        return datosEspecificos;
+        return null;
     }
     
     
@@ -176,8 +148,7 @@ public class SVDCCAACPASWS01v3RecobrimentFacade
         
         
         SVDCCAACPASWS01v3PeticionDatosEspecificos datosEspecificosPeticion = 
-                establecerDatosEspecificosPeticion(municipioSolicitud, numeroAnyos,
-                provinciaSolicitud, nombreTipoDocumentacion,valorDocumentacion, NIA);
+                establecerDatosEspecificosPeticion();
         
         
         return this.peticionSincronaEspecifica(

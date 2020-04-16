@@ -75,15 +75,7 @@ public class Q2827003ATGSS001v3Client {
     
     // Datos Especificos
     // PeticionDatosEspecificos
-    // Solicitud
-    private String municipioSolicitud = "040";
-    private String numeroAnyos = "20";
-    private String provinciaSolicitud = "07";
-    // Titular
-    private String NIA = null;
-    // Documentacion
-    private String nombreTipoDocumentacion = TipoDocumentacion.NIF.value();
-    private String valorDocumentacion = "18237798V";
+    
     // Fin datos especificos
     
   
@@ -113,7 +105,7 @@ public class Q2827003ATGSS001v3Client {
     public RespuestaClientAdapter<Q2827003ATGSS001v3RespuestaDatosEspecificos> peticionSincrona(){
         
         RespuestaClientAdapter<Q2827003ATGSS001v3RespuestaDatosEspecificos> respuestaClient =
-            facade.peticionSincrona(codigoEstado, codigoEstadoSecundario, literalError, literalErrorSec, tiempoEstimadoRespuesta, codigoCertificado, idPeticion, numElementos, timeStamp, nifEmisor, nombreEmisor, nifFuncionario, nombreCompletoFuncionario, seudonimo, codProcedimiento, nombreProcedimiento, codigoUnidadTramitadora, consentimiento, finalidad, idExpediente, identificadorSolicitante, nombreSolicitante, unidadTramitadora, apellido1, apellido2, documentacion, nombre, nombreCompleto, tipoDocumentacion, fechaGeneracion, idSolicitud, idTransmision, municipioSolicitud, numeroAnyos, provinciaSolicitud, nombreTipoDocumentacion, valorDocumentacion, NIA);
+            facade.peticionSincrona(codigoEstado, codigoEstadoSecundario, literalError, literalErrorSec, tiempoEstimadoRespuesta, codigoCertificado, idPeticion, numElementos, timeStamp, nifEmisor, nombreEmisor, nifFuncionario, nombreCompletoFuncionario, seudonimo, codProcedimiento, nombreProcedimiento, codigoUnidadTramitadora, consentimiento, finalidad, idExpediente, identificadorSolicitante, nombreSolicitante, unidadTramitadora, apellido1, apellido2, documentacion, nombre, nombreCompleto, tipoDocumentacion, fechaGeneracion, idSolicitud, idTransmision);
         return respuestaClient;
     }
     

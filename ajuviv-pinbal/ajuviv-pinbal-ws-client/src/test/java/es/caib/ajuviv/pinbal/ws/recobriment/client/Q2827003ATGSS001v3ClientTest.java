@@ -81,12 +81,12 @@ public class Q2827003ATGSS001v3ClientTest {
      */
     @Test
     public void testPeticionSincrona() {
-        System.out.println("peticionSincrona");
+        //System.out.println("peticionSincrona");
         
-        RespuestaClientAdapter<Q2827003ATGSS001v3RespuestaDatosEspecificos> expResult = null;
-        RespuestaClientAdapter<Q2827003ATGSS001v3RespuestaDatosEspecificos> result = client.peticionSincrona();
+        //RespuestaClientAdapter<Q2827003ATGSS001v3RespuestaDatosEspecificos> expResult = null;
+        //RespuestaClientAdapter<Q2827003ATGSS001v3RespuestaDatosEspecificos> result = client.peticionSincrona();
         
-        System.out.println("APELLIDO  " + result.getTransmisionesClient().get(0).getDatosEspecificos().getResultado().getApellido1());
+        //System.out.println("APELLIDO  " + result.getTransmisionesClient().get(0).getDatosEspecificos().getResultado().getApellido1());
         
         //assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.

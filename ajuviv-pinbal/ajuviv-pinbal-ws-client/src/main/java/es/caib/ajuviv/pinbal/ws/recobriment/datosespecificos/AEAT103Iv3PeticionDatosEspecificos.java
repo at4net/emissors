@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author gdeignacio
  */
 @XmlRootElement(name = "datosEspecificos")
-public class AEAT103Iv3PeticionDatosEspecificos 
+public class AEAT103Iv3PeticionDatosEspecificos
         extends es.caib.scsp.esquemas.AEAT103Iv3.peticion.datosespecificos.DatosEspecificos {
     public AEAT103Iv3PeticionDatosEspecificos(){
         super();
