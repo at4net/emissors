@@ -20,7 +20,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.xml.XMLConstants;
@@ -28,6 +33,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchema;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -85,6 +91,20 @@ public class XmlManager<T> {
         
         return null;
     }
+    
+    private XmlRootElement getXmlRootElementAnnotation(){
+        
+        XmlRootElement xmlRootElementAnnotation;
+        
+        xmlRootElementAnnotation = clazz.getAnnotation(XmlRootElement.class);
+        
+        if (xmlRootElementAnnotation!=null) return xmlRootElementAnnotation;
+        
+        return null;
+    }
+    
+   
+    
 
     private ByteArrayOutputStream marshalToByteArrayOutputStream(T item) throws JAXBException {
 
@@ -146,9 +166,28 @@ public class XmlManager<T> {
     }
     
     public Element generateElement(T item) throws JAXBException, ParserConfigurationException{
-        Element el;
-        el = marshalToElement(item);
-        return el;
+        return generateElement(item, false);
+    }
+    
+    public Element generateElement(T item, boolean noCheckXmlns) throws JAXBException, ParserConfigurationException{
+        
+        Element element;
+        element = marshalToElement(item);
+        
+        if (noCheckXmlns) return element;
+        
+        if (!("".equals(element.getAttribute(XMLConstants.XMLNS_ATTRIBUTE)))) return element;
+        
+        XmlSchema xmlSchemaAnnotation = getXmlSchemaAnnotation();
+        XmlRootElement xmlRootElementAnnotation = getXmlRootElementAnnotation();
+        
+        if (xmlSchemaAnnotation == null) return element;
+        
+        return element;
+        
+        //Element el;
+        //el = marshalToElement(item);
+        //return el;
     }
     
     public DataHandler generateXml(T item) throws JAXBException {

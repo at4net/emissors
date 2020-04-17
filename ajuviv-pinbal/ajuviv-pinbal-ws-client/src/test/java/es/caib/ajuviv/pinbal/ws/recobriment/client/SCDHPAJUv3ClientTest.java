@@ -15,7 +15,7 @@
  */
 package es.caib.ajuviv.pinbal.ws.recobriment.client;
 
-import es.caib.ajuviv.pinbal.ws.recobriment.datosespecificos.NIVRENTIv3RespuestaDatosEspecificos;
+import es.caib.ajuviv.pinbal.ws.recobriment.datosespecificos.SCDHPAJUv3RespuestaDatosEspecificos;
 import es.caib.scsp.pinbal.ws.recobriment.client.DadesConnexioRecobriment;
 import es.caib.scsp.pinbal.ws.recobriment.facade.RespuestaClientAdapter;
 import org.junit.After;
@@ -28,12 +28,12 @@ import org.junit.Test;
  *
  * @author gdeignacio
  */
-public class NIVRENTIv3ClientTest {
+public class SCDHPAJUv3ClientTest {
     
     
-    private NIVRENTIv3Client client;
+    private SCDHPAJUv3Client client;
     
-    public NIVRENTIv3ClientTest() {
+    public SCDHPAJUv3ClientTest() {
     }
     
     @BeforeClass
@@ -50,11 +50,11 @@ public class NIVRENTIv3ClientTest {
         
         String app = "es.caib.ajuviv.";
         DadesConnexioRecobriment dadesConnexio = new DadesConnexioRecobriment(app);
-        System.setProperty(app  + "pinbal.client.username", "$ajuviv_pinbal");
-        System.setProperty(app  + "pinbal.client.password", "ajuviv_pinbal");
+        System.setProperty(app  + "pinbal.client.username", "$xestib_pinbal");
+        System.setProperty(app  + "pinbal.client.password", "xestib_pinbal");
         System.setProperty(app  + "pinbal.client.baseURL", "https://proves.caib.es/pinbal");
         
-        client = new NIVRENTIv3Client(app);
+         client = new SCDHPAJUv3Client(app);
         
         
         
@@ -81,19 +81,13 @@ public class NIVRENTIv3ClientTest {
      */
     @Test
     public void testPeticionSincrona() {
-        System.out.println("peticionSincrona");
+        //System.out.println("peticionSincrona");
         
-        RespuestaClientAdapter<NIVRENTIv3RespuestaDatosEspecificos> expResult = null;
-        RespuestaClientAdapter<NIVRENTIv3RespuestaDatosEspecificos> result = client.peticionSincrona();
+        RespuestaClientAdapter<SCDHPAJUv3RespuestaDatosEspecificos> expResult = null;
+        RespuestaClientAdapter<SCDHPAJUv3RespuestaDatosEspecificos> result = client.peticionSincrona();
         
-        String testresult = "RESPUESTA  ";
-        
-        testresult+= result.getTransmisionesClient().get(0).getDatosEspecificos().getIrpf().getNivelRenta().getNRLiteral();
-        
-        // + result.getTransmisionesClient().get(0).getDatosEspecificos().getResultado().getApellido1();
-        
-        System.out.println(testresult);
-        
+        System.out.println("APELLIDO  :" + result.getTransmisionesClient().get(0).getDatosEspecificos().getResultado().getApellido1());
+      
         //assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
