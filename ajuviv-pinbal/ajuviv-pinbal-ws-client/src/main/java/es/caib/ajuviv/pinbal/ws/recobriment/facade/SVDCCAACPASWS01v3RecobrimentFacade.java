@@ -141,10 +141,8 @@ public class SVDCCAACPASWS01v3RecobrimentFacade
                 String unidadTramitadora, String apellido1, String apellido2, 
                 String documentacion, String nombre, String nombreCompleto, 
                 TipoDocumentacion tipoDocumentacion, String fechaGeneracion, 
-                String idSolicitud, String idTransmision,
-                String municipioSolicitud, String numeroAnyos, String provinciaSolicitud,
-                String nombreTipoDocumentacion, String valorDocumentacion, String NIA
-                ) {
+                String idSolicitud, String idTransmision
+    ) {
         
         
         SVDCCAACPASWS01v3PeticionDatosEspecificos datosEspecificosPeticion = 

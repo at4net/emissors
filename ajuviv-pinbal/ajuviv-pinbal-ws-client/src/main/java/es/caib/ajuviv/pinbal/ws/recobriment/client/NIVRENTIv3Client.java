@@ -35,8 +35,8 @@ public class NIVRENTIv3Client {
 
     //Emisor (obtingut de la documentació SCSP del servei)
 
-    private String nifEmisor = "S0711001H";
-    private String nombreEmisor = "CAIB";
+    private String nifEmisor = "Q2826000H";
+    private String nombreEmisor = "AEAT";
 
     //Funcionario
 
@@ -46,22 +46,22 @@ public class NIVRENTIv3Client {
 
     //Procedimiento
 
-    private String codProcedimiento = "2083134";
-    private String nombreProcedimiento = "Escolartizació";
+    private String codProcedimiento = "CODSVDR_GBA_20121107";
+    private String nombreProcedimiento = "PRUEBAS DE INTEGRACION PARA GOBIERNO DE BALEARES";
    
     //Solicitante
     private String codigoUnidadTramitadora = null;
-    private Consentimiento consentimiento = Consentimiento.SI;
-    private String finalidad = "Baremacions per el proces d'escolaritzacio";
+    private Consentimiento consentimiento = Consentimiento.LEY;
+    private String finalidad = "Baremacions per les ajudes a lloguer";
     private String idExpediente = "";//"Q9WREU";
     private String identificadorSolicitante = "S0711001H";
-    private String nombreSolicitante = "Conselleria d'Educació";
-    private String unidadTramitadora = "Servei d'escolarització";
+    private String nombreSolicitante = "Govern de les Illes Balears";
+    private String unidadTramitadora = "FORMACIO LOT3";
 
     //Titular
     private String apellido1 = "";
     private String apellido2 = "";
-    private String documentacion = "78215122B";
+    private String documentacion = "99999998T";
     private String nombre = "";
     private String nombreCompleto = "";
     private TipoDocumentacion tipoDocumentacion = TipoDocumentacion.NIF;
@@ -75,8 +75,49 @@ public class NIVRENTIv3Client {
     
     // Datos Especificos
     // PeticionDatosEspecificos
-    private Integer ejercicio=2015;
+    private Integer ejercicio= new Integer(2015);
     // Fin datos especificos
+    
+    /*
+    <?xml version="1.0" encoding="UTF-8"?>
+<SolicitudTransmision 
+    xmlns="http://intermediacion.redsara.es/scsp/esquemas/V3/peticion">
+    <DatosGenericos>
+        <Emisor>
+            <NifEmisor>Q2826000H</NifEmisor>
+            <NombreEmisor>AEAT</NombreEmisor>
+        </Emisor>
+        <Solicitante>
+            <IdentificadorSolicitante>S0711001H</IdentificadorSolicitante>
+            <NombreSolicitante>Govern de les Illes Balears</NombreSolicitante>
+            <UnidadTramitadora>Unitat de test</UnidadTramitadora>
+            <Procedimiento>
+                <CodProcedimiento>CODSVDR_GBA_20121107</CodProcedimiento>
+                <NombreProcedimiento>PRUEBAS DE INTEGRACION PARA GOBIERNO DE BALEARES</NombreProcedimiento>
+            </Procedimiento>
+            <Finalidad>CODSVDR_GBA_20121107#::##::#CODSVDR_GBA_20121107#::##::#test</Finalidad>
+            <Consentimiento>Ley</Consentimiento>
+            <Funcionario>
+                <NombreCompletoFuncionario>Guillem Arrom Oliver</NombreCompletoFuncionario>
+                <NifFuncionario>43190731C</NifFuncionario>
+            </Funcionario>
+        </Solicitante>
+        <Titular>
+            <TipoDocumentacion>NIF</TipoDocumentacion>
+            <Documentacion>99999998T</Documentacion>
+        </Titular>
+        <Transmision>
+            <CodigoCertificado>NIVRENTI</CodigoCertificado>
+            <IdSolicitud>PINBAL00000000000000009495</IdSolicitud>
+            <FechaGeneracion>2020-04-14T17:25:18.147+02:00</FechaGeneracion>
+        </Transmision>
+    </DatosGenericos>
+    <DatosEspecificos 
+        xmlns="http://intermediacion.redsara.es/scsp/esquemas/datosespecificos">
+        <Ejercicio>2015</Ejercicio>
+    </DatosEspecificos>
+</SolicitudTransmision>
+    */
     
   
     

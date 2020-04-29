@@ -55,6 +55,7 @@ public class NIVRENTIv3RecobrimentFacade
             XmlManager<NIVRENTIv3PeticionDatosEspecificos> manager
                     = new XmlManager<NIVRENTIv3PeticionDatosEspecificos>(NIVRENTIv3PeticionDatosEspecificos.class);
             elementDatosEspecificos = manager.generateElement(datosEspecificosPeticion);
+            
             return elementDatosEspecificos;
         } catch (JAXBException ex) {
             Logger.getLogger(NIVRENTIv3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
@@ -127,7 +128,7 @@ public class NIVRENTIv3RecobrimentFacade
        
         
         NIVRENTIv3PeticionDatosEspecificos datosEspecificos = new NIVRENTIv3PeticionDatosEspecificos();
-        
+       
         datosEspecificos.setEjercicio(ejercicio);
         
         return datosEspecificos;

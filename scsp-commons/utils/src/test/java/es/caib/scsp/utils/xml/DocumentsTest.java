@@ -15,6 +15,12 @@
  */
 package es.caib.scsp.utils.xml;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.bind.annotation.XmlRootElement;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -45,12 +51,107 @@ public class DocumentsTest {
     @After
     public void tearDown() {
     }
+    
+    public static boolean isJDK7OrLower() {
+        boolean jdk7OrLower = true;
+        try {
+            Class.class.getDeclaredField("annotations");
+        } catch (NoSuchFieldException e) {
+            //Willfully ignore all exceptions
+            jdk7OrLower = false;
+        }
+        return jdk7OrLower;
+    }
+
+    
+    /**
+     * Test of dummy method, of class AEAT103Iv3Client.
+     */
+    @Test
+    public void testElement() {
+        System.out.println("dummy");
+        
+        
+        /*
+        
+        System.out.println("ATTRIBUTE   1   " + element.getAttribute(XMLConstants.XMLNS_ATTRIBUTE));
+        System.out.println("ATTRIBUTE   2  " + element.getAttribute(XMLConstants.XMLNS_ATTRIBUTE_NS_URI));
+        System.out.println("ATTRIBUTE   3  " + element.getAttribute(XMLConstants.XML_NS_PREFIX));
+        System.out.println("ATTRIBUTE   4  " + element.getAttribute(XMLConstants.XML_NS_URI));
+        
+        System.out.println(generateXmlString(item));
+        
+        System.out.println(generateXmlString(item));
+        
+        System.out.println(xmlSchemaAnnotation);
+        
+        Document document = element.getOwnerDocument();
+        
+        String nodeName = element.getNodeName();
+        System.out.println(nodeName);
+        
+  
+        element = (Element)document.renameNode(element, xmlSchemaAnnotation.namespace(), nodeName);
+        
+        element.setAttributeNS(XMLConstants.XMLNS_ATTRIBUTE_NS_URI, XMLConstants.XMLNS_ATTRIBUTE, xmlSchemaAnnotation.namespace());
+        
+        System.out.println("ATTRIBUTE   5   " + element.getAttribute(XMLConstants.XMLNS_ATTRIBUTE));
+        System.out.println("ATTRIBUTE   6  " + element.getAttribute(XMLConstants.XMLNS_ATTRIBUTE_NS_URI));
+        System.out.println("ATTRIBUTE   7  " + element.getAttribute(XMLConstants.XML_NS_PREFIX));
+        System.out.println("ATTRIBUTE   8  " + element.getAttribute(XMLConstants.XML_NS_URI));
+        
+        System.out.println(generateXmlString(item));
+        
+        
+        
+        */
+        
+        
+        
+        
+        
+        
+        
+       
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
+    }
+    
+    
 
     /**
      * Test of stringToElement method, of class XmlUtils.
      */
     @Test
     public void testStringToElement() {
+        
+        System.out.println("Is 7 OR LESS: " + isJDK7OrLower());
+        
+        /*
+        System.out.println("--------------------------");
+        for (Field f:Class.class.getDeclaredFields()){
+            System.out.println(f.getName());
+        }
+        
+        Field annotations;
+        try {
+            annotations = Class.class.getDeclaredField("annotations");
+            annotations.setAccessible(true);
+            
+            try {
+               // Map<Class<? extends Annotation>, Annotation> map =  (Map<Class<? extends Annotation>, Annotation>)
+                        System.out.println(annotations.toString());
+            } catch (IllegalArgumentException ex) {
+                Logger.getLogger(DocumentsTest.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        } catch (NoSuchFieldException ex) {
+            Logger.getLogger(DocumentsTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SecurityException ex) {
+            Logger.getLogger(DocumentsTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        */
+        
         
        /*
         String xml = "" +

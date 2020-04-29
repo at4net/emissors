@@ -21,10 +21,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author gdeignacio
  */
-@XmlRootElement(name = "datosEspecificos")
+
+@XmlRootElement(name = "datosEspecificos" , namespace = "http://intermediacion.redsara.es/scsp/esquemas/datosespecificos")
 public class NIVRENTIv3PeticionDatosEspecificos 
         extends es.caib.scsp.esquemas.NIVRENTIv3.peticion.datosespecificos.DatosEspecificos {
     public NIVRENTIv3PeticionDatosEspecificos(){
         super();
+        
     }
 }
