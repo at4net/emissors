@@ -159,8 +159,8 @@
                             <!--sourceRoot>${basedir}/target/generated/cxf-codegen-plugin</sourceRoot-->
                             <wsdlOptions>
                                 <wsdlOption>
-                                    <!--wsdl>${basedir}/src/main/resources/wsdl/recobriment.wsdl</wsdl-->
-                                    <wsdl>https://proves.caib.es/pinbal/ws/recobriment?wsdl</wsdl>
+                                    <wsdl>${basedir}/src/main/resources/wsdl/recobriment.wsdl</wsdl>
+                                    <!--wsdl>https://proves.caib.es/pinbal/ws/recobriment?wsdl</wsdl-->
                                     <extraargs>
                                         <extraarg>-xjc-Xts</extraarg>
                                         <!--extraarg>-xjc-npa</extraarg-->
