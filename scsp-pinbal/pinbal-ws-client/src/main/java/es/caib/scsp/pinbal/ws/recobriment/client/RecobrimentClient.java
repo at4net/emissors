@@ -21,8 +21,6 @@ import es.caib.scsp.utils.xml.XmlUtils;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.ws.handler.Handler;
-import org.apache.cxf.endpoint.Client;
-import org.apache.cxf.frontend.ClientProxy;
 import org.w3c.dom.Element;
 
 

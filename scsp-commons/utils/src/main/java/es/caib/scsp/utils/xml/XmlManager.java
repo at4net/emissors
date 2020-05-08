@@ -24,10 +24,8 @@ import java.util.List;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.xml.XMLConstants;
-import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXB;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchema;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -49,17 +47,19 @@ public class XmlManager<T> {
 
     private final Class<T> clazz;
 
-    private final JAXBContext jaxbContext;
+    //private final JAXBContext jaxbContext;
 
     public XmlManager(Class<T> clazz) throws JAXBException {
 
         this.clazz = clazz;
-        this.jaxbContext = JAXBContext.newInstance(clazz);
+        //this.jaxbContext = JAXBContext.newInstance(clazz);
+        
+       
     }
 
-    public JAXBContext getContext() {
-        return this.jaxbContext;
-    }
+    //public JAXBContext getContext() {
+    //    return this.jaxbContext;
+    //}
     
     public XmlSchema getXmlSchemaAnnotation(){
         
@@ -110,10 +110,12 @@ public class XmlManager<T> {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, formattedOutput);
+        //Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+        //jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, formattedOutput);
 
-        jaxbMarshaller.marshal(item, baos);
+        //jaxbMarshaller.marshal(item, baos);
+       
+        JAXB.marshal(item, baos);
 
         return baos;
     }
@@ -126,11 +128,14 @@ public class XmlManager<T> {
 
         Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
         
-        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, formattedOutput);
+        //Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+        //jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, formattedOutput);
 
-        jaxbMarshaller.marshal(item, new DOMResult(document));
+        //jaxbMarshaller.marshal(item, new DOMResult(document));
 
+        JAXB.marshal(item, new DOMResult(document));
+        
+        
         //JAXB.marshal(datosEspecificos, new DOMResult(document));
         Element element = document.getDocumentElement();
         
@@ -141,23 +146,32 @@ public class XmlManager<T> {
     
     private T unmarshal(InputStream is) throws JAXBException {
 
-       Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-       return jaxbUnmarshaller.unmarshal(new StreamSource(is), clazz).getValue();
+       //Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+       //return jaxbUnmarshaller.unmarshal(new StreamSource(is), clazz).getValue();
+       
+       //Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+       return JAXB.unmarshal(new StreamSource(is), clazz);
+       
+       
 
     }
     
     
     private T unmarshal(String xml) throws JAXBException {
 
-       Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-       return jaxbUnmarshaller.unmarshal(new StreamSource(new StringReader(xml)), clazz).getValue();
+       //Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+       //return jaxbUnmarshaller.unmarshal(new StreamSource(new StringReader(xml)), clazz).getValue();
+       
+       return JAXB.unmarshal(new StreamSource(new StringReader(xml)), clazz);
 
     }
     
-    private T unmarshal(Element element) throws JAXBException{
-        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-        return jaxbUnmarshaller.unmarshal(element, clazz).getValue();
-    }
+    //private T unmarshal(Element element) throws JAXBException{
+        //Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+        //return jaxbUnmarshaller.unmarshal(element, clazz).getValue();
+        
+        //return JAXB.unmarshal(element, clazz);
+    //}
     
     public Element generateElement(T item) throws JAXBException, ParserConfigurationException{
         return generateElement(item, false);
