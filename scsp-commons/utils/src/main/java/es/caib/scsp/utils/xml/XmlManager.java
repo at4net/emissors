@@ -26,11 +26,13 @@ import javax.activation.DataSource;
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXB;
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchema;
+import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.dom.DOMResult;
@@ -59,9 +61,16 @@ public class XmlManager<T> {
        
     }
 
-    //public JAXBContext getContext() {
-    //    return this.jaxbContext;
-    //}
+    public JAXBContext getContext() {
+        return this.jaxbContext;
+    }
+    
+    public JAXBElement<T> getJAXBElement(T item){
+        QName qname = new QName(getXmlSchemaAnnotation().namespace(), getXmlRootElementAnnotation().name());
+        JAXBElement<T> jaxbElement = new JAXBElement<T>(qname, clazz, item); 
+        return jaxbElement;
+    }
+    
     
     public XmlSchema getXmlSchemaAnnotation(){
         
@@ -161,10 +170,10 @@ public class XmlManager<T> {
     
     private T unmarshal(String xml) throws JAXBException {
 
-       //Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-       //return jaxbUnmarshaller.unmarshal(new StreamSource(new StringReader(xml)), clazz).getValue();
+       Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+       return jaxbUnmarshaller.unmarshal(new StreamSource(new StringReader(xml)), clazz).getValue();
        
-       return JAXB.unmarshal(new StreamSource(new StringReader(xml)), clazz);
+       //return JAXB.unmarshal(new StreamSource(new StringReader(xml)), clazz);
 
     }
     

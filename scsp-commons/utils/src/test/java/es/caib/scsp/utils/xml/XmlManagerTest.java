@@ -101,7 +101,7 @@ public class XmlManagerTest {
         XmlRootElement xmlRootElementAnnotation = NIVRENTIv3manager.getXmlRootElementAnnotation();
   
         System.out.println("NAMESPACE: " + xmlRootElementAnnotation.namespace());
-        
+        System.out.println("NAME: " + xmlRootElementAnnotation.name());
         
     }
     

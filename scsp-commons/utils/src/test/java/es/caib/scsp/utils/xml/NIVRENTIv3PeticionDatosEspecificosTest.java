@@ -23,8 +23,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author gdeignacio
  */
-@XmlRootElement(name = "datosEspecificos" , namespace = "http://intermediacion.redsara.es/scsp/esquemas/datosespecificos")
-//@XmlRootElement(name = "datosEspecificos")  
+//@XmlRootElement(name = "datosEspecificos" , namespace = "http://intermediacion.redsara.es/scsp/esquemas/datosespecificos")
+@XmlRootElement(name = "datosEspecificos")  
 public class NIVRENTIv3PeticionDatosEspecificosTest 
         extends es.caib.scsp.esquemas.NIVRENTIv3.peticion.datosespecificos.DatosEspecificos {
     public NIVRENTIv3PeticionDatosEspecificosTest(){
