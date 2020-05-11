@@ -20,6 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.activation.DataHandler;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchema;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -88,6 +89,23 @@ public class XmlManagerTest {
         System.out.println("LOCATION: " + xmlSchemaAnnotation.location());
         
     }
+    
+    /**
+     * Test of getXmlSchemaAnnotation method, of class XmlManager.
+     */
+    @Test
+    public void testGetXmlRootElementAnnotation() {
+        
+        System.out.println("getXmlRootElementAnnotation");
+        
+        XmlRootElement xmlRootElementAnnotation = NIVRENTIv3manager.getXmlRootElementAnnotation();
+  
+        System.out.println("NAMESPACE: " + xmlRootElementAnnotation.namespace());
+        
+        
+    }
+    
+    
 
     /**
      * Test of generateElement method, of class XmlManager.

@@ -88,7 +88,7 @@ public class XmlManager<T> {
         return null;
     }
     
-    private XmlRootElement getXmlRootElementAnnotation(){
+    public XmlRootElement getXmlRootElementAnnotation(){
         
         XmlRootElement xmlRootElementAnnotation;
         
