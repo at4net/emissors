@@ -56,10 +56,6 @@ public class XmlManager<T> {
 
         this.clazz = clazz;
         this.jaxbContext = JAXBContext.newInstance(clazz);
-        System.out.println("--------------------------------------------------------------------------" + clazz.getName());
-        System.out.println("-------------------------------------------------------------------------" + jaxbContext.toString());
-        
-        
        
     }
 
