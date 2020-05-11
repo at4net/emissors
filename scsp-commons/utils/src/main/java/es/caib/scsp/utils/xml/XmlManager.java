@@ -25,7 +25,10 @@ import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXB;
+import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchema;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -47,12 +50,15 @@ public class XmlManager<T> {
 
     private final Class<T> clazz;
 
-    //private final JAXBContext jaxbContext;
+    private final JAXBContext jaxbContext;
 
     public XmlManager(Class<T> clazz) throws JAXBException {
 
         this.clazz = clazz;
-        //this.jaxbContext = JAXBContext.newInstance(clazz);
+        this.jaxbContext = JAXBContext.newInstance(clazz);
+        System.out.println("--------------------------------------------------------------------------" + clazz.getName());
+        System.out.println("-------------------------------------------------------------------------" + jaxbContext.toString());
+        
         
        
     }
@@ -110,12 +116,12 @@ public class XmlManager<T> {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-        //Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-        //jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, formattedOutput);
+        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, formattedOutput);
 
-        //jaxbMarshaller.marshal(item, baos);
+        jaxbMarshaller.marshal(item, baos);
        
-        JAXB.marshal(item, baos);
+        //JAXB.marshal(item, baos);
 
         return baos;
     }
@@ -128,12 +134,12 @@ public class XmlManager<T> {
 
         Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
         
-        //Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-        //jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, formattedOutput);
+        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, formattedOutput);
 
-        //jaxbMarshaller.marshal(item, new DOMResult(document));
+        jaxbMarshaller.marshal(item, new DOMResult(document));
 
-        JAXB.marshal(item, new DOMResult(document));
+        //JAXB.marshal(item, new DOMResult(document));
         
         
         //JAXB.marshal(datosEspecificos, new DOMResult(document));
@@ -146,11 +152,11 @@ public class XmlManager<T> {
     
     private T unmarshal(InputStream is) throws JAXBException {
 
-       //Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-       //return jaxbUnmarshaller.unmarshal(new StreamSource(is), clazz).getValue();
+       Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+       return jaxbUnmarshaller.unmarshal(new StreamSource(is), clazz).getValue();
        
        //Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-       return JAXB.unmarshal(new StreamSource(is), clazz);
+       //return JAXB.unmarshal(new StreamSource(is), clazz);
        
        
 
@@ -178,6 +184,9 @@ public class XmlManager<T> {
     }
     
     public Element generateElement(T item, boolean noCheckXmlns) throws JAXBException, ParserConfigurationException{
+        
+        System.out.println(generateXmlString(item));
+        
         
         Element element;
         element = marshalToElement(item);
