@@ -17,12 +17,16 @@ package es.caib.scsp.utils.xml;
 
 
 
+import java.io.ByteArrayInputStream;
 import javax.mail.util.ByteArrayDataSource;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.xml.XMLConstants;
@@ -34,6 +38,7 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchema;
 import javax.xml.namespace.QName;
+import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.dom.DOMResult;
@@ -43,6 +48,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSSerializer;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -51,8 +57,6 @@ import org.w3c.dom.ls.LSSerializer;
  */
 public class XmlManager<T> {
 
-    
-    public static String  NAMESPACE_PREFIX_MAPPER = "com.Sun.xml.bind.namespacePrefixMapper";
     
     private final Class<T> clazz;
 
@@ -70,25 +74,16 @@ public class XmlManager<T> {
     }
     
     public JAXBElement<T> getJAXBElement(T item){
-        QName qname = new QName(getXmlSchemaAnnotation().namespace(), getXmlRootElementAnnotation().name());
+        return getJAXBElement(item, getXmlSchemaAnnotation().namespace(), getXmlRootElementAnnotation().name());
+    }
+    
+    public JAXBElement<T> getJAXBElement(T item, String namespaceURI, String localPart){
+        
+        QName qname = new QName(namespaceURI, localPart);
+        
         JAXBElement<T> jaxbElement = new JAXBElement<T>(qname, clazz, item); 
         return jaxbElement;
     }
-    
-//    public NamespacePrefixMapper getNamespacePrefixMapper() {
-//
-//        NamespacePrefixMapper mapper = new NamespacePrefixMapper() {
-//            @Override
-//            public String getPreferredPrefix(String namespaceUri, String suggestion, boolean requirePrefix) {
-//                if (getXmlSchemaAnnotation().namespace().equals(namespaceUri) && !requirePrefix) {
-//                    return "";
-//                }
-//                return "ns";
-//            }
-//        };
-//
-//        return mapper;
-//    }
     
     
     public XmlSchema getXmlSchemaAnnotation(){
@@ -127,31 +122,30 @@ public class XmlManager<T> {
         return null;
     }
     
-   
-    
 
     private ByteArrayOutputStream marshalToByteArrayOutputStream(T item) throws JAXBException {
 
-        return XmlManager.this.marshalToByteArrayOutputStream(item, Boolean.TRUE);
+        return XmlManager.this.marshalToByteArrayOutputStream(item, Boolean.TRUE, Boolean.TRUE);
 
     }
 
-    private ByteArrayOutputStream marshalToByteArrayOutputStream(T item, boolean formattedOutput) throws JAXBException {
+    private ByteArrayOutputStream marshalToByteArrayOutputStream(T item, boolean jaxbFormattedOutput, boolean jaxbFragment) throws JAXBException {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
         Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, formattedOutput);
-        
+        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, jaxbFormattedOutput);
+        jaxbMarshaller.setProperty(Marshaller.JAXB_FRAGMENT, jaxbFragment);
         jaxbMarshaller.marshal(item, baos);
-       
         return baos;
     }
 
+    @Deprecated
     private Element marshalToElement(T item) throws JAXBException, ParserConfigurationException{
         return XmlManager.this.marshalToElement(item, Boolean.TRUE);
     }
     
+    @Deprecated
     private Element marshalToElement(T item, boolean formattedOutput) throws JAXBException, ParserConfigurationException {
 
         Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
@@ -163,17 +157,8 @@ public class XmlManager<T> {
        
         //JAXB.marshal(item, new DOMResult(document));
        
-        
-        
         //JAXB.marshal(datosEspecificos, new DOMResult(document));
         Element element = document.getDocumentElement();
-        
-        System.out.println("Antes: " + element.getAttribute(XMLConstants.XMLNS_ATTRIBUTE));
-        
-        element.removeAttribute(XMLConstants.XMLNS_ATTRIBUTE);
-        
-        System.out.println("Despues: " + element.getAttribute(XMLConstants.XMLNS_ATTRIBUTE));
-        
         
         //jaxbMarshaller.marshal(item, new DOMResult(document));
  
@@ -210,14 +195,64 @@ public class XmlManager<T> {
     //}
     
     public Element generateElement(T item) throws JAXBException, ParserConfigurationException{
-        return generateElement(item, false);
+        return generateElement(item, Boolean.FALSE);
     }
     
+    
+    public Element generateElement(T item, boolean withXmlns) throws JAXBException, ParserConfigurationException{
+        
+        String xml = generateXmlString(item);
+        
+        System.out.println(xml);
+        
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        DocumentBuilder db = dbf.newDocumentBuilder();
+        
+        Element element = null;
+        
+        try {   
+            Document doc = db.parse(new ByteArrayInputStream(xml.getBytes("UTF-8")));
+            element = doc.getDocumentElement();
+            
+            System.out.println("Elemento ANTES");
+            System.out.println(serializeElement(element));
+            
+            
+            System.out.println("Antes: " + element.getAttribute(XMLConstants.XMLNS_ATTRIBUTE));
+        
+             element.removeAttribute(XMLConstants.XMLNS_ATTRIBUTE);
+        
+             System.out.println("Despues: " + element.getAttribute(XMLConstants.XMLNS_ATTRIBUTE));
+        
+             System.out.println("Elemento DESPUES");
+             System.out.println(serializeElement(element));
+            
+            return element;
+            
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(XmlManager.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SAXException ex) {
+            Logger.getLogger(XmlManager.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(XmlManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return element;
+        
+      
+    }
+    
+    /*
     public Element generateElement(T item, boolean noCheckXmlns) throws JAXBException, ParserConfigurationException{
+        
+        
+        
         
         
         Element element;
         element = marshalToElement(item);
+        
+        System.out.println("Elemento");
+        System.out.println(serializeElement(element));
         
         if (noCheckXmlns) return element;
         
@@ -228,12 +263,15 @@ public class XmlManager<T> {
         
         if (xmlSchemaAnnotation == null) return element;
         
+      
+        
         return element;
         
         //Element el;
         //el = marshalToElement(item);
         //return el;
     }
+*/
     
     public DataHandler generateXml(T item) throws JAXBException {
 
@@ -289,13 +327,18 @@ public class XmlManager<T> {
         return serializeElementAndGenerateItem(element);
     }
     
-    
-    private T serializeElementAndGenerateItem(Element element) throws JAXBException, IOException{
+    public String serializeElement(Element element){
         Document document = element.getOwnerDocument();
         DOMImplementationLS domImplLS = (DOMImplementationLS) document
                     .getImplementation();
         LSSerializer serializer = domImplLS.createLSSerializer();
         String xml = serializer.writeToString(element);
+        return xml;
+    }
+    
+    
+    private T serializeElementAndGenerateItem(Element element) throws JAXBException, IOException{
+        String xml = serializeElement(element);
         return generateItem(xml);
     }
 
@@ -307,7 +350,7 @@ public class XmlManager<T> {
 
     public String generateFlatXmlString(T item) throws JAXBException {
 
-        return XmlManager.this.marshalToByteArrayOutputStream(item, Boolean.FALSE).toString();
+        return XmlManager.this.marshalToByteArrayOutputStream(item, Boolean.FALSE, Boolean.TRUE).toString();
 
     }
 
@@ -324,9 +367,16 @@ public class XmlManager<T> {
 
     public String generateXmlString(T item) throws JAXBException {
 
-        return marshalToByteArrayOutputStream(item).toString();
+        return generateXmlString(item, Boolean.TRUE, Boolean.TRUE);
 
     }
+    
+    public String generateXmlString(T item, boolean jaxbFormattedOutput, boolean jaxbFragment) throws JAXBException {
+
+        return marshalToByteArrayOutputStream(item, jaxbFormattedOutput, jaxbFragment).toString();
+
+    }
+    
 
     public String generateXmlString(List<T> items) throws JAXBException {
 

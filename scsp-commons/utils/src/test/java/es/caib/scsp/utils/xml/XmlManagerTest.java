@@ -74,22 +74,7 @@ public class XmlManagerTest {
     }
 
     
-//    /**
-//     * Test of getNamespacePrefixMapper method, of class XmlManager.
-//     */
-//    @Test
-//    public void testGetNamespacePrefixMapper() {
-//        
-//        System.out.println("getNamespacePrefixMapper");
-//        
-//        NamespacePrefixMapper mapper = NIVRENTIv3manager.getNamespacePrefixMapper();
-//  
-//        System.out.println("MAPPER: " + mapper.);
-//        
-//        
-//    }
-//    
-    
+   
     
     
     /**
@@ -102,7 +87,7 @@ public class XmlManagerTest {
         
         XmlSchema xmlSchemaAnnotation = NIVRENTIv3manager.getXmlSchemaAnnotation();
   
-        System.out.println("NAMESPACE: " + xmlSchemaAnnotation.namespace());
+        System.out.println("SCHEMANAMESPACE: " + xmlSchemaAnnotation.namespace());
         System.out.println("LOCATION: " + xmlSchemaAnnotation.location());
         
     }
@@ -117,7 +102,7 @@ public class XmlManagerTest {
         
         XmlRootElement xmlRootElementAnnotation = NIVRENTIv3manager.getXmlRootElementAnnotation();
   
-        System.out.println("NAMESPACE: " + xmlRootElementAnnotation.namespace());
+        System.out.println("ROOTNAMESPACE: " + xmlRootElementAnnotation.namespace());
         System.out.println("NAME: " + xmlRootElementAnnotation.name());
         
     }
@@ -146,7 +131,7 @@ public class XmlManagerTest {
         System.out.println("getJAXBElement");
         
         JAXBElement<NIVRENTIv3PeticionDatosEspecificosTest> result = NIVRENTIv3manager.getJAXBElement(item);
-        System.out.println("ELEMENT: " + result.getName());
+        System.out.println("JAXBELEMENT: " + result);
         
         System.out.println(NIVRENTIv3manager.generateXmlString(item));
         

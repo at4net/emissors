@@ -28,8 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class NIVRENTIv3PeticionDatosEspecificosTest 
         extends es.caib.scsp.esquemas.NIVRENTIv3.peticion.datosespecificos.DatosEspecificos {
     public NIVRENTIv3PeticionDatosEspecificosTest(){
-        super();
-        
+        super();       
     }
 }
 
