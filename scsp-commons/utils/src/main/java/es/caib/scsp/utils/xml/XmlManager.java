@@ -23,6 +23,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.logging.Level;
@@ -41,13 +42,20 @@ import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMResult;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import org.apache.commons.io.IOUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSSerializer;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
@@ -203,6 +211,7 @@ public class XmlManager<T> {
         
         String xml = generateXmlString(item);
         
+        System.out.println("xml");
         System.out.println(xml);
         
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -210,12 +219,11 @@ public class XmlManager<T> {
         
         Element element = null;
         
-        try {   
-            Document doc = db.parse(new ByteArrayInputStream(xml.getBytes("UTF-8")));
-            element = doc.getDocumentElement();
+        try {
+            element = stringToElement(xml);
             
             System.out.println("Elemento ANTES");
-            System.out.println(serializeElement(element));
+            System.out.println(elementToString(element));
             
             
             System.out.println("Antes: " + element.getAttribute(XMLConstants.XMLNS_ATTRIBUTE));
@@ -225,17 +233,21 @@ public class XmlManager<T> {
              System.out.println("Despues: " + element.getAttribute(XMLConstants.XMLNS_ATTRIBUTE));
         
              System.out.println("Elemento DESPUES");
-             System.out.println(serializeElement(element));
+             System.out.println(elementToString(element));
             
             return element;
             
-        } catch (UnsupportedEncodingException ex) {
+            
+            
+        } catch (TransformerException ex) {
             Logger.getLogger(XmlManager.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SAXException ex) {
             Logger.getLogger(XmlManager.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(XmlManager.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+    
         return element;
         
       
@@ -393,6 +405,28 @@ public class XmlManager<T> {
         
         return XmlValidation.validateXMLSchema(xsd, generateXml(item));
     
+    }
+    
+    
+    private Element stringToElement(String xml) throws TransformerException, ParserConfigurationException, SAXException, IOException {
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        //dbFactory.setNamespaceAware(true);
+        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+        StringReader reader = new StringReader(xml);
+        InputSource inputSource = new InputSource(reader);
+        Document doc = dBuilder.parse(inputSource);
+        return doc.getDocumentElement();
+    }
+
+    private String elementToString(Element element) throws TransformerException {
+        TransformerFactory transFactory = TransformerFactory.newInstance();
+        Transformer transformer = transFactory.newTransformer();
+        StringWriter buffer = new StringWriter();
+        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+        transformer.transform(
+                new DOMSource(element),
+                new StreamResult(buffer));
+        return buffer.toString();
     }
 
 }
