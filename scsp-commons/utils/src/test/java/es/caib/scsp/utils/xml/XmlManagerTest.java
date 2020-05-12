@@ -131,7 +131,7 @@ public class XmlManagerTest {
     public void testGenerateElement_GenericType() throws Exception {
         System.out.println("generateElement");
         
-        Element result = NIVRENTIv3manager.generateElement(item);
+        Element result = NIVRENTIv3manager.generateElement(item, true);
         System.out.println("ELEMENT: " + result.toString());
         
     }

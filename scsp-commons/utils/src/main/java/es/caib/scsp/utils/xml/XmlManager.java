@@ -160,12 +160,20 @@ public class XmlManager<T> {
         jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, formattedOutput);
         
         jaxbMarshaller.marshal(item, new DOMResult(document));
-
+       
         //JAXB.marshal(item, new DOMResult(document));
+       
         
         
         //JAXB.marshal(datosEspecificos, new DOMResult(document));
         Element element = document.getDocumentElement();
+        
+        System.out.println("Antes: " + element.getAttribute(XMLConstants.XMLNS_ATTRIBUTE));
+        
+        element.removeAttribute(XMLConstants.XMLNS_ATTRIBUTE);
+        
+        System.out.println("Despues: " + element.getAttribute(XMLConstants.XMLNS_ATTRIBUTE));
+        
         
         //jaxbMarshaller.marshal(item, new DOMResult(document));
  
