@@ -211,9 +211,6 @@ public class XmlManager<T> {
         
         String xml = generateXmlString(item);
         
-        System.out.println("xml");
-        System.out.println(xml);
-        
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
         
@@ -221,24 +218,21 @@ public class XmlManager<T> {
         
         try {
             element = stringToElement(xml);
-            
+
             System.out.println("Elemento ANTES");
             System.out.println(elementToString(element));
-            
-            
+
             System.out.println("Antes: " + element.getAttribute(XMLConstants.XMLNS_ATTRIBUTE));
-        
-             element.removeAttribute(XMLConstants.XMLNS_ATTRIBUTE);
-        
-             System.out.println("Despues: " + element.getAttribute(XMLConstants.XMLNS_ATTRIBUTE));
-        
-             System.out.println("Elemento DESPUES");
-             System.out.println(elementToString(element));
-            
+
+            element.removeAttribute(XMLConstants.XMLNS_ATTRIBUTE);
+
+            System.out.println("Despues: " + element.getAttribute(XMLConstants.XMLNS_ATTRIBUTE));
+
+            System.out.println("Elemento DESPUES");
+            System.out.println(elementToString(element));
+
             return element;
-            
-            
-            
+
         } catch (TransformerException ex) {
             Logger.getLogger(XmlManager.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SAXException ex) {
@@ -328,6 +322,8 @@ public class XmlManager<T> {
         return generateItem(element, false);
     }
     
+    
+    
     public T generateItem(Element element, boolean noCheckXmlns) throws JAXBException, IOException{
         
         if (noCheckXmlns) return serializeElementAndGenerateItem(element);
@@ -351,6 +347,8 @@ public class XmlManager<T> {
     
     private T serializeElementAndGenerateItem(Element element) throws JAXBException, IOException{
         String xml = serializeElement(element);
+        System.out.println("Elemento entrante");
+        System.out.println(xml);
         return generateItem(xml);
     }
 
@@ -408,9 +406,13 @@ public class XmlManager<T> {
     }
     
     
-    private Element stringToElement(String xml) throws TransformerException, ParserConfigurationException, SAXException, IOException {
+    private Element stringToElement(String xml) throws TransformerException, ParserConfigurationException, SAXException, IOException{
+        return stringToElement(xml, Boolean.FALSE);
+    }
+    
+    private Element stringToElement(String xml, boolean namespaceAware) throws TransformerException, ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        //dbFactory.setNamespaceAware(true);
+        dbFactory.setNamespaceAware(namespaceAware);
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         StringReader reader = new StringReader(xml);
         InputSource inputSource = new InputSource(reader);

@@ -133,9 +133,6 @@ public class XmlManagerTest {
         JAXBElement<NIVRENTIv3PeticionDatosEspecificosTest> result = NIVRENTIv3manager.getJAXBElement(item);
         System.out.println("JAXBELEMENT: " + result);
         
-        System.out.println(NIVRENTIv3manager.generateXmlString(item));
-        
-        
     }
 
     
