@@ -349,28 +349,29 @@ public class XmlManager<T> {
         DOMImplementationLS domImplLS = (DOMImplementationLS) document
                     .getImplementation();
         LSSerializer serializer = domImplLS.createLSSerializer();
+        serializer.getDomConfig().setParameter("xml-declaration", false);
         String xml = serializer.writeToString(element);
         return xml;
     }
     
-//    private T serializeElementAndGenerateItem(Element element) throws JAXBException, IOException{
-//        String xml = serializeElement(element);
-//        System.out.println("Elemento entrante");
-//        System.out.println(xml);
-//        return generateItem(xml);
-//    }
-    
     private T serializeElementAndGenerateItem(Element element) throws JAXBException, IOException{
-        String xml = "";
-        try {
-            xml = elementToString(element);
-        } catch (TransformerException ex) {
-            Logger.getLogger(XmlManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        String xml = serializeElement(element);
         System.out.println("Elemento entrante");
         System.out.println(xml);
         return generateItem(xml);
     }
+    
+//    private T serializeElementAndGenerateItem(Element element) throws JAXBException, IOException{
+//        String xml = "";
+//        try {
+//            xml = elementToString(element);
+//        } catch (TransformerException ex) {
+//            Logger.getLogger(XmlManager.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        System.out.println("Elemento entrante");
+//        System.out.println(xml);
+//        return generateItem(xml);
+//    }
 
     public byte[] generateXmlByteArray(T item) throws JAXBException {
 
