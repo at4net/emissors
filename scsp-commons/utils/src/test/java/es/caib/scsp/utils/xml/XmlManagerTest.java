@@ -15,10 +15,9 @@
  */
 package es.caib.scsp.utils.xml;
 
-import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.activation.DataHandler;
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchema;
@@ -27,7 +26,6 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.w3c.dom.Element;
 
 /**
@@ -75,6 +73,25 @@ public class XmlManagerTest {
     public void tearDown() {
     }
 
+    
+//    /**
+//     * Test of getNamespacePrefixMapper method, of class XmlManager.
+//     */
+//    @Test
+//    public void testGetNamespacePrefixMapper() {
+//        
+//        System.out.println("getNamespacePrefixMapper");
+//        
+//        NamespacePrefixMapper mapper = NIVRENTIv3manager.getNamespacePrefixMapper();
+//  
+//        System.out.println("MAPPER: " + mapper.);
+//        
+//        
+//    }
+//    
+    
+    
+    
     /**
      * Test of getXmlSchemaAnnotation method, of class XmlManager.
      */
@@ -115,9 +132,28 @@ public class XmlManagerTest {
         System.out.println("generateElement");
         
         Element result = NIVRENTIv3manager.generateElement(item);
-        System.out.println(result.toString());
+        System.out.println("ELEMENT: " + result.toString());
         
     }
+    
+    
+    
+    /**
+     * Test of generateElement method, of class XmlManager.
+     */
+    @Test
+    public void testGetJAXBElement_GenericType() throws Exception {
+        System.out.println("getJAXBElement");
+        
+        JAXBElement<NIVRENTIv3PeticionDatosEspecificosTest> result = NIVRENTIv3manager.getJAXBElement(item);
+        System.out.println("ELEMENT: " + result.getName());
+        
+        System.out.println(NIVRENTIv3manager.generateXmlString(item));
+        
+        
+    }
+
+    
 
     
     

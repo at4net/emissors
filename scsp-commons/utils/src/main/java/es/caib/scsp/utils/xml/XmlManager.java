@@ -15,6 +15,8 @@
  */
 package es.caib.scsp.utils.xml;
 
+
+
 import javax.mail.util.ByteArrayDataSource;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -24,7 +26,6 @@ import java.util.List;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.xml.XMLConstants;
-import javax.xml.bind.JAXB;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
@@ -50,6 +51,9 @@ import org.w3c.dom.ls.LSSerializer;
  */
 public class XmlManager<T> {
 
+    
+    public static String  NAMESPACE_PREFIX_MAPPER = "com.Sun.xml.bind.namespacePrefixMapper";
+    
     private final Class<T> clazz;
 
     private final JAXBContext jaxbContext;
@@ -70,6 +74,21 @@ public class XmlManager<T> {
         JAXBElement<T> jaxbElement = new JAXBElement<T>(qname, clazz, item); 
         return jaxbElement;
     }
+    
+//    public NamespacePrefixMapper getNamespacePrefixMapper() {
+//
+//        NamespacePrefixMapper mapper = new NamespacePrefixMapper() {
+//            @Override
+//            public String getPreferredPrefix(String namespaceUri, String suggestion, boolean requirePrefix) {
+//                if (getXmlSchemaAnnotation().namespace().equals(namespaceUri) && !requirePrefix) {
+//                    return "";
+//                }
+//                return "ns";
+//            }
+//        };
+//
+//        return mapper;
+//    }
     
     
     public XmlSchema getXmlSchemaAnnotation(){
@@ -123,7 +142,7 @@ public class XmlManager<T> {
 
         Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
         jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, formattedOutput);
-
+        
         jaxbMarshaller.marshal(item, baos);
        
         //JAXB.marshal(item, baos);
@@ -141,7 +160,7 @@ public class XmlManager<T> {
         
         Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
         jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, formattedOutput);
-
+        
         jaxbMarshaller.marshal(item, new DOMResult(document));
 
         //JAXB.marshal(item, new DOMResult(document));
@@ -190,8 +209,6 @@ public class XmlManager<T> {
     
     public Element generateElement(T item, boolean noCheckXmlns) throws JAXBException, ParserConfigurationException{
         
-        System.out.println(generateXmlString(item));
-        
         
         Element element;
         element = marshalToElement(item);
@@ -201,7 +218,7 @@ public class XmlManager<T> {
         if (!("".equals(element.getAttribute(XMLConstants.XMLNS_ATTRIBUTE)))) return element;
         
         XmlSchema xmlSchemaAnnotation = getXmlSchemaAnnotation();
-        XmlRootElement xmlRootElementAnnotation = getXmlRootElementAnnotation();
+        //XmlRootElement xmlRootElementAnnotation = getXmlRootElementAnnotation();
         
         if (xmlSchemaAnnotation == null) return element;
         
