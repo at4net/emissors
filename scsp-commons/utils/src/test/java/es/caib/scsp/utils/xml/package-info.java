@@ -7,3 +7,5 @@
 
 @javax.xml.bind.annotation.XmlSchema(namespace = "http://intermediacion.redsara.es/scsp/esquemas/datosespecificos", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
 package es.caib.scsp.utils.xml;
+
+import javax.xml.bind.annotation.*;

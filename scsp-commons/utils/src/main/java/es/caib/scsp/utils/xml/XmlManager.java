@@ -145,8 +145,6 @@ public class XmlManager<T> {
         
         jaxbMarshaller.marshal(item, baos);
        
-        //JAXB.marshal(item, baos);
-
         return baos;
     }
 
