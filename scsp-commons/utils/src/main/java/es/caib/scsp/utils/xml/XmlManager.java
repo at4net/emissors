@@ -323,9 +323,11 @@ public class XmlManager<T> {
     public T generateItem(Element element, boolean noCheckXmlns) throws JAXBException, IOException{
         
         if (noCheckXmlns) return serializeElementAndGenerateItem(element);
+        System.out.println("PREFIJO XMLNS: " + element.getAttribute(XMLConstants.XMLNS_ATTRIBUTE));
         if (!("".equals(element.getAttribute(XMLConstants.XMLNS_ATTRIBUTE)))) return serializeElementAndGenerateItem(element);
         
         XmlSchema xmlSchemaAnnotation = getXmlSchemaAnnotation();
+        System.out.println("ANOTACION: " + xmlSchemaAnnotation.namespace());
         if (xmlSchemaAnnotation == null) return serializeElementAndGenerateItem(element);
         element.setAttribute(XMLConstants.XMLNS_ATTRIBUTE, xmlSchemaAnnotation.namespace());
         return serializeElementAndGenerateItem(element);
@@ -352,24 +354,24 @@ public class XmlManager<T> {
         return xml;
     }
     
-    private T serializeElementAndGenerateItem(Element element) throws JAXBException, IOException{
-        String xml = serializeElement(element);
-        System.out.println("Elemento entrante");
-        System.out.println(xml);
-        return generateItem(xml);
-    }
-    
 //    private T serializeElementAndGenerateItem(Element element) throws JAXBException, IOException{
-//        String xml = "";
-//        try {
-//            xml = elementToString(element);
-//        } catch (TransformerException ex) {
-//            Logger.getLogger(XmlManager.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+//        String xml = serializeElement(element);
 //        System.out.println("Elemento entrante");
 //        System.out.println(xml);
 //        return generateItem(xml);
 //    }
+    
+    private T serializeElementAndGenerateItem(Element element) throws JAXBException, IOException{
+        String xml = "";
+        try {
+            xml = elementToString(element);
+        } catch (TransformerException ex) {
+            Logger.getLogger(XmlManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("Elemento entrante");
+        System.out.println(xml);
+        return generateItem(xml);
+    }
 
     public byte[] generateXmlByteArray(T item) throws JAXBException {
 
