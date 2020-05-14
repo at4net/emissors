@@ -17,14 +17,12 @@ package es.caib.scsp.utils.xml;
 
 
 
-import java.io.ByteArrayInputStream;
 import javax.mail.util.ByteArrayDataSource;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -163,13 +161,8 @@ public class XmlManager<T> {
         
         jaxbMarshaller.marshal(item, new DOMResult(document));
        
-        //JAXB.marshal(item, new DOMResult(document));
-       
-        //JAXB.marshal(datosEspecificos, new DOMResult(document));
         Element element = document.getDocumentElement();
-        
-        //jaxbMarshaller.marshal(item, new DOMResult(document));
- 
+       
         return element;
     }
     
@@ -178,11 +171,6 @@ public class XmlManager<T> {
        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
        return jaxbUnmarshaller.unmarshal(new StreamSource(is), clazz).getValue();
        
-       //Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-       //return JAXB.unmarshal(new StreamSource(is), clazz);
-       
-       
-
     }
     
     
@@ -191,16 +179,7 @@ public class XmlManager<T> {
        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
        return jaxbUnmarshaller.unmarshal(new StreamSource(new StringReader(xml)), clazz).getValue();
        
-       //return JAXB.unmarshal(new StreamSource(new StringReader(xml)), clazz);
-
     }
-    
-    //private T unmarshal(Element element) throws JAXBException{
-        //Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-        //return jaxbUnmarshaller.unmarshal(element, clazz).getValue();
-        
-        //return JAXB.unmarshal(element, clazz);
-    //}
     
     public Element generateElement(T item) throws JAXBException, ParserConfigurationException{
         return generateElement(item, Boolean.FALSE);
@@ -219,17 +198,15 @@ public class XmlManager<T> {
         try {
             element = stringToElement(xml);
 
-            System.out.println("Elemento ANTES");
-            System.out.println(elementToString(element));
-
-            System.out.println("Antes: " + element.getAttribute(XMLConstants.XMLNS_ATTRIBUTE));
+            //System.out.println("Elemento ANTES");
+            //System.out.println(elementToString(element));
+            //System.out.println("Antes: " + element.getAttribute(XMLConstants.XMLNS_ATTRIBUTE));
 
             element.removeAttribute(XMLConstants.XMLNS_ATTRIBUTE);
 
-            System.out.println("Despues: " + element.getAttribute(XMLConstants.XMLNS_ATTRIBUTE));
-
-            System.out.println("Elemento DESPUES");
-            System.out.println(elementToString(element));
+            //System.out.println("Despues: " + element.getAttribute(XMLConstants.XMLNS_ATTRIBUTE));
+            //System.out.println("Elemento DESPUES");
+            //System.out.println(elementToString(element));
 
             return element;
 
@@ -246,38 +223,6 @@ public class XmlManager<T> {
         
       
     }
-    
-    /*
-    public Element generateElement(T item, boolean noCheckXmlns) throws JAXBException, ParserConfigurationException{
-        
-        
-        
-        
-        
-        Element element;
-        element = marshalToElement(item);
-        
-        System.out.println("Elemento");
-        System.out.println(serializeElement(element));
-        
-        if (noCheckXmlns) return element;
-        
-        if (!("".equals(element.getAttribute(XMLConstants.XMLNS_ATTRIBUTE)))) return element;
-        
-        XmlSchema xmlSchemaAnnotation = getXmlSchemaAnnotation();
-        //XmlRootElement xmlRootElementAnnotation = getXmlRootElementAnnotation();
-        
-        if (xmlSchemaAnnotation == null) return element;
-        
-      
-        
-        return element;
-        
-        //Element el;
-        //el = marshalToElement(item);
-        //return el;
-    }
-*/
     
     public DataHandler generateXml(T item) throws JAXBException {
 
@@ -325,24 +270,18 @@ public class XmlManager<T> {
     public T generateItem(Element element, boolean noCheckXmlns) throws JAXBException, IOException{
         
         if (noCheckXmlns) return serializeElementAndGenerateItem(element);
+        
         if (!("".equals(element.getAttribute(XMLConstants.XMLNS_ATTRIBUTE)))) return serializeElementAndGenerateItem(element);
         
         XmlSchema xmlSchemaAnnotation = getXmlSchemaAnnotation();
+        
         if (xmlSchemaAnnotation == null) return serializeElementAndGenerateItem(element);
+        element.removeAttribute(XMLConstants.XMLNS_ATTRIBUTE);
         element.setAttribute(XMLConstants.XMLNS_ATTRIBUTE, xmlSchemaAnnotation.namespace());
+        
         return serializeElementAndGenerateItem(element);
     }
     
-//    public T generateItem(Element element, boolean noCheckXmlns) throws JAXBException, IOException{
-//        
-//        if (noCheckXmlns) return serializeElementAndGenerateItem(element);
-//        if (!("".equals(element.getAttribute(XMLConstants.XMLNS_ATTRIBUTE)))) return serializeElementAndGenerateItem(element);
-//        
-//        XmlSchema xmlSchemaAnnotation = getXmlSchemaAnnotation();
-//        if (xmlSchemaAnnotation == null) return serializeElementAndGenerateItem(element);
-//        element.setAttribute(XMLConstants.XMLNS_ATTRIBUTE, xmlSchemaAnnotation.namespace());
-//        return serializeElementAndGenerateItem(element);
-//    }
     
     public String serializeElement(Element element){
         Document document = element.getOwnerDocument();
@@ -355,23 +294,16 @@ public class XmlManager<T> {
     }
     
     private T serializeElementAndGenerateItem(Element element) throws JAXBException, IOException{
-        String xml = serializeElement(element);
-        System.out.println("Elemento entrante");
-        System.out.println(xml);
+        String xml = "";
+        try {
+            xml = elementToString(element);
+        } catch (TransformerException ex) {
+            Logger.getLogger(XmlManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //System.out.println("Elemento entrante");
+        //System.out.println(xml);
         return generateItem(xml);
     }
-    
-//    private T serializeElementAndGenerateItem(Element element) throws JAXBException, IOException{
-//        String xml = "";
-//        try {
-//            xml = elementToString(element);
-//        } catch (TransformerException ex) {
-//            Logger.getLogger(XmlManager.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        System.out.println("Elemento entrante");
-//        System.out.println(xml);
-//        return generateItem(xml);
-//    }
 
     public byte[] generateXmlByteArray(T item) throws JAXBException {
 

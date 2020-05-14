@@ -111,7 +111,7 @@
         <module>scsp-schemas-xsd-SVDDELSEXCDIWS01v3</module>
         <module>scsp-schemas-xsd-AEAT104Iv2</module>
         <module>scsp-schemas-xsd-SVDCBIWS02v3</module>
-        <module>scsp-schemas-xsd-MAP01WS01v2</module>
+        <!--module>scsp-schemas-xsd-MAP01WS01v2</module-->
         <module>scsp-schemas-xsd-SVDSPEEIPERWS01v2</module>
         <module>scsp-schemas-xsd-SVDSCCMWS01v3</module>
         <module>scsp-schemas-xsd-SVDSEPEDEMWS01v3</module>
