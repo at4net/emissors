@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="scsp-emissor-war:war">
+    <output-path>$PROJECT_DIR$/scsp-emissor/scsp-emissor-war/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>scsp-emissor-war</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="scsp-emissor-war.war">
+      <element id="artifact" artifact-name="scsp-emissor-war:war exploded" />
+    </root>
+  </artifact>
+</component>

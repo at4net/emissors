@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: es.scsp:scsp-rampart-core:1.6.4.1">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/es/scsp/scsp-rampart-core/1.6.4.1/scsp-rampart-core-1.6.4.1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/es/scsp/scsp-rampart-core/1.6.4.1/scsp-rampart-core-1.6.4.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/es/scsp/scsp-rampart-core/1.6.4.1/scsp-rampart-core-1.6.4.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
