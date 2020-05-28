@@ -9,6 +9,7 @@
     <file url="file://$PROJECT_DIR$/scsp-pinbal-example/pinbal-ws-client-example/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/scsp-pinbal/pinbal-ws-client/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/scsp-pinbal/pinbal-ws-client/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/scsp-pinbal/pinbal-ws-client/target/generated-sources/cxf" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/scsp-schemas-gen/schemas-xsd/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/scsp-schemas-gen/schemas-xsd/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/scsp-schemas-xsd-main/scsp-schemas-xsd-196v3/src/main/resources" charset="UTF-8" />
@@ -157,5 +158,6 @@
     <file url="file://$PROJECT_DIR$/scsp-schemas-xsd-main/scsp-schemas-xsd-pruebasv2/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/scsp-schemas-xsd-main/scsp-schemas-xsd-pruebasv3/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/scsp-silme/pinbalfamilia-ws-client/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/scsp-silme/pinbalfamilia-ws-client/target/generated-sources/cxf" charset="UTF-8" />
   </component>
 </project>
