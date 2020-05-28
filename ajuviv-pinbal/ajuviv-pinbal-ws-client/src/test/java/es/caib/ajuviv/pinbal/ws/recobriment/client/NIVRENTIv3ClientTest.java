@@ -88,7 +88,7 @@ public class NIVRENTIv3ClientTest {
         
         String testresult = "RESPUESTA  ";
         
-        testresult+= result.getTransmisionesClient().get(0).getDatosEspecificos().getIrpf().getNivelRenta().getNRLiteral();
+        testresult+= result.getTransmisionesClient().get(0).getDatosEspecificos();
         
         // + result.getTransmisionesClient().get(0).getDatosEspecificos().getResultado().getApellido1();
         

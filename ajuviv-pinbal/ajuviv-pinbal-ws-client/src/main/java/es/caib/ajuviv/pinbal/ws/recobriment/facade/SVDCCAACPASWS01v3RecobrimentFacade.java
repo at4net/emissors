@@ -17,6 +17,7 @@ package es.caib.ajuviv.pinbal.ws.recobriment.facade;
 
 import es.caib.pinbal.ws.recobriment.Consentimiento;
 import es.caib.pinbal.ws.recobriment.TipoDocumentacion;
+import es.caib.scsp.esquemas.SVDCCAACPASWS01v3.peticion.datosespecificos.Consulta;
 import es.caib.scsp.pinbal.ws.recobriment.facade.RecobrimentFacade;
 import es.caib.scsp.pinbal.ws.recobriment.facade.RespuestaClientAdapter;
 import es.caib.ajuviv.pinbal.ws.recobriment.datosespecificos.SVDCCAACPASWS01v3PeticionDatosEspecificos;
@@ -122,8 +123,11 @@ public class SVDCCAACPASWS01v3RecobrimentFacade
     
     
     private SVDCCAACPASWS01v3PeticionDatosEspecificos establecerDatosEspecificosPeticion(){
-    
-        return null;
+        SVDCCAACPASWS01v3PeticionDatosEspecificos data = new SVDCCAACPASWS01v3PeticionDatosEspecificos();
+        Consulta consulta = new Consulta();
+        consulta.setCodigoProvincia("07");
+        data.setConsulta(consulta);
+        return data;
     }
     
     
@@ -193,7 +197,7 @@ public class SVDCCAACPASWS01v3RecobrimentFacade
         try {
             XmlManager<SVDCCAACPASWS01v3RespuestaDatosEspecificos> manager
                     = new XmlManager<SVDCCAACPASWS01v3RespuestaDatosEspecificos>(SVDCCAACPASWS01v3RespuestaDatosEspecificos.class);
-            datosEspecificos = manager.generateItem(elementDatosEspecificos);
+            datosEspecificos = manager.generateItem(elementDatosEspecificos, true);
             
             return datosEspecificos;
             

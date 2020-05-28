@@ -122,7 +122,8 @@ public class AEAT103Iv3RecobrimentFacade
     
     
     private AEAT103Iv3PeticionDatosEspecificos establecerDatosEspecificosPeticion(){
-        return null;
+        AEAT103Iv3PeticionDatosEspecificos data = new AEAT103Iv3PeticionDatosEspecificos();
+        return data;
     }
     
     

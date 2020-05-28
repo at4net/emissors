@@ -55,8 +55,14 @@ public class SVDCCAACPASWS01v3ClientTest {
         System.setProperty(app  + "pinbal.client.baseURL", "https://proves.caib.es/pinbal");
         
         client = new SVDCCAACPASWS01v3Client(app);
-        
-        
+
+
+
+        System.setProperty("com.sun.xml.ws.transport.http.client.HttpTransportPipe.dump", "true");
+        System.setProperty("com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.dump", "true");
+        System.setProperty("com.sun.xml.ws.transport.http.HttpAdapter.dump", "true");
+        System.setProperty("com.sun.xml.internal.ws.transport.http.HttpAdapter.dump", "true");
+        System.setProperty("com.sun.xml.internal.ws.transport.http.HttpAdapter.dumpTreshold", "999999");
         
     }
     
@@ -84,10 +90,10 @@ public class SVDCCAACPASWS01v3ClientTest {
         
         //System.out.println("peticionSincrona");
         
-        //RespuestaClientAdapter<SVDCCAACPASWS01v3RespuestaDatosEspecificos> expResult = null;
-        //RespuestaClientAdapter<SVDCCAACPASWS01v3RespuestaDatosEspecificos> result = client.peticionSincrona();
+        RespuestaClientAdapter<SVDCCAACPASWS01v3RespuestaDatosEspecificos> expResult = null;
+        RespuestaClientAdapter<SVDCCAACPASWS01v3RespuestaDatosEspecificos> result = client.peticionSincrona();
         
-        //System.out.println("APELLIDO  " + result.getTransmisionesClient().get(0).getDatosEspecificos().getResultado().getApellido1());
+        System.out.println("APELLIDO  " + result.getTransmisionesClient().get(0).getDatosEspecificos().getRetorno().toString());
         
         //assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.

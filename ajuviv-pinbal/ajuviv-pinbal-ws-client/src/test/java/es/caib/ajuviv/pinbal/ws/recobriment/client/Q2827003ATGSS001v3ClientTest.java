@@ -55,7 +55,13 @@ public class Q2827003ATGSS001v3ClientTest {
         System.setProperty(app  + "pinbal.client.baseURL", "https://proves.caib.es/pinbal");
         
         client = new Q2827003ATGSS001v3Client(app);
-        
+
+
+        System.setProperty("com.sun.xml.ws.transport.http.client.HttpTransportPipe.dump", "true");
+        System.setProperty("com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.dump", "true");
+        System.setProperty("com.sun.xml.ws.transport.http.HttpAdapter.dump", "true");
+        System.setProperty("com.sun.xml.internal.ws.transport.http.HttpAdapter.dump", "true");
+        System.setProperty("com.sun.xml.internal.ws.transport.http.HttpAdapter.dumpTreshold", "999999");
         
         
     }
@@ -83,8 +89,8 @@ public class Q2827003ATGSS001v3ClientTest {
     public void testPeticionSincrona() {
         //System.out.println("peticionSincrona");
         
-        //RespuestaClientAdapter<Q2827003ATGSS001v3RespuestaDatosEspecificos> expResult = null;
-        //RespuestaClientAdapter<Q2827003ATGSS001v3RespuestaDatosEspecificos> result = client.peticionSincrona();
+        RespuestaClientAdapter<Q2827003ATGSS001v3RespuestaDatosEspecificos> expResult = null;
+        RespuestaClientAdapter<Q2827003ATGSS001v3RespuestaDatosEspecificos> result = client.peticionSincrona();
         
         //System.out.println("APELLIDO  " + result.getTransmisionesClient().get(0).getDatosEspecificos().getResultado().getApellido1());
         

@@ -15,87 +15,86 @@
  */
 package es.caib.ajuviv.pinbal.ws.recobriment.client;
 
+import es.caib.ajuviv.pinbal.ws.recobriment.datosespecificos.AEAT103Iv3RespuestaDatosEspecificos;
 import es.caib.scsp.pinbal.ws.recobriment.client.DadesConnexioRecobriment;
 import es.caib.scsp.pinbal.ws.recobriment.facade.RespuestaClientAdapter;
-import es.caib.ajuviv.pinbal.ws.recobriment.datosespecificos.AEAT103Iv3RespuestaDatosEspecificos;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 
 /**
- *
  * @author gdeignacio
  */
 public class AEAT103Iv3ClientTest {
-    
-    
-    private AEAT103Iv3Client client;
-    
-    public AEAT103Iv3ClientTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-        
-        
-        String app = "es.caib.ajuviv.";
-        DadesConnexioRecobriment dadesConnexio = new DadesConnexioRecobriment(app);
-        System.setProperty(app  + "pinbal.client.username", "$ajuviv_pinbal");
-        System.setProperty(app  + "pinbal.client.password", "ajuviv_pinbal");
-        System.setProperty(app  + "pinbal.client.baseURL", "https://proves.caib.es/pinbal");
-        
-        client = new AEAT103Iv3Client(app);
-        
-        
-        
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
-    /**
-     * Test of dummy method, of class AEAT103Iv3Client.
-     */
-    @Test
-    public void testDummy() {
-        System.out.println("dummy");
-        
-        client.dummy();
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
-    }
 
-    /**
-     * Test of peticionSincrona method, of class AEAT103Iv3Client.
-     */
-    @Test
-    public void testPeticionSincrona() {
-        //System.out.println("peticionSincrona");
-        
-        //RespuestaClientAdapter<AEAT103Iv3RespuestaDatosEspecificos> expResult = null;
-        //RespuestaClientAdapter<AEAT103Iv3RespuestaDatosEspecificos> result = client.peticionSincrona();
-        
-        //System.out.println("APELLIDO  " + result.getTransmisionesClient().get(0).getDatosEspecificos().getResultado().getApellido1());
-        
-        //assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
-    }
+	private AEAT103Iv3Client client;
 
-    /**
-     * Test of main method, of class AEAT103Iv3Example.
-     */
+	public AEAT103Iv3ClientTest() {
+	}
+
+	@BeforeClass
+	public static void setUpClass() {
+	}
+
+	@AfterClass
+	public static void tearDownClass() {
+	}
+
+	@Before
+	public void setUp() {
+
+
+		String app = "es.caib.ajuviv.";
+		DadesConnexioRecobriment dadesConnexio = new DadesConnexioRecobriment(app);
+		System.setProperty(app + "pinbal.client.username", "$ajuviv_pinbal");
+		System.setProperty(app + "pinbal.client.password", "ajuviv_pinbal");
+		System.setProperty(app + "pinbal.client.baseURL", "https://proves.caib.es/pinbal");
+
+		client = new AEAT103Iv3Client(app);
+
+		System.setProperty("com.sun.xml.ws.transport.http.client.HttpTransportPipe.dump", "true");
+		System.setProperty("com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.dump", "true");
+		System.setProperty("com.sun.xml.ws.transport.http.HttpAdapter.dump", "true");
+		System.setProperty("com.sun.xml.internal.ws.transport.http.HttpAdapter.dump", "true");
+		System.setProperty("com.sun.xml.internal.ws.transport.http.HttpAdapter.dumpTreshold", "999999");
+
+	}
+
+	@After
+	public void tearDown() {
+	}
+
+	/**
+	 * Test of dummy method, of class AEAT103Iv3Client.
+	 */
+	@Test
+	public void testDummy() {
+		System.out.println("dummy");
+
+		client.dummy();
+		// TODO review the generated test code and remove the default call to fail.
+		//fail("The test case is a prototype.");
+	}
+
+	/**
+	 * Test of peticionSincrona method, of class AEAT103Iv3Client.
+	 */
+	@Test
+	public void testPeticionSincrona() {
+		//System.out.println("peticionSincrona");
+
+		RespuestaClientAdapter<AEAT103Iv3RespuestaDatosEspecificos> expResult = null;
+		RespuestaClientAdapter<AEAT103Iv3RespuestaDatosEspecificos> result = client.peticionSincrona();
+
+		//System.out.println("APELLIDO  " + result.getTransmisionesClient().get(0).getDatosEspecificos().getResultado().getApellido1());
+
+		//assertEquals(expResult, result);
+		// TODO review the generated test code and remove the default call to fail.
+		//fail("The test case is a prototype.");
+	}
+
+	/**
+	 * Test of main method, of class AEAT103Iv3Example.
+	 */
     /*
     @Test
     public void testMain() throws Exception {
@@ -106,5 +105,5 @@ public class AEAT103Iv3ClientTest {
         //fail("The test case is a prototype.");
     }
 */
-    
+
 }

@@ -122,8 +122,9 @@ public class Q2827003ATGSS001v3RecobrimentFacade
     
     
     private Q2827003ATGSS001v3PeticionDatosEspecificos establecerDatosEspecificosPeticion(){
-    
-        return null;
+        Q2827003ATGSS001v3PeticionDatosEspecificos data = new Q2827003ATGSS001v3PeticionDatosEspecificos();
+        //data.set
+        return data;
     }
     
     

@@ -46,8 +46,8 @@ public class AEAT103Iv3Client {
 
     //Procedimiento
 
-    private String codProcedimiento = "2083134";
-    private String nombreProcedimiento = "Escolartizació";
+    private String codProcedimiento = "CODSVDR_GBA_20121107";
+    private String nombreProcedimiento = "PRUEBAS DE INTEGRACION PARA GOBIERNO DE BALEARES";
    
     //Solicitante
     private String codigoUnidadTramitadora = null;
