@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 gdeignacio.
+ * Copyright 2020 gdeignacio.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,20 +13,5 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@javax.xml.bind.annotation.XmlSchema(namespace = "http://intermediacion.redsara.es/scsp/esquemas/datosespecificos", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
 package es.caib.ajuviv.pinbal.ws.recobriment.datosespecificos;
-        
-import javax.xml.bind.annotation.XmlRootElement;
-
-/**
- *
- * @author gdeignacio
- */
-
-@XmlRootElement(name = "datosEspecificos")
-public class NIVRENTIv3PeticionDatosEspecificos 
-        extends es.caib.scsp.esquemas.NIVRENTIv3.peticion.datosespecificos.DatosEspecificos {
-    public NIVRENTIv3PeticionDatosEspecificos(){
-        super();
-        
-    }
-}
