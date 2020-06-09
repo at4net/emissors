@@ -15,6 +15,7 @@
     <orderEntry type="module" module-name="scsp-schemas-xsd-SCDHPAJUv3" />
     <orderEntry type="module" module-name="scsp-schemas-xsd-AEAT103Iv3" />
     <orderEntry type="module" module-name="scsp-schemas-xsd-NIVRENTIv3" />
+    <orderEntry type="module" module-name="scsp-schemas-xsd-ECOT103Iv3" />
     <orderEntry type="module" module-name="scsp-schemas-xsd-SVDCCAACPASWS01v3" />
     <orderEntry type="module" module-name="scsp-schemas-xsd-Q2827003ATGSS001v3" />
     <orderEntry type="module" module-name="pinbal-ws-client" />

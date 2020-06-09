@@ -15,30 +15,30 @@
  */
 package es.caib.ajuviv.pinbal.ws.recobriment.facade;
 
+import es.caib.ajuviv.pinbal.ws.recobriment.datosespecificos.ECOT103Iv3PeticionDatosEspecificos;
+import es.caib.ajuviv.pinbal.ws.recobriment.datosespecificos.ECOT103Iv3RespuestaDatosEspecificos;
 import es.caib.pinbal.ws.recobriment.Consentimiento;
 import es.caib.pinbal.ws.recobriment.TipoDocumentacion;
+import es.caib.scsp.esquemas.ECOT103Iv3.peticion.datosespecificos.DatosEspecificos;
 import es.caib.scsp.pinbal.ws.recobriment.facade.RecobrimentFacade;
 import es.caib.scsp.pinbal.ws.recobriment.facade.RespuestaClientAdapter;
-import es.caib.ajuviv.pinbal.ws.recobriment.datosespecificos.AEAT103Iv3PeticionDatosEspecificos;
-import es.caib.ajuviv.pinbal.ws.recobriment.datosespecificos.AEAT103Iv3RespuestaDatosEspecificos;
 import es.caib.scsp.utils.xml.XmlManager;
+import org.w3c.dom.Element;
 
+import javax.xml.bind.JAXBException;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.xml.bind.JAXBException;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.w3c.dom.Element;
 
 /**
  * @author gdeignacio
  */
-public class AEAT103Iv3RecobrimentFacade
+public class ECOT103Iv3RecobrimentFacade
 		extends RecobrimentFacade<
-		AEAT103Iv3PeticionDatosEspecificos, AEAT103Iv3RespuestaDatosEspecificos> {
+		ECOT103Iv3PeticionDatosEspecificos, ECOT103Iv3RespuestaDatosEspecificos> {
 
-	public AEAT103Iv3RecobrimentFacade(String app) {
+	public ECOT103Iv3RecobrimentFacade(String app) {
 		super(app);
 	}
 
@@ -47,19 +47,19 @@ public class AEAT103Iv3RecobrimentFacade
 	 * @return
 	 */
 	@Override
-	protected Element datosEspecificos2Element(AEAT103Iv3PeticionDatosEspecificos datosEspecificosPeticion) {
+	protected Element datosEspecificos2Element(ECOT103Iv3PeticionDatosEspecificos datosEspecificosPeticion) {
 		if (datosEspecificosPeticion != null) {
 
 			Element elementDatosEspecificos;
 			try {
-				XmlManager<AEAT103Iv3PeticionDatosEspecificos> manager
-						= new XmlManager<AEAT103Iv3PeticionDatosEspecificos>(AEAT103Iv3PeticionDatosEspecificos.class);
+				XmlManager<ECOT103Iv3PeticionDatosEspecificos> manager
+						= new XmlManager<ECOT103Iv3PeticionDatosEspecificos>(ECOT103Iv3PeticionDatosEspecificos.class);
 				elementDatosEspecificos = manager.generateElement(datosEspecificosPeticion);
 				return elementDatosEspecificos;
 			} catch (JAXBException ex) {
-				Logger.getLogger(AEAT103Iv3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
+				Logger.getLogger(ECOT103Iv3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
 			} catch (ParserConfigurationException ex) {
-				Logger.getLogger(AEAT103Iv3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
+				Logger.getLogger(ECOT103Iv3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
 			}
 		}
 		return null;
@@ -68,7 +68,7 @@ public class AEAT103Iv3RecobrimentFacade
 	}
 
 	@Override
-	protected RespuestaClientAdapter<AEAT103Iv3RespuestaDatosEspecificos> peticionSincronaEspecifica(
+	protected RespuestaClientAdapter<ECOT103Iv3RespuestaDatosEspecificos> peticionSincronaEspecifica(
 			String codigoEstado, String codigoEstadoSecundario,
 			String literalError, String literalErrorSec, Integer tiempoEstimadoRespuesta,
 			String codigoCertificado, String idPeticion,
@@ -82,7 +82,7 @@ public class AEAT103Iv3RecobrimentFacade
 			String documentacion, String nombre, String nombreCompleto,
 			TipoDocumentacion tipoDocumentacion, String fechaGeneracion,
 			String idSolicitud, String idTransmision,
-			AEAT103Iv3PeticionDatosEspecificos datosEspecificosPeticion) {
+			ECOT103Iv3PeticionDatosEspecificos datosEspecificosPeticion) {
 
 		return this.peticionSincrona(
 				codigoEstado,
@@ -122,12 +122,14 @@ public class AEAT103Iv3RecobrimentFacade
 	}
 
 
-	private AEAT103Iv3PeticionDatosEspecificos establecerDatosEspecificosPeticion() {
+	private ECOT103Iv3PeticionDatosEspecificos establecerDatosEspecificosPeticion() {
+		ECOT103Iv3PeticionDatosEspecificos data = new ECOT103Iv3PeticionDatosEspecificos();
+		data.setCabecera(new DatosEspecificos.Cabecera());
 		return null;
 	}
 
 
-	public RespuestaClientAdapter<AEAT103Iv3RespuestaDatosEspecificos> peticionSincrona(
+	public RespuestaClientAdapter<ECOT103Iv3RespuestaDatosEspecificos> peticionSincrona(
 			String codigoEstado, String codigoEstadoSecundario,
 			String literalError, String literalErrorSec, Integer tiempoEstimadoRespuesta,
 			String codigoCertificado, String idPeticion,
@@ -145,7 +147,7 @@ public class AEAT103Iv3RecobrimentFacade
 	) {
 
 
-		AEAT103Iv3PeticionDatosEspecificos datosEspecificosPeticion =
+		ECOT103Iv3PeticionDatosEspecificos datosEspecificosPeticion =
 				establecerDatosEspecificosPeticion();
 
 
@@ -187,20 +189,20 @@ public class AEAT103Iv3RecobrimentFacade
 	}
 
 	@Override
-	protected AEAT103Iv3RespuestaDatosEspecificos element2DatosEspecificos(Element elementDatosEspecificos) {
+	protected ECOT103Iv3RespuestaDatosEspecificos element2DatosEspecificos(Element elementDatosEspecificos) {
 
-		AEAT103Iv3RespuestaDatosEspecificos datosEspecificos;
+		ECOT103Iv3RespuestaDatosEspecificos datosEspecificos;
 		try {
-			XmlManager<AEAT103Iv3RespuestaDatosEspecificos> manager
-					= new XmlManager<AEAT103Iv3RespuestaDatosEspecificos>(AEAT103Iv3RespuestaDatosEspecificos.class);
+			XmlManager<ECOT103Iv3RespuestaDatosEspecificos> manager
+					= new XmlManager<ECOT103Iv3RespuestaDatosEspecificos>(ECOT103Iv3RespuestaDatosEspecificos.class);
 			datosEspecificos = manager.generateItem(elementDatosEspecificos);
 
 			return datosEspecificos;
 
 		} catch (JAXBException ex) {
-			Logger.getLogger(AEAT103Iv3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(ECOT103Iv3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (IOException ex) {
-			Logger.getLogger(AEAT103Iv3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(ECOT103Iv3RecobrimentFacade.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		return null;
 	}

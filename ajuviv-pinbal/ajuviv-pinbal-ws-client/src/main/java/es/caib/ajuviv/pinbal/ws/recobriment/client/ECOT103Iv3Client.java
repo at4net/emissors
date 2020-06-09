@@ -1,23 +1,24 @@
 package es.caib.ajuviv.pinbal.ws.recobriment.client;
 
 
+import es.caib.ajuviv.pinbal.ws.recobriment.datosespecificos.ECOT103Iv3RespuestaDatosEspecificos;
+import es.caib.ajuviv.pinbal.ws.recobriment.facade.ECOT103Iv3RecobrimentFacade;
 import es.caib.pinbal.ws.recobriment.Consentimiento;
 import es.caib.pinbal.ws.recobriment.TipoDocumentacion;
+import es.caib.scsp.pinbal.ws.recobriment.facade.RespuestaClientAdapter;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import es.caib.scsp.pinbal.ws.recobriment.facade.RespuestaClientAdapter;
-import es.caib.ajuviv.pinbal.ws.recobriment.datosespecificos.AEAT103Iv3RespuestaDatosEspecificos;
-import es.caib.ajuviv.pinbal.ws.recobriment.facade.AEAT103Iv3RecobrimentFacade;
 
 
 /**
  *
  * @author gdeignacio
  */
-public class AEAT103Iv3Client {
-    
+public class ECOT103Iv3Client {
+
     private static String APP = "es.caib.ajuviv.";
-    
+
      // Estado
 
     private String codigoEstado = null;
@@ -28,7 +29,7 @@ public class AEAT103Iv3Client {
 
     //Atributos
 
-    private String codigoCertificado = "AEAT103I";
+    private String codigoCertificado = "ECOT103I";
     private String idPeticion = null;
     private String numElementos = "1";
     private String timeStamp = null;
@@ -36,7 +37,7 @@ public class AEAT103Iv3Client {
     //Emisor (obtingut de la documentació SCSP del servei)
 
     private String nifEmisor = "Q2826000H";
-    private String nombreEmisor = "CAIB";
+    private String nombreEmisor = "AEAT";
 
     //Funcionario
 
@@ -48,7 +49,7 @@ public class AEAT103Iv3Client {
 
     private String codProcedimiento = "CODSVDR_GBA_20121107";
     private String nombreProcedimiento = "PRUEBAS DE INTEGRACION PARA GOBIERNO DE BALEARES";
-   
+
     //Solicitante
     private String codigoUnidadTramitadora = null;
     private Consentimiento consentimiento = Consentimiento.SI;
@@ -72,39 +73,39 @@ public class AEAT103Iv3Client {
     private String idSolicitud = "";
     private String idTransmision = "";
 
-    
+
     // Datos Especificos
     // PeticionDatosEspecificos
-    
-    // Fin datos especificos
-    
-  
-    
-    protected static final Logger LOG = Logger.getLogger(AEAT103Iv3Client.class.getName());
 
-    private AEAT103Iv3RecobrimentFacade facade;
-    
-    public AEAT103Iv3Client(){
+    // Fin datos especificos
+
+
+
+    protected static final Logger LOG = Logger.getLogger(ECOT103Iv3Client.class.getName());
+
+    private ECOT103Iv3RecobrimentFacade facade;
+
+    public ECOT103Iv3Client(){
         this(APP);
     }
-    
-    public AEAT103Iv3Client(String app){
-        this.facade = new AEAT103Iv3RecobrimentFacade(app);
+
+    public ECOT103Iv3Client(String app){
+        this.facade = new ECOT103Iv3RecobrimentFacade(app);
     }
-    
+
     public void dummy(){
         _dummy();
     }
-    
+
     private static void _dummy() {
         LOG.log(Level.INFO, "Invoking dummy...");
     }
-   
-    
-    
-    public RespuestaClientAdapter<AEAT103Iv3RespuestaDatosEspecificos> peticionSincrona(){
-        
-        RespuestaClientAdapter<AEAT103Iv3RespuestaDatosEspecificos> respuestaClient =
+
+
+
+    public RespuestaClientAdapter<ECOT103Iv3RespuestaDatosEspecificos> peticionSincrona(){
+
+        RespuestaClientAdapter<ECOT103Iv3RespuestaDatosEspecificos> respuestaClient =
             facade.peticionSincrona(codigoEstado, codigoEstadoSecundario, literalError, literalErrorSec, tiempoEstimadoRespuesta, codigoCertificado, idPeticion, numElementos, timeStamp, nifEmisor, nombreEmisor, nifFuncionario, nombreCompletoFuncionario, seudonimo, codProcedimiento, nombreProcedimiento, codigoUnidadTramitadora, consentimiento, finalidad, idExpediente, identificadorSolicitante, nombreSolicitante, unidadTramitadora, apellido1, apellido2, documentacion, nombre, nombreCompleto, tipoDocumentacion, fechaGeneracion, idSolicitud, idTransmision);
         return respuestaClient;
     }
